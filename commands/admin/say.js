@@ -18,8 +18,8 @@ module.exports = class SayCommand extends Command {
         });
     }
 
-    run(msg, { text }) {
-        msg.delete();
-        return msg.say(text);
+    run(message, { text }) {
+        message.delete();
+        return message.say(text);
     }
 };

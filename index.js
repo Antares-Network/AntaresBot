@@ -3,6 +3,7 @@ const { connect } = require('mongoose');
 require('dotenv').config();
 require('colors');
 const path = require('path');
+const onReady = require('./actions/onReady');
 
 const bot = new CommandoClient({
     commandPrefix: '*',
@@ -19,12 +20,15 @@ bot.registry
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({
-        help: false
+        help: false,
+        ping: false,
+        unknownCommand: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 //actions to run at bot startup
 bot.on('ready', async () => {
+    onReady.event(bot)
 	console.log("Startup script has run".red.bold)
 });
 
