@@ -18,6 +18,6 @@ module.exports = class PingCommand extends Command {
             .setTitle('Bot/API Ping')
             .setDescription(`Ping: 🏓 | Latency is: **${Date.now() - message.createdTimestamp}**ms.`, );
         message.channel.send(pingEmbed);
-        logToConsole.command(message.guild, message);
+        //logToConsole.command(message.guild, message);
     }
 };

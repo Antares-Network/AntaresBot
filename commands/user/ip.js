@@ -28,7 +28,7 @@ module.exports = class IpCommand extends Command {
             .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms. | Antares Network`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
         //send message in private message
         message.author.send(ipEmbed);
-        logToConsole.command(message.guild, message);
+        //logToConsole.command(message.guild, message);
         console.log(`DM`.blue, `[${message.author.username}]`.yellow, `--`.grey, `--Minecraft IP embed--`.cyan);
     }
 };
