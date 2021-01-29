@@ -34,7 +34,11 @@ bot.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 bot.on('message', async(message) => {
+	try {
 	console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+	} catch (e) {
+		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
+	}
 });
 //actions to run at bot startup
 bot.on('ready', async () => {
