@@ -8,13 +8,13 @@ const docCreate = require('./actions/docCreate');
 const guildModel = require('./models/guild');
 const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
-const gateModel = require('./models/gate');
 
 const bot = new CommandoClient({
-    commandPrefix: '*',
+    commandPrefix: '&',
     owner: '603629606154666024',
     disableEveryone: true
 });
+
 
 bot.registry
     .registerDefaultTypes()
@@ -26,7 +26,8 @@ bot.registry
     .registerDefaultGroups()
     .registerDefaultCommands({
         help: false,
-        ping: false,
+		ping: false,
+		prefix: false,
         unknownCommand: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));

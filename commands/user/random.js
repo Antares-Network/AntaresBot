@@ -16,7 +16,8 @@ module.exports = class RandomCommand extends Command {
                 {
                     key: 'text',
                     prompt: 'lalallala',
-                    type: 'string'
+                    type: 'string',
+                    default: ''
                 }
             ]
         });
@@ -24,6 +25,7 @@ module.exports = class RandomCommand extends Command {
 
     run(message, { text }) {
         if (!text) {
+            console.log(text)
             const Embed = new MessageEmbed()
             .setColor('#ff3505')
             .setURL('https://discord.gg/6pZ2wtGANP')
