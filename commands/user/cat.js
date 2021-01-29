@@ -1,0 +1,43 @@
+const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
+
+
+
+function embed(message, img, title) {
+    const Embed = new MessageEmbed()
+            .setColor('#ff3505')
+            .setURL('https://discord.gg/6pZ2wtGANP')
+            .setTitle(title)
+            .setImage(img)
+            .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+        message.channel.send(Embed);
+        //logToConsole.command(message.guild, message);
+}
+
+module.exports = class CatCommand extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'cat',
+            aliases: ['kitten', 'meow'],
+            group: 'user',
+            memberName: 'cat',
+            description: 'Sends a random cat image',
+            examples: ['cat']
+        });
+    }
+    async run(message) {
+
+        //request a cat from the api
+        try {
+            fetch('http://aws.random.cat/meow')
+                .then(res => res.json())
+                .then(json => embed(message, json.file, 'Random Cat Picture'));
+        } catch (e) {
+            message.channel.send("Error. Please try again.");
+            console.error(e)
+        }
+        //send to the console that this command was run
+        //logToConsole.command(message.guild, message);
+    }
+};

@@ -5,6 +5,7 @@ module.exports = class IpCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'ip',
+            aliases: ['minecraft', 'mc'],
             group: 'user',
             memberName: 'ip',
             description: 'Sends in a dm, the Minecraft server run by the bot Developer.',

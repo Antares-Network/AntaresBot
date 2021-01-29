@@ -5,6 +5,7 @@ module.exports = class PingCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'ping',
+            aliases: ['latency'],
             group: 'user',
             memberName: 'ping',
             description: 'Sends the ping time of the bot.',
