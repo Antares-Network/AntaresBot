@@ -8,7 +8,7 @@
 const guildModel = require('../models/guild');
 const piiModel = require('../models/pii');
 const docCreate = require('../actions/docCreate');
-const piiUpdate = require('../actions/piiUpdate');
+const piiCreate = require('./piiCreate');
 global.botVersion = "1.3.1";
 
 
@@ -22,7 +22,7 @@ module.exports = {
 				console.log('Made new doccument'.yellow);
 			}
 			if (req == null) {
-				piiUpdate.event(guild, bot);
+				piiCreate.event(guild, bot);
 				console.log("Created PII doc".yellow);
 			}
 		});
