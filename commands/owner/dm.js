@@ -20,7 +20,8 @@ module.exports = class DmCommand extends Command {
                     type: 'string'
                 }
             ],
-            guildOnly: true
+            guildOnly: true,
+            ownerOnly: true
         });    
     }
 
