@@ -8,6 +8,7 @@ module.exports = class InviteCommand extends Command {
             memberName: 'invite',
             description: 'Sends an invite for the bot and the support server.',
             examples: ['invite'],
+            guildOnly: true
         });
     }
 

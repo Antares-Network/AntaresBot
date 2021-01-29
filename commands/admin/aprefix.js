@@ -15,7 +15,8 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     default: ''
                 }
-            ]
+            ],
+            guildOnly: true
         });
     }
 

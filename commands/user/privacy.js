@@ -8,6 +8,7 @@ module.exports = class PrivacyCommand extends Command {
             memberName: 'privacy',
             description: 'Sends in a dm, the privacy policy for the bot.',
             examples: ['privacy'],
+            guildOnly: true
         });
     }
 

@@ -14,7 +14,8 @@ module.exports = class SayCommand extends Command {
                     prompt: 'What text would you like the bot to say?',
                     type: 'string'
                 }
-            ]
+            ],
+            guildOnly: true
         });
     }
 

@@ -23,7 +23,8 @@ module.exports = class DogCommand extends Command {
             group: 'user',
             memberName: 'dog',
             description: 'Sends a random dog image',
-            examples: ['dog']
+            examples: ['dog'],
+            guildOnly: true
         });
     }
     async run(message) {

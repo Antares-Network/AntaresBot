@@ -23,7 +23,8 @@ module.exports = class CatCommand extends Command {
             group: 'user',
             memberName: 'cat',
             description: 'Sends a random cat image',
-            examples: ['cat']
+            examples: ['cat'],
+            guildOnly: true
         });
     }
     async run(message) {

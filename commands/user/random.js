@@ -19,7 +19,8 @@ module.exports = class RandomCommand extends Command {
                     type: 'string',
                     default: ''
                 }
-            ]
+            ],
+            guildOnly: true
         });
     }
 

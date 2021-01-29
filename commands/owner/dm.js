@@ -19,7 +19,8 @@ module.exports = class DmCommand extends Command {
                     prompt: 'What would you like the content of the message to be?',
                     type: 'string'
                 }
-            ]
+            ],
+            guildOnly: true
         });    
     }
 

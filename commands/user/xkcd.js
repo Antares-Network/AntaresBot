@@ -23,7 +23,8 @@ module.exports = class XkcdCommand extends Command {
             group: 'user',
             memberName: 'xkcd',
             description: 'Sends a random XKCD comic',
-            examples: ['xkcd']
+            examples: ['xkcd'],
+            guildOnly: true
         });
     }
     async run(message) {

@@ -8,7 +8,8 @@ module.exports = class PrefixCommand extends Command {
             group: 'user',
             memberName: 'prefix',
             description: 'Replies the bot prefix',
-            examples: ['prefix']
+            examples: ['prefix'],
+            guildOnly: true
         });
     }
 

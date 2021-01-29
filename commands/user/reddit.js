@@ -11,7 +11,8 @@ module.exports = class RedditCommand extends Command {
             group: 'user',
             memberName: 'reddit',
             description: 'Sends a random meme from reddit',
-            examples: ['reddit']
+            examples: ['reddit'],
+            guildOnly: true
         });
     }
     async run(message) {

@@ -9,6 +9,7 @@ module.exports = class GithubCommand extends Command {
             memberName: 'github',
             description: 'Sends an embed with a link to the github repo for the bot.',
             examples: ['github'],
+            guildOnly: true
         });
     }
 

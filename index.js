@@ -10,31 +10,35 @@ const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 
 const bot = new CommandoClient({
-    commandPrefix: '&',
-    owner: '603629606154666024',
-    disableEveryone: true
+	commandPrefix: '&',
+	owner: '603629606154666024',
+	disableEveryone: true
 });
 
 
 bot.registry
-    .registerDefaultTypes()
-    .registerGroups([
-        ['user', 'Commands for regular users'],
-        ['admin', 'Commands for admins'],
-        ['owner', 'Commands for the bot owner']
-    ])
-    .registerDefaultGroups()
-    .registerDefaultCommands({
-        help: false,
+	.registerDefaultTypes()
+	.registerGroups([
+		['user', 'Commands for regular users'],
+		['admin', 'Commands for admins'],
+		['owner', 'Commands for the bot owner']
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands({
+		help: false,
 		ping: false,
 		prefix: false,
-        unknownCommand: false
-    })
-    .registerCommandsIn(path.join(__dirname, 'commands'));
+		eval: false,
+		unknownCommand: false
+	})
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
+bot.on('message', async(message) => {
+	console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+});
 //actions to run at bot startup
 bot.on('ready', async () => {
-    onReady.event(bot)
+	onReady.event(bot)
 	console.log("Startup script has run".red.bold)
 });
 
@@ -64,7 +68,7 @@ bot.on('guildMemberAdd', async (member) => {
 	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green,  `[${member.username}]`.yellow)
+		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
 	}
@@ -76,7 +80,7 @@ bot.on('guildMemberRemove', async (member) => {
 	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green,  `[${member.username}]`.yellow)
+		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
 	}
