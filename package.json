@@ -1,6 +1,6 @@
 {
   "name": "antaresbotrewrite",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "A rewrite of the Antares bot ",
   "main": "index.js",
   "dependencies": {

@@ -8,13 +8,14 @@ const docCreate = require('./actions/docCreate');
 const guildModel = require('./models/guild');
 const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
+global.botVersion = "1.3.0";
 
-const bot = new CommandoClient({
+
+global.bot = new CommandoClient({
 	commandPrefix: '&',
 	owner: '603629606154666024',
 	disableEveryone: true
 });
-
 
 bot.registry
 	.registerDefaultTypes()
