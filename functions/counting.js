@@ -31,6 +31,9 @@ module.exports = {
                     // ...send a message because the person stuffed up the counting (and log all errors)
                     message.delete()
                     message.channel.send(`That is not the correct number. You should type *${count + 1}*`)
+                    .then(msg => {
+                        msg.delete({ timeout: 5000 })
+                    })
                 }
             })
         }
