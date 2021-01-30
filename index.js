@@ -1,5 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const { connect } = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
+const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
 require('dotenv').config();
 require('colors');
 const path = require('path');
@@ -8,32 +10,51 @@ const docCreate = require('./actions/docCreate');
 const guildModel = require('./models/guild');
 const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
-const gateModel = require('./models/gate');
+const counting = require('./functions/counting');
+global.botVersion = "1.3.0-RC1";
 
-const bot = new CommandoClient({
-    commandPrefix: '*',
-    owner: '603629606154666024',
-    disableEveryone: true
+
+global.bot = new CommandoClient({
+	commandPrefix: '&',
+	owner: '603629606154666024',
+	disableEveryone: true
 });
 
+bot.setProvider(
+	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
+).catch(console.error);
 bot.registry
-    .registerDefaultTypes()
-    .registerGroups([
-        ['user', 'Commands for regular users'],
-        ['admin', 'Commands for admins'],
-        ['owner', 'Commands for the bot owner']
-    ])
-    .registerDefaultGroups()
-    .registerDefaultCommands({
-        help: false,
-        ping: false,
-        unknownCommand: false
-    })
-    .registerCommandsIn(path.join(__dirname, 'commands'));
+	.registerDefaultTypes()
+	.registerGroups([
+		['user', 'Commands for regular users'],
+		['admin', 'Commands for admins'],
+		['owner', 'Commands for the bot owner']
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands({
+		help: false,
+		ping: false,
+		prefix: true,
+		eval: false,
+		unknownCommand: false
+	})
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
+bot.on('message', async(message) => {
+	try {
+	console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+	} catch (e) {
+		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
+	}
+	try {
+		counting.count(message, bot);
+	} catch (e) {
+		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
+	}
+});
 //actions to run at bot startup
 bot.on('ready', async () => {
-    onReady.event(bot)
+	onReady.event(bot)
 	console.log("Startup script has run".red.bold)
 });
 
@@ -63,7 +84,7 @@ bot.on('guildMemberAdd', async (member) => {
 	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green,  `[${member.username}]`.yellow)
+		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
 	}
@@ -75,7 +96,7 @@ bot.on('guildMemberRemove', async (member) => {
 	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green,  `[${member.username}]`.yellow)
+		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
 	}

@@ -9,6 +9,7 @@ module.exports = class HelpCommand extends Command {
             memberName: 'help',
             description: 'Shows the bot help embed',
             examples: ['privacy'],
+            guildOnly: true
         });
     }
 

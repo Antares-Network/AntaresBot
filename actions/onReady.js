@@ -9,8 +9,6 @@ const guildModel = require('../models/guild');
 const piiModel = require('../models/pii');
 const docCreate = require('../actions/docCreate');
 const piiCreate = require('./piiCreate');
-global.botVersion = "1.3.1";
-
 
 module.exports = {
 	event: function (bot) {

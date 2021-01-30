@@ -15,30 +15,32 @@ function embed(message, img, title) {
         //logToConsole.command(message.guild, message);
 }
 
-module.exports = class DogCommand extends Command {
+module.exports = class XkcdCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'dog',
-            aliases: ['puppy', 'doggo'],
+            name: 'xkcd',
+            aliases: ['comic', 'cartoon'],
             group: 'user',
-            memberName: 'dog',
-            description: 'Sends a random dog image',
-            examples: ['dog'],
+            memberName: 'xkcd',
+            description: 'Sends a random XKCD comic',
+            examples: ['xkcd'],
             guildOnly: true
         });
     }
     async run(message) {
 
-        //request a cat from the api
+        let comicNum = Math.floor(Math.random() * 2413);
         try {
-            fetch('https://dog.ceo/api/breeds/image/random')
+        var url = `http://xkcd.com/${comicNum}/info.0.json`;
+                //request a comic from the url
+                fetch(url)
                 .then(res => res.json())
-                .then(json => embed(message, json.message, 'Random Dog Picture'));
+                .then(json => embed(message, json.img, `Random Comic from XKCD`));
         } catch (e) {
             message.channel.send("Error. Please try again.");
             console.error(e)
         }
-        //send to the console that this command was run
-        //logToConsole.command(message.guild, message);
+            //send to the console that this command was run
+            //logToConsole.command(message.guild, message);
     }
 };

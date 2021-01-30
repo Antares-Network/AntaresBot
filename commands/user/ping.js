@@ -9,7 +9,8 @@ module.exports = class PingCommand extends Command {
             group: 'user',
             memberName: 'ping',
             description: 'Sends the ping time of the bot.',
-            examples: ['ping']
+            examples: ['ping'],
+            guildOnly: true
         });
     }
     run(message) {
