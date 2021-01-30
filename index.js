@@ -1,5 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const { connect } = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
+const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
 require('dotenv').config();
 require('colors');
 const path = require('path');
@@ -17,6 +19,9 @@ global.bot = new CommandoClient({
 	disableEveryone: true
 });
 
+bot.setProvider(
+	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
+).catch(console.error);
 bot.registry
 	.registerDefaultTypes()
 	.registerGroups([
@@ -28,7 +33,7 @@ bot.registry
 	.registerDefaultCommands({
 		help: false,
 		ping: false,
-		prefix: false,
+		prefix: true,
 		eval: false,
 		unknownCommand: false
 	})
