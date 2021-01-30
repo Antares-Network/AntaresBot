@@ -11,7 +11,7 @@ const guildModel = require('./models/guild');
 const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
-global.botVersion = "1.3.0";
+global.botVersion = "1.3.0-RC1";
 
 
 global.bot = new CommandoClient({
