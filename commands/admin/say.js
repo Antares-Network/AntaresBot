@@ -15,7 +15,8 @@ module.exports = class SayCommand extends Command {
                     type: 'string'
                 }
             ],
-            guildOnly: true
+            guildOnly: true,
+            userPermissions: ['ADMINISTRATOR']
         });
     }
 

@@ -16,7 +16,8 @@ module.exports = class DefaultChannelCommand extends Command {
                     type: 'string'
                 }
             ],
-            guildOnly: true
+            guildOnly: true,
+            userPermissions: ['ADMINISTRATOR']
         });
     }
 

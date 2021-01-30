@@ -10,7 +10,8 @@ module.exports = class RemoveCommand extends Command {
             memberName: 'remove',
             description: 'Removes information about the server from the database',
             examples: ['remove'],
-            guildOnly: true
+            guildOnly: true,
+            userPermissions: ['ADMINISTRATOR']
         });
     }
 

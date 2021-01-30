@@ -24,6 +24,9 @@ module.exports = class DmCommand extends Command {
             guildOnly: true
         });
     }
+    hasPermission(msg) {
+        return this.client.isOwner(msg.author);
+    }
 
     run(message, { user, content }) {
         message.delete();

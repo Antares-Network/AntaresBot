@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { message } = require('../../actions/logToConsole.js');
 const onReady = require('../../actions/onReady.js');
 //require('colors');
 
@@ -14,6 +15,10 @@ module.exports = class RestartCommand extends Command {
         });
     }
 
+    hasPermission(msg) {
+        msg.channel.send("Only the bot owner can use this command.")
+        return this.client.isOwner(msg.author);
+    }
     run(message) {
         message.channel.send('Restarting...');
         console.log('\n\n\n\n\n\n\n\n')
