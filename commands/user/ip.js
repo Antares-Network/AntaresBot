@@ -10,6 +10,7 @@ module.exports = class IpCommand extends Command {
             memberName: 'ip',
             description: 'Sends in a dm, the Minecraft server run by the bot Developer.',
             examples: ['ip'],
+            guildOnly: true
         });
     }
 

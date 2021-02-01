@@ -9,6 +9,7 @@ module.exports = class VersionCommand extends Command {
             memberName: 'version',
             description: 'Sends the version number of the bot',
             examples: ['version'],
+            guildOnly: true
         });
     }
 

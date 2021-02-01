@@ -1,5 +1,4 @@
 const guildModel = require('../models/guild');
-require('../handlers/exceptionHandler');
 
 
 
