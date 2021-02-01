@@ -23,6 +23,7 @@ global.bot = new CommandoClient({
 bot.setProvider(
 	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
 ).catch(console.error);
+
 bot.registry
 	.registerDefaultTypes()
 	.registerGroups([
