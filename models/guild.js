@@ -22,10 +22,6 @@ const GUILD = Schema({
     GUILD_MEMBERS: String,
     GUILD_DEFAULT_CHANNEL: String,
     GUILD_ICON_URL: String,
-    prefix: {
-        default: '&',
-        type: String
-    },
     GUILD_MESSAGES: String
 })
 

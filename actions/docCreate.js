@@ -17,7 +17,6 @@ module.exports = {
             GUILD_MEMBERS: guild.memberCount,
             GUILD_ICON_URL: guild.iconURL(),
             GUILD_DEFAULT_CHANNEL: null,
-            prefix: '&',
             GUILD_MESSAGES: 0
         });
         await doc.save();
