@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const channelCheck = require('../../functions/channelCheck')
 
 module.exports = class VersionCommand extends Command {
     constructor(client) {
