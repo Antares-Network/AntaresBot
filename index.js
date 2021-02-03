@@ -41,9 +41,11 @@ bot.registry
 	})
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
-bot.on('message', async(message) => {
+bot.on('message', async (message) => {
+
+	if (message.author.bot) return; // return cause the message was sent by a bot
 	try {
-	console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
 	} catch (e) {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
@@ -82,7 +84,6 @@ bot.on("guildDelete", async (guild) => {
 bot.on('guildMemberAdd', async (member) => {
 	var memberList = [];
 	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
-	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
 		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
@@ -94,7 +95,6 @@ bot.on('guildMemberAdd', async (member) => {
 bot.on('guildMemberRemove', async (member) => {
 	var memberList = [];
 	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
-	console.log(memberList)
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
 		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
