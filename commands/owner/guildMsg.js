@@ -20,6 +20,10 @@ module.exports = class GuildMSGCommand extends Command {
             guildOnly: true
         });
     }
+    hasPermission(msg) {
+        msg.channel.send("Only the bot owner can use this command.")
+        return this.client.isOwner(msg.author);
+    }
 
     run(message, { text }) {
         //get the list of guilds the bot is in
