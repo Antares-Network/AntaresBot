@@ -39,9 +39,6 @@ module.exports = class CatCommand extends Command {
                 message.channel.send("Error. Please try again.");
                 console.error(e)
             }
-            console.log("passed the channel check")
-        } else {
-            console.log("failed the channel check")
         }
 
         //send to the console that this command was run

@@ -9,13 +9,14 @@ module.exports = {
                 message.channel.send("The server owner has not set a default channel yet.\n If you are the server owner please use `&adefaultchannel (CHANNEL ID)`");
                 return false; //exit the loop and don't parce the command
             } else {
-                console.log("ping in default channel and return FALSE")
                 //ping the user in the default channel
                 bot.channels.cache.get(srv.GUILD_DEFAULT_CHANNEL).send(`<@${messageAuth.id}> Please use me in this channel`)
+                .then(msg => {
+                    msg.delete({ timeout: 10000 })
+                })
                 return false;
             }
         } else {
-            console.log("The message was sent in the default channel")
             return true;
         }
     }

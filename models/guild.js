@@ -16,7 +16,6 @@ const GUILD = Schema({
     GUILD_CREATED_AT: String,
     GUILD_ID: String,
     GUILD_NAME: String,
-    GUILD_DESCRIPTION: String,
     GUILD_OWNER: String,
     GUILD_OWNER_ID: String,
     GUILD_MEMBERS: String,

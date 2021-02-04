@@ -10,7 +10,6 @@ module.exports = {
             GUILD_JOIN_DATE: d.toString(),
             GUILD_NAME: guild.name,
             GUILD_ID: guild.id,
-            GUILD_DESCRIPTION: guild.description,
             GUILD_OWNER: guild.owner,
             GUILD_OWNER_ID: guild.ownerID,
             GUILD_MEMBERS: guild.memberCount,

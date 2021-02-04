@@ -5,6 +5,8 @@
 # THIS IS A STABLE VERSION, however no support will be given as it is a pre-release.
 
 
+Antares bot is going through a major rewrite. This is the development version..
+
 # Join our discord server:
 https://discord.gg/6pz2wtganp
 
