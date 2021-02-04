@@ -40,9 +40,9 @@ bot.registry
 		unknownCommand: false
 	})
 	.registerCommandsIn(path.join(__dirname, 'commands'));
-
+	
 bot.on('message', async (message) => {
-
+	
 	if (message.author.bot) return; // return cause the message was sent by a bot
 	try {
 		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
@@ -55,6 +55,11 @@ bot.on('message', async (message) => {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
 });
+
+bot.on('messageDelete', async (message) => {
+	console.log(`DELETE`.red, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.red)
+});
+
 //actions to run at bot startup
 bot.on('ready', async () => {
 	onReady.event(bot)
@@ -86,6 +91,7 @@ bot.on('guildMemberAdd', async (member) => {
 	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
 		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
@@ -97,18 +103,26 @@ bot.on('guildMemberRemove', async (member) => {
 	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
 		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
 	} catch (e) {
 		console.log(e);
 	}
 })
+
+bot.on('guildUpdate',  async (oldGuild, newGuild) => {
+	try {
+		await guildModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
+		console.log(`GUILD UPDATE`.yellow, `[${oldGuild.name}]`.green, `--->`.grey, `[${newGuild.name}]`.blue)
+	} catch (e) {
+		console.log(e);
+	}
+})
+
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
 
 
-bot.on('messageDelete', async (message) => {
-	console.log(`DELETE`.red, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.red)
-});
 //connect to MongoDB and then log bot into Discord
 (async () => {
 	var mongo_uri = String(process.env.BOT_MONGO_PATH);
