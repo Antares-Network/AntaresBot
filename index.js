@@ -50,10 +50,11 @@ bot.on('message', async (message) => {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
 	try {
-		counting.count(message, bot);
+		counting.count(message, bot); // logic 
 	} catch (e) {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
+	messageLog.log(message); // log number of messages sent in each guild
 });
 
 bot.on('messageDelete', async (message) => {
