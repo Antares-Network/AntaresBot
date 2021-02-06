@@ -21,10 +21,13 @@ global.bot = new CommandoClient({
 	disableEveryone: true
 });
 
+//set the prefix storage provider to mongodb
 bot.setProvider(
 	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
 ).catch(console.error);
 
+
+//register the commands
 bot.registry
 	.registerDefaultTypes()
 	.registerGroups([
@@ -36,7 +39,6 @@ bot.registry
 	.registerDefaultCommands({
 		help: false,
 		ping: false,
-		prefix: true,
 		eval: false,
 		unknownCommand: false
 	})
