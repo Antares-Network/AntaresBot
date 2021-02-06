@@ -23,6 +23,7 @@ module.exports = {
             const gate = new gateModel({
                 NAME: 'GATE',
                 GUILD_OWNER_ID: totalOwners,
+                BANNED_OWNERS: [],
                 BANNED_USERS: [],
                 BANNED_GUILDS: [],
                 TOTAL_MESSAGES: totalMessages,
