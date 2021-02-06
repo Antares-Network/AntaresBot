@@ -8,12 +8,22 @@ module.exports = {
         let messageAuth = message.author;
 
         //check if the user has been banned from using the bot 
-        if(gate.BANNED_USERS.includes(messageAuth.id)) {
+        if (gate.BANNED_USERS.includes(messageAuth.id)) {
             message.delete();
-            message.channel.send(`<@${messageAuth.id}>, You are not allowed to use this bot.`)
-            .then(msg => {
-                msg.delete({ timeout: 10000 })
-            })
+            message.channel.send(`<@${messageAuth.id}>, You have been banned from using this bot by the owner.`)
+                .then(msg => {
+                    msg.delete({ timeout: 20000 })
+                })
+            return;
+        }
+
+        //check if the user has been banned from using the bot 
+        if (gate.BANNED_GUILDS.includes(message.guild.id)) {
+            message.delete();
+            message.channel.send(`<@${messageAuth.id}>, This guild has been ganned from using this bot by the owner.`)
+                .then(msg => {
+                    msg.delete({ timeout: 20000 })
+                })
             return;
         }
 
@@ -25,9 +35,9 @@ module.exports = {
             } else {
                 //ping the user in the default channel
                 bot.channels.cache.get(srv.GUILD_DEFAULT_CHANNEL).send(`<@${messageAuth.id}> Please use me in this channel`)
-                .then(msg => {
-                    msg.delete({ timeout: 10000 })
-                })
+                    .then(msg => {
+                        msg.delete({ timeout: 15000 })
+                    })
                 return false;
             }
         } else {

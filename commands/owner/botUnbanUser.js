@@ -2,14 +2,14 @@ const { Command } = require('discord.js-commando');
 const guildBan = require('../../actions/guildBan');
 
 
-module.exports = class BotBanUserCommand extends Command {
+module.exports = class BotUnbanUserCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'botbanuser',
+            name: 'botunbanuser',
             group: 'owner',
-            memberName: 'botbanuser',
-            description: 'ban a user from using the bot',
-            examples: ['botbanuser @nathen418#0002'],
+            memberName: 'botunbanuser',
+            description: 'unban a user from using the bot',
+            examples: ['botunbanuser @nathen418#0002'],
             args: [
                 {
                     key: 'user',
@@ -27,12 +27,12 @@ module.exports = class BotBanUserCommand extends Command {
     }
 
     run(message, { user }) {
-        if(guildBan.banUser(user)) {
+        if(guildBan.unBanUser(user)) {
             //if the user was banned respond with this
-            message.channel.send(`Banned ${user.username} From ever using the bot again`);
+            message.channel.send(`Unbanned ${user.username} from using this bot`);
         } else {
             //if the user was already banned respond with this
-            message.channel.send("This user has already been baned from using the bot")
+            message.channel.send("This user has already been unbaned from using the bot")
         }
     }
 }
