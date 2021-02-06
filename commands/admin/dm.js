@@ -21,6 +21,10 @@ module.exports = class DmCommand extends Command {
                     type: 'string'
                 }
             ],
+            throttling: {
+                usages: 1,
+                duration: 3600,
+            },
             guildOnly: true
         });
     }
