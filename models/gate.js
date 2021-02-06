@@ -5,8 +5,13 @@ const { Schema, model } = require('mongoose');
 
 const GATE = Schema({
     id: String,
+    NAME: String,
     GUILD_OWNER_ID: Array,
-    BANNED_USERS: Array
+    BANNED_USERS: Array,
+    BANNED_GUILDS: Array,
+    TOTAL_MESSAGES: String,
+    TOTAL_SERVERS: String,
+    TOTAL_USERS: String
 })
 
 module.exports = model('Gate', GATE);

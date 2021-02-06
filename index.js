@@ -12,7 +12,7 @@ const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
-global.botVersion = "1.3.0-RC3";
+global.botVersion = "1.3.0-RC4";
 
 
 global.bot = new CommandoClient({
@@ -21,10 +21,13 @@ global.bot = new CommandoClient({
 	disableEveryone: true
 });
 
+//set the prefix storage provider to mongodb
 bot.setProvider(
 	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
 ).catch(console.error);
 
+
+//register the commands
 bot.registry
 	.registerDefaultTypes()
 	.registerGroups([
@@ -36,7 +39,6 @@ bot.registry
 	.registerDefaultCommands({
 		help: false,
 		ping: false,
-		prefix: true,
 		eval: false,
 		unknownCommand: false
 	})
