@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const guildModel = require('../../models/guild');
+const logToConsole = require('../../actions/logToConsole')
+
 
 module.exports = class AdminChannelCommand extends Command {
     constructor(client) {
@@ -31,7 +33,7 @@ module.exports = class AdminChannelCommand extends Command {
             message.channel.send(`Set the admin channel to <#${doc.GUILD_ADMIN_CHANNEL}>`);
             await doc.save();
         }
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };
 

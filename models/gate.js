@@ -7,6 +7,7 @@ const GATE = Schema({
     id: String,
     NAME: String,
     GUILD_OWNER_ID: Array,
+    BANNED_OWNERS: Array,
     BANNED_USERS: Array,
     BANNED_GUILDS: Array,
     TOTAL_MESSAGES: String,

@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class VersionCommand extends Command {
     constructor(client) {
@@ -17,6 +17,6 @@ module.exports = class VersionCommand extends Command {
     run(message) {
         message.delete();
         message.channel.send(`I am running Version: ${botVersion}`)
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };

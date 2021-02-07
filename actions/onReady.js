@@ -19,7 +19,6 @@ module.exports = {
 		bot.guilds.cache.forEach(async guild => {
 			const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
 			const req = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
-			const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
 			if (doc === null) {
 				docCreate.event(guild, bot);
 				console.log('Made new doccument'.yellow);
@@ -49,7 +48,7 @@ module.exports = {
 		console.log(`Logged in as`, `${bot.user.tag}`.magenta);
 		console.log("The bot is online.".green);
 		try {
-			console.log(`I am in`.yellow, `${gate.TOTAL_SERVERS}`.green, ` servers`.yellow)
+			console.log(`I am in`.yellow, `${gate.TOTAL_SERVERS}`.green, `servers`.yellow)
 			console.log(`I am being used by`.yellow, `${gate.TOTAL_USERS}`.green, `users`.yellow)
 		} catch (e) {
 			console.log(e);

@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
+
 
 module.exports = class PrivacyCommand extends Command {
     constructor(client) {
@@ -39,7 +41,7 @@ module.exports = class PrivacyCommand extends Command {
 
                 "**To request the data we store on you to be deleted from our database, please run the command &remove**\n\n" +
                 "However the following data will remain: **Server Name, ID, Owner, and previous bot join date**")
-            //logToConsole.command(message.guild, message);
+            logToConsole.command(message.guild, message);
         }
     }
 };

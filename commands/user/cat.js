@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
 
 
 
@@ -42,6 +43,6 @@ module.exports = class CatCommand extends Command {
         }
 
         //send to the console that this command was run
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };

@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const guildModel = require('../../models/guild');
+const logToConsole = require('../../actions/logToConsole')
+
 
 module.exports = class DefaultChannelCommand extends Command {
     constructor(client) {
@@ -31,7 +33,7 @@ module.exports = class DefaultChannelCommand extends Command {
             message.channel.send(`Set the default channel to <#${doc.GUILD_DEFAULT_CHANNEL}>`);
             await doc.save();
         }
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };
 

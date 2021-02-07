@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class SayCommand extends Command {
     constructor(client) {
@@ -22,6 +23,7 @@ module.exports = class SayCommand extends Command {
 
     run(message, { text }) {
         message.delete();
-        return message.say(text);
+        message.say(text);
+        logToConsole.command(message.guild, message);
     }
 };

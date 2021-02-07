@@ -60,5 +60,34 @@ module.exports = {
             }
         }
         await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedGuilds } }, { new: true });
+    },
+    banOwner: async function (ownerID) {
+        const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
+        var bannedOwners = gate.BANNED_OWNERS
+        var inlist = false;
+        for (var i = 0; i < bannedOwners.length; i++) {
+            if (bannedOwners[i] === ownerID) {
+                //if the user has already been banned from using the bot
+                inlist = true;
+            }
+        }
+        if (inlist) {
+            return false;
+        } else {
+            bannedOwners.push(ownerID)
+            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_OWNERS: bannedOwners } }, { new: true });
+            return true;
+        }
+    },
+    unBanOwner: async function (ownerID) {
+        const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
+        var bannedOwners = gate.BANNED_OWNERS
+        for (var i = 0; i < bannedOwners.length; i++) {
+            if (bannedOwners[i] === ownerID) {
+
+                bannedOwners.splice(i, 1);
+            }
+        }
+        await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedOwners } }, { new: true });
     }
 }

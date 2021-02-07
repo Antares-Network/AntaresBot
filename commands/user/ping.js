@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class PingCommand extends Command {
     constructor(client) {
@@ -22,7 +23,7 @@ module.exports = class PingCommand extends Command {
                 .setTitle('Bot/API Ping')
                 .setDescription(`Ping: 🏓 | Latency is: **${Date.now() - message.createdTimestamp}**ms.`,);
             message.channel.send(pingEmbed);
-            //logToConsole.command(message.guild, message);
+            logToConsole.command(message.guild, message);
         }
     }
 };

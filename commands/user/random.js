@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const api = require('random-stuff-api');
 const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
 
 
 module.exports = class RandomCommand extends Command {
@@ -115,7 +116,7 @@ module.exports = class RandomCommand extends Command {
                 message.channel.send(Embed);
 
                 //send to the console that this command was run
-                //logToConsole.command(message.guild, message);
+                logToConsole.command(message.guild, message);
             }
         }
     }

@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const logToConsole = require('../../actions/logToConsole');
 const guildModel = require('../../models/guild');
+
 module.exports = class GuildMSGCommand extends Command {
     constructor(client) {
         super(client, {
@@ -52,6 +53,5 @@ module.exports = class GuildMSGCommand extends Command {
             //if there was an error send it here
             console.log(err);
         }
-        message.channel.send("This command is not enabled yet.")
     }
 }

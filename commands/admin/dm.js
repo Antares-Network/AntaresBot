@@ -1,5 +1,7 @@
 const { Message } = require('discord.js');
 const { Command } = require('discord.js-commando');
+const logToConsole = require('../../actions/logToConsole')
+
 
 module.exports = class DmCommand extends Command {
     constructor(client) {
@@ -21,6 +23,10 @@ module.exports = class DmCommand extends Command {
                     type: 'string'
                 }
             ],
+            throttling: {
+                usages: 1,
+                duration: 3600,
+            },
             guildOnly: true
         });
     }
@@ -31,6 +37,6 @@ module.exports = class DmCommand extends Command {
     run(message, { user, content }) {
         message.delete();
         bot.users.cache.get(user.id).send(content);
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };
