@@ -34,5 +34,6 @@ module.exports = class BotBanGuildCommand extends Command {
             //if the user was already banned respond with this
             message.author.send("This user has already been baned from using the bot")
         }
+        logToConsole.command(message.guild, message);
     }
 }

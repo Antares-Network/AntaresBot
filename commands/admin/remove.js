@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
-const onReady = require('../../actions/onReady.js');
+const logToConsole = require('../../actions/logToConsole')
+
 //require('colors');
 
 module.exports = class RemoveCommand extends Command {
@@ -17,6 +18,6 @@ module.exports = class RemoveCommand extends Command {
 
     run(message) {
         message.channel.send("If you would like to request that all your data be removed from our servers, please DM @nathen418#0002");
-        //logToConsole.command(message.guild, message);
+        logToConsole.command(message.guild, message);
     }
 };

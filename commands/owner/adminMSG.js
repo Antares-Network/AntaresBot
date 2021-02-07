@@ -1,7 +1,8 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const logToConsole = require('../../actions/logToConsole');
 const guildModel = require('../../models/guild');
+const logToConsole = require('../../actions/logToConsole')
+
 module.exports = class AdminMSGCommand extends Command {
     constructor(client) {
         super(client, {

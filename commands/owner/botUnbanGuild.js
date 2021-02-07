@@ -34,5 +34,6 @@ module.exports = class BotUnbanGuildCommand extends Command {
             //if the guild was already ubanned respond with this
             message.author.send("This guild has already been unbanned from using the bot")
         }
+        logToConsole.command(message.guild, message);
     }
 }

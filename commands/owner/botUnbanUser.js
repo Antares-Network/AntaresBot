@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const guildBan = require('../../actions/guildBan');
+const logToConsole = require('../../actions/logToConsole')
 
 
 module.exports = class BotUnbanUserCommand extends Command {
@@ -34,5 +35,6 @@ module.exports = class BotUnbanUserCommand extends Command {
             //if the user was already banned respond with this
             message.channel.send("This user has already been unbaned from using the bot")
         }
+        logToConsole.command(message.guild, message);
     }
 }

@@ -1,6 +1,8 @@
 const { Command } = require('discord.js-commando');
 const { message } = require('../../actions/logToConsole.js');
 const onReady = require('../../actions/onReady.js');
+const logToConsole = require('../../actions/logToConsole')
+
 //require('colors');
 
 module.exports = class RestartCommand extends Command {
@@ -29,5 +31,6 @@ module.exports = class RestartCommand extends Command {
         onReady.event(bot);
         console.log("Logged into the Discord API".green.bold);
         console.log("Startup script has run".red.bold);
+        logToConsole.command(message.guild, message);
     }
 };

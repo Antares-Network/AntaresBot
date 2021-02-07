@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const channelCheck = require('../../functions/channelCheck')
+const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class InviteCommand extends Command {
     constructor(client) {
@@ -20,7 +21,7 @@ module.exports = class InviteCommand extends Command {
                 "\n If you would like to join our support/comunity server, click the link below:" +
                 "\n https://discord.gg/6pZ2wtGANP");
             //message.channel.send("https://discord.gg//6pZ2wtGANP")
-            //logToConsole.command(message.guild, message);
+            logToConsole.command(message.guild, message);
         }
     }
 };
