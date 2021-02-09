@@ -46,9 +46,6 @@ module.exports = class UpdateCommand extends Command {
                     TOTAL_USERS: totalUsers
                 }
             }, { new: true });
-            //upload db file to the db remote server
-            await gate.save();
-
         }, 5000);
 
 
