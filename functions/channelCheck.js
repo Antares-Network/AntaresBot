@@ -1,4 +1,6 @@
 const guildModel = require('../models/guild');
+const { MessageEmbed } = require('discord.js');
+
 const gateModel = require('../models/gate');
 
 module.exports = {
@@ -10,7 +12,11 @@ module.exports = {
         //check if the user has been banned from using the bot 
         if (gate.BANNED_GUILDS.includes(message.guild.id)) {
             message.delete();
-            message.channel.send(`<@${messageAuth.id}>, This guild has been banned from using this bot by the owner.`)
+            const banEmbed = new MessageEmbed()
+                .setColor('#ff3505')
+                .setTitle('Guild ban notice')
+                .setDescription(`<@${messageAuth.id}>, This guild has been banned from using this bot by the owner.`,);
+            message.channel.send(banEmbed)
                 .then(msg => {
                     msg.delete({ timeout: 20000 })
                 })
@@ -20,7 +26,11 @@ module.exports = {
         //check if the user has been banned from using the bot 
         if (gate.BANNED_USERS.includes(messageAuth.id)) {
             message.delete();
-            message.channel.send(`<@${messageAuth.id}>, You have been banned from using this bot by the owner.`)
+            const banEmbed = new MessageEmbed()
+                .setColor('#ff3505')
+                .setTitle('User ban notice')
+                .setDescription(`<@${messageAuth.id}>, You have been banned from using this bot by the owner.`,);
+            message.channel.send(banEmbed)
                 .then(msg => {
                     msg.delete({ timeout: 20000 })
                 })

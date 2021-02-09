@@ -12,7 +12,7 @@ const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
-global.botVersion = "1.3.0-RC4";
+global.botVersion = "1.3.1";
 
 
 global.bot = new CommandoClient({
@@ -49,15 +49,11 @@ bot.on('message', async (message) => {
 	if (message.author.bot) return; // return cause the message was sent by a bot
 	try {
 		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
-	} catch (e) {
-		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
-	}
-	try {
 		counting.count(message, bot); // logic 
+		messageLog.log(message); // log number of messages sent in each guild
 	} catch (e) {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
-	messageLog.log(message); // log number of messages sent in each guild
 });
 
 bot.on('messageDelete', async (message) => {
