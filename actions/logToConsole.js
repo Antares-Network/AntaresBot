@@ -13,5 +13,8 @@ module.exports = {
     },
     message: function (guild, message) {
         console.log(`MESSAGE`.magenta, `[${guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+    },
+    dm: function (message) {
+        console.log(`DM`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
     }
 }
