@@ -1,4 +1,6 @@
 const guildModel = require('../models/guild');
+const { MessageEmbed } = require('discord.js');
+
 const gateModel = require('../models/gate');
 
 module.exports = {

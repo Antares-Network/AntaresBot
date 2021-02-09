@@ -33,66 +33,87 @@ module.exports = class RandomCommand extends Command {
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'CN':
                     api.random.cnjoke()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'DEVJOKE':
                     api.random.devjoke()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'INSULT':
                     api.random.insult()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'AWW':
                     api.image.aww()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'FACEPALM':
                     api.image.facepalm()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'WHOLESOME':
                     api.image.wholesome()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'DANKMEME':
                     api.image.dankmeme()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'HPMEME':
                     api.image.hpmeme()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'ART':
                     api.image.art()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
+
                     return;
                 case 'DEADINSIDE':
                     api.image.deadinside()
                         .then(result => {
                             message.channel.send(result)
                         })
+                        logToConsole.command(message.guild, message);
                     return;
             }
             if (!text) {
