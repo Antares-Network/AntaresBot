@@ -18,7 +18,7 @@ module.exports = class SayCommand extends Command {
                 }
             ],
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR']
+            userPermissions: ['MANAGE_MESSAGES'],
         });
     }
 
