@@ -12,6 +12,7 @@ const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
+const logToConsole = require('./actions/logToConsole')
 global.botVersion = "1.3.2";
 
 
@@ -43,9 +44,9 @@ bot.registry
 		unknownCommand: false
 	})
 	.registerCommandsIn(path.join(__dirname, 'commands'));
-	
+
 bot.on('message', async (message) => {
-	
+
 	if (message.author.bot) return; // return cause the message was sent by a bot
 	try {
 		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
@@ -92,7 +93,7 @@ bot.on('guildMemberAdd', async (member) => {
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
-		console.log(`MEMBER JOIN`.teal, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
+		logToConsole.memberJoin(member);
 	} catch (e) {
 		console.log(e);
 	}
@@ -104,16 +105,16 @@ bot.on('guildMemberRemove', async (member) => {
 	try {
 		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
-		console.log(`MEMBER LEAVE`.yellow, `[${member.guild.name}]`.green, `[${member.username}]`.yellow)
+		logToConsole.memberLeave(member);
 	} catch (e) {
 		console.log(e);
 	}
 })
 
-bot.on('guildUpdate',  async (oldGuild, newGuild) => {
+bot.on('guildUpdate', async (oldGuild, newGuild) => {
 	try {
 		await guildModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
-		console.log(`GUILD UPDATE`.yellow, `[${oldGuild.name}]`.green, `--->`.grey, `[${newGuild.name}]`.blue)
+		logToConsole.guildUpdate(oldGuild, newGuild);
 	} catch (e) {
 		console.log(e);
 	}
