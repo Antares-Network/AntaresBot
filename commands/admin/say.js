@@ -5,6 +5,7 @@ module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'say',
+            aliases: ['echo',],
             group: 'admin',
             memberName: 'say',
             description: 'Replies with the text you provide.',
@@ -17,7 +18,7 @@ module.exports = class SayCommand extends Command {
                 }
             ],
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR']
+            userPermissions: ['MANAGE_MESSAGES'],
         });
     }
 
