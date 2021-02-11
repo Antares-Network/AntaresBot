@@ -10,7 +10,7 @@ module.exports = class HelpCommand extends Command {
             group: 'user',
             memberName: 'help',
             description: 'Shows the bot help embed',
-            examples: ['privacy'],
+            examples: ['help'],
             guildOnly: true
         });
     }
@@ -22,6 +22,7 @@ module.exports = class HelpCommand extends Command {
                 .setURL('https://discord.gg/6pZ2wtGANP')
                 .setTitle("Help, a list of commands")
                 .setDescription("**ip**: Sends in a dm, the Minecraft server run by the bot Developer." +
+                    "\n\n **8ball** or **ask**: Ask the bot a question and have it respond" +
                     "\n\n **random**: Sends a random *thing*. Send *random* for more details" +
                     "\n\n **cat**: Sends a random picture of a cat." +
                     "\n\n **dog**: Sends a random picture of a dog." +
@@ -31,6 +32,7 @@ module.exports = class HelpCommand extends Command {
                     "\n\n **prefix**: Shows the Prefix for the bot." +
                     "\n\n **invite**: Sends an invite for the bot and the support server." +
                     "\n\n **ping**: Sends the ping time of the bot." +
+                    "\n\n **uptime**: Sends the uptime of the bot" +
                     "\n\n **privacy**: Sends in a dm, the privacy policy for the bot." +
                     "\n\nJoin our support server: https://discord.gg/KKYw763")
                 .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
