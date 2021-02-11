@@ -17,7 +17,6 @@ module.exports = class AdminHelpCommand extends Command {
     }
 
     async run(message) {
-        if (await channelCheck.check(message) == true) {
             const Embed = new MessageEmbed()
                 .setColor('#ff3505')
                 .setURL('https://discord.gg/6pZ2wtGANP')
@@ -30,7 +29,6 @@ module.exports = class AdminHelpCommand extends Command {
                     "\n\nJoin our support server: https://discord.gg/KKYw763")
                 .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             message.channel.send(Embed);
-        }
         logToConsole.command(message.guild, message);
     }
 };
