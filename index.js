@@ -139,4 +139,4 @@ bot.on("warn", (e) => console.warn(e));
 	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
 	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
 	console.log("Logged into the Discord API".green.bold);
-})()
+})() //idk why these () are needed but they are
