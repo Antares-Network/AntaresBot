@@ -6,11 +6,11 @@ const logToConsole = require('../../actions/logToConsole')
 module.exports = class DefaultChannelCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'adefaultchannel',
+            name: 'defaultchannel',
             group: 'admin',
-            memberName: 'adefaultchannel',
+            memberName: 'defaultchannel',
             description: 'Sets the admin channel for the guild.',
-            examples: ['adefaultchannel "CHANNELID"'],
+            examples: ['defaultchannel "CHANNELID"'],
             args: [
                 {
                     key: 'text',
