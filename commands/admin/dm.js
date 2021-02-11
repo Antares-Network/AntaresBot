@@ -27,11 +27,9 @@ module.exports = class DmCommand extends Command {
                 usages: 1,
                 duration: 3600,
             },
-            guildOnly: true
+            guildOnly: true,
+            userPermissions: ['ADMINISTRATOR']
         });
-    }
-    hasPermission(msg) {
-        return this.client.isOwner(msg.author);
     }
 
     run(message, { user, content }) {
