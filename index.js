@@ -24,7 +24,7 @@ global.bot = new CommandoClient({
 
 //set the prefix storage provider to mongodb
 bot.setProvider(
-	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
+	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
 ).catch(console.error);
 
 
