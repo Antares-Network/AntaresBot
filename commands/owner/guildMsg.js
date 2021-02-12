@@ -38,7 +38,7 @@ module.exports = class GuildMSGCommand extends Command {
                 .setTitle("Hello, you don't see me messaging in your server often...")
                 .setDescription('I have just flown in to tell you that my developers have something to say:')
                 .addField('Message:', `${text}`)
-                .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             guildList.forEach(async guild => {
                 const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_DEFAULT_CHANNEL != null) {

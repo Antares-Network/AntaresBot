@@ -28,13 +28,18 @@ module.exports = class BotBanUserCommand extends Command {
     }
 
     run(message, { user }) {
-        if(guildBan.banUser(user)) {
+        if (guildBan.banUser(user)) {
             //if the user was banned respond with this
             message.channel.send(`Banned ${user.username} From ever using the bot again`);
         } else {
             //if the user was already banned respond with this
             message.channel.send("This user has already been baned from using the bot")
         }
-        logToConsole.command(message.guild, message);
+        try {
+            logToConsole.command(message.guild, message);
+        } catch (e) {
+            logToConsole.dm(message);
+
+        }
     }
 }
