@@ -21,8 +21,7 @@ module.exports = class HelpCommand extends Command {
                 .setColor('#ff3505')
                 .setURL('https://discord.gg/6pZ2wtGANP')
                 .setTitle("Help, a list of commands")
-                .setDescription("**ip**: Sends in a dm, the Minecraft server run by the bot Developer." +
-                    "\n\n **8ball** or **ask**: Ask the bot a question and have it respond" +
+                .setDescription("\n\n **8ball** or **ask**: Ask the bot a question and have it respond" +
                     "\n\n **random**: Sends a random *thing*. Send *random* for more details" +
                     "\n\n **cat**: Sends a random picture of a cat." +
                     "\n\n **dog**: Sends a random picture of a dog." +
