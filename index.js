@@ -13,7 +13,7 @@ const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
-global.botVersion = "1.3.3";
+global.botVersion = "1.3.4";
 
 
 global.bot = new CommandoClient({
