@@ -1,3 +1,9 @@
+//This command is used only by the bot owner to send critical messages to a server's admin channel
+//it is ONLY USED IN CRITICAL SITUATIONS, such as security bugs, data breaches, etc
+//Every attempt is made to not use this function , such as sending a dm to the server owner, et 
+//before this command is used.
+
+
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const guildModel = require('../../models/guild');
