@@ -33,7 +33,7 @@ module.exports = {
                 }
             }
         }
-        //if the user is in the list of banned users, return false
+        //if the user is in the list of banned users, return //false
         if (inlist) {
             return false; //! this will cause problems down the road!!!!!!!!
         } else { //if they are not already in  the banned users list, add them now

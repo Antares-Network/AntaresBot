@@ -24,7 +24,8 @@ module.exports = class UptimeCommand extends Command {
         const pingEmbed = new MessageEmbed()
             .setColor('#ff3505')
             .setTitle('Bot Uptime')
-            .setDescription(`I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`,);
+            .setDescription(`I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`,)
+            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png')
         message.channel.send(pingEmbed);
     }
 };

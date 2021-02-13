@@ -13,7 +13,7 @@ const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
-global.botVersion = "1.3.3";
+global.botVersion = "1.3.4";
 
 
 global.bot = new CommandoClient({
@@ -24,7 +24,7 @@ global.bot = new CommandoClient({
 
 //set the prefix storage provider to mongodb
 bot.setProvider(
-	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, 'AntaresBetaRewrite'))
+	MongoClient.connect(process.env.BOT_MONGO_PATH).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
 ).catch(console.error);
 
 

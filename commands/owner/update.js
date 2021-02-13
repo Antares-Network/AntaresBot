@@ -1,3 +1,5 @@
+//updates the main GATE model to contain the most up to date server information
+
 const { Command } = require('discord.js-commando');
 const gateModel = require('../../models/gate');
 const guildModel = require('../../models/guild');

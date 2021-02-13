@@ -1,3 +1,9 @@
+//This command is used only by the bot owner to send critical messages to a server's admin channel
+//it is ONLY USED IN CRITICAL SITUATIONS, such as security bugs, data breaches, etc
+//Every attempt is made to not use this function , such as sending a dm to the server owner, et 
+//before this command is used.
+
+
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const guildModel = require('../../models/guild');
@@ -38,7 +44,7 @@ module.exports = class AdminMSGCommand extends Command {
                 .setTitle("Admin Message / Notice")
                 .setDescription('I have an important message from my Developers')
                 .addField('Message:', `${text}`)
-                .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             guildList.forEach(async guild => {
                 const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_ADMIN_CHANNEL != null) {

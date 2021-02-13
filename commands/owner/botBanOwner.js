@@ -26,12 +26,18 @@ module.exports = class BotBanOwnerCommand extends Command {
     }
 
     run(message, { ownerID }) {
-        if(guildBan.banOwner(ownerID)) {
+        if (guildBan.banOwner(ownerID)) {
             //if the user was banned respond with this
             message.author.send(`Banned ${ownerID} from ever using this bot in a server they own again`);
         } else {
             //if the user was already banned respond with this
             message.author.send("This user has already been baned from having the bot in any server they own again")
+        }
+        try {
+            logToConsole.command(message.guild, message);
+        } catch (e) {
+            logToConsole.dm(message);
+
         }
     }
 }
