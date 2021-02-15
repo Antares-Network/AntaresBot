@@ -47,7 +47,8 @@ bot.registry
 
 bot.on('message', async (message) => {
 
-	if (message.author.bot) return; // return cause the message was sent by a bot
+	if (message.member.user.bot) return;
+	if (message.author.bot) return;
 	try {
 		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
 		counting.count(message, bot); // logic 
@@ -80,7 +81,7 @@ bot.on("guildDelete", async (guild) => {
 	try {
 		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
-			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner}`);
+			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner.id}`);
 		});
 	} catch (e) {
 		console.log(e);
