@@ -7,6 +7,7 @@ module.exports = class DefaultChannelCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'defaultchannel',
+            aliases: ["setup"],
             group: 'admin',
             memberName: 'defaultchannel',
             description: 'Sets the admin channel for the guild.',
@@ -14,7 +15,7 @@ module.exports = class DefaultChannelCommand extends Command {
             args: [
                 {
                     key: 'text',
-                    prompt: 'Please input a channel ID',
+                    prompt: 'You are trying to setup/ set a default channel for this bot. Please provide the channel id that you want to become this bot\'s default channel',
                     type: 'string'
                 }
             ],
