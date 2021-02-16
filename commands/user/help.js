@@ -25,7 +25,7 @@ module.exports = class HelpCommand extends Command {
                     "\n\n **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗" +
                     "\n\n **cat**: Sends a random picture of a cat." +
                     "\n\n **dog**: Sends a random picture of a dog." +
-                    "\n\n **reddit** or **meme**: Sends a random meme from Reddit." +
+                    "\n\n **reddit** or **meme**: ❗❗This command is disabled as it is being rewritten to improve NSFW filtering❗❗" +
                     "\n\n **xkcd** or **comic**: Sends a random XKCD comic" +
                     "\n\n **github**: Sends an embed with a link to the github repo for the bot." +
                     "\n\n **prefix**: Shows the Prefix for the bot." +
