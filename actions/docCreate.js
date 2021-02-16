@@ -22,11 +22,11 @@ module.exports = {
         //get or create an invite for the server here or something
         console.log(`I joined a new Server with name:`.blue, `${guild.name}`.green)
 
-        let channel = guild.channels.cache.find(c => c.type === 'text');
-        let invite = await channel.createInvite({
-            maxAge: 0, // 0 = infinite expiration
-            maxUses: 0 // 0 = infinite uses
-        }).catch(console.error);
+        // let channel = guild.channels.cache.find(c => c.type === 'text');
+        // let invite = await channel.createInvite({
+        //     maxAge: 0, // 0 = infinite expiration
+        //     maxUses: 0 // 0 = infinite uses
+        // }).catch(console.error);
 
         bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner}\n Invite Url: ${invite}`);
