@@ -5,13 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "colors": "^1.4.0",
-    "commando-provider-mongo": "^2.0.2",
+    "commando-provider-mongo": "^2.1.0",
     "discord.js": "^12.5.1",
     "discord.js-commando": "^0.11.1",
     "dotenv": "^8.2.0",
     "fetch": "^1.1.0",
     "module-alias": "^2.2.2",
-    "mongoose": "^5.11.13",
+    "mongoose": "^5.11.16",
     "path": "^0.12.7",
     "random-stuff-api": "^10.0.0",
     "reddit-image-fetcher": "^2.0.6"
