@@ -47,7 +47,6 @@ bot.registry
 
 bot.on('message', async (message) => {
 
-	if (message.member.user.bot) return;
 	if (message.author.bot) return;
 	try {
 		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)

@@ -1,7 +1,6 @@
 const { Command } = require('discord.js-commando');
 const logToConsole = require('../../actions/logToConsole')
 
-//require('colors');
 
 module.exports = class RemoveCommand extends Command {
     constructor(client) {

@@ -9,7 +9,7 @@ module.exports = class BotUnbanGuildCommand extends Command {
             name: 'botunbanguild',
             group: 'owner',
             memberName: 'botunbanguild',
-            description: 'unban a guild from using the bot',
+            description: 'Unban a guild from using the bot',
             examples: ['botunbanguild @nathen418#0002'],
             args: [
                 {

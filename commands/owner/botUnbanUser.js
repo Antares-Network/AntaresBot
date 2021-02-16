@@ -9,7 +9,7 @@ module.exports = class BotUnbanUserCommand extends Command {
             name: 'botunbanuser',
             group: 'owner',
             memberName: 'botunbanuser',
-            description: 'unban a user from using the bot',
+            description: 'Unban a user from using the bot',
             examples: ['botunbanuser @nathen418#0002'],
             args: [
                 {
