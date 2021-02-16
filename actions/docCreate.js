@@ -10,7 +10,7 @@ module.exports = {
             GUILD_JOIN_DATE: d.toString(),
             GUILD_NAME: guild.name,
             GUILD_ID: guild.id,
-            GUILD_OWNER: guild.owner.user.username,
+            //GUILD_OWNER: guild.owner.user.username,
             GUILD_OWNER_ID: guild.ownerID,
             GUILD_MEMBERS: guild.memberCount,
             GUILD_ICON_URL: guild.iconURL(),
@@ -27,7 +27,7 @@ module.exports = {
         // }).catch(console.error);
 
         bot.users.fetch('603629606154666024', false).then((user) => {
-            user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner.user.username}\n Invite Url: ${invite}`);
+            user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}`);
         });
     }
 }
