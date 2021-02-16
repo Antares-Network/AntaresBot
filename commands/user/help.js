@@ -22,7 +22,7 @@ module.exports = class HelpCommand extends Command {
                 .setURL('https://discord.gg/6pZ2wtGANP')
                 .setTitle("Help, a list of commands")
                 .setDescription("\n\n **8ball** or **ask**: Ask the bot a question and have it respond" +
-                    "\n\n **random**: Sends a random *thing*. Send *random* for more details" +
+                    "\n\n **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗" +
                     "\n\n **cat**: Sends a random picture of a cat." +
                     "\n\n **dog**: Sends a random picture of a dog." +
                     "\n\n **reddit** or **meme**: Sends a random meme from Reddit." +

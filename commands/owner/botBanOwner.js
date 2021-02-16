@@ -8,7 +8,7 @@ module.exports = class BotBanOwnerCommand extends Command {
             name: 'botbanowner',
             group: 'owner',
             memberName: 'botbanowner',
-            description: 'ban an owner from using the bot',
+            description: 'Ban an owner from using the bot',
             examples: ['botbanowner 535497457749065738'],
             args: [
                 {
