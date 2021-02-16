@@ -80,7 +80,7 @@ bot.on("guildDelete", async (guild) => {
 	try {
 		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
-			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner.id}`);
+			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}`);
 		});
 	} catch (e) {
 		console.log(e);

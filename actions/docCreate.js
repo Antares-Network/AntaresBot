@@ -10,7 +10,7 @@ module.exports = {
             GUILD_JOIN_DATE: d.toString(),
             GUILD_NAME: guild.name,
             GUILD_ID: guild.id,
-            GUILD_OWNER: guild.owner.user.tag,
+            //GUILD_OWNER: guild.owner.,
             GUILD_OWNER_ID: guild.ownerID,
             GUILD_MEMBERS: guild.memberCount,
             GUILD_ICON_URL: guild.iconURL(),
@@ -18,8 +18,6 @@ module.exports = {
             GUILD_MESSAGES: 0
         });
         await doc.save();
-
-        //get or create an invite for the server here or something
         console.log(`I joined a new Server with name:`.blue, `${guild.name}`.green)
 
         // let channel = guild.channels.cache.find(c => c.type === 'text');
@@ -29,7 +27,7 @@ module.exports = {
         // }).catch(console.error);
 
         bot.users.fetch('603629606154666024', false).then((user) => {
-            user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner}\n Invite Url: ${invite}`);
+            user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}\n Owner: ${guild.owner.username}\n Invite Url: ${invite}`);
         });
     }
 }
