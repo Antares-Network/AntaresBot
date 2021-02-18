@@ -11,26 +11,21 @@ module.exports = class DefaultChannelCommand extends Command {
             group: 'admin',
             memberName: 'defaultchannel',
             description: 'Sets the admin channel for the guild.',
-            examples: ['defaultchannel "CHANNELID"'],
-            args: [
-                {
-                    key: 'text',
-                    prompt: 'You are trying to setup/ set a default channel for this bot. Please provide the channel id that you want to become this bot\'s default channel',
-                    type: 'string'
-                }
-            ],
+            examples: ['defaultchannel #channelMention'],
             guildOnly: true,
             userPermissions: ['ADMINISTRATOR']
         });
     }
 
-    async run(message, { text }) {
-        //check to see if a default channel is set for this server yet
-        const req = await guildModel.findOne({ GUILD_ID: message.guild.id });
-        //if the server has a default channel, send it here
-        message.channel.send(`This server's default channel is: <#${req.GUILD_DEFAULT_CHANNEL}>`);
-        if (!isNaN(text)) {
-            const doc = await guildModel.findOneAndUpdate({ GUILD_ID: message.guild.id }, { $set: { GUILD_DEFAULT_CHANNEL: text } }, { new: true });
+    async run(message) {
+        if (message.mentions.channels.first() == undefined) {
+            message.channel.send("Please re-run this command and mention a channel as an argument.")
+        } else {
+            //check to see if a default channel is set for this server yet
+            const req = await guildModel.findOne({ GUILD_ID: message.guild.id });
+            //if the server has a default channel, send it here
+            message.channel.send(`This server's default channel is: <#${req.GUILD_DEFAULT_CHANNEL}>`);
+            const doc = await guildModel.findOneAndUpdate({ GUILD_ID: message.guild.id }, { $set: { GUILD_DEFAULT_CHANNEL: message.mentions.channels.first().id } }, { new: true });
             message.channel.send(`Set the default channel to <#${doc.GUILD_DEFAULT_CHANNEL}>`);
             await doc.save();
         }

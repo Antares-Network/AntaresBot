@@ -48,7 +48,7 @@ module.exports = {
 		console.log(`Logged in as`, `${bot.user.tag}`.magenta);
 		console.log("The bot is online.".green);
 		try {
-			console.log(`I am in`.yellow, `${gate.TOTAL_SERVERS}`.green, `servers`.yellow)
+			console.log(`I am in`.yellow, `${bot.guilds.cache.size}`.green, `servers`.yellow)
 			console.log(`I am being used by`.yellow, `${gate.TOTAL_USERS}`.green, `users`.yellow)
 		} catch (e) {
 			console.log(e);
