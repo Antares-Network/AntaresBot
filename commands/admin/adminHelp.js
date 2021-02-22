@@ -21,7 +21,7 @@ module.exports = class AdminHelpCommand extends Command {
                 .setColor('#ff3505')
                 .setURL('https://discord.gg/6pZ2wtGANP')
                 .setTitle("Admin Help, a list of commands")
-                .setDescription("**defaultchannel**: Sets the channel the bot will talk in" +
+                .setDescription("**setup**: Sets the channel the bot will talk in" +
                     "\n\n **adminchannel**: Sets the channel the bot will send admin messages in" +
                     "\n\n **counting**: Creates a channel to be used for a counting game" +
                     "\n\n **remove**: Removes all data for the server this command is run in" +
