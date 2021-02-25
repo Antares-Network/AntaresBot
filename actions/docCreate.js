@@ -29,7 +29,6 @@ module.exports = {
         bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(`I joined a new Server\n Name: ${guild.name}\n ID: ${guild.id}`);
         });
-        console.log(`GUILD UPDATE`.yellow, `[${oldGuild.name}]`.green, `--->`.grey, `[${newGuild.name}]`.blue)
         try {
             bot.channels.cache.get(process.env.REPORTING_CHANNEL).send(`**Server Join** - [${guild.name}]`)
         } catch (e) {
