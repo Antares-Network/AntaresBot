@@ -13,7 +13,7 @@ module.exports = class CountCreateCommand extends Command {
             args: [
                 {
                     key: 'categoryId',
-                    prompt: 'What category should the bot create the channel in?',
+                    prompt: 'What category should the bot create the channel in? (Please provide the category ID)',
                     type: 'string'
                 }
             ],
