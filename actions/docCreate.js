@@ -9,7 +9,7 @@ module.exports = {
         var d = new Date();
         const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
         if (doc === null) {
-            const doc = new guildModel({
+            const internalDoc = new guildModel({
                 GUILD_CREATED_AT: guild.createdAt,
                 GUILD_JOIN_DATE: d.toString(),
                 GUILD_NAME: guild.name,
@@ -21,7 +21,7 @@ module.exports = {
                 GUILD_DEFAULT_CHANNEL: null,
                 GUILD_MESSAGES: 0
             });
-            await doc.save();
+            await internalDoc.save();
         }
         console.log(`I joined a new Server with name:`.blue, `${guild.name}`.green)
 
