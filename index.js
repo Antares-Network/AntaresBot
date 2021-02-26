@@ -13,7 +13,7 @@ const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
-global.botVersion = "1.3.6";
+global.botVersion = "1.3.7";
 
 
 global.bot = new CommandoClient({
@@ -71,7 +71,6 @@ bot.on('ready', async () => {
 bot.on("guildCreate", async (guild) => {
 	docCreate.event(guild, bot);
 	piiCreate.event(guild, bot);
-
 })
 
 //actions to run when the bot leaves a server

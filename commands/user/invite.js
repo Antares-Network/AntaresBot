@@ -18,7 +18,7 @@ module.exports = class InviteCommand extends Command {
 
     async run(message) {
         if (await channelCheck.check(message) == true) {
-            message.channel.send("https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=67497032");
+            message.channel.send("https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=93200");
             const Embed = new MessageEmbed()
                 .setColor('#ff3505')
                 .setURL('https://discord.gg/6pZ2wtGANP')
