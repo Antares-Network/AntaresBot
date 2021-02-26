@@ -41,7 +41,6 @@ module.exports = {
                 { name: 'Guild Name:', value: guild.name },
                 { name: 'Guild ID:', value: guild.id },
                 { name: 'Owner ID:', value: guild.ownerID },
-                { name: 'Owner Username:', value: guild.owner.user.username},
                 { name: 'Guild Member Count:', value: guild.memberCount })
             .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
 
