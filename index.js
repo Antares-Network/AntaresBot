@@ -71,7 +71,6 @@ bot.on('ready', async () => {
 bot.on("guildCreate", async (guild) => {
 	docCreate.event(guild, bot);
 	piiCreate.event(guild, bot);
-
 })
 
 //actions to run when the bot leaves a server
