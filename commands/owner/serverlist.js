@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const guildModel = require('../../models/guild');
 const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class ServerListCommand extends Command {
@@ -22,10 +21,7 @@ module.exports = class ServerListCommand extends Command {
         var d = new Date();
         //get the list of guilds the bot is in
         var guildList = bot.guilds.cache;
-
         try {
-            //send a message to every guild this bot is in
-
             guildList.forEach(async guild => {
                 const Embed = new MessageEmbed()
                     .setColor('#ff3505')
