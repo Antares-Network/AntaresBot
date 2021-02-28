@@ -19,7 +19,7 @@ module.exports = class HelpCommand extends Command {
         if (await channelCheck.check(message) == true) {
             const Embed = new MessageEmbed()
                 .setColor('#ff3505')
-                .setURL('https://discord.gg/6pZ2wtGANP')
+                .setURL('https://dsc.gg/antaresnetwork')
                 .setTitle("Help, a list of commands")
                 .setDescription("\n\n **8ball** or **ask**: Ask the bot a question and have it respond" +
                     "\n\n **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗" +
@@ -33,7 +33,7 @@ module.exports = class HelpCommand extends Command {
                     "\n\n **ping**: Sends the ping time of the bot." +
                     "\n\n **uptime**: Sends the uptime of the bot" +
                     "\n\n **privacy**: Sends in a dm, the privacy policy for the bot." +
-                    "\n\n Join our support server: https://discord.gg/KKYw763")
+                    "\n\n Join our support server: https://dsc.gg/antaresnetwork")
                 .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             message.channel.send(Embed);
         }

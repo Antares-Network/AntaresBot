@@ -62,7 +62,7 @@ module.exports = class EightBallCommand extends Command {
             //message.channel.send(eightball[index]);
             const EightBallEmbed = new MessageEmbed()
             .setColor('#ff3505')
-            .setURL('https://discord.gg//6pZ2wtGANP')
+            .setURL('https://dsc.gg/antaresnetwork')
             .setTitle('Get an answer to all your questions')
             .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
             .setDescription(`${message.author.username} asks:\n ${text}\n\n **My Answer:**\n ${eightball[index]}`,)
