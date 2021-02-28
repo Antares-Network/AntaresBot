@@ -33,6 +33,7 @@ module.exports = class HelpCommand extends Command {
                     "\n\n **ping**: Sends the ping time of the bot." +
                     "\n\n **uptime**: Sends the uptime of the bot" +
                     "\n\n **privacy**: Sends in a dm, the privacy policy for the bot." +
+                    "\n\n **adminhelp**: Sends the help page with admin commands." +
                     "\n\n Join our support server: https://dsc.gg/antaresnetwork")
                 .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             message.channel.send(Embed);
