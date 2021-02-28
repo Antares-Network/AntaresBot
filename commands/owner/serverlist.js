@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const logToConsole = require('../../actions/logToConsole')
+const guildModel = require('../../models/guild');
 
 module.exports = class ServerListCommand extends Command {
     constructor(client) {
@@ -17,7 +18,8 @@ module.exports = class ServerListCommand extends Command {
         return this.client.isOwner(msg.author);
     }
 
-    run(message) {
+    async run(message) {
+        const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
         var d = new Date();
         //get the list of guilds the bot is in
         var guildList = bot.guilds.cache;
@@ -29,7 +31,7 @@ module.exports = class ServerListCommand extends Command {
                     .setThumbnail(guild.iconURL())
                     .addFields(
                         { name: 'Guild Creation Date:', value: guild.createdAt },
-                        { name: 'Guild Join Date:', value: d.toString() },
+                        { name: 'Guild Join Date:', value: doc.GUILD_JOIN_DATE },
                         { name: 'Guild Name:', value: guild.name },
                         { name: 'Guild ID:', value: guild.id },
                         { name: 'Owner ID:', value: guild.ownerID },

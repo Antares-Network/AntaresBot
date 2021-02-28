@@ -51,10 +51,9 @@ module.exports = {
             .addFields(
                 { name: 'My prefix', value: `My current prefix is: **\`&\`** To change my prefix run \`&prefix\`` },
                 { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
-                { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` })
+                { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
+                { name: 'Invite me to your server', value: `https://dis.gg/antaresbot`})
             .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
-
-
 
         bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(Embed);

@@ -11,8 +11,7 @@ module.exports = class AdminHelpCommand extends Command {
             memberName: 'adminhelp',
             description: 'Shows the bot\'s admin help embed',
             examples: ['adminhelp'],
-            guildOnly: true,
-            userPermissions: ['MANAGE_MESSAGES']
+            guildOnly: true
         });
     }
 

@@ -32,7 +32,7 @@ module.exports = class RedditCommand extends Command {
             // // }
             // const Embed = new MessageEmbed()
             //     .setColor('#ff3505')
-            //     .setURL('https://discord.gg/6pZ2wtGANP')
+            //     .setURL('https://dsc.gg/antaresnetwork')
             //     .setTitle(`Random Meme from Reddit`)
             //     .setImage(img[0].image)
             //     .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
