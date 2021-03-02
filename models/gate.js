@@ -12,7 +12,8 @@ const GATE = Schema({
     BANNED_GUILDS: Array,
     TOTAL_MESSAGES: String,
     TOTAL_SERVERS: String,
-    TOTAL_USERS: String
+    TOTAL_USERS: String,
+    UPDATE_TIME: String
 })
 
 module.exports = model('Gate', GATE);
