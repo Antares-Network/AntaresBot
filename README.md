@@ -8,7 +8,7 @@
 This is the development version of Antares Bot
 
 # Join our discord server:
-https://discord.gg/6pz2wtganp
+https://dsc.gg/antaresnetwork
 
 
 ## Invite the bot at the link below:
