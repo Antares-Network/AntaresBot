@@ -28,7 +28,8 @@ module.exports = {
                 BANNED_GUILDS: [],
                 TOTAL_MESSAGES: totalMessages,
                 TOTAL_SERVERS: bot.guilds.cache.size,
-                TOTAL_USERS: totalUsers
+                TOTAL_USERS: totalUsers,
+                UPDATE_TIME: null
             });
             //upload db file to the db remote server
             await gate.save();
