@@ -14,9 +14,51 @@ https://discord.gg/6pz2wtganp
 ## Invite the bot at the link below:
 **https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=93200**
 
-### A list of commands
-![](./resources/helpOutput.png)
-![](./resources/randomOutput.png)
+## A list of User Commands
+- 'Counting' channel information is available using the command: *adminhelp*
+
+- This is a list of commands the bot currently supports
+
+- **8ball** or **ask**: Ask the bot a question and have it respond
+
+- **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗
+
+- **cat**: Sends a random picture of a cat.
+
+- **dog**: Sends a random picture of a dog.
+
+- **reddit** or **meme**: ❗❗This command is disabled as it is being rewritten to improve NSFW filtering❗❗
+
+- **xkcd** or **comic**: Sends a random XKCD comic
+
+- **github**: Sends an embed with a link to the github repo for the bot.
+
+- **prefix**: Shows the Prefix for the bot.
+
+- **invite**: Sends an invite for the bot and the support server.
+
+- **ping**: Sends the ping time of the bot.
+
+- **uptime**: Sends the uptime of the bot
+
+- **stats** and **update**: Updates the database and shows the bots most recent stats.
+
+- **adminhelp**: Shows the Admin Help Embed
+
+- **privacy**: Sends in a dm, the privacy policy for the bot.
+
+## Admin Help Commands:
+
+- **setup**: Sets the channel the bot will talk in
+
+- **adminchannel**: Sets the channel the bot will send admin messages in
+
+- **counting**: Creates a channel to be used for a counting game
+
+- **remove**: Removes all data for the server this command is run in
+
+- **say** or **echo**: Lets you make the bot say something. Careful, this is monitored for abuse
+
 
 ## License
 
