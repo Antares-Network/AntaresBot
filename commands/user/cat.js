@@ -13,7 +13,7 @@ function embed(message, img, title) {
     }
     const Embed = new MessageEmbed()
         .setColor('#ff3505')
-        .setURL('https://dsc.gg/antaresnetwork')
+        //.setURL('https://dsc.gg/antaresnetwork')
         .setTitle(title)
         .setImage(img)
         .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');

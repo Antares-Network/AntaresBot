@@ -23,7 +23,7 @@ module.exports = class StatsCommand extends Command {
             const doc = await gateModel.findOne({ NAME: 'GATE' });
             const Embed = new MessageEmbed()
                 .setColor('#ff3505')
-                .setURL('https://dsc.gg/antaresnetwork')
+                //.setURL('https://dsc.gg/antaresnetwork')
                 .setTitle('Fun Bot Stats!')
                 .setThumbnail('https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png')
                 .addFields(
