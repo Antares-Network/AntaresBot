@@ -43,7 +43,7 @@ module.exports = class WhoisCommand extends Command {
             var bannedOwners = gate.BANNED_OWNERS
             var ownerIsBanned = 'No';
             for (var i = 0; i < bannedOwners.length; i++) {
-                if (bannedOwners[i] === ownerID) {
+                if (bannedOwners[i] === String(user.id)) {
                     //if the user has already been banned from using the bot
                     ownerIsBanned = 'Yes';
                 }
