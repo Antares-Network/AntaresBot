@@ -12,11 +12,13 @@ module.exports = class AdminChannelCommand extends Command {
             description: 'Sets the admin channel for the guild.',
             examples: ['adminchannel #channelMention'],
             guildOnly: true,
+            clientPermissions: ['MANAGE_CHANNELS'],
             userPermissions: ['ADMINISTRATOR']
         });
     }
 
     async run(message) {
+        
         if (message.mentions.channels.first() == undefined) {
             message.channel.send("Please re-run this command and mention a channel as an argument.")
         } else {
