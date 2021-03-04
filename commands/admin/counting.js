@@ -36,7 +36,7 @@ module.exports = class CountCreateCommand extends Command {
                     channel.setRateLimitPerUser(5, "It makes it easier for the bot to function.")
                     const Embed = new MessageEmbed()
                     .setColor('#ff3505')
-                    .setURL('https://discord.gg/6pZ2wtGANP')
+                    //.setURL('https://discord.gg/6pZ2wtGANP')
                     .setTitle("Antares Bot Counting")
                     .setDescription("Welcome to your very own counting channel.\n" + 
                     "Please start counting from `1` using whole numbers.\n\n\n" + 
