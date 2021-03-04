@@ -12,11 +12,13 @@ module.exports = class InviteCommand extends Command {
             memberName: 'invite',
             description: 'Sends an invite for the bot and the support server.',
             examples: ['invite'],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
+        message.delete()
         if (await channelCheck.check(message) == true) {
             message.channel.send("https://dsc.gg/antaresbot");
             const Embed = new MessageEmbed()

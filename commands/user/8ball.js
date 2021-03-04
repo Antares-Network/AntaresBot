@@ -20,11 +20,13 @@ module.exports = class EightBallCommand extends Command {
                     type: 'string'
                 }
             ],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message, { text }) {
+        message.delete()
 
         if (await channelCheck.check(message) == true) {
             let eightball = [
@@ -61,13 +63,13 @@ module.exports = class EightBallCommand extends Command {
             let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
             //message.channel.send(eightball[index]);
             const EightBallEmbed = new MessageEmbed()
-            .setColor('#ff3505')
-            //.setURL('https://dsc.gg/antaresnetwork')
-            .setTitle('Get an answer to all your questions')
-            .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
-            .setDescription(`${message.author.username} asks:\n ${text}\n\n **My Answer:**\n ${eightball[index]}`,)
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
-        message.channel.send(EightBallEmbed);
+                .setColor('#ff3505')
+                //.setURL('https://dsc.gg/antaresnetwork')
+                .setTitle('Get an answer to all your questions')
+                .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
+                .setDescription(`${message.author.username} asks:\n ${text}\n\n **My Answer:**\n ${eightball[index]}`,)
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+            message.channel.send(EightBallEmbed);
         }
         //send to the console that this command was run
         logToConsole.command(message.guild, message);

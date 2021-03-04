@@ -14,6 +14,7 @@ module.exports = class StatsCommand extends Command {
             memberName: 'stats',
             description: 'Sends a list of stats about the bot.',
             examples: ['stats'],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }

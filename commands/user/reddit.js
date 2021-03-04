@@ -14,10 +14,12 @@ module.exports = class RedditCommand extends Command {
             memberName: 'reddit',
             description: 'Sends a random meme from reddit',
             examples: ['reddit'],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
+        message.delete()
         if (await channelCheck.check(message) == true) {
             message.channel.send("This command is disabled as it is being rewritten to improve NSFW filtering")
             // var img = await redditImageFetcher.fetch({

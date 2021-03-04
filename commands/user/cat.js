@@ -30,10 +30,12 @@ module.exports = class CatCommand extends Command {
             memberName: 'cat',
             description: 'Sends a random cat image',
             examples: ['cat'],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
+        message.delete()
         if (await channelCheck.check(message) == true) {
             //request a cat from the api
             try {
