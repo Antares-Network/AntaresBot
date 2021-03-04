@@ -21,11 +21,13 @@ module.exports = class RandomCommand extends Command {
                     default: ''
                 }
             ],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message, { text }) {
+        message.delete()
         if (await channelCheck.check(message) == true) {
             //message.channel.send("This command is currently disabled as it is being rewritten")
             switch (text.toUpperCase()) {

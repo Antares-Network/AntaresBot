@@ -18,6 +18,7 @@ module.exports = class CountCreateCommand extends Command {
                 }
             ],
             guildOnly: true,
+            clientPermissions: ['MANAGE_CHANNELS', 'MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_CHANNELS'],
         });
     }

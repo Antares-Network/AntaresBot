@@ -12,11 +12,12 @@ module.exports = class PingCommand extends Command {
             memberName: 'ping',
             description: 'Sends the ping time of the bot.',
             examples: ['ping'],
+            clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
-        message.delete();
+        message.delete()
         if (await channelCheck.check(message) == true) {
             const pingEmbed = new MessageEmbed()
                 .setColor('#ff3505')
