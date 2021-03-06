@@ -55,13 +55,13 @@ module.exports = class RandomCommand extends Command {
                     logToConsole.command(message.guild, message);
 
                     return;
-                case 'INSULT':
-                    api.random.insult()
-                        .then(result => {
-                            message.channel.send(result)
-                        })
-                    logToConsole.command(message.guild, message);
-                    return;
+                //case 'INSULT':
+                //    api.random.insult()
+                //        .then(result => {
+                //            message.channel.send(result)
+                //        })
+                //    logToConsole.command(message.guild, message);
+                //    return;
                 //         return;
                 //     case 'AWW':
                 //         api.image.aww()
