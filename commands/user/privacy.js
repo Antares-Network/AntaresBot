@@ -11,13 +11,13 @@ module.exports = class PrivacyCommand extends Command {
             memberName: 'privacy',
             description: 'Sends in a dm, the privacy policy for the bot.',
             examples: ['privacy'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
-        message.delete()
+        //message.delete()
         if (await channelCheck.check(message) == true) {
             message.channel.send("You have been sent a DM with the privacy policy. If you do not have DM\'s enabled, you will not get this message.")
             message.author.send("**Data Collected By Command and when features are enabled**\n" +

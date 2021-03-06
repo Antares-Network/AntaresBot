@@ -20,26 +20,28 @@ module.exports = class ServerListCommand extends Command {
 
     async run(message) {
         const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
-        var d = new Date();
         //get the list of guilds the bot is in
         var guildList = bot.guilds.cache;
+        console.log(guildList)
         try {
-            guildList.forEach(async guild => {
-                const Embed = new MessageEmbed()
-                    .setColor('#ff3505')
-                    .setTitle(`Server: ${guild.name}`)
-                    .setThumbnail(guild.iconURL())
-                    .addFields(
-                        { name: 'Guild Creation Date:', value: guild.createdAt },
-                        { name: 'Guild Join Date:', value: doc.GUILD_JOIN_DATE },
-                        { name: 'Guild Name:', value: guild.name },
-                        { name: 'Guild ID:', value: guild.id },
-                        { name: 'Owner ID:', value: guild.ownerID },
-                        { name: 'Guild Member Count:', value: guild.memberCount })
-                    .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
-                message.author.send(Embed);
-            });
-            logToConsole.command(message.guild, message);
+            setTimeout(async () => {
+                guildList.forEach(async guild => {
+                    const Embed = new MessageEmbed()
+                        .setColor('#ff3505')
+                        .setTitle(`Server: ${guild.name}`)
+                        .setThumbnail(guild.iconURL())
+                        .addFields(
+                            { name: 'Guild Creation Date:', value: guild.createdAt },
+                            { name: 'Guild Join Date:', value: doc.GUILD_JOIN_DATE },
+                            { name: 'Guild Name:', value: guild.name },
+                            { name: 'Guild ID:', value: guild.id },
+                            { name: 'Owner ID:', value: guild.ownerID },
+                            { name: 'Guild Member Count:', value: guild.memberCount })
+                        .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                    message.author.send(Embed);
+                });
+                logToConsole.command(message.guild, message);
+            }, 5000);
         } catch (err) {
             //if there was an error send it here
             console.log(err);

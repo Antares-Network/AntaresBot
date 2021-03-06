@@ -30,12 +30,12 @@ module.exports = class DogCommand extends Command {
             memberName: 'dog',
             description: 'Sends a random dog image',
             examples: ['dog'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
-        message.delete()
+        //message.delete()
         if (await channelCheck.check(message) == true) {
             //request a cat from the api
             try {

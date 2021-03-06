@@ -24,7 +24,7 @@ module.exports = class CountCreateCommand extends Command {
     }
 
     run(message, { categoryId }) {
-        message.delete();
+        //message.delete();
         if (message.guild.channels.cache.find(channel => channel.name === "counting")){
             message.channel.send("You already have a counting channel. It is named `counting`") 
         } else {

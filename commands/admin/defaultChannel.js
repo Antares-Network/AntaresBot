@@ -13,7 +13,7 @@ module.exports = class DefaultChannelCommand extends Command {
             description: 'Sets the admin channel for the guild.',
             examples: ['defaultchannel #channelMention'],
             guildOnly: true,
-            clientPermissions: ['MANAGE_CHANNELS'],
+            //clientPermissions: ['MANAGE_CHANNELS'],
             userPermissions: ['ADMINISTRATOR']
         });
     }

@@ -11,13 +11,13 @@ module.exports = class VersionCommand extends Command {
             memberName: 'version',
             description: 'Sends the version number of the bot',
             examples: ['version'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
-        message.delete();
+        //message.delete();
         if (await channelCheck.check(message) == true) {
             message.channel.send(`I am running Version: ${botVersion}`)
             logToConsole.command(message.guild, message);

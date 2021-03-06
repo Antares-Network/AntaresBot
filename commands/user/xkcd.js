@@ -26,12 +26,12 @@ module.exports = class XkcdCommand extends Command {
             memberName: 'xkcd',
             description: 'Sends a random XKCD comic',
             examples: ['xkcd'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
-        message.delete()
+        //message.delete()
         if (await channelCheck.check(message) == true) {
             let comicNum = Math.floor(Math.random() * 2413);
             try {
