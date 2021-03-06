@@ -9,13 +9,13 @@ module.exports = class UptimeCommand extends Command {
             memberName: 'uptime',
             description: 'Sends the uptime of the bot',
             examples: ['uptime'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
-        message.delete();
+        //message.delete();
         if (await channelCheck.check(message) == true) {
             let days = Math.floor(bot.uptime / 86400000);
             let hours = Math.floor(bot.uptime / 3600000) % 24;

@@ -14,12 +14,12 @@ module.exports = class StatsCommand extends Command {
             memberName: 'stats',
             description: 'Sends a list of stats about the bot.',
             examples: ['stats'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
     async run(message) {
-        message.delete();
+        //message.delete();
         if (await channelCheck.check(message) == true) {
             const doc = await gateModel.findOne({ NAME: 'GATE' });
             const Embed = new MessageEmbed()

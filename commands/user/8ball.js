@@ -20,13 +20,13 @@ module.exports = class EightBallCommand extends Command {
                     type: 'string'
                 }
             ],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message, { text }) {
-        message.delete()
+       // message.delete()
 
         if (await channelCheck.check(message) == true) {
             let eightball = [

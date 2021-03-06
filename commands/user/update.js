@@ -18,13 +18,13 @@ module.exports = class UpdateCommand extends Command {
             memberName: 'update',
             description: 'Update all the databases',
             examples: ['update'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
-        message.delete()
+        //message.delete()
         if (await channelCheck.check(message) == true) {
 
             const preEmbed = new MessageEmbed()

@@ -12,7 +12,7 @@ module.exports = class AdminChannelCommand extends Command {
             description: 'Sets the admin channel for the guild.',
             examples: ['adminchannel #channelMention'],
             guildOnly: true,
-            clientPermissions: ['MANAGE_CHANNELS'],
+            //clientPermissions: ['MANAGE_CHANNELS'],
             userPermissions: ['ADMINISTRATOR']
         });
     }

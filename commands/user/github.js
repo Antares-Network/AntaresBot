@@ -11,13 +11,13 @@ module.exports = class GithubCommand extends Command {
             memberName: 'github',
             description: 'Sends an embed with a link to the github repo for the bot.',
             examples: ['github'],
-            clientPermissions: ['MANAGE_MESSAGES'],
+            //clientPermissions: ['MANAGE_MESSAGES'],
             guildOnly: true
         });
     }
 
     async run(message) {
-        message.delete()
+        //message.delete()
         if (await channelCheck.check(message) == true) {
             const githubEmbed = new MessageEmbed()
                 .setColor('#ff3505')
