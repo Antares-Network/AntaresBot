@@ -62,7 +62,6 @@ module.exports = class RandomCommand extends Command {
                         })
                     logToConsole.command(message.guild, message);
                     return;
-                    return;
                 case 'AWW':
                     api.image.aww()
                         .then(result => {
