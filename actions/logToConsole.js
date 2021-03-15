@@ -7,7 +7,9 @@ module.exports = {
     },
 
     message: function (guild, message) {
-        console.log(`MESSAGE`.magenta, `[${guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+      var str = message.content.replace(/[^\x00-\x7F]/g, "");
+      console.log(str)
+      console.log(`MESSAGE`.magenta, `[${guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${str}`.cyan)
     },
 
     dm: function (message) {
@@ -20,14 +22,5 @@ module.exports = {
 
     memberLeave: async function (member) {
 		console.log(`MEMBER LEAVE`.blue, `[${member.guild.name}]`.green, `[${member.user.username}]`.yellow)
-    },
-
-    guildUpdate: async function (oldGuild, newGuild) {
-        console.log(`GUILD UPDATE`.yellow, `[${oldGuild.name}]`.green, `--->`.grey, `[${newGuild.name}]`.blue)
-        try {
-            bot.channels.cache.get(process.env.REPORTING_CHANNEL).send(`**GUILD UPDATE** - [${oldGuild.name}]  --->  [${newGuild.name}]`)
-        } catch (e) {
-            console.log(e);
-        }
     }
 }

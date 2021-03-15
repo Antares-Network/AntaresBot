@@ -62,55 +62,55 @@ module.exports = class RandomCommand extends Command {
                         })
                     logToConsole.command(message.guild, message);
                     return;
-                //         return;
-                //     case 'AWW':
-                //         api.image.aww()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
+                    return;
+                case 'AWW':
+                    api.image.aww()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
 
-                //         return;
-                //     case 'FACEPALM':
-                //         api.image.facepalm()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
+                    return;
+                case 'FACEPALM':
+                    api.image.facepalm()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
 
-                //         return;
-                //     case 'WHOLESOME':
-                //         api.image.wholesome()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
+                    return;
+                case 'WHOLESOME':
+                    api.image.wholesome()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
 
-                //         return;
-                //     case 'DANKMEME':
-                //         api.image.dankmeme()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
+                    return;
+                case 'DANKMEME':
+                    api.image.dankmeme()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
 
-                //         return;
+                    return;
 
-                //     case 'ART':
-                //         api.image.art()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
+                case 'ART':
+                    api.image.art()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
 
-                //         return;
-                //     case 'DEADINSIDE':
-                //         api.image.deadinside()
-                //             .then(result => {
-                //                 message.channel.send(result)
-                //             })
-                //             logToConsole.command(message.guild, message);
-                //
+                    return;
+                case 'DEADINSIDE':
+                    api.image.deadinside()
+                        .then(result => {
+                            message.channel.send(result)
+                        })
+                    logToConsole.command(message.guild, message);
+
             }
             if (!text) {
                 console.log(text)
@@ -121,20 +121,20 @@ module.exports = class RandomCommand extends Command {
                     .setDescription("**random `joke`**: returns a dad joke" +
                         "\n\n **random `cn`**: returns a Chuck Norris Joke" +
                         "\n\n **random `devjoke`**: returns a dev joke" +
-                        "\n\n **random `insult`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `aww`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `facepalm`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `wholesome`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `dankmeme`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `deadinside`**: ❗Disabled to improve nsfw filtering" +
-                        "\n\n **random `art`**: ❗Disabled to improve nsfw filtering")
-                    // "\n\n **random `insult`**: returns a random insult" +
-                    // "\n\n **random `aww`**: returns a cute moment" +
-                    // "\n\n **random `facepalm`**: returns a facepalm moment" +
-                    // "\n\n **random `wholesome`**: returns a wholesome meme" +
-                    // "\n\n **random `dankmeme`**: returns a dank meme :o" +
-                    // "\n\n **random `deadinside`**: returns a 'Watch people die inside' moment" +
-                    // "\n\n **random `art`**: returns cool art pic")
+                        // "\n\n **random `insult`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `aww`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `facepalm`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `wholesome`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `dankmeme`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `deadinside`**: ❗Disabled to improve nsfw filtering" +
+                        // "\n\n **random `art`**: ❗Disabled to improve nsfw filtering")
+                        "\n\n **random `insult`**: returns a random insult" +
+                        "\n\n **random `aww`**: returns a cute moment" +
+                        "\n\n **random `facepalm`**: returns a facepalm moment" +
+                        "\n\n **random `wholesome`**: returns a wholesome meme" +
+                        "\n\n **random `dankmeme`**: returns a dank meme :o" +
+                        "\n\n **random `deadinside`**: returns a 'Watch people die inside' moment" +
+                        "\n\n **random `art`**: returns cool art pic")
                     .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                 message.channel.send(Embed);
 

@@ -38,14 +38,9 @@ module.exports = class DogCommand extends Command {
         //message.delete()
         if (await channelCheck.check(message) == true) {
             //request a cat from the api
-            try {
-                fetch('https://dog.ceo/api/breeds/image/random')
-                    .then(res => res.json())
-                    .then(json => embed(message, json.message, 'Random Dog Picture'));
-            } catch (e) {
-                message.channel.send("Error. Please try again.");
-                console.error(e)
-            }
+            fetch('https://dog.ceo/api/breeds/image/random')
+                .then(res => res.json())
+                .then(json => embed(message, json.message, 'Random Dog Picture'));
         }
         //send to the console that this command was run
         logToConsole.command(message.guild, message);
