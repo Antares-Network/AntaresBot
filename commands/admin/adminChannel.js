@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const guildModel = require('../../models/guild');
+const piiModel = require('../../models/pii');
 const logToConsole = require('../../actions/logToConsole')
 
 
@@ -23,10 +23,10 @@ module.exports = class AdminChannelCommand extends Command {
             message.channel.send("Please re-run this command and mention a channel as an argument.")
         } else {
             //check to see if an admin channel is set for this server yet
-            const req = await guildModel.findOne({ GUILD_ID: message.guild.id });
+            const req = await piiModel.findOne({ GUILD_ID: message.guild.id });
             //if the server has an admin channel, send it here
             message.channel.send(`This server's admin channel was: <#${req.GUILD_ADMIN_CHANNEL}>`);
-            const doc = await guildModel.findOneAndUpdate({ GUILD_ID: message.guild.id }, { $set: { GUILD_ADMIN_CHANNEL: message.mentions.channels.first().id } }, { new: true });
+            const doc = await piiModel.findOneAndUpdate({ GUILD_ID: message.guild.id }, { $set: { GUILD_ADMIN_CHANNEL: message.mentions.channels.first().id } }, { new: true });
             message.channel.send(`Set the admin channel to <#${doc.GUILD_ADMIN_CHANNEL}>`);
             await doc.save();
             message.channel.send("`Having an admin channel set does not currently have any effect on the bot's performance.\n" +

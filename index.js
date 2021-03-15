@@ -14,7 +14,7 @@ const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
-global.botVersion = "1.3.10";
+global.botVersion = "1.3.11";
 
 
 global.bot = new CommandoClient({
@@ -84,7 +84,7 @@ bot.on("guildDelete", async (guild) => {
 		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
 		await piiModel.findOneAndDelete({ GUILD_ID: guild.id })
 
-		//await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
+		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
 			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}`);
 		});
@@ -94,11 +94,8 @@ bot.on("guildDelete", async (guild) => {
 })
 
 bot.on('guildMemberAdd', async (member) => {
-	var memberList = [];
-	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
 	try {
-		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
 		logToConsole.memberJoin(member);
 	} catch (e) {
 		console.log(e);
@@ -106,11 +103,8 @@ bot.on('guildMemberAdd', async (member) => {
 })
 
 bot.on('guildMemberRemove', async (member) => {
-	var memberList = [];
-	bot.guilds.cache.get(member.guild.id).members.cache.forEach(member => memberList.push(member.user.id));
 	try {
-		await piiModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: memberList } }, { new: true });
-		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBERS: member.guild.memberCount } }, { new: true });
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
 		logToConsole.memberLeave(member);
 	} catch (e) {
 		console.log(e);
