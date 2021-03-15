@@ -10,15 +10,12 @@ module.exports = {
         const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
         if (doc === null) {
             const internalDoc = new guildModel({
-                GUILD_CREATED_AT: guild.createdAt,
                 GUILD_JOIN_DATE: d.toString(),
-                GUILD_NAME: guild.name,
-                GUILD_ID: guild.id,
-                //GUILD_OWNER: guild.owner.user.username,
-                GUILD_OWNER_ID: guild.ownerID,
-                GUILD_MEMBERS: guild.memberCount,
                 GUILD_ICON_URL: guild.iconURL(),
-                GUILD_DEFAULT_CHANNEL: null,
+                GUILD_ID: guild.id,
+                GUILD_NAME: guild.name,
+                GUILD_OWNER_ID: guild.ownerID,
+                GUILD_MEMBER_COUNT: guild.memberCount,
                 GUILD_MESSAGES: 0
             });
             await internalDoc.save();

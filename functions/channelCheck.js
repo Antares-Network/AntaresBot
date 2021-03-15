@@ -1,11 +1,11 @@
-const guildModel = require('../models/guild');
+const piiModel = require('../models/pii');
 const { MessageEmbed } = require('discord.js');
 
 const gateModel = require('../models/gate');
 
 module.exports = {
     check: async function (message) {
-        const srv = await guildModel.findOne({ GUILD_ID: message.guild.id }); //find the entry for the guild
+        const srv = await piiModel.findOne({ GUILD_ID: message.guild.id }); //find the entry for the guild
         const gate = await gateModel.findOne({ NAME: 'GATE' });
         let messageAuth = message.author;
 
@@ -41,7 +41,7 @@ module.exports = {
         if (message.channel.id != srv.GUILD_DEFAULT_CHANNEL) {
             if (srv.GUILD_DEFAULT_CHANNEL === null) {
                 message.channel.send("The server owner has not set a default channel yet.\n If you are the server owner please use \`&defaultchannel #channel\`");
-                return false; //exit the loop and don't parce the command
+                return false; //exit the loop and don't parse the command
             } else {
                 //ping the user in the default channel
                 bot.channels.cache.get(srv.GUILD_DEFAULT_CHANNEL).send(`<@${messageAuth.id}> Please use me in this channel`)

@@ -11,17 +11,12 @@ const { Schema, model } = require('mongoose');
 
 const GUILD = Schema({
     id: String,
-    BOT_DEFAULT_CHANNEL: String,
     GUILD_JOIN_DATE: String,
-    GUILD_CREATED_AT: String,
+    GUILD_ICON_URL: String,
     GUILD_ID: String,
     GUILD_NAME: String,
-    GUILD_OWNER: String,
     GUILD_OWNER_ID: String,
-    GUILD_MEMBERS: String,
-    GUILD_DEFAULT_CHANNEL: String,
-    GUILD_ADMIN_CHANNEL: String,
-    GUILD_ICON_URL: String,
+    GUILD_MEMBER_COUNT: String,
     GUILD_MESSAGES: String
 })
 

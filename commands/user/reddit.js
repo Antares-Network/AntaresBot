@@ -21,7 +21,7 @@ module.exports = class RedditCommand extends Command {
     async run(message) {
         //message.delete()
         if (await channelCheck.check(message) == true) {
-            if (!message.channel.type.NSFW) {
+            if (!message.channel.nsfw) {
                 message.channel.send("In order to use this command, an admin must set this channel as type: `NSFW`")
                 return
             }

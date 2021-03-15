@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const logToConsole = require('../../actions/logToConsole')
-const guildModel = require('../../models/guild');
+const piiModel = require('../../models/pii');
 
 module.exports = class ServerListCommand extends Command {
     constructor(client) {
@@ -24,7 +24,7 @@ module.exports = class ServerListCommand extends Command {
         try {
             setTimeout(async () => {
                 guildList.forEach(async guild => {
-                    const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
+                    const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                     const Embed = new MessageEmbed()
                         .setColor('#ff3505')
                         .setTitle(`Server: ${guild.name}`)

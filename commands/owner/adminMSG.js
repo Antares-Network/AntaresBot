@@ -6,7 +6,7 @@
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const guildModel = require('../../models/guild');
+const piiModel = require('../../models/pii');
 const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class AdminMSGCommand extends Command {
@@ -46,7 +46,7 @@ module.exports = class AdminMSGCommand extends Command {
                 .addField('Message:', `${text}`)
                 .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             guildList.forEach(async guild => {
-                const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
+                const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_ADMIN_CHANNEL != null) {
                     //send the message in the default channel for this guild
                     bot.channels.cache.get(doc.GUILD_ADMIN_CHANNEL).send(messageToSend)
