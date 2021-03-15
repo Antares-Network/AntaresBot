@@ -14,7 +14,7 @@ const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
-global.botVersion = "1.3.9";
+global.botVersion = "1.3.10";
 
 
 global.bot = new CommandoClient({
@@ -60,6 +60,8 @@ bot.on('message', async (message) => {
 });
 
 bot.on('messageDelete', async (message) => {
+	if (message.author.bot) return;
+	if (message.member.user.bot) return;
 	console.log(`DELETE`.red, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.red)
 });
 
