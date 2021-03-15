@@ -79,7 +79,10 @@ bot.on("guildCreate", async (guild) => {
 bot.on("guildDelete", async (guild) => {
 	var d = new Date();
 	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
+		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
+		await piiModel.findOneAndDelete({ GUILD_ID: guild.id })
+
+		//await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
 			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}`);
 		});
