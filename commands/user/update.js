@@ -42,7 +42,7 @@ module.exports = class UpdateCommand extends Command {
             var MSG = await message.channel.send(preEmbed);
             //var init and gc
             var totalUsers = 0;
-            var totalMessages = 0;
+            var totalMessages = 9119;
             var totalOwners = [];
 
             //get data from all the guilds

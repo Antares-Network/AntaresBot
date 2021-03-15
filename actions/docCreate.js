@@ -41,16 +41,23 @@ module.exports = {
                 { name: 'Guild Member Count:', value: guild.memberCount })
             .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
 
-        const WelcomeEmbed = new MessageEmbed()
+
+            const WelcomeEmbed = new MessageEmbed()
             .setColor('#ff3505')
-            .setTitle(`Thank you for inviting me to your server`)
-            .setThumbnail(guild.iconURL())
-            .addFields(
-                { name: 'My prefix', value: `My current prefix is: **\`&\`** To change my prefix run \`&prefix\`` },
-                { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
-                { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
-                { name: 'Invite me to your server', value: `https://dis.gg/antaresbot`})
+            .setTitle(`Server Update -- Important message`)
+            .setThumbnail('https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png')
+            .setDescription("We have just rolled out a **breaking change** to how we handle server data.  This is to better comply with the Discord requirements for bot verification, and a much needed-rewrite. This will mean the bot **will stop functioning** until an admin sets the server's default channel again using the `&defaultchannel #channel` command. This change **will also clear the admin channel**, so an admin will also have to set a new one using the `&adminchannel #channel` command. To see how we store and use server/user data, run `&privacy` If you require further assistance, please join our support server at https://dsc.gg/antaresnetwork Sorry for the inconvenience, and thank you for being the first servers to support Antares Bot. (p.s. All future System Update Messages will be sent in the guild default channel.)\n \n Bot Developer -- Nate")
             .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+        // const WelcomeEmbed = new MessageEmbed()
+        //     .setColor('#ff3505')
+        //     .setTitle(`Thank you for inviting me to your server`)
+        //     .setThumbnail(guild.iconURL())
+        //     .addFields(
+        //         { name: 'My prefix', value: `My current prefix is: **\`&\`** To change my prefix run \`&prefix\`` },
+        //         { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
+        //         { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
+        //         { name: 'Invite me to your server', value: `https://dis.gg/antaresbot`})
+        //     .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
 
         bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(Embed);
