@@ -54,5 +54,8 @@ module.exports = {
 			console.log(e);
 		}
 		console.log(`The bot is ready...`.red.bold)
+		bot.users.fetch('603629606154666024', false).then((user) => {
+			user.send(`I have just restarted and am now back online.`);
+		});
 	}
 };

@@ -7,7 +7,7 @@ const logToConsole = require('../../actions/logToConsole')
 
 
 function embed(message, img, title) {
-    if (img.toString().includes(".gif")){
+    if (img.toString().includes(".gif")) {
         message.channel.send("Socket hang up. Please try again")
         return;
     }
@@ -38,14 +38,9 @@ module.exports = class CatCommand extends Command {
         //message.delete()
         if (await channelCheck.check(message) == true) {
             //request a cat from the api
-            try {
-                fetch('http://aws.random.cat/meow')
-                    .then(res => res.json())
-                    .then(json => embed(message, json.file, 'Random Cat Picture'));
-            } catch (e) {
-                message.channel.send("Error. Please try again.");
-                console.error(e)
-            }
+            fetch('http://aws.random.cat/meow')
+                .then(res => res.json())
+                .then(json => embed(message, json.file, 'Random Cat Picture'));
         }
 
         //send to the console that this command was run

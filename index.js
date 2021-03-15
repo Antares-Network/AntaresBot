@@ -13,7 +13,8 @@ const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
-global.botVersion = "1.3.8";
+const guildUpdate = require('./actions/guildUpdate')
+global.botVersion = "1.3.9";
 
 
 global.bot = new CommandoClient({
@@ -49,9 +50,10 @@ bot.on('message', async (message) => {
 
 	if (message.author.bot) return;
 	try {
-		console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
+		//console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
 		counting.count(message, bot); // logic 
 		messageLog.log(message); // log number of messages sent in each guild
+		logToConsole.message(message.guild, message)
 	} catch (e) {
 		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 	}
@@ -77,7 +79,10 @@ bot.on("guildCreate", async (guild) => {
 bot.on("guildDelete", async (guild) => {
 	var d = new Date();
 	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
+		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
+		await piiModel.findOneAndDelete({ GUILD_ID: guild.id })
+
+		//await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
 			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}`);
 		});
@@ -111,12 +116,8 @@ bot.on('guildMemberRemove', async (member) => {
 })
 
 bot.on('guildUpdate', async (oldGuild, newGuild) => {
-	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
-		logToConsole.guildUpdate(oldGuild, newGuild);
-	} catch (e) {
-		console.log(e);
-	}
+	
+//	guildUpdate.update(oldGuild, newGuild)
 })
 
 bot.on("error", (e) => console.error(e));
