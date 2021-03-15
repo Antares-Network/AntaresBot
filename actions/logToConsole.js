@@ -8,7 +8,6 @@ module.exports = {
 
     message: function (guild, message) {
       var str = message.content.replace(/[^\x00-\x7F]/g, "");
-      console.log(str)
       console.log(`MESSAGE`.magenta, `[${guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${str}`.cyan)
     },
 
