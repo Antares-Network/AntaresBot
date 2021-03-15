@@ -68,7 +68,6 @@ module.exports = class RandomCommand extends Command {
                             message.channel.send(result)
                         })
                     logToConsole.command(message.guild, message);
-
                     return;
                 case 'FACEPALM':
                     api.image.facepalm()
