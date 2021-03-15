@@ -19,13 +19,12 @@ module.exports = class ServerListCommand extends Command {
     }
 
     async run(message) {
-        const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
         //get the list of guilds the bot is in
         var guildList = bot.guilds.cache;
-        console.log(guildList)
         try {
             setTimeout(async () => {
                 guildList.forEach(async guild => {
+                    const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                     const Embed = new MessageEmbed()
                         .setColor('#ff3505')
                         .setTitle(`Server: ${guild.name}`)
