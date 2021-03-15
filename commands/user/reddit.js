@@ -21,6 +21,10 @@ module.exports = class RedditCommand extends Command {
     async run(message) {
         //message.delete()
         if (await channelCheck.check(message) == true) {
+            if (!message.channel.type.NSFW) {
+                message.channel.send("In order to use this command, an admin must set this channel as type: `NSFW`")
+                return
+            }
             var img = await redditImageFetcher.fetch({
                 type: 'meme',
                 NSFW: false,
