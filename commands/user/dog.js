@@ -7,10 +7,6 @@ const logToConsole = require('../../actions/logToConsole')
 
 
 function embed(message, img, title) {
-    if (img.toString().includes(".gif")) {
-        message.channel.send("Socket hang up. Please try again")
-        return;
-    }
     const Embed = new MessageEmbed()
         .setColor('#ff3505')
         //.setURL('https://dsc.gg/antaresnetwork')
