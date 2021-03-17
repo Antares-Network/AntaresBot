@@ -14,7 +14,7 @@ const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
-global.botVersion = "1.3.11";
+global.botVersion = "1.3.12";
 
 
 global.bot = new CommandoClient({
