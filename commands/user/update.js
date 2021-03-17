@@ -24,6 +24,7 @@ module.exports = class UpdateCommand extends Command {
     }
 
     async run(message) {
+        const gate = await gateModel.findOne({ NAME: 'GATE' })
         //message.delete()
         const preEmbed = new MessageEmbed()
             .setColor('#ff3505')
@@ -42,13 +43,16 @@ module.exports = class UpdateCommand extends Command {
         var totalUsers = 0;
         var totalMessages = 9119;
         var totalOwners = [];
-
         //get data from all the guilds
         bot.guilds.cache.forEach(async guild => {
-            const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the doc that has all the guild information in it
-            totalMessages += Number(doc.GUILD_MESSAGES);
-            totalOwners.push(guild.ownerID);
-            totalUsers += guild.memberCount
+            if (!gate.IGNORED_GUILDS.includes(guild.id)) {
+                const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the doc that has all the guild information in it
+                totalMessages += Number(doc.GUILD_MESSAGES);
+                totalOwners.push(guild.ownerID);
+                totalUsers += guild.memberCount
+            } else {
+                console.log(`${guild.name} was excluded`)
+            }
         });
 
         setTimeout(async () => {

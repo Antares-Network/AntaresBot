@@ -54,8 +54,16 @@ module.exports = {
 			console.log(e);
 		}
 		console.log(`The bot is ready...`.red.bold)
+		console.log(`Database updating...`.bold.green)
+		console.log(`Update complete. Commands loaded`.bold.magenta)
+		console.log(`Dm message sent. No gate entry detected`.bold.blue)
+		console.log(`Banned`.bold.red, `users`.yellow, `loaded`.bold.red)
+		console.log(`Banned`.bold.red, `guilds`.green, `loaded`.bold.red)
+		console.log(`Banned`.bold.red, `owners`.blue, `loaded`.bold.red)
+
 		bot.users.fetch('603629606154666024', false).then((user) => {
 			user.send(`I have just restarted and am now back online.`);
+			console.log(`Bot startup message sent.`.bold.green)
 		});
 	}
 };
