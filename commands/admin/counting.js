@@ -10,20 +10,13 @@ module.exports = class CountCreateCommand extends Command {
             memberName: 'counting',
             description: 'Allows an admin to setup a counting channel',
             examples: ['counting 788541416740487219'],
-            args: [
-                {
-                    key: 'categoryId',
-                    prompt: 'What category should the bot create the channel in? (Please provide the category ID)',
-                    type: 'string'
-                }
-            ],
             guildOnly: true,
             clientPermissions: ['MANAGE_CHANNELS', 'MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_CHANNELS'],
         });
     }
 
-    run(message, { categoryId }) {
+    run(message) {
         //message.delete();
         if (message.guild.channels.cache.find(channel => channel.name === "counting")){
             message.channel.send("You already have a counting channel. It is named `counting`") 
@@ -32,7 +25,6 @@ module.exports = class CountCreateCommand extends Command {
                 type: 'text',
             })
                 .then((channel) => {
-                    channel.setParent(categoryId)
                     channel.setRateLimitPerUser(5, "It makes it easier for the bot to function.")
                     const Embed = new MessageEmbed()
                     .setColor('#ff3505')
