@@ -47,15 +47,17 @@ bot.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 bot.on('message', async (message) => {
-
 	if (message.author.bot) return;
-	try {
-		//console.log(`MESSAGE`.magenta, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.cyan)
-		counting.count(message, bot); // logic 
-		messageLog.log(message); // log number of messages sent in each guild
-		logToConsole.message(message.guild, message)
-	} catch (e) {
-		console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
+	if (message.channel.type != "dm") {
+		try {
+			counting.count(message, bot); // logic 
+			messageLog.log(message); // log number of messages sent in each guild
+			logToConsole.message(message.guild, message)
+		} catch (e) {
+			console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
+		}
+	} else {
+		logToConsole.dm(message)
 	}
 });
 
@@ -112,8 +114,8 @@ bot.on('guildMemberRemove', async (member) => {
 })
 
 bot.on('guildUpdate', async (oldGuild, newGuild) => {
-	
-//	guildUpdate.update(oldGuild, newGuild)
+
+	//	guildUpdate.update(oldGuild, newGuild)
 })
 
 bot.on("error", (e) => console.error(e));
