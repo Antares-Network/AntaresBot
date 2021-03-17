@@ -29,6 +29,7 @@ module.exports = {
                 TOTAL_MESSAGES: totalMessages,
                 TOTAL_SERVERS: bot.guilds.cache.size,
                 TOTAL_USERS: totalUsers,
+                IGNORED_GUILDS: null,
                 UPDATE_TIME: null
             });
             //upload db file to the db remote server

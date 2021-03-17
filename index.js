@@ -9,6 +9,7 @@ const path = require('path');
 const onReady = require('./actions/onReady');
 const docCreate = require('./actions/docCreate');
 const guildModel = require('./models/guild');
+const gateModel = require('./models/gate');
 const piiModel = require('./models/pii');
 const piiCreate = require('./actions/piiCreate');
 const counting = require('./functions/counting');
@@ -48,6 +49,13 @@ bot.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 bot.on('message', async (message) => {
+	const gate = await gateModel.findOne({ NAME: 'GATE' })
+	try {
+		if(gate.IGNORED_GUILDS.includes(message.guild.id)) return;
+	} catch(e){
+		console.log(e)
+	}
+
 	if (message.author.bot) return;
 	if (message.channel.type != "dm") {
 		try {
@@ -63,6 +71,8 @@ bot.on('message', async (message) => {
 });
 
 bot.on('messageDelete', async (message) => {
+	const gate = await gateModel.findOne({ NAME: 'GATE' })
+	if(gate.IGNORED_GUILDS.includes(message.guild.id)) return;
 	if (message.author.bot) return;
 	if (message.member.user.bot) return;
 	console.log(`DELETE`.red, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.red)
