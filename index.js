@@ -1,5 +1,6 @@
 const { CommandoClient } = require('discord.js-commando');
 const { connect } = require('mongoose');
+const { MessageEmbed } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
 require('dotenv').config();
@@ -82,13 +83,26 @@ bot.on("guildCreate", async (guild) => {
 //actions to run when the bot leaves a server
 bot.on("guildDelete", async (guild) => {
 	var d = new Date();
+	const Embed = new MessageEmbed()
+            .setColor('#ff3505')
+            .setTitle(`I Left a Server`)
+            .setThumbnail(guild.iconURL())
+            .addFields(
+                { name: 'Guild Creation Date:', value: guild.createdAt },
+                { name: 'Guild Leave Date:', value: d.toString() },
+                { name: 'Guild Name:', value: guild.name },
+                { name: 'Guild ID:', value: guild.id },
+                { name: 'Owner ID:', value: guild.ownerID },
+                { name: 'Guild Member Count:', value: guild.memberCount })
+            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+
 	try {
 		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
 		await piiModel.findOneAndDelete({ GUILD_ID: guild.id })
 
 		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
 		bot.users.fetch('603629606154666024', false).then((user) => {
-			user.send(`I left a server :(\n Name: ${guild.name}\n ID: ${guild.id}`);
+			user.send(Embed);
 		});
 	} catch (e) {
 		console.log(e);
