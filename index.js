@@ -37,7 +37,8 @@ bot.registry
 	.registerGroups([
 		['user', 'Commands for regular users'],
 		['admin', 'Commands for admins'],
-		['owner', 'Commands for the bot owner']
+		['owner', 'Commands for the bot owner'],
+		['testing', 'Commands to be used only for testing purposes']
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands({
@@ -52,9 +53,7 @@ bot.on('message', async (message) => {
 	const gate = await gateModel.findOne({ NAME: 'GATE' })
 	try {
 		if(gate.IGNORED_GUILDS.includes(message.guild.id)) return;
-	} catch(e){
-		console.log(e)
-	}
+	} catch(e){}
 
 	if (message.author.bot) return;
 	if (message.channel.type != "dm") {
