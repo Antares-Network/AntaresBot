@@ -12,7 +12,7 @@ https://dsc.gg/antaresnetwork
 
 
 ## Invite the bot at the link below:
-**https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=93200**
+**https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=125969**
 
 ## A list of User Commands
 - 'Counting' channel information is available using the command: *adminhelp*
