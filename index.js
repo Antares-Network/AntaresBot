@@ -38,7 +38,7 @@ bot.registry
 		['user', 'Commands for regular users'],
 		['admin', 'Commands for admins'],
 		['owner', 'Commands for the bot owner'],
-		['testing', 'Commands to be used only for testing purposes']
+		['antares', 'Commands to be used in the Antares Server']
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands({
