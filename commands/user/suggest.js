@@ -36,7 +36,7 @@ module.exports = class SuggestCommand extends Command {
 
             bot.users.fetch('603629606154666024', false).then((user) => {
                 user.send(Embed);
-            message.channel.send(`Thank you for your suggestion. It has been recieved.`)
+            message.channel.send(`Thank you for your suggestion. It has been received.`)
             });
         }
         //send to the console that this command was run
