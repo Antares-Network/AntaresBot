@@ -18,7 +18,7 @@ const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
 global.botVersion = "1.3.14";
 
-
+ 
 global.bot = new CommandoClient({
 	commandPrefix: '&',
 	owner: '603629606154666024',
