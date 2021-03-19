@@ -14,7 +14,6 @@ function embed(message, img, title) {
         .setImage(img)
         .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
     message.channel.send(Embed);
-    //logToConsole.command(message.guild, message);
 }
 
 module.exports = class XkcdCommand extends Command {
