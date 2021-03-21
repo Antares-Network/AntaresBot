@@ -30,6 +30,7 @@ module.exports = {
             await piiModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
             msg = `GUILD NAME UPDATE [${oldGuild.name}] ---> [${newGuild.name}]`
         } else if (oldGuild.iconURL() != newGuild.iconURL()) {
+            await guildModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_ICON_URL: newGuild.iconURL() } }, { new: true });
             msg = `GUILD ICON UPDATE [${newGuild.name}] [${oldGuild.iconURL()}] ---> [${newGuild.iconURL()}]`
         } else if (oldGuild.region != newGuild.region) {
             msg = `GUILD REGION UPDATE [${newGuild.name}] [${oldGuild.region}] ---> [${newGuild.region}]`
