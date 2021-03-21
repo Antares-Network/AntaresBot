@@ -1,4 +1,5 @@
 const { CommandoClient } = require('discord.js-commando');
+const AutoPoster = require('topgg-autoposter')
 const { connect } = require('mongoose');
 const { MessageEmbed } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
@@ -18,17 +19,27 @@ const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
 global.botVersion = "1.3.15";
 
- 
+
 global.bot = new CommandoClient({
 	commandPrefix: '&',
 	owner: '603629606154666024',
 	disableEveryone: true
 });
 
+const ap = AutoPoster(process.env.topggkey, bot)
+
+
+
+
+ap.on('posted', () => {
+  console.log('Posted stats to Top.gg!')
+})
 //set the prefix storage provider to mongodb
 bot.setProvider(
-	MongoClient.connect(process.env.BOT_MONGO_PATH, {useNewUrlParser: true, useUnifiedTopology: true}).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
+	MongoClient.connect(process.env.BOT_MONGO_PATH, { useNewUrlParser: true, useUnifiedTopology: true }).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
 ).catch(console.error);
+console.log(`Override default settings provider...`.bold.green)
+console.log(`Connected MDB settings provider`.bold.cyan)
 
 
 //register the commands
@@ -65,7 +76,7 @@ bot.on('message', async (message) => {
 			console.log("Eror on guild lookup. Maybe from a message sent in a DM to the bot")
 		}
 	} else {
-		if(!message.content.startsWith(`&`)){
+		if (!message.content.startsWith(`&`)) {
 			logToConsole.dm(message)
 		}
 	}
