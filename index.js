@@ -1,11 +1,9 @@
 const { CommandoClient } = require('discord.js-commando');
-const AutoPoster = require('topgg-autoposter')
-const { connect } = require('mongoose');
 const { MessageEmbed } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
-require('dotenv').config();
-require('colors');
+const AutoPoster = require('topgg-autoposter')
+const { connect } = require('mongoose');
 const path = require('path');
 const onReady = require('./actions/onReady');
 const docCreate = require('./actions/docCreate');
@@ -17,6 +15,8 @@ const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
+require('dotenv').config();
+require('colors');
 global.botVersion = "1.3.15";
 
 
@@ -29,11 +29,10 @@ global.bot = new CommandoClient({
 const ap = AutoPoster(process.env.topggkey, bot)
 
 
-
-
 ap.on('posted', () => {
   console.log('Posted stats to Top.gg!')
 })
+
 //set the prefix storage provider to mongodb
 bot.setProvider(
 	MongoClient.connect(process.env.BOT_MONGO_PATH, { useNewUrlParser: true, useUnifiedTopology: true }).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
