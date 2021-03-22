@@ -27,8 +27,9 @@ module.exports = class IgnoreCommand extends Command {
 
     async run(message, { serverid }) {
         try {
+            var ignoredGuilds = []
             const gate = await gateModel.findOne({ NAME: 'GATE' })
-            var ignoredGuilds = gate.IGNORED_GUILDS
+            ignoredGuilds = gate.IGNORED_GUILDS
             var server = bot.guilds.cache.get(serverid)
             ignoredGuilds.push(serverid)
             await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { IGNORED_GUILDS: serverid } }, { new: true })
@@ -37,7 +38,7 @@ module.exports = class IgnoreCommand extends Command {
                 )
 
         } catch (e) {
-
-        }
+            message.channel.send(`There was an error: ${e}`)
+                }
     }
 };
