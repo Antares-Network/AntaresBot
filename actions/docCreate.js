@@ -56,12 +56,18 @@ module.exports = {
             user.send(Embed);
         });
         try {
-            bot.channels.cache.get(process.env.REPORTING_CHANNEL).send(Embed);
+            const reporting = bot.channels.cache.get(process.env.REPORTING_CHANNEL)
+            reporting.send(Embed);
         } catch (e) {
             console.log(e);
         }
 
-        const firstChannel = guild.channels.cache.filter(c => c.type === 'text').find(x => x.position == 0);
-        firstChannel.send(WelcomeEmbed)
+        try {
+            const firstChannel = guild.channels.cache.filter(c => c.type === 'text').find(x => x.position == 0);
+            firstChannel.send(WelcomeEmbed)
+            console.log(`Sent the welcome embed to ${firstChannel.guild.name} in #${firstChannel.name}`)
+        } catch (e) {
+            //fail silently
+        }
     }
 }
