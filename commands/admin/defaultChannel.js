@@ -7,7 +7,7 @@ module.exports = class DefaultChannelCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'defaultchannel',
-            aliases: ["setup"],
+            aliases: ["setup", "setupchannel"],
             group: 'admin',
             memberName: 'defaultchannel',
             description: 'Sets the admin channel for the guild.',
