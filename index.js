@@ -15,6 +15,7 @@ const counting = require('./functions/counting');
 const messageLog = require('./actions/messageLog')
 const logToConsole = require('./actions/logToConsole')
 const guildUpdate = require('./actions/guildUpdate')
+global.config = require('./config.json');
 require('dotenv').config();
 require('colors');
 global.botVersion = "1.3.15";
@@ -30,7 +31,7 @@ const ap = AutoPoster(process.env.topggkey, bot)
 
 
 ap.on('posted', () => {
-  console.log('Posted stats to Top.gg!')
+	console.log('Posted stats to Top.gg!')
 })
 
 //set the prefix storage provider to mongodb
@@ -72,7 +73,7 @@ bot.on('message', async (message) => {
 			messageLog.log(message); // log number of messages sent in each guild
 			logToConsole.message(message.guild, message)
 		} catch (e) {
-			console.log("Eror on guild lookup. Maybe from a message sent in a DM to the bot")
+			console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 		}
 	} else {
 		if (!message.content.startsWith(`&`)) {
@@ -105,7 +106,7 @@ bot.on("guildCreate", async (guild) => {
 bot.on("guildDelete", async (guild) => {
 	var d = new Date();
 	const Embed = new MessageEmbed()
-		.setColor('#ff3505')
+		.setColor(config.defaultEmbedColor)
 		.setTitle(`I Left a Server`)
 		.setThumbnail(guild.iconURL())
 		.addFields(
@@ -115,7 +116,7 @@ bot.on("guildDelete", async (guild) => {
 			{ name: 'Guild ID:', value: guild.id },
 			{ name: 'Owner ID:', value: guild.ownerID },
 			{ name: 'Guild Member Count:', value: guild.memberCount })
-		.setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+		.setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
 	try {
 		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
@@ -131,6 +132,7 @@ bot.on("guildDelete", async (guild) => {
 })
 
 bot.on('guildMemberAdd', async (member) => {
+	console.log(`MEMBER JOIN`.red, `[${member.guild.name}]`.green, `-- [${member.user.username}]`.green)
 	try {
 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
 		logToConsole.memberJoin(member);
@@ -140,6 +142,8 @@ bot.on('guildMemberAdd', async (member) => {
 })
 
 bot.on('guildMemberRemove', async (member) => {
+	console.log(`MEMBER Leave`.red, `[${member.guild.name}]`.green, ` -- [${member.user.username}]`.green)
+
 	try {
 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
 		logToConsole.memberLeave(member);
