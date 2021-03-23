@@ -22,10 +22,10 @@ module.exports = class UptimeCommand extends Command {
             let minutes = Math.floor(bot.uptime / 60000) % 60;
             let seconds = Math.floor(bot.uptime / 1000) % 60;
             const Embed = new MessageEmbed()
-                .setColor('#ff3505')
+                .setColor(config.defaultEmbedColor)
                 .setTitle('Bot Uptime')
                 .setDescription(`I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`,)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png')
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon)
             message.channel.send(Embed);
         }
     }

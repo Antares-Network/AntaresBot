@@ -29,7 +29,7 @@ module.exports = {
         // }).catch(console.error);
 
         const Embed = new MessageEmbed()
-            .setColor('#ff3505')
+            .setColor(config.defaultEmbedColor)
             .setTitle(`I joined a new Server`)
             .setThumbnail(guild.iconURL())
             .addFields(
@@ -39,7 +39,7 @@ module.exports = {
                 { name: 'Guild ID:', value: guild.id },
                 { name: 'Owner ID:', value: guild.ownerID },
                 { name: 'Guild Member Count:', value: guild.memberCount })
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
         const WelcomeEmbed = new MessageEmbed()
             .setColor('#ff3505')
@@ -50,18 +50,24 @@ module.exports = {
                 { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
                 { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
                 { name: 'Invite me to your server', value: `https://dis.gg/antaresbot` })
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
         bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(Embed);
         });
         try {
-            bot.channels.cache.get(process.env.REPORTING_CHANNEL).send(Embed);
+            const reporting = bot.channels.cache.get(process.env.REPORTING_CHANNEL)
+            reporting.send(Embed);
         } catch (e) {
             console.log(e);
         }
 
-        const firstChannel = guild.channels.cache.filter(c => c.type === 'text').find(x => x.position == 0);
-        firstChannel.send(WelcomeEmbed)
+        try {
+            const firstChannel = guild.channels.cache.filter(c => c.type === 'text').find(x => x.position == 0);
+            firstChannel.send(WelcomeEmbed)
+            console.log(`Sent the welcome embed to ${firstChannel.guild.name} in #${firstChannel.name}`)
+        } catch (e) {
+            //fail silently
+        }
     }
 }

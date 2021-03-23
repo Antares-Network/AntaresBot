@@ -26,12 +26,12 @@ module.exports = class SuggestCommand extends Command {
     async run(message, { text }) {
         if (await channelCheck.check(message) == true) {
             const Embed = new MessageEmbed()
-                .setColor('#26A009')
+            .setColor(config.defaultEmbedColor)
                 //.setURL('https://dsc.gg/antaresnetwork')
                 .setTitle('New Bot Suggestion')
                 .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
                 .setDescription(`<@${message.author.id}> in the server **${message.guild.name}** suggests:\\n ${text}`,)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
 
             bot.users.fetch('603629606154666024', false).then((user) => {
