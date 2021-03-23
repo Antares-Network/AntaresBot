@@ -32,7 +32,7 @@ module.exports = class IgnoreCommand extends Command {
             ignoredGuilds = gate.IGNORED_GUILDS
             var server = bot.guilds.cache.get(serverid)
             ignoredGuilds.push(serverid)
-            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { IGNORED_GUILDS: serverid } }, { new: true })
+            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { IGNORED_GUILDS: ignoredGuilds } }, { new: true })
                 .then(
                     message.channel.send(`I have been forced to ignore a server by the name \`${server.name}\`, and ID: \`${serverid}\` by<@${message.author.id}>`)
                 )
