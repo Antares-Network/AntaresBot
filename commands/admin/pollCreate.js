@@ -79,8 +79,8 @@ module.exports = class SayCommand extends Command {
             const EndEmbed = new MessageEmbed()
                 .setColor('#0BDC21') //green
                 .setTitle(`Poll -- ${opt[0]}`)
-                .setDescription(`${options[defEmojiList.indexOf(largest[0])]} -- Has won with ${largest[1]} votes`)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+                .setDescription(`${options[defEmojiList.indexOf(largest[0])]} -- Has won with ${largest[1]-1} votes`)
+                .setFooter(`Polls in Beta Testing | Antares Bot | ${botVersion}`, config.embedFooterIcon);
             MSG.edit(EndEmbed)
         }, opt[2] * 1000);
     }
