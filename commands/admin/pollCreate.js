@@ -49,7 +49,7 @@ module.exports = class SayCommand extends Command {
         }
 
 
-        let options = opt[1].split(" ")
+        let options = opt[1].split("'")
         var description = ""
         for (var i = 0; i < options.length; i++) {
             description += `\n**Option ${i + 1}** - ${options[i]}`
