@@ -20,10 +20,13 @@ module.exports = class SayCommand extends Command {
             ],
             guildOnly: true,
             userPermissions: ['ADMINISTRATOR'],
+            clientPermissions: ['MANAGE_MESSAGES']
+
         });
     }
 
     async run(message, { args }) {
+        message.delete()
         const defEmojiList = [
             '\u0031\u20E3', //1
             '\u0032\u20E3', //2
@@ -79,7 +82,7 @@ module.exports = class SayCommand extends Command {
             const EndEmbed = new MessageEmbed()
                 .setColor('#0BDC21') //green
                 .setTitle(`Poll -- ${opt[0]}`)
-                .setDescription(`${options[defEmojiList.indexOf(largest[0])]} -- Has won with ${largest[1]-1} votes`)
+                .setDescription(`${options[defEmojiList.indexOf(largest[0])]} -- Has won with ${largest[1] - 1} votes`)
                 .setFooter(`Polls in Beta Testing | Antares Bot | ${botVersion}`, config.embedFooterIcon);
             MSG.edit(EndEmbed)
         }, opt[2] * 1000);
