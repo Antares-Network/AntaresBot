@@ -42,7 +42,7 @@ module.exports = class SayCommand extends Command {
         ];
         let opt = args.split(",")
 
-        if (!opt.length == 3) {
+        if (opt.length != 3) {
             message.reply("You must have 3 options separated by commas.")
             return;
         }
