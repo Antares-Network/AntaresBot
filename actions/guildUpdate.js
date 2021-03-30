@@ -1,26 +1,6 @@
 const guildModel = require('../models/guild');
 const piiModel = require('../models/pii');
 
-async function checkForUpdates(oldGuild, newGuild) {
-
-    if (oldGuild.name != newGuild.name) {
-        await guildModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
-        await piiModel.findOneAndUpdate({ GUILD_ID: newGuild.id }, { $set: { GUILD_NAME: newGuild.name } }, { new: true });
-        return 'name', oldGuild.name, newGuild.name
-    } else if (oldGuild.iconURL() != newGuild.iconURL()) {
-        return 'iconURL', oldGuild.iconURL(), newGuild.iconURL()
-    } else if (oldGuild.region != newGuild.region) {
-        return 'region', oldGuild.region, newGuild.region
-    } else if (oldGuild.mfaLevel != newGuild.mfaLevel) {
-        return 'mfaLevel', oldGuild.mfaLevel, newGuild.mfaLevel
-    } else if (oldGuild.explicitContentFilter != newGuild.explicitContentFilter) {
-        return 'explicitContentFilter', oldGuild.explicitContentFilter, newGuild.explicitContentFilter
-    } else if (oldGuild.available != newGuild.available) {
-        return 'available', oldGuild.available, newGuild.available
-    }
-    //console.log(`GUILD UPDATE`.yellow, `[${oldGuild.name}]`.green, `--->`.grey, `[${newGuild.name}]`.blue)
-}
-
 module.exports = {
     update: async function (oldGuild, newGuild) {
         var msg;

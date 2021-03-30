@@ -86,6 +86,7 @@ module.exports = class SayCommand extends Command {
                 .setFooter(`Polls in Beta Testing | Antares Bot | ${botVersion}`, config.embedFooterIcon);
             MSG.edit(EndEmbed)
         }, opt[2] * 1000);
+        logToConsole.command(message.guild, message);
     }
 };
 

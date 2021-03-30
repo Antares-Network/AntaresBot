@@ -1,4 +1,3 @@
-const messageLog = require("./messageLog")
 
 module.exports = {
     command: async function (guild, message) {

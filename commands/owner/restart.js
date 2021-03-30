@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-const { message } = require('../../actions/logToConsole.js');
 const onReady = require('../../actions/onReady.js');
 const logToConsole = require('../../actions/logToConsole')
 
