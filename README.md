@@ -1,3 +1,5 @@
+[![DeepSource](https://deepsource.io/gh/Antares-Network/AntaresBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/Antares-Network/AntaresBot/?ref=repository-badge)  
+[![DeepScan grade](https://deepscan.io/api/teams/13494/projects/16475/branches/354970/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=13494&pid=16475&bid=354970)  
 ![](https://img.shields.io/github/repo-size/Antares-Network/AntaresBot?color=Green&style=flat-square)  
 ![](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)   
 ![](https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png)  
