@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const channelCheck = require('../../functions/channelCheck')
 const logToConsole = require('../../actions/logToConsole')
 
 module.exports = class AdminHelpCommand extends Command {

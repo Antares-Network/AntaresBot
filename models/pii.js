@@ -12,7 +12,8 @@ const PII = Schema({
     GUILD_NAME: String,
     GUILD_DEFAULT_CHANNEL: String,
     GUILD_ADMIN_CHANNEL: String,
-    GUILD_COUNTING_NUMBER: String
+    GUILD_COUNTING_NUMBER: String,
+    GUILD_POLL_TIMEOUT: String
 })
 
 module.exports = model('PII', PII);

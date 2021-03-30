@@ -5,8 +5,6 @@ const { MessageEmbed } = require('discord.js');
 const gateModel = require('../../models/gate');
 const guildModel = require('../../models/guild');
 const logToConsole = require('../../actions/logToConsole');
-const channelCheck = require('../../functions/channelCheck')
-
 
 
 

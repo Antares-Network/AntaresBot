@@ -18,7 +18,7 @@ const guildUpdate = require('./actions/guildUpdate')
 global.config = require('./config.json');
 require('dotenv').config();
 require('colors');
-global.botVersion = "1.3.17";
+global.botVersion = "1.3.18";
 
 
 global.bot = new CommandoClient({
@@ -64,7 +64,9 @@ bot.on('message', async (message) => {
 	const gate = await gateModel.findOne({ NAME: 'GATE' })
 	try {
 		if (gate.IGNORED_GUILDS.includes(message.guild.id)) return;
-	} catch (e) { }
+	} catch (e) {
+		console.log(e)
+	}
 
 	if (message.author.bot) return;
 	if (message.channel.type != "dm") {
