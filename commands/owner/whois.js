@@ -59,13 +59,8 @@ module.exports = class WhoisCommand extends Command {
                         }
                     }
 
-                    var isBot
+                    var isBot = (!user.bot) ? "No" : "Yes";
 
-                    if (!user.bot) {
-                        isBot = "No"
-                    } else {
-                        isBot = "Yes"
-                    }
 
                     const Embed = new MessageEmbed()
                         .setColor('#ff3505')

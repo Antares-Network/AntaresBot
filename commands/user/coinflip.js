@@ -19,12 +19,7 @@ module.exports = class CoinFlipCommand extends Command {
     async run(message) {
 
         if (await channelCheck.check(message) == true) {
-            var outcome
-            if (Math.round(Math.random()) == 0) {
-                outcome = "Heads"
-            } else {
-                outcome = "Tails"
-            }
+            var outcome = (Math.round(Math.random()) == 0) ? "Tails" : "Heads";
             const preEmbed = new MessageEmbed()
             .setColor('#ff3505')
             .setTitle('Coin Flip💰')
@@ -43,6 +38,3 @@ module.exports = class CoinFlipCommand extends Command {
         }
     }
 };
-
-
-Math.round(Math.random());
