@@ -26,8 +26,8 @@ module.exports = class BotUnbanGuildCommand extends Command {
         return this.client.isOwner(msg.author);
     }
 
-    run(message, { guildID }) {
-        if (guildBan.unBanGuild(guildID)) {
+    async run(message, { guildID }) {
+        if (await guildBan.unBanGuild(guildID)) {
             //if the guild was unbanned respond with this
             message.author.send(`Unbanned ${guildID} from using this bot`);
         } else {
