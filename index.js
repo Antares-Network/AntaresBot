@@ -2,7 +2,6 @@ const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
-const AutoPoster = require('topgg-autoposter')
 const { connect } = require('mongoose');
 const path = require('path');
 const onReady = require('./actions/onReady');
@@ -27,12 +26,6 @@ global.bot = new CommandoClient({
 	disableEveryone: true
 });
 
-const ap = AutoPoster(process.env.topggkey, bot)
-
-
-ap.on('posted', () => {
-	console.log('Posted stats to Top.gg!')
-})
 
 //set the prefix storage provider to mongodb
 bot.setProvider(
