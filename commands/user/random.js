@@ -119,13 +119,6 @@ module.exports = class RandomCommand extends Command {
                     .setDescription("**random `joke`**: returns a dad joke" +
                         "\n\n **random `cn`**: returns a Chuck Norris Joke" +
                         "\n\n **random `devjoke`**: returns a dev joke" +
-                        // "\n\n **random `insult`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `aww`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `facepalm`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `wholesome`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `dankmeme`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `deadinside`**: ❗Disabled to improve nsfw filtering" +
-                        // "\n\n **random `art`**: ❗Disabled to improve nsfw filtering")
                         "\n\n **random `insult`**: returns a random insult" +
                         "\n\n **random `aww`**: returns a cute moment" +
                         "\n\n **random `facepalm`**: returns a facepalm moment" +
