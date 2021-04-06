@@ -31,7 +31,7 @@ module.exports = class BotUnbanOwnerCommand extends Command {
             message.author.send(`Unbanned ${ownerID} from using this bot`);
         } else {
             //if the user was already banned respond with this
-            message.author.send("This user has already been unbaned from using the bot")
+            message.author.send("This user has already been unbanned from using the bot")
         }
         try {
             logToConsole.command(message.guild, message);
