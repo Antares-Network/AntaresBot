@@ -37,6 +37,3 @@ module.exports = class DiceRollCommand extends Command {
         }
     }
 };
-
-
-Math.round(Math.random());

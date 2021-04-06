@@ -23,14 +23,20 @@ module.exports = {
     },
     unBanUser: async function (user) {
         const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
-        var bannedUsers = gate.BANNED_USERS
+        var bannedUsers = gate.BANNED_USERS;
+        var wasbanned = false;
         for (var i = 0; i < bannedUsers.length; i++) {
             if (bannedUsers[i] === user.id) {
-
+                wasbanned = true;
                 bannedUsers.splice(i, 1);
             }
         }
-        await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_USERS: bannedUsers } }, { new: true });
+
+        if (wasbanned) {
+            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_USERS: bannedUsers } }, { new: true });
+        }
+
+        return wasbanned;
     },
     banGuild: async function (guildID) {
         const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
@@ -53,13 +59,19 @@ module.exports = {
     unBanGuild: async function (guildID) {
         const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
         var bannedGuilds = gate.BANNED_USERS
+        var wasbanned = false;
         for (var i = 0; i < bannedGuilds.length; i++) {
             if (bannedGuilds[i] === guildID) {
-
+                wasbanned = true;
                 bannedGuilds.splice(i, 1);
             }
         }
-        await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedGuilds } }, { new: true });
+
+        if (wasbanned) {
+            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedGuilds } }, { new: true });
+        }
+
+        return wasbanned;
     },
     banOwner: async function (ownerID) {
         const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
@@ -82,12 +94,18 @@ module.exports = {
     unBanOwner: async function (ownerID) {
         const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
         var bannedOwners = gate.BANNED_OWNERS
+        var wasbanned = false;
         for (var i = 0; i < bannedOwners.length; i++) {
             if (bannedOwners[i] === ownerID) {
-
+                wasbanned = true;
                 bannedOwners.splice(i, 1);
             }
         }
-        await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedOwners } }, { new: true });
+
+        if (wasbanned) {
+            await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { BANNED_GUILDS: bannedOwners } }, { new: true });
+        }
+
+        return wasbanned;
     }
 }

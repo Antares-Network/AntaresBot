@@ -1,18 +1,20 @@
-![](https://img.shields.io/github/repo-size/Antares-Network/AntaresBot?color=Green&style=flat-square)  
-![](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)   
+[![DeepSource](https://deepsource.io/gh/Antares-Network/AntaresBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/Antares-Network/AntaresBot/?ref=repository-badge)
+[![DeepScan grade](https://deepscan.io/api/teams/13494/projects/16475/branches/354970/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=13494&pid=16475&bid=354970)
+[![codebeat badge](https://codebeat.co/badges/571d8db9-611a-4c8e-bc2f-c55e557cf0a7)](https://codebeat.co/projects/github-com-antares-network-antaresbot-main)
+[![Node.js CI](https://github.com/Antares-Network/AntaresBot/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/Antares-Network/AntaresBot/actions/workflows/node.js.yml)
+![](https://img.shields.io/github/repo-size/Antares-Network/AntaresBot?color=Green&style=flat-square)
+![](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)  
 ![](https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png)  
 ## AntaresBot
-## Release version 1.3.7 Look below for specs
+## Release version 1.3.18 Look below for specs
 
-
-This is the development version of Antares Bot
 
 # Join our discord server:
 https://dsc.gg/antaresnetwork
 
 
 ## Invite the bot at the link below:
-**https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=93200**
+**https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=125969**
 
 ## A list of User Commands
 - 'Counting' channel information is available using the command: *adminhelp*
