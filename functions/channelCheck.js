@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const gateModel = require('../models/gate');
 
 module.exports = {
-    check: async function (message) {
+    async check (message) {
         const srv = await piiModel.findOne({ GUILD_ID: message.guild.id }); //find the entry for the guild
         const gate = await gateModel.findOne({ NAME: 'GATE' });
         let messageAuth = message.author;

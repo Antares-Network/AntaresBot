@@ -1,5 +1,5 @@
 const gateModel = require('../models/gate');
-const logToConsole = require('../../actions/logToConsole')
+// const logToConsole = require('../../actions/logToConsole')
 
 module.exports = {
     moderate: async function (target, ID, type) {
