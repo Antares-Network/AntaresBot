@@ -14,8 +14,9 @@ const gateModel = require('../models/gate');
 
 
 module.exports = {
-	event: async function (bot) {
+	async event (bot) {
 		const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
+
 		bot.guilds.cache.forEach(async guild => {
 			const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
 			const req = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
@@ -28,31 +29,35 @@ module.exports = {
 				console.log("Created PII doc".yellow);
 			}
 		});
+
 		if (gate == null) {
 			console.error("NO GATE FOUND. CLOSING BOT.")
 			bot.user.setActivity(`❗❗DB ERROR❗❗`, { type: 'PLAYING' });
 			setTimeout(() => {
-			gateCreate.event(bot);
-			console.log('\n\n\n\n\n\n\n\n')
-			bot.destroy();
-			console.log("Signed out of the Discord API".red.bold);
-			bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
-			console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
-			console.log("Logged into the Discord API".green.bold);
-			console.log("Startup script has run".red.bold);
+				gateCreate.event(bot);
+				console.log('\n\n\n\n\n\n\n\n')
+				bot.destroy();
+				console.log("Signed out of the Discord API".red.bold);
+				bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
+				console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
+				console.log("Logged into the Discord API".green.bold);
+				console.log("Startup script has run".red.bold);
 			}, 5000);
 		} else {
 			bot.user.setActivity(`&help | V: ${botVersion}`, { type: 'PLAYING' });
 		}
+
 		console.log(`Set bot status to:`, `&help`.magenta, `| V:`, `${botVersion}`.magenta);
 		console.log(`Logged in as`, `${bot.user.tag}`.magenta);
 		console.log("The bot is online.".green);
+
 		try {
 			console.log(`I am in`.yellow, `${bot.guilds.cache.size}`.green, `servers`.yellow)
 			console.log(`I am being used by`.yellow, `${gate.TOTAL_USERS}`.green, `users`.yellow)
 		} catch (e) {
 			console.log(e);
 		}
+
 		console.log(`The bot is ready...`.red.bold)
 		console.log(`Database updating...`.bold.green)
 		console.log(`Update complete. Commands loaded`.bold.magenta)

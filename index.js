@@ -2,8 +2,7 @@ const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
-const AutoPoster = require('topgg-autoposter')
-const { connect } = require('mongoose');
+const mongoose = require('mongoose');
 const path = require('path');
 const onReady = require('./actions/onReady');
 const docCreate = require('./actions/docCreate');
@@ -20,26 +19,35 @@ require('dotenv').config();
 require('colors');
 global.botVersion = "1.3.18";
 
-
 global.bot = new CommandoClient({
 	commandPrefix: '&',
 	owner: '603629606154666024',
 	disableEveryone: true
 });
 
-const ap = AutoPoster(process.env.topggkey, bot)
+//connect to MongoDB and then log bot into Discord
+(async () => {
+	var mongo_uri = String(process.env.BOT_MONGO_PATH);
+	console.log('Trying to connect to MongoDB\nPlease wait for a connection'.yellow);
+	await mongoose.connect(mongo_uri, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false
+	});
+	console.log('Connected to MongoDB'.green.bold);
+	
+	console.log(`Override default settings provider...`.bold.green)
+	bot.setProvider(
+		new MongoDBProvider(mongoose.connections[0].getClient(), process.env.BOT_SETTINGS_PATH)
+	).catch(console.error);
+	console.log(`Connected MDB settings provider`.bold.cyan)
 
 
-ap.on('posted', () => {
-	console.log('Posted stats to Top.gg!')
-})
-
-//set the prefix storage provider to mongodb
-bot.setProvider(
-	MongoClient.connect(process.env.BOT_MONGO_PATH, { useNewUrlParser: true, useUnifiedTopology: true }).then(bot => new MongoDBProvider(bot, process.env.BOT_SETTINGS_PATH))
-).catch(console.error);
-console.log(`Override default settings provider...`.bold.green)
-console.log(`Connected MDB settings provider`.bold.cyan)
+	//login to the discord api
+	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
+	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
+	console.log("Logged into the Discord API".green.bold);
+})() //idk why these () are needed but they are
 
 
 //register the commands
@@ -62,11 +70,8 @@ bot.registry
 
 bot.on('message', async (message) => {
 	const gate = await gateModel.findOne({ NAME: 'GATE' })
-	try {
-		if (gate.IGNORED_GUILDS.includes(message.guild.id)) return;
-	} catch (e) {
-		console.log(e)
-	}
+
+	if (message.guild && gate.IGNORED_GUILDS.includes(message.guild.id)) return;
 
 	if (message.author.bot) return;
 	if (message.channel.type != "dm") {
@@ -161,21 +166,3 @@ bot.on('guildUpdate', async (oldGuild, newGuild) => {
 
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
-
-
-//connect to MongoDB and then log bot into Discord
-(async () => {
-	var mongo_uri = String(process.env.BOT_MONGO_PATH);
-	console.log('Trying to connect to MongoDB\nPlease wait for a connection'.yellow);
-	await connect(mongo_uri, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false
-	});
-	console.log('Connected to MongoDB'.green.bold);
-
-	//login to the discord api
-	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
-	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
-	console.log("Logged into the Discord API".green.bold);
-})() //idk why these () are needed but they are

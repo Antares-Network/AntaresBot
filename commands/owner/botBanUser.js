@@ -27,13 +27,13 @@ module.exports = class BotBanUserCommand extends Command {
         return this.client.isOwner(msg.author);
     }
 
-    run(message, { user }) {
-        if (guildBan.banUser(user)) {
+    async run(message, { user }) {
+        if (await guildBan.banUser(user)) {
             //if the user was banned respond with this
             message.channel.send(`Banned ${user.username} From ever using the bot again`);
         } else {
             //if the user was already banned respond with this
-            message.channel.send("This user has already been baned from using the bot")
+            message.channel.send("This user has already been banned from using the bot")
         }
         try {
             logToConsole.command(message.guild, message);
