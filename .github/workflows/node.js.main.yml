@@ -27,6 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
       env:
         BOT_MONGO_PATH: ${{ secrets.BOT_MONGO_PATH }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        BOT_SETTINGS_PATH: ${{ secrets.BOT_SETTINGS_PATH }}
     - run: npm i
     - run: npm run build --if-present
     - run: npm start
