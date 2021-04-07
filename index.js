@@ -42,6 +42,7 @@ global.bot = new CommandoClient({
 	).catch(console.error);
 	console.log(`Connected MDB settings provider`.bold.cyan)
 
+
 	//login to the discord api
 	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
 	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
