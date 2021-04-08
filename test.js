@@ -18,26 +18,26 @@ async function startup() {
 	});
 	console.log('Connected to MongoDB'.green.bold);
 	
-	console.log(`Override default settings provider...`.bold.green)
+	console.log('Override default settings provider...'.bold.green)
 	bot.setProvider(
 		new MongoDBProvider(mongoose.connections[0].getClient(), process.env.BOT_SETTINGS_PATH)
 	).catch(console.error);
-	console.log(`Connected MDB settings provider`.bold.cyan)
+	console.log('Connected MDB settings provider'.bold.cyan)
 
 
 	//login to the discord api
 	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
 	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
-	console.log("Logged into the Discord API".green.bold);
+	console.log('Logged into the Discord API'.green.bold);
 }//idk why these () are needed but they are
 
-startup()
+startup();
 
 global.bot = new CommandoClient({
 	commandPrefix: '&',
 	owner: '603629606154666024',
 	disableEveryone: true
-})
+});
 
 
 
@@ -62,11 +62,11 @@ bot.registry
 
 //actions to run at bot startup
 bot.on('ready', async () => {
-	onReady.event(bot)
-	console.log("Startup script has run".red.bold)
-    console.log("All processes completed successfully.")
-    console.log("Now exiting...")
-    process.exit(0)
+	onReady.event(bot);
+	console.log("Startup script has run".red.bold);
+    console.log("All processes completed successfully.");
+    console.log("Now exiting...");
+    process.exit(0);
 });
 
 //report any errors to the console
