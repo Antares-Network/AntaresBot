@@ -1,6 +1,5 @@
 const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const MongoClient = require('mongodb').MongoClient;
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
 const mongoose = require('mongoose');
 const path = require('path');
@@ -68,6 +67,13 @@ bot.registry
 	})
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
+//actions to run at bot startup
+bot.on('ready', async () => {
+	onReady.event(bot)
+	console.log("Startup script has run".red.bold)
+});
+
+
 bot.on('message', async (message) => {
 	const gate = await gateModel.findOne({ NAME: 'GATE' })
 
@@ -97,11 +103,7 @@ bot.on('messageDelete', async (message) => {
 	console.log(`DELETE`.red, `[${message.guild.name}]`.green, `[${message.channel.name}]`.blue, `[${message.author.username}]`.yellow, `--`.grey, `${message.content}`.red)
 });
 
-//actions to run at bot startup
-bot.on('ready', async () => {
-	onReady.event(bot)
-	console.log("Startup script has run".red.bold)
-});
+
 
 //actions to run when the bot joins a server
 bot.on("guildCreate", async (guild) => {

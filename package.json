@@ -1,7 +1,7 @@
 {
   "name": "antaresbot",
   "version": "1.3.18",
-  "description": "A rewrite of the Antares bot ",
+  "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
   "main": "index.js",
   "dependencies": {
     "colors": "^1.4.0",
@@ -19,17 +19,18 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test.js",
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Antares-Network/AntaresBotRewrite.git"
+    "url": "git+https://github.com/Antares-Network/AntaresBot.git"
   },
   "author": "nathen418",
+  "contributors": ["nathen418", "StickyFingies"],
   "license": "CC BY-NC-ND, See LICENSE file for more information",
   "bugs": {
-    "url": "https://github.com/Antares-Network/AntaresBotRewrite/issues"
+    "url": "https://github.com/Antares-Network/AntaresBot/issues"
   },
-  "homepage": "https://github.com/Antares-Network/AntaresBotRewrite#readme"
+  "homepage": "https://github.com/Antares-Network/AntaresBot#readme"
 }

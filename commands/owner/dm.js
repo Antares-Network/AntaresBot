@@ -37,7 +37,7 @@ module.exports = class DmCommand extends Command {
 
     run(message, { user, content }) {
         message.delete();
-        bot.users.cache.get(user.id).send(content);
+        this.client.users.cache.get(user.id).send(content);
         logToConsole.command(message.guild, message);
     }
 };
