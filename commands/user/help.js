@@ -22,6 +22,10 @@ module.exports = class HelpCommand extends Command {
             .setDescription("**8ball** or **ask**: Ask the bot a question and have it respond" +
                 "\n\n **random**: Sends a random thing. Run command for more info." +
                 "\n\n **cat**: Sends a random picture of a cat." +
+                "\n\n **coinflip**: Flips a coin." +
+                "\n\n **diceroll**: Rolls a die" +
+                "\n\n **sneeze**: Makes the bot sneeze lol." +
+                "\n\n **suggest**: Sends a suggestion to the bot developer." +
                 "\n\n **dog**: Sends a random picture of a dog." +
                 "\n\n **stats** and **update**: Updates the database and shows the bots most recent stats." +
                 "\n\n **reddit** or **meme**: ❗❗Must be used inside a NSFW channel❗❗" +
