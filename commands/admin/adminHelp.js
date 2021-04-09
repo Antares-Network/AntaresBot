@@ -35,7 +35,7 @@ module.exports = class AdminHelpCommand extends Command {
                     "\nUser Permissons needed: ADMINISTRATOR" +
 
                     "\n\nJoin our support server: https://dsc.gg/antaresnetwork")
-                .setFooter(`Delivered in: ${Date.now() - message.createdTimestamp}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             message.channel.send(Embed);
         logToConsole.command(message.guild, message);
     }

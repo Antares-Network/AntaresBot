@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 
 module.exports = {
-    event: async function (guild, bot) {
+    event: async function (guild) {
         var d = new Date();
         const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
         if (doc === null) {
@@ -52,7 +52,7 @@ module.exports = {
                 { name: 'Invite me to your server', value: `https://dis.gg/antaresbot` })
             .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
-        bot.users.fetch('603629606154666024', false).then((user) => {
+            bot.users.fetch('603629606154666024', false).then((user) => {
             user.send(Embed);
         });
         try {

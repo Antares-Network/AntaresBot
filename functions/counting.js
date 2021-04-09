@@ -3,7 +3,7 @@ const piiModel = require('../models/pii');
 module.exports = {
     count: async function (message, bot) {
 
-        srv = await piiModel.findOne({ GUILD_ID: message.guild.id }); //find the entry for the guild
+        var srv = await piiModel.findOne({ GUILD_ID: message.guild.id }); //find the entry for the guild
 
         // Stores the current count.
         let count = Number(srv.GUILD_COUNTING_NUMBER);
@@ -18,7 +18,6 @@ module.exports = {
             // If the message is the current count + 1...
             message.channel.messages.fetch({ limit: 2 }).then(async messages => {
                 lm = messages.last();
-                lastUser = lm;
                 if (lm.author.id == message.author.id ) {
                     message.delete();
                     message.channel.send(`Wait your turn! Please wait for someone else to send the next number.`)

@@ -34,7 +34,7 @@ module.exports = class AdminMSGCommand extends Command {
 
     run(message, { text }) {
         //get the list of guilds the bot is in
-        var guildList = bot.guilds.cache;
+        var guildList = this.client.guilds.cache;
 
         try {
             //send a message to every guild this bot is in
@@ -44,12 +44,12 @@ module.exports = class AdminMSGCommand extends Command {
                 .setTitle("Admin Message / Notice")
                 .setDescription('I have an important message from my Developers')
                 .addField('Message:', `${text}`)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             guildList.forEach(async guild => {
                 const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_ADMIN_CHANNEL != null) {
                     //send the message in the default channel for this guild
-                    bot.channels.cache.get(doc.GUILD_ADMIN_CHANNEL).send(messageToSend)
+                    this.client.channels.cache.get(doc.GUILD_ADMIN_CHANNEL).send(messageToSend)
                 } else {
                     message.channel.send(`I was not able to send a message to the guild named: \`${guild.name}\`, ID: \`${guild.id}\``)
                 }

@@ -126,7 +126,7 @@ module.exports = class RandomCommand extends Command {
                         "\n\n **random `dankmeme`**: returns a dank meme :o" +
                         "\n\n **random `deadinside`**: returns a 'Watch people die inside' moment" +
                         "\n\n **random `art`**: returns cool art pic")
-                    .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                    .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                 message.channel.send(Embed);
 
                 //send to the console that this command was run

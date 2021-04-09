@@ -3,7 +3,7 @@ const guildModel = require('../models/guild');
 
 
 module.exports = {
-    event: async function (bot) {
+    event: async function () {
 
         //var init and gc
         var totalUsers = 0;
@@ -11,7 +11,7 @@ module.exports = {
         var totalOwners = [];
 
         //loop thru the guilds and add the owners, member numbers and messages to their vars to be added to the db 
-        bot.guilds.cache.forEach(async guild => {
+        this.client.guilds.cache.forEach(async guild => {
             const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the doc that has all the guild information in it
             totalMessages += Number(doc.GUILD_MESSAGES);
             totalOwners.push(guild.ownerID);
@@ -27,7 +27,7 @@ module.exports = {
                 BANNED_USERS: [],
                 BANNED_GUILDS: [],
                 TOTAL_MESSAGES: totalMessages,
-                TOTAL_SERVERS: bot.guilds.cache.size,
+                TOTAL_SERVERS: this.client.guilds.cache.size,
                 TOTAL_USERS: totalUsers,
                 IGNORED_GUILDS: null,
                 UPDATE_TIME: null

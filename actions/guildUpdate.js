@@ -22,7 +22,7 @@ module.exports = {
             msg = `GUILD AVAILABILITY UPDATE [${newGuild.name}] [${oldGuild.available}] ---> [${newGuild.available}]`
         }
 
-        bot.channels.cache.get(process.env.REPORTING_CHANNEL).send(msg);
+        this.client.channels.cache.get(process.env.REPORTING_CHANNEL).send(msg);
         console.log(msg)
     }
 }

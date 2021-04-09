@@ -30,7 +30,7 @@ module.exports = class IgnoreCommand extends Command {
             var ignoredGuilds = []
             const gate = await gateModel.findOne({ NAME: 'GATE' })
             ignoredGuilds = gate.IGNORED_GUILDS
-            var server = bot.guilds.cache.get(serverid)
+            var server = this.client.guilds.cache.get(serverid)
             ignoredGuilds.push(serverid)
             await gateModel.findOneAndUpdate({ NAME: 'GATE' }, { $set: { IGNORED_GUILDS: ignoredGuilds } }, { new: true })
                 .then(

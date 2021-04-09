@@ -20,7 +20,7 @@ module.exports = class ServerListCommand extends Command {
 
     async run(message) {
         //get the list of guilds the bot is in
-        var guildList = bot.guilds.cache;
+        var guildList = this.client.guilds.cache;
         try {
             setTimeout(async () => {
                 guildList.forEach(async guild => {
@@ -36,7 +36,7 @@ module.exports = class ServerListCommand extends Command {
                             { name: 'Guild ID:', value: guild.id },
                             { name: 'Owner ID:', value: guild.ownerID },
                             { name: 'Guild Member Count:', value: guild.memberCount })
-                        .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                        .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                     message.author.send(Embed);
                 });
                 logToConsole.command(message.guild, message);
