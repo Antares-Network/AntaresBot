@@ -39,7 +39,7 @@ module.exports = class HelpCommand extends Command {
                 "\n\n **counting**: In admin help. Creates a server counting channel" +
                 "\n\n **adminhelp**: Sends the help page with admin commands." +
                 "\n\n Join our support server: https://dsc.gg/antaresnetwork")
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+            .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
         message.channel.send(Embed);
         logToConsole.command(message.guild, message);
     }

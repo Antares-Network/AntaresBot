@@ -36,7 +36,7 @@ module.exports = class RedditCommand extends Command {
                 //.setURL('https://dsc.gg/antaresnetwork')
                 .setTitle(`Random Meme from Reddit`)
                 .setImage(img[0].image)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
             message.channel.send(Embed);
             logToConsole.command(message.guild, message);
         }

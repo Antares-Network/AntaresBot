@@ -63,7 +63,7 @@ module.exports = class SayCommand extends Command {
             .setColor(config.defaultEmbedColor)
             .setTitle(`Poll -- ${opt[0]}`)
             .setDescription(description)
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFoot);
+            .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFoot);
         var MSG = await message.channel.send(Embed)
 
         for (var i = 0; i < options.length; i++) {

@@ -39,7 +39,7 @@ module.exports = {
                 { name: 'Guild ID:', value: guild.id },
                 { name: 'Owner ID:', value: guild.ownerID },
                 { name: 'Guild Member Count:', value: guild.memberCount })
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
         const WelcomeEmbed = new MessageEmbed()
             .setColor('#ff3505')
@@ -50,13 +50,13 @@ module.exports = {
                 { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
                 { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
                 { name: 'Invite me to your server', value: `https://dis.gg/antaresbot` })
-            .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+            .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
-        bot.users.fetch('603629606154666024', false).then((user) => {
+            this.client.users.fetch('603629606154666024', false).then((user) => {
             user.send(Embed);
         });
         try {
-            const reporting = bot.channels.cache.get(process.env.REPORTING_CHANNEL)
+            const reporting = this.client.channels.cache.get(process.env.REPORTING_CHANNEL)
             reporting.send(Embed);
         } catch (e) {
             console.log(e);

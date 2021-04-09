@@ -36,7 +36,7 @@ module.exports = class CountCreateCommand extends Command {
                     "\n\nThis channel has a `5 Second` slowmode" +
                     "\n\nYou must alternate players." + 
                     "\n\nYou may not send more than one number in a row")
-                    .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                    .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                     channel.send(Embed);
                 })
         }

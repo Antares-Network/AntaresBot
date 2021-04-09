@@ -15,7 +15,7 @@ module.exports = class SuggestCommand extends Command {
             args: [
                 {
                     key: 'text',
-                    prompt: 'Please type your suggestion here. \`Markdown formatting supported\`',
+                    prompt: 'Please type your suggestion here. `Markdown formatting supported`',
                     type: 'string'
                 }
             ],
@@ -31,10 +31,10 @@ module.exports = class SuggestCommand extends Command {
                 .setTitle('New Bot Suggestion')
                 .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
                 .setDescription(`<@${message.author.id}> in the server **${message.guild.name}** suggests:\\n ${text}`,)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon);
 
 
-            bot.users.fetch('603629606154666024', false).then((user) => {
+                this.client.users.fetch('603629606154666024', false).then((user) => {
                 user.send(Embed);
             message.channel.send(`Thank you for your suggestion. It has been received.`)
             });

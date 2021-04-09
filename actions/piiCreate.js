@@ -5,7 +5,7 @@ module.exports = {
     event: async function (guild, bot) {
 
         //get the current Guild ID
-        const guildOb = bot.guilds.cache.get(guild.id);
+        const guildOb = this.client.guilds.cache.get(guild.id);
 
         const srv = await piiModel.findOne({ GUILD_ID: guildOb.id }); //find the entry for the guild
         if (srv === null) {

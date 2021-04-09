@@ -24,7 +24,7 @@ module.exports = class LeaveCommand extends Command {
         return this.client.isOwner(msg.author);
     }
     async run(message, { serverid } ) {
-        var server = bot.guilds.cache.get(serverid)
+        var server = this.client.guilds.cache.get(serverid)
         message.channel.send(`I have been forced to leave a server by the name \`${server.name}\`, and ID: \`${serverid}\` by<@${message.author.id}>`)
         server.leave()
     }

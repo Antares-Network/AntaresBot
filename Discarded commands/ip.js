@@ -31,7 +31,7 @@
 //                     { name: 'Server IP:', value: 'mc.playantares.com', inline: false },
 //                     { name: 'Website:', value: 'https://playantares.com', inline: false }
 //                 )
-//                 .setFooter(`Delivered in: ${bot.ws.ping}ms. | Antares Network`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+//                 .setFooter(`Delivered in: ${this.client.ws.ping}ms. | Antares Network`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
 //             //send message in private message
 //             message.author.send(ipEmbed);
 //             logToConsole.command(message.guild, message);

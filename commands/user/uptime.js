@@ -17,15 +17,16 @@ module.exports = class UptimeCommand extends Command {
     async run(message) {
         //message.delete();
         if (await channelCheck.check(message) == true) {
-            let days = Math.floor(bot.uptime / 86400000);
-            let hours = Math.floor(bot.uptime / 3600000) % 24;
-            let minutes = Math.floor(bot.uptime / 60000) % 60;
-            let seconds = Math.floor(bot.uptime / 1000) % 60;
+            var time = this.client.uptime
+            let days = Math.floor(time / 86400000);
+            let hours = Math.floor(time / 3600000) % 24;
+            let minutes = Math.floor(time / 60000) % 60;
+            let seconds = Math.floor(time / 1000) % 60;
             const Embed = new MessageEmbed()
                 .setColor(config.defaultEmbedColor)
                 .setTitle('Bot Uptime')
                 .setDescription(`I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`,)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon)
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, config.embedFooterIcon)
             message.channel.send(Embed);
         }
     }

@@ -15,7 +15,7 @@ module.exports = class WhoisCommand extends Command {
             args: [
                 {
                     key: 'type',
-                    prompt: 'Please enter a valid user ID',
+                    prompt: 'Please enter user or server',
                     type: 'string'
                 },
                 {
@@ -38,7 +38,7 @@ module.exports = class WhoisCommand extends Command {
 
         if (type.toLowerCase() == 'user') {
             try {
-                bot.users.fetch(id, false).then(async (user) => {
+                this.client.users.fetch(id, false).then(async (user) => {
 
                     const gate = await gateModel.findOne({ NAME: 'GATE' }); //find the entry for the guild
                     var bannedUsers = gate.BANNED_USERS
@@ -74,14 +74,14 @@ module.exports = class WhoisCommand extends Command {
                             { name: 'Is the user a bot?', value: isBot },
                             { name: 'User Banned?', value: userIsBanned, inline: true },
                             { name: 'Owner Banned?', value: ownerIsBanned, inline: true })
-                        .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                        .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                     message.channel.send(Embed)
                 });
             } catch (e) {
                 message.channel.send("The User ID you entered is not valid. Please try again.")
             }
         } else if (type.toLowerCase() == 'server') {
-            var guild = bot.guilds.cache.get(id)
+            var guild = this.client.guilds.cache.get(id)
                 try {
                     const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                     const Embed = new MessageEmbed()
@@ -95,7 +95,7 @@ module.exports = class WhoisCommand extends Command {
                             { name: 'Guild ID:', value: guild.id },
                             { name: 'Owner ID:', value: guild.ownerID },
                             { name: 'Guild Member Count:', value: guild.memberCount })
-                        .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                        .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
                     message.channel.send(Embed);
                 } catch (e) {
                     console.log(e)

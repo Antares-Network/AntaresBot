@@ -19,7 +19,7 @@ module.exports = class PrivacyCommand extends Command {
     async run(message) {
         //message.delete()
         if (await channelCheck.check(message) == true) {
-            message.channel.send("You have been sent a DM with the privacy policy. If you do not have DM\'s enabled, you will not get this message.")
+            message.channel.send("You have been sent a DM with the privacy policy. If you do not have DM's enabled, you will not get this message.")
             message.author.send("**Data Collected By Command and when features are enabled**\n" +
                 "The following may be collected when the bot joins a server and or when a user voluntarily enters this information. " +
                 "When providing data in this way, you forego any rights to the content of the data provided.\n" +

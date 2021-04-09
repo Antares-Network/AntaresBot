@@ -32,7 +32,7 @@ module.exports = {
 
 		if (gate == null) {
 			console.error("NO GATE FOUND. CLOSING BOT.")
-			bot.user.setActivity(`❗❗DB ERROR❗❗`, { type: 'PLAYING' });
+			this.client.user.setActivity(`❗❗DB ERROR❗❗`, { type: 'PLAYING' });
 			setTimeout(() => {
 				gateCreate.event(bot);
 				console.log('\n\n\n\n\n\n\n\n')

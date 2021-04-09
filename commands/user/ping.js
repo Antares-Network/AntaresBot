@@ -22,7 +22,7 @@ module.exports = class PingCommand extends Command {
             const pingEmbed = new MessageEmbed()
                 .setColor('#ff3505')
                 .setTitle('Bot/API Ping')
-                .setDescription(`Ping: 🏓 | Latency is: **${bot.ws.ping}**ms.`,);
+                .setDescription(`Ping: 🏓 | Latency is: **${this.client.ws.ping}**ms.`,);
             message.channel.send(pingEmbed);
             logToConsole.command(message.guild, message);
         }

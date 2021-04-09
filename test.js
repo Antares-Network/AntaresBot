@@ -74,5 +74,5 @@ bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
 
 process.on('exit', (code) => {
-    console.log(`About to exit with code: ${code}`);
+    console.log(`Exited with status code: ${code}`);
   });

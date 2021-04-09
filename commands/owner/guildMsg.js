@@ -30,7 +30,7 @@ module.exports = class GuildMSGCommand extends Command {
     async run(message, { text }) {
         const gate = await gateModel.findOne({ NAME: 'GATE' })
         //get the list of guilds the bot is in
-        var guildList = bot.guilds.cache;
+        var guildList = this.client.guilds.cache;
         //console.log(text)
 
         try {
@@ -41,13 +41,13 @@ module.exports = class GuildMSGCommand extends Command {
                 .setTitle("Antares Bot -- System Update Message")
                 .setDescription('I have just flown in to tell you that my developers have something to say:')
                 .addField('Message:', `${text}`)
-                .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+                .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
             guildList.forEach(async guild => {
                 if(gate.IGNORED_GUILDS.includes(guild.id)) return;
                 const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_DEFAULT_CHANNEL != null) {
                     //send the message in the default channel for this guild
-                    bot.channels.cache.get(doc.GUILD_DEFAULT_CHANNEL).send(embed)
+                    this.client.channels.cache.get(doc.GUILD_DEFAULT_CHANNEL).send(embed)
                 } else {
                     guild.channels.cache.find(c => c.type === 'text').send(embed)
                 }
