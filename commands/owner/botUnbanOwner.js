@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const guildBan = require('../../actions/guildBan');
+const logToConsole = require('../../actions/logToConsole')
 
 
 module.exports = class BotUnbanOwnerCommand extends Command {

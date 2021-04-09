@@ -2,7 +2,7 @@ const piiModel = require('../models/pii');
 
 
 module.exports = {
-    event: async function (guild, bot) {
+    event: async function (guild) {
 
         //get the current Guild ID
         const guildOb = this.client.guilds.cache.get(guild.id);

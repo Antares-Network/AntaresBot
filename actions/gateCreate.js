@@ -3,7 +3,7 @@ const guildModel = require('../models/guild');
 
 
 module.exports = {
-    event: async function (bot) {
+    event: async function () {
 
         //var init and gc
         var totalUsers = 0;
