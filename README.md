@@ -23,13 +23,13 @@ https://dsc.gg/antaresnetwork
 
 - **8ball** or **ask**: Ask the bot a question and have it respond
 
-- **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗
+- **random**: Shows a random thing from reddit. accepts other arguments
 
 - **cat**: Sends a random picture of a cat.
 
 - **dog**: Sends a random picture of a dog.
 
-- **reddit** or **meme**: ❗❗This command is disabled as it is being rewritten to improve NSFW filtering❗❗
+- **reddit** or **meme**: SHows a meme from reddit. must be used in a NSFW channel
 
 - **xkcd** or **comic**: Sends a random XKCD comic
 
