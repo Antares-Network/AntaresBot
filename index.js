@@ -1,3 +1,9 @@
+//Nate Goldsborough
+//Antares Network Discord Bot 
+//This project will morph overtime
+//built for discord.js V.12.5.3
+//Project started on December 15, 2020
+
 const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
