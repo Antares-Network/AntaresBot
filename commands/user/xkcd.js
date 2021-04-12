@@ -33,16 +33,21 @@ module.exports = class XkcdCommand extends Command {
         //message.delete()
         if (await channelCheck.check(message) == true) {
             let comicNum = Math.floor(Math.random() * 2413);
-            try {
-                var url = `http://xkcd.com/${comicNum}/info.0.json`;
-                //request a comic from the url
-                fetch(url)
-                    .then(res => res.json())
-                    .then(json => embed(message, json.img, `Random Comic from XKCD`));
-            } catch (e) {
-                message.channel.send("Error. Please try again.");
-                console.error(e)
-            }
+            fetch(`http://xkcd.com/${comicNum}/info.0.json`)
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((json) => {
+                embed(message, json.img, 'Random Comic from XKCD')
+            }).catch((error) => {
+                // Handle the error
+                message.channel.send(`**\`Err:\`** Socket hang up. Please try again.`);
+                console.log(error);
+            });
             //send to the console that this command was run
             logToConsole.command(message.guild, message);
         }
