@@ -12,7 +12,7 @@ function embed(message, img, title) {
         //.setURL('https://dsc.gg/antaresnetwork')
         .setTitle(title)
         .setImage(img)
-        .setFooter(`Delivered in: ${this.client.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
+        .setFooter(`Delivered in: ${bot.ws.ping}ms | Antares Bot | ${botVersion}`, 'https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png');
     message.channel.send(Embed);
     //logToConsole.command(message.guild, message);
 }
@@ -33,10 +33,22 @@ module.exports = class DogCommand extends Command {
     async run(message) {
         //message.delete()
         if (await channelCheck.check(message) == true) {
-            //request a cat from the api
+            //request a dog from the api
             fetch('https://dog.ceo/api/breeds/image/random')
-                .then(res => res.json())
-                .then(json => embed(message, json.message, 'Random Dog Picture'));
+                .then((response) => {
+                    if (response.status >= 200 && response.status <= 299) {
+                        return response.json();
+                    } else {
+                        throw Error(response.statusText);
+                    }
+                })
+                .then((json) => {
+                    embed(message, json.message, 'Random Dog Picture')
+                }).catch((error) => {
+                    // Handle the error
+                    message.channel.send(`**\`Err:\`** Socket hang up. Please try again.`);
+                    console.log(error);
+                });
         }
         //send to the console that this command was run
         logToConsole.command(message.guild, message);

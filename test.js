@@ -5,6 +5,7 @@ const path = require('path');
 const onReady = require('./actions/onReady');
 require('dotenv').config();
 require('colors');
+global.botVersion = "Github actions test";
 console.log("starting")
 
 
@@ -15,22 +16,31 @@ async function startup() {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false
-	});
+	})
+	.catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
 	console.log('Connected to MongoDB'.green.bold);
 	
-	console.log('Override default settings provider...'.bold.green)
+	console.log(`Override default settings provider...`.bold.green)
 	bot.setProvider(
 		new MongoDBProvider(mongoose.connections[0].getClient(), process.env.BOT_SETTINGS_PATH)
-	).catch(console.error);
-	console.log('Connected MDB settings provider'.bold.cyan)
+	).catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
+	console.log(`Connected MDB settings provider`.bold.cyan)
 
 
 	//login to the discord api
 	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
-	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
-	console.log('Logged into the Discord API'.green.bold);
-}//idk why these () are needed but they are
-
+	bot.login(process.env.BOT_TOKEN).catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
+	console.log("Logged into the Discord API".green.bold);
+}
 startup();
 
 global.bot = new CommandoClient({
@@ -62,11 +72,13 @@ bot.registry
 
 //actions to run at bot startup
 bot.on('ready', async () => {
-	onReady.event(bot);
-	console.log("Startup script has run".red.bold);
-    console.log("All processes completed successfully.");
-    console.log("Now exiting...");
-    process.exit(0);
+	await onReady.event(bot);
+	setTimeout(async () => {
+		console.log("Startup script has run".red.bold);
+		console.log("All processes completed successfully.");
+		console.log("Now exiting...");
+		process.exit(0);
+	}, 10000);
 });
 
 //report any errors to the console

@@ -1,3 +1,9 @@
+//Nate Goldsborough
+//Antares Network Discord Bot 
+//This project will morph overtime
+//built for discord.js V.12.5.3
+//Project started on December 15, 2020
+
 const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const MongoDBProvider = require('commando-provider-mongo').MongoDBProvider;
@@ -32,19 +38,29 @@ global.bot = new CommandoClient({
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false
-	});
+	})
+	.catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
 	console.log('Connected to MongoDB'.green.bold);
 	
 	console.log(`Override default settings provider...`.bold.green)
 	bot.setProvider(
 		new MongoDBProvider(mongoose.connections[0].getClient(), process.env.BOT_SETTINGS_PATH)
-	).catch(console.error);
+	).catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
 	console.log(`Connected MDB settings provider`.bold.cyan)
 
 
 	//login to the discord api
 	console.log('Trying to login to the Discord API\nPlease wait for a connection'.yellow);
-	bot.login(process.env.BOT_TOKEN).catch(e => console.error(e));
+	bot.login(process.env.BOT_TOKEN).catch((error) => {
+		console.log(`There was an error connecting to the database:\n ${error}`)
+		process.exit(1)
+	})
 	console.log("Logged into the Discord API".green.bold);
 })() //idk why these () are needed but they are
 
@@ -168,3 +184,8 @@ bot.on('guildUpdate', async (oldGuild, newGuild) => {
 
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
+
+process.on('exit', (code) => {
+	console.log("Now exiting...");
+    console.log(`Exited with status code: ${code}`);
+  });
