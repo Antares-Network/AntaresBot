@@ -6,7 +6,8 @@
 ![](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)  
 ![](https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png)  
 ## AntaresBot
-## Release version 1.3.18 Look below for specs
+## Release version 1.3.20 Look below for specs
+# MAJOR REWRITE COMING SOON
 
 
 # Join our discord server:
