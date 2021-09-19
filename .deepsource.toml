@@ -1,9 +1,0 @@
-version = 1
-
-test_patterns = ["/index.js"]
-
-exclude_patterns = ["/node_modules/**"]
-
-[[analyzers]]
-name = "javascript"
-enabled = true
