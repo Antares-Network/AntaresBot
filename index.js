@@ -17,7 +17,7 @@ const guildUpdate = require('./actions/guildUpdate')
 global.config = require('./config.json');
 require('dotenv').config();
 require('colors');
-global.botVersion = "1.3.18";
+global.botVersion = "1.3.20";
 
 global.bot = new CommandoClient({
 	commandPrefix: '&',
