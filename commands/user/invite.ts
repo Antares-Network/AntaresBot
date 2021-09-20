@@ -1,6 +1,5 @@
 import { MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
-import chalk from 'chalk'
 
 export default {
     name: 'invite',
