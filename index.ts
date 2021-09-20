@@ -55,7 +55,7 @@ client.on('ready', async () => {
         typeScript: true,
         testServers: ['788541416740487218']
     })
-    .setDefaultPrefix('*')
+    .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner('603629606154666024')
 	
 	
