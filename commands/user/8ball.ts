@@ -7,10 +7,9 @@ export default {
     slash: 'both',
     testOnly: true,
     aliases: ['8-ball', 'ask', 'why'],
-    expectedArgs: [],
     example: '&ask Am i a dum dum?',
 
-    callback: ({ client, message, {args } }) => {
+    callback: ({ client, message, text }) => {
         let eightball = [
             'It is certain.',
             'It is decidedly so.',
@@ -43,8 +42,7 @@ export default {
             'Good Luck',
         ];
         let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
-        //message.channel.send(eightball[index]);
-        const EightBallEmbed = new MessageEmbed()
+        const Embed = new MessageEmbed()
             .setColor('#ff3505')
             //.setURL('https://dsc.gg/antaresnetwork')
             .setTitle('Get an answer to all your questions')

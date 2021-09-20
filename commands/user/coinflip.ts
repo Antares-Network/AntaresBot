@@ -22,9 +22,9 @@ export default {
             .setThumbnail(`https://playantares.com/resources/antaresbot/coinflip.gif`)
             .setDescription(`${message.author.username} got ${outcome}!`,)
             .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
-        var MSG = message.channel.send(preEmbed);
+        var MSG = await message.reply({embeds: [preEmbed]});
         setTimeout(async () => {
-            MSG.edit(postEmbed)
+            MSG.edit({embeds: [postEmbed]})
         }, 3000);
 
     }
