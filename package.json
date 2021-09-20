@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
   "dependencies": {
+    "axios": "^0.21.4",
     "chalk": "^4.1.2",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
