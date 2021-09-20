@@ -5,12 +5,12 @@ import axios from 'axios';
 export default {
     category: 'User',
     description: 'Sends a random cat image',
-    slash: 'both',
+    slash: false,
     testOnly: true,
     guildOnly: true,
 
-    callback: async ({ client, message }) => {
-        await axios.get('https://aws.random.cat/meow')
+    callback: ({ client, message }) => {
+        axios.get('https://aws.random.cat/meow')
             .then(function (response) {
                 const Embed = new MessageEmbed()
                 .setColor('#ff3505')
@@ -21,7 +21,7 @@ export default {
                 return Embed;
             }).catch((error) => {
                 // Handle the error
-                message.channel.send(`**\`Err:\`** Socket hang up. Please try again.`);
+                message.reply(`**\`Err:\`** Socket hang up. Please try again.`);
                 console.log(error);
             });
             
