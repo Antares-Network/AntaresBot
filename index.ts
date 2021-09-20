@@ -43,14 +43,16 @@ const client = new DiscordJs.Client({
 })()
 
 client.on('ready', async () => {
-    new WOKCommands(client, {
-        commandDir: path.join(__dirname, 'commands'),
+	// Print the bot's username and discriminator to the console
+	if (client.user) console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);
+	new WOKCommands(client, {
+		commandDir: path.join(__dirname, 'commands'),
         typeScript: true,
         testServers: ['788541416740487218']
     })
     .setDefaultPrefix('*')
     .setBotOwner('603629606154666024')
-
+	
 	
 	//Set the activity of the bot
 	if (client.user){
@@ -59,7 +61,7 @@ client.on('ready', async () => {
 		console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
 	}
 	
-
+	
 	//Print some bot stats
 	console.log(`${chalk.yellow('I am in')} ${chalk.green(client.guilds.cache.size)} ${chalk.yellow('servers')}`)
 	try {
@@ -67,10 +69,13 @@ client.on('ready', async () => {
 	} catch (e) {
 		console.log(e);
 	}
-
-	console.log(chalk.green("The bot is online."));
-	console.log(chalk.green.bold("Startup script has run"));
-	console.log(`Logged in as`, `${chalk.magenta(client.user!.tag)}`);
+	
+	
+	client.users.fetch(String(process.env.BOT_OWNER_ID)).then(user => {
+		user.send(`I have just restarted and am now back online.`);
+		console.log(chalk.green.bold(`Bot startup dm sent.`))
+	})
+	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
 
 client.on("error", (e) => console.error(e));
