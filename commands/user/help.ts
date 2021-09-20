@@ -36,7 +36,7 @@ export default {
                 "\n\n **counting**: In admin help. Creates a server counting channel" +
                 "\n\n **adminhelp**: Sends the help page with admin commands." +
                 "\n\n Join our support server: https://dsc.gg/antaresnetwork")
-            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`);
+            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
         return Embed
     }
 } as ICommand
