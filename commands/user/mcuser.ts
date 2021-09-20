@@ -20,7 +20,7 @@ export default {
                     .setColor('#ff3505')
                     .setTitle(`${username}'s info`)
                     .setImage(skin)
-                    .setDescription(`UUID: ${uuid}`)
+                    .setDescription(`UUID: ${uuid} \nJoin the Antares Network Minecraft server: **mc.playantares.com**`)
                     .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
                 message.reply({embeds: [Embed]});
             } else {
