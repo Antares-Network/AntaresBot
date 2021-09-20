@@ -7,9 +7,10 @@ export default {
     description: 'Sends a random cat image',
     slash: 'both',
     testOnly: true,
+    guildOnly: true,
 
-    callback: ({ client, message }) => {
-        axios.get('https://aws.random.cat/meow')
+    callback: async ({ client, message }) => {
+        await axios.get('https://aws.random.cat/meow')
             .then(function (response) {
                 const Embed = new MessageEmbed()
                 .setColor('#ff3505')
@@ -18,6 +19,11 @@ export default {
                 .setImage(response.data.file)
                 .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
                 return Embed;
+            }).catch((error) => {
+                // Handle the error
+                message.channel.send(`**\`Err:\`** Socket hang up. Please try again.`);
+                console.log(error);
             });
+            
     }
 } as ICommand
