@@ -1,3 +1,8 @@
+//Nate Goldsborough
+//Antares Network Discord Bot 
+//This project will morph overtime
+//built for discord.js V.13.1.0
+//Project started on December 15, 2020
 import DiscordJs, { Intents } from 'discord.js';
 import WOKCommands from 'wokcommands';
 import mongoose from "mongoose";
