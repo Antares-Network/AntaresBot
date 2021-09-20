@@ -1,7 +1,7 @@
 //Nate Goldsborough
 //Antares Network Discord Bot 
 
-import mongoose, { Schema , Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const GATE = new Schema({
     id: String,
