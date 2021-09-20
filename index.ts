@@ -9,18 +9,21 @@ import mongoose from "mongoose";
 import path from 'path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
+dotenv.config();
 //! import gateModel from '/models/gate.ts';
 
-
-dotenv.config();
 
 const client = new DiscordJs.Client({
     intents: [
         Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		Intents.FLAGS.DIRECT_MESSAGES,
+		Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
     ]
 });
+
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
@@ -47,13 +50,25 @@ const client = new DiscordJs.Client({
 	console.log(chalk.green("Logged into the Discord API"));
 })()
 
+
 client.on('ready', async () => {
 	// Print the bot's username and discriminator to the console
 	if (client.user) console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);
+
+	//give WOK a db connection
+	const dbOptions = {
+		keepAlive: true,
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false
+	}
+	//create the WOK client object
 	new WOKCommands(client, {
 		commandDir: path.join(__dirname, 'commands'),
         typeScript: true,
-        testServers: ['788541416740487218']
+        testServers: [String(process.env.TEST_SERVERS)],
+		dbOptions,
+    	mongoUri: String(process.env.BOT_MONGO_PATH)
     })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner('603629606154666024')
@@ -82,6 +97,7 @@ client.on('ready', async () => {
 	})
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
+
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
