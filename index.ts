@@ -40,12 +40,24 @@ const client = new DiscordJs.Client({
 		process.exit(1)
 	})
 	console.log(chalk.green("Logged into the Discord API"));
-	console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);
+})()
 
+client.on('ready', async () => {
+    new WOKCommands(client, {
+        commandDir: path.join(__dirname, 'commands'),
+        typeScript: true,
+        testServers: ['788541416740487218']
+    })
+    .setDefaultPrefix('*')
+    .setBotOwner('603629606154666024')
 
+	
 	//Set the activity of the bot
-	client.user!.setActivity(`&help | V: ${process.env.VERSION}`, { type: 'PLAYING' })
-	console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
+	if (client.user){
+		client.user.setActivity('activity', { type: 'WATCHING' })
+		client.user.setActivity(`&help | V: ${process.env.VERSION}`, { type: 'PLAYING' })
+		console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
+	}
 	
 
 	//Print some bot stats
@@ -58,22 +70,7 @@ const client = new DiscordJs.Client({
 
 	console.log(chalk.green("The bot is online."));
 	console.log(chalk.green.bold("Startup script has run"));
-
-})() //idk why these () are needed but they are
-
-
-
-
-
-
-client.on('ready', async () => {
-    new WOKCommands(client, {
-        commandDir: path.join(__dirname, 'commands'),
-        typeScript: true,
-        testServers: ['788541416740487218']
-    })
-    .setDefaultPrefix('&')
-    .setBotOwner('603629606154666024')
+	console.log(`Logged in as`, `${chalk.magenta(client.user!.tag)}`);
 });
 
 client.on("error", (e) => console.error(e));
@@ -82,4 +79,4 @@ client.on("warn", (e) => console.warn(e));
 process.on('exit', (code) => {
 	console.log("Now exiting...");
     console.log(`Exited with status code: ${code}`);
-  });
+});
