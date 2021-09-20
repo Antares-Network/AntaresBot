@@ -9,10 +9,10 @@ export default {
 
     callback: ({ client }) => {
         const Embed = new MessageEmbed()
-                .setColor('#ff3505')
-                .setTitle('Bot/API Ping')
-                .setDescription(`Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`,)
-                .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
+            .setColor('#ff3505')
+            .setTitle('Bot/API Ping')
+            .setDescription(`Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`,)
+            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
         return Embed;
 
     }

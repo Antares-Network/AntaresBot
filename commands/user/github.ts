@@ -10,12 +10,12 @@ export default {
 
     callback: ({ client }) => {
         const Embed = new MessageEmbed()
-        .setColor('#ff3505')
-        .setURL('https://dsc.gg/antaresnetwork')
-        .setThumbnail('https://playantares.com/resources/icon.png')
-        .setTitle('Github')
-        .setDescription('Click here to go to the Antares Bot Github repo: \n https://github.com/Antares-Network/AntaresBot')
-        .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
+            .setColor('#ff3505')
+            .setURL('https://dsc.gg/antaresnetwork')
+            .setThumbnail('https://playantares.com/resources/icon.png')
+            .setTitle('Github')
+            .setDescription('Click here to go to the Antares Bot Github repo: \n https://github.com/Antares-Network/AntaresBot')
+            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
         return Embed;
 
     }
