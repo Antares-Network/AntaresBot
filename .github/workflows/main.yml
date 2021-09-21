@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,7 +28,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: node test.js
+    - run: node index.ts
       env:
         BOT_MONGO_PATH: ${{ secrets.BOT_MONGO_PATH }}
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
