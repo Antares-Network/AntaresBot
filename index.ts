@@ -98,6 +98,16 @@ client.on('ready', async () => {
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
 
+client.on("messageCreate", (message) => {
+	if (message.author.bot) return;
+	if (message.channel.type === "DM") {
+		console.log(`${chalk.blue.bold(`DM`)} ${chalk.yellow(`[`+message.author.username+`]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[`+message.content+`]`)}`)
+	}
+	if (message.channel.type === "GUILD_TEXT"){
+		console.log(`${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(`[`+message.channel.guild.name+`]`)} ${chalk.blue(`[`+message.channel.name+`]`)} ${chalk.yellow(`[`+message.author.username+`]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[`+message.content+`]`)}`);	
+	}
+});
+
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
