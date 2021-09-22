@@ -1,9 +1,9 @@
 version = 1
 
-test_patterns = ["/index.js"]
+test_patterns = ["/index.ts"]
 
 exclude_patterns = ["/node_modules/**"]
 
 [[analyzers]]
-name = "javascript"
+name = "typescript"
 enabled = true

@@ -1,40 +1,28 @@
 {
   "name": "antaresbot",
-  "version": "1.3.20",
+  "version": "1.4.0",
   "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
-  "main": "index.js",
   "dependencies": {
-    "colors": "^1.4.0",
-    "commando-provider-mongo": "^2.1.0",
-    "discord.js": "^12.5.3",
-    "discord.js-commando": "^0.11.1",
-    "dotenv": "^8.2.0",
-    "fetch": "^1.1.0",
-    "mcdata": "^1.0.9",
-    "module-alias": "^2.2.2",
-    "mongoose": "^5.12.3",
+    "axios": "^0.21.4",
+    "chalk": "^4.1.2",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.6",
     "path": "^0.12.7",
-    "random-stuff-api": "^10.0.0",
-    "reddit-image-fetcher": "^2.0.6"
+    "wokcommands": "^1.3.983"
   },
-  "devDependencies": {},
+  "main": "index.ts",
   "scripts": {
-    "test": "node test.js",
-    "start": "node index.js"
-  },
-  "eslintConfig": {
-    "globals": {
-      "botVersion":true,
-      "config":true,
-      "bot":true
-    }
+    "test": "test.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Antares-Network/AntaresBot.git"
   },
-  "author": "nathen418",
-  "contributors": ["nathen418", "StickyFingies"],
+  "keywords": [
+    "AntaresBot"
+  ],
+  "author": "Nate Goldsborough",
   "license": "CC BY-NC-ND, See LICENSE file for more information",
   "bugs": {
     "url": "https://github.com/Antares-Network/AntaresBot/issues"
