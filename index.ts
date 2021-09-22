@@ -20,6 +20,7 @@ const client = new DiscordJs.Client({
 		Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
 		Intents.FLAGS.DIRECT_MESSAGES,
 		Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
     ]
@@ -28,19 +29,19 @@ const client = new DiscordJs.Client({
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
-	//Connect to MongoDB
-	console.log(chalk.yellow('Trying to connect to MongoDB\nPlease wait for a connection'));
-	await mongoose.connect(String(process.env.BOT_MONGO_PATH), {
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-    })
-	.catch((error) => {
-		console.log(chalk.red.bold(`There was an error connecting to the database:\n ${error}`))
-		process.exit(1)
-	})
-	console.log(chalk.green('Connected to MongoDB'));
-
-
+		//Connect to MongoDB
+		console.log(chalk.yellow('Trying to connect to MongoDB\nPlease wait for a connection'));
+		await mongoose.connect(String(process.env.BOT_MONGO_PATH), {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		})
+		.catch((error) => {
+			console.log(chalk.red.bold(`There was an error connecting to the database:\n ${error}`))
+			process.exit(1)
+		})
+		console.log(chalk.green('Connected to MongoDB'));
+	
+	
 	//login to the discord api
 	console.log(chalk.yellow('Trying to login to the Discord API\nPlease wait for a connection'));
 	client.login(process.env.BOT_TOKEN).catch((error) => {
@@ -74,7 +75,8 @@ client.on('ready', async () => {
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner('603629606154666024')
 
-	wok.on("databaseConnected", async (connection, state) => {
+	wok.on("databaseConnected", async () => {
+	console.log(chalk.green('Connected to MongoDB'));
 		//Print some bot stats
 		console.log(`${chalk.yellow('I am in')} ${chalk.green(client.guilds.cache.size)} ${chalk.yellow('servers')}`)
 		try {
@@ -93,17 +95,12 @@ client.on('ready', async () => {
 		console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
 	}
 	
-	
-	
-	
 
 	client.users.fetch(String(process.env.BOT_OWNER_ID)).then(user => {
 		user.send(`I have just restarted and am now back online.`);
 		console.log(chalk.green.bold(`Bot startup dm sent.`))
 	})
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
-
-
 });
 
 client.on("messageCreate", (message) => {
@@ -116,10 +113,9 @@ client.on("messageCreate", (message) => {
 	}
 });
 
-
+//! deal with errors to the console and how to exit gracefully
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
-
 process.on('exit', (code) => {
 	console.log("Now exiting...");
     console.log(`Exited with status code: ${code}`);
