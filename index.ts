@@ -10,7 +10,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 dotenv.config();
-//! import gateModel from '/models/gate.ts';
+import gateModel from './models/gate'
+import onReady from './actions/onReady';
 
 
 const client = new DiscordJs.Client({
@@ -39,7 +40,6 @@ const client = new DiscordJs.Client({
 	})
 	console.log(chalk.green('Connected to MongoDB'));
 
-	//! const gate = await gateModel.findOne({ NAME: 'GATE' });
 
 	//login to the discord api
 	console.log(chalk.yellow('Trying to login to the Discord API\nPlease wait for a connection'));
@@ -52,6 +52,7 @@ const client = new DiscordJs.Client({
 
 
 client.on('ready', async () => {
+	onReady.event(client);
 	// Print the bot's username and discriminator to the console
 	if (client.user) console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);
 
@@ -63,7 +64,7 @@ client.on('ready', async () => {
 		useFindAndModify: false
 	}
 	//create the WOK client object
-	new WOKCommands(client, {
+	const wok = new WOKCommands(client, {
 		commandDir: path.join(__dirname, 'commands'),
         typeScript: true,
         testServers: [String(process.env.TEST_SERVERS)],
@@ -72,6 +73,17 @@ client.on('ready', async () => {
     })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner('603629606154666024')
+
+	wok.on("databaseConnected", async (connection, state) => {
+		//Print some bot stats
+		console.log(`${chalk.yellow('I am in')} ${chalk.green(client.guilds.cache.size)} ${chalk.yellow('servers')}`)
+		try {
+			const gate = await gateModel.findOne({ NAME: 'GATE' });
+			console.log(`${chalk.yellow('I am being used by')} ${chalk.green(gate.TOTAL_USERS)} ${chalk.yellow('users')}`)
+		} catch (e) {
+			console.log(e);
+		}
+	})
 	
 	
 	//Set the activity of the bot
@@ -82,20 +94,16 @@ client.on('ready', async () => {
 	}
 	
 	
-	//Print some bot stats
-	console.log(`${chalk.yellow('I am in')} ${chalk.green(client.guilds.cache.size)} ${chalk.yellow('servers')}`)
-	try {
-		//! console.log(`${chalk.yellow('I am being used by')} ${chalk.green(gate.TOTAL_USERS)} ${chalk.yellow('users')}`)
-	} catch (e) {
-		console.log(e);
-	}
 	
 	
+
 	client.users.fetch(String(process.env.BOT_OWNER_ID)).then(user => {
 		user.send(`I have just restarted and am now back online.`);
 		console.log(chalk.green.bold(`Bot startup dm sent.`))
 	})
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
+
+
 });
 
 client.on("messageCreate", (message) => {
