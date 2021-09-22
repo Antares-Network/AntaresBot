@@ -7,7 +7,7 @@
 // const mongoose = require('mongoose');
 
 
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const GUILD = new Schema({
     id: String,
@@ -19,5 +19,6 @@ const GUILD = new Schema({
     GUILD_MEMBER_COUNT: String,
     GUILD_MESSAGES: String
 })
+const name = 'guilds'
 
-export default GUILD;
+export = mongoose.models[name] || mongoose.model(name, GUILD, name);

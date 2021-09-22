@@ -4,7 +4,7 @@
 //built for discord.js V.12.5.1
 
 
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const PII = new Schema({
     id: String,
@@ -16,4 +16,6 @@ const PII = new Schema({
     GUILD_POLL_TIMEOUT: String
 })
 
-export default PII;
+const name = 'piis'
+
+export = mongoose.models[name] || mongoose.model(name, PII, name);

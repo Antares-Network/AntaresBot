@@ -1,7 +1,5 @@
-//Nate Goldsborough
-//Antares Network Discord Bot 
-
 import mongoose, { Schema } from 'mongoose';
+
 
 const GATE = new Schema({
     id: String,
@@ -17,4 +15,6 @@ const GATE = new Schema({
     UPDATE_TIME: String
 });
 
-export default mongoose.model('GATE', GATE);
+const name = 'gates'
+
+export = mongoose.models[name] || mongoose.model(name, GATE, name);
