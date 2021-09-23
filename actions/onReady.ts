@@ -3,12 +3,10 @@ import chalk from 'chalk'
 import gateModel from './../models/gate'
 import guildModel from './../models/guild'
 import piiModel from './../models/pii'
-
-//! NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 import docCreate from './docCreate'
 import piiCreate from './piiCreate'
 import gateCreate from './gateCreate'
-//! NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
 
 async function event(client: Client) {
     const gate = await gateModel.findOne({ NAME: 'GATE' })
