@@ -1,4 +1,4 @@
-import { Message, TextChannel, Client } from 'discord.js';
+import { Message, Client } from 'discord.js';
 import piiModel from '../models/pii';
 
 
@@ -7,9 +7,8 @@ async function count(message: Message, client: Client) {
     var srv = await piiModel.findOne({ GUILD_ID: message.guild?.id }); //find the entry for the guild
     // Stores the current count.
     let count = Number(srv.GUILD_COUNTING_NUMBER);
-    //! make the counting channel able to be changed and set in the database
     // Only do this for the counting channel of course
-    if (client.channels.cache.filter(c => (c as TextChannel).name === 'counting').keyArray().includes(message.channel.id)) {
+    if (client.channels.cache.get(srv.GUILD_COUNTING_CHANNEL_ID) === message.channel) {
         let lm;
         // You can ignore all bot messages like this
         if (message.member?.user.bot) return
@@ -29,7 +28,7 @@ async function count(message: Message, client: Client) {
                 await piiModel.findOneAndUpdate({ GUILD_ID: message.guild?.id }, { $set: { GUILD_COUNTING_NUMBER: count } }, { new: true });
                 // If the message wasn't sent by the bot...
             } else if (message.member?.id !== client.user?.id) {
-                // ...send a message because the person stuffed up the counting (and log all errors)
+                // ...send a message because the person stuffed up the counting
                 message.delete()
                 message.channel.send(`That is not the correct number. You should type *${count + 1}*`)
                 .then(msg => {

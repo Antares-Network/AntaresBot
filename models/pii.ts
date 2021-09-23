@@ -12,6 +12,7 @@ const PII = new Schema({
     GUILD_NAME: String,
     GUILD_DEFAULT_CHANNEL: String,
     GUILD_ADMIN_CHANNEL: String,
+    GUILD_COUNTING_CHANNEL_ID: String,
     GUILD_COUNTING_NUMBER: String,
     GUILD_POLL_TIMEOUT: String
 })
