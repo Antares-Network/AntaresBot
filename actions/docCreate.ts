@@ -39,7 +39,7 @@ async function event( guild: Guild, client: Client) {
         .setTitle(`Thank you for inviting me to your server`)
         .setThumbnail(String(guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'))
         .addFields(
-            { name: 'My prefix', value: `My current prefix is: **\`${process.env.DEFAULT_BOT_PREFIX}\`** To change my prefix run \`&prefix\`` },
+            { name: 'My prefix', value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix\`` },
             { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
             { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
             { name: 'Invite me to your server', value: `https://dis.gg/antaresbot` })
