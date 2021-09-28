@@ -1,5 +1,5 @@
-import piiModel from '../models/pii';
 import { Message, MessageEmbed, Client, TextChannel } from 'discord.js';
+import piiModel from '../models/pii';
 import gateModel from '../models/gate';
 
 async function check(message: Message, client: Client): Promise<boolean> {
@@ -16,7 +16,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
         setTimeout( async () => {
             MSG.delete()
         }, 5000);
-        Promise.resolve(false);
+        return Promise.resolve(false);
     }
     //check if the user has been banned from using the bot 
     if (gate.BANNED_USERS.includes(message.author.id)) {
@@ -29,20 +29,34 @@ async function check(message: Message, client: Client): Promise<boolean> {
         setTimeout( async () => {
             MSG.delete()
         }, 5000);
-        Promise.resolve(false);
+        return Promise.resolve(false);
     }
     //check if the user sent their message in the default channel
     if (message.channel.id != srv.GUILD_DEFAULT_CHANNEL) {
-        if (srv.GUILD_DEFAULT_CHANNEL === null) {
+        if (srv.GUILD_DEFAULT_CHANNEL == null) {
             message.channel.send("The server owner has not set a default channel yet.\n If you are the server owner please use `&setup #channel`");
-            return false; //exit the loop and don't parse the command
+            return Promise.resolve(false); //exit the loop and don't parse the command
         } else {
             //ping the user in the default channel
             let MSG = await (client.channels?.cache.get(srv.GUILD_DEFAULT_CHANNEL) as TextChannel).send(`<@${message.author.id}> Please use me in this channel`);
             setTimeout( async () => {
                 MSG.delete()
             }, 5000);
-            return false;
+            return Promise.resolve(false);
+        }
+    }
+    //check if admin commands were sent in the admin channel
+    if (message.channel.id != srv.GUILD_ADMIN_CHANNEL) {
+        if (srv.GUILD_ADMIN_CHANNEL == null) {
+            message.channel.send("The server owner has not set an admin channel yet.\n If you are the server owner please use `&admin #channel`");
+            return Promise.resolve(false); //exit the loop and don't parse the command
+        } else {
+            //ping the admin in the admin channel
+            let MSG = await (client.channels?.cache.get(srv.GUILD_ADMIN_CHANNEL) as TextChannel).send(`<@${message.author.id}> Please use admin commands in this channel`);
+            setTimeout( async () => {
+                MSG.delete()
+            }, 5000);
+            return Promise.resolve(false);
         }
     }
     return Promise.resolve(true);
