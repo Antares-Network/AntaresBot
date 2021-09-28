@@ -6,6 +6,7 @@ import axios from 'axios';
 export default {
     category: 'User',
     description: 'Sends a random cat image',
+    aliases: ['kitty', 'kitten',],
     slash: false,
     guildOnly: true,
 
