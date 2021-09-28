@@ -171,7 +171,8 @@ client.on("guildDelete", async (guild) => {
 		])
 		.setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
 	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: guild.id }, { $set: { GUILD_LEAVE_DATE: d.toString() } }, { new: true });
+		await guildModel.findOneAndDelete({ GUILD_ID: guild.id })
+		await piiModel.findOneAndDelete({ GUILD_ID: guild.id })
 		client.users.fetch(String(process.env.BOT_OWNER_ID)).then(user => {
 			user.send({embeds: [Embed]});
 		})
