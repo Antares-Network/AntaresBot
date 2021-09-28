@@ -5,7 +5,7 @@ import check from "../../functions/channelCheck"
 export default {
     category: 'User',
     description: 'Sends the version number of the bot',
-    slash: 'both',
+    slash: false,
     guildOnly: true,
 
     callback: async ({ client, message }) => {

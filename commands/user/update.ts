@@ -7,7 +7,7 @@ import check from "../../functions/channelCheck"
 export default {
     category: 'User',
     description: 'Updates the gate model/stats of the bot',
-    slash: 'both',
+    slash: false,
     guildOnly: true,
 
     callback: async ({ client, channel, message }) => {

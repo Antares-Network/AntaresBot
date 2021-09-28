@@ -6,7 +6,6 @@ export default {
     category: 'User',
     description: 'Sends the privacy policy for the bot in a dm',
     slash: 'both',
-    testOnly: true,
     guildOnly: false,
 
     callback: ({ message }) => {

@@ -6,7 +6,7 @@ export default {
     name: 'invite',
     category: 'User',
     description: 'Sends an invite for the bot and the support server',
-    slash: true,
+    slash: 'both',
     guildOnly:  true,
 
     callback: async ({client, message, interaction: msgInt }) => {
