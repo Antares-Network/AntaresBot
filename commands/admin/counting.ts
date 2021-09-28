@@ -10,8 +10,6 @@ export default {
     slash: false,
     permissions: ['MANAGE_CHANNELS'],
     guildOnly: true,
-    //userPermissions: ['MANAGE_CHANNELS'],
-    // clientPermissions: ['MANAGE_CHANNELS', 'MANAGE_MESSAGES'],
     
     callback: async ({client, message}) => {
         if(await adminChanCheck.check(message, client)) {
