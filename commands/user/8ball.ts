@@ -4,10 +4,11 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Answers all of the questions you might have',
-    slash: 'both',
+    slash: false,
     testOnly: true,
     aliases: ['8-ball', 'ask', 'why'],
     example: '&ask Am i a dum dum?',
+    guildOnly: true,
 
     callback: ({ client, message, text }) => {
         let eightball = [

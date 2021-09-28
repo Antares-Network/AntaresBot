@@ -6,6 +6,7 @@ export default {
     description: 'Sends the ping time of the bot.',
     slash: 'both',
     testOnly: true,
+    guildOnly: true,
 
     callback: ({ client }) => {
         const Embed = new MessageEmbed()

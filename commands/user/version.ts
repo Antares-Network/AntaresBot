@@ -4,9 +4,9 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Sends the version number of the bot',
-
     slash: 'both',
     testOnly: true,
+    guildOnly: true,
 
     callback: ({ client }) => {
         const Embed = new MessageEmbed()

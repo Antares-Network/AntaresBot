@@ -6,8 +6,10 @@ export default {
     category: 'User',
     description: 'Gets the username, skin and UUID of a valid minecraft username',
     expectedArgs: '<username>',
+    slash: false,
     minArgs: 1,
     maxArgs: 1,
+    guildOnly: true,
 
     callback: ({ client, message, args }) => {
         const username = args[0];

@@ -5,8 +5,9 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Sends an embed with a link to the github repo for the bot.',
-    slash: 'both',
+    slash: false,
     testOnly: true,
+    guildOnly: true,
 
     callback: ({ client }) => {
         const Embed = new MessageEmbed()

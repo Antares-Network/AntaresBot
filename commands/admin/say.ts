@@ -7,7 +7,8 @@ export default {
     slash: false,
     expectedArgs: '<channel>',
     minArgs: 1,
-    permissions: ['ADMINISTRATOR'],
+    permissions: ['MANAGE_MESSAGES'],
+    guildOnly: true,
 
 
     callback: ({ client, message, args, text }) => {
