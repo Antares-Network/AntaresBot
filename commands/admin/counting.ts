@@ -7,7 +7,8 @@ export default {
     category: 'Admin',
     description: 'Makes the bot say something',
     slash: false,
-    permissions: ['ADMINISTRATOR'],
+    permissions: ['MANAGE_CHANNELS'],
+    guildOnly: true,
     //userPermissions: ['MANAGE_CHANNELS'],
     // clientPermissions: ['MANAGE_CHANNELS', 'MANAGE_MESSAGES'],
     
