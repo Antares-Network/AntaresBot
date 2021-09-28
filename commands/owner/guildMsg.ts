@@ -14,7 +14,6 @@ export default {
     category: 'owner',
     description: 'Sends an guildMsg to every guild the bot is in',
     slash: false,
-    testOnly: true,
     example: 'guildMsg HI',
     guildOnly: true,
     hidden: true,
@@ -23,7 +22,6 @@ export default {
         const gate = await gateModel.findOne({ NAME: 'GATE' })
         //get the list of guilds the bot is in
         var guildList = client.guilds?.cache;
-        //console.log(text)
 
         try {
             //send a message to every guild this bot is in
@@ -33,15 +31,15 @@ export default {
                 .setTitle("Antares Bot -- System Update Message")
                 .setDescription('I have just flown in to tell you that my developers have something to say:')
                 .addField('Message:', `${text}`)
-            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
+                .setFooter(`Set a default channel yet with ${process.env.BOT_DEFAULT_PREFIX}setup | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
             guildList.forEach(async guild => {
-                if(gate.IGNORED_GUILDS.includes(guild.id)) return;
+                if(await gate.IGNORED_GUILDS.includes(guild.id)) return;
                 const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
                 if (doc.GUILD_DEFAULT_CHANNEL != null) {
                     //send the message in the default channel for this guild
                     (guild?.channels.cache.get(doc?.GUILD_DEFAULT_CHANNEL) as TextChannel).send({ embeds: [embed]})
                 } else {
-                    (guild?.channels.cache.find(c => c?.type === 'GUILD_TEXT') as TextChannel).send({ embeds: [embed]})
+                    (guild?.channels.cache.find(c => c?.type === 'GUILD_TEXT') as TextChannel).send({ embeds: [embed]});
                 }
             });
         } catch (err) {
