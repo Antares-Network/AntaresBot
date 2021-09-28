@@ -6,7 +6,6 @@ export default {
     category: 'User',
     description: 'Sends the ping time of the bot.',
     slash: 'both',
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, message }) => {

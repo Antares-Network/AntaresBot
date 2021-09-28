@@ -8,7 +8,6 @@ export default {
     description: 'Flips a coin',
     slash: false,
     aliases: ["flip", "coin", "flipcoin", "headstails"],
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, message }) => {

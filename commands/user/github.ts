@@ -7,7 +7,6 @@ export default {
     category: 'User',
     description: 'Sends an embed with a link to the github repo for the bot.',
     slash: false,
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, message }) => {

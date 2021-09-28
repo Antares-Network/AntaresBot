@@ -5,7 +5,6 @@ export default {
     category: 'User',
     description: 'Makes the bot sneeze',
     slash: false,
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, channel, message }) => {

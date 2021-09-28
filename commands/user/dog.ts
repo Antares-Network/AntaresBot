@@ -9,7 +9,6 @@ export default {
     description: 'Sends a random dog image',
     aliases: ['doggo', 'puppy', 'woofer'],
     slash: false,
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, channel, message }) => {

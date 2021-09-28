@@ -8,7 +8,6 @@ export default {
     category: 'User',
     description: 'Updates the gate model/stats of the bot',
     slash: 'both',
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, channel, message }) => {

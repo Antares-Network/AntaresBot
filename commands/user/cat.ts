@@ -7,7 +7,6 @@ export default {
     category: 'User',
     description: 'Sends a random cat image',
     slash: false,
-    testOnly: true,
     guildOnly: true,
 
     callback: async({ client, message, channel }) => {

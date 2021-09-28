@@ -7,7 +7,6 @@ export default {
     category: 'User',
     description: 'Suggest a new bot feature',
     slash: 'both',
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, message, text }) => {

@@ -8,7 +8,6 @@ export default {
     description: 'Sends the ping time of the bot.',
     aliases: ['reddit', 'meme'],
     slash: 'both',
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, channel, message }) => {

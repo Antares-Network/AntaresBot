@@ -6,7 +6,7 @@ import check from "../../functions/channelCheck"
 export default {
     category: 'User',
     description: 'Gets a comic from xkcd',
-    aliases: ['xkcd'],
+    aliases: ['comic'],
     slash: false,
     guildOnly: true,
 

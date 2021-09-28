@@ -8,7 +8,6 @@ export default {
     description: 'Rolls a die',
     slash: false,
     aliases: ["dice", "roll", "rolldice"],
-    testOnly: true,
     guildOnly: true,
 
     callback: async ({ client, message }) => {
