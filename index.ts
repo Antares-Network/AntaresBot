@@ -9,7 +9,6 @@ import mongoose from "mongoose";
 import path from 'path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
-dotenv.config();
 import gateModel from './models/gate'
 import piiModel from './models/pii';
 import guildModel from './models/guild';
@@ -19,6 +18,7 @@ import messageLog from './actions/messageLog';
 import docCreate from './actions/docCreate';
 import piiCreate from './actions/piiCreate';
 import guildUpdate from './actions/guildUpdate';
+dotenv.config();
 
 
 const client = new DiscordJs.Client({
@@ -102,19 +102,24 @@ client.on('ready', async () => {
 		console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
 	}
 	
-
+	// Send a message to the bot owner that the bot has started and is online
 	client.users.fetch(String(process.env.BOT_OWNER_ID)).then(user => {
 		user.send(`I have just restarted and am now back online.`);
 		console.log(chalk.green.bold(`Bot startup dm sent.`))
 	})
+
+	//Startup complete
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
 
 client.on("messageCreate", async (message) => {
+	//Get the gate data at the start of each message create event
 	const gate = await gateModel.findOne({ NAME: 'GATE' })
 
+	// ignore ignored guilds, bots, and itself
 	if (message.guild && gate.IGNORED_GUILDS.includes(message.guild.id)) return;
 	if (message.author.bot) return;
+	//log dms and guild messages to the console but do not store them
 	if (message.channel.type === "DM") {
 		console.log(`${chalk.blue.bold(`DM`)} ${chalk.yellow(`[`+message.author.username+`]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[`+message.content+`]`)}`)
 	}
@@ -124,6 +129,7 @@ client.on("messageCreate", async (message) => {
 			counting.count(message, client); // logic 
 			messageLog.log(message); // log number of messages sent in each guild
 		} catch (e) {
+			//! change this to a more descriptive error message
 			console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot")
 		}
 	}

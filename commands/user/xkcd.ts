@@ -1,22 +1,22 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 import axios from 'axios';
 
 export default {
     category: 'User',
-    description: 'Sends a random cat image',
+    description: 'Gets a comic from xkcd',
     slash: false,
-    testOnly: true,
     guildOnly: true,
 
-    callback: ({ client, channel }) => {
-        axios.get('https://aws.random.cat/meow')
+    callback: async ({ client, channel }) => {
+            let comicNum = Math.floor(Math.random() * 2520);
+            axios.get(`http://xkcd.com/${comicNum}/info.0.json`)
             .then(function (response) {
                 const Embed = new MessageEmbed()
                 .setColor('#ff3505')
                 //.setURL('https://dsc.gg/antaresnetwork')
                 .setTitle('Random Cat Picture')
-                .setImage(response.data.file)
+                .setImage(response.data.img)
                 .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
                 channel.send({embeds: [Embed]});
             }).catch((error) => {
@@ -24,6 +24,5 @@ export default {
                 console.log(error);
                 return(`**\`Err:\`** Socket hang up. Please try again.`);
             });
-            
     }
 } as ICommand

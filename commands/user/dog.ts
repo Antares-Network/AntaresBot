@@ -4,19 +4,20 @@ import axios from 'axios';
 
 export default {
     category: 'User',
-    description: 'Sends a random cat image',
+    description: 'Sends a random dog image',
+    aliases: ['doggo', 'puppy', 'woofer'],
     slash: false,
     testOnly: true,
     guildOnly: true,
 
     callback: ({ client, channel }) => {
-        axios.get('https://aws.random.cat/meow')
+        axios.get('https://dog.ceo/api/breeds/image/random')
             .then(function (response) {
                 const Embed = new MessageEmbed()
                 .setColor('#ff3505')
                 //.setURL('https://dsc.gg/antaresnetwork')
-                .setTitle('Random Cat Picture')
-                .setImage(response.data.file)
+                .setTitle('Random Dog Picture')
+                .setImage(response.data.message)
                 .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
                 channel.send({embeds: [Embed]});
             }).catch((error) => {
