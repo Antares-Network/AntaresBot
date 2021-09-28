@@ -16,7 +16,7 @@
 
 ## Invite the bot at the link below
 
-**<https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=125969>**
+**<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands>**
 
 ## A list of User Commands
 
