@@ -126,7 +126,7 @@ client.on("messageCreate", async (message) => {
 	if (message.channel.type === "GUILD_TEXT"){
 		console.log(`${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(`[`+message.channel.guild.name+`]`)} ${chalk.blue(`[`+message.channel.name+`]`)} ${chalk.yellow(`[`+message.author.username+`]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[`+message.content+`]`)}`);	
 		try {
-			counting.count(message, client); // logic 
+			counting.count(message, client); // counting logic 
 			messageLog.log(message); // log number of messages sent in each guild
 		} catch (e) {
 			//! change this to a more descriptive error message
@@ -181,23 +181,27 @@ client.on("guildDelete", async (guild) => {
 	}
 });
 
-client.on('guildMemberAdd', async (member) => {
-	console.log(`${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user.username+`]`)}`);
-	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
-	} catch (e) {
-		console.log(e);
-	}
-})
 
-client.on('guildMemberRemove', async (member) => {
-	console.log(`${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user?.username+`]`)}`);
-	try {
-		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
-	} catch (e) {
-		console.log(e);
-	}
-})
+// needs GUILD_MEMBER intent which is privileged 
+// client.on('guildMemberAdd', async (member) => {
+// 	console.log(`${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user.username+`]`)}`);
+// 	try {
+// 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// })
+
+
+// needs GUILD_MEMBER intent which is privileged 
+// client.on('guildMemberRemove', async (member) => {
+// 	console.log(`${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user?.username+`]`)}`);
+// 	try {
+// 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// })
 
 client.on('guildUpdate', async (oldGuild, newGuild) => {
 	guildUpdate.update(oldGuild, newGuild, client)
