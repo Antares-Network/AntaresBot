@@ -16,9 +16,11 @@ export default {
   // Best practice for the built-in help menu
   category: 'Configuration',
   description: 'Updates the status for the bot',
+  slash: false,
   minArgs: 1,
   expectedArgs: '<status>',
   ownerOnly: true,
+  hidden: true,
 
   // This method is invoked anytime the command is ran
   callback: ({ client, text, message }) => {

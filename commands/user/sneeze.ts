@@ -1,4 +1,3 @@
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 
 export default {
@@ -8,7 +7,7 @@ export default {
     testOnly: true,
     guildOnly: true,
 
-    callback: ({ message }) => {
+    callback: ({ channel }) => {
         const sneezes = [
             "***Achoo!***",
             "*chew!*",
@@ -17,8 +16,6 @@ export default {
             "*Achoo!* Excuse me!",
             ""
         ];
-        message.reply(
-            sneezes[Math.floor(Math.random() * Math.floor(sneezes.length))]
-        );
+        channel.send(sneezes[Math.floor(Math.random() * Math.floor(sneezes.length))])
     }
 } as ICommand

@@ -5,7 +5,7 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Sends the privacy policy for the bot in a dm',
-    slash: false,
+    slash: 'both',
     testOnly: true,
     guildOnly: false,
 

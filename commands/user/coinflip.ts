@@ -4,7 +4,7 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Flips a coin',
-    slash: 'both',
+    slash: false,
     aliases: ["flip", "coin", "flipcoin", "headstails"],
     testOnly: true,
     guildOnly: true,

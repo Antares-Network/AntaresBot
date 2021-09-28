@@ -4,7 +4,7 @@ import { ICommand } from "wokcommands";
 export default {
     category: 'User',
     description: 'Rolls a die',
-    slash: 'both',
+    slash: false,
     aliases: ["dice", "roll", "rolldice"],
     testOnly: true,
     guildOnly: true,
