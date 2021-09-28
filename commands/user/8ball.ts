@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
+import check from "../../functions/channelCheck"
 
 export default {
     category: 'User',
@@ -10,8 +11,9 @@ export default {
     example: '&ask Am i a dum dum?',
     guildOnly: true,
 
-    callback: ({ client, message, text }) => {
-        let eightball = [
+    callback: async ({ client, message, text }) => {
+        if (await check.check(message, client)) {
+            let eightball = [
             'It is certain.',
             'It is decidedly so.',
             'Without a doubt.',
@@ -41,17 +43,16 @@ export default {
             'It\'s over',
             'It\'s just the beginning',
             'Good Luck',
-        ];
-        let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
-        const Embed = new MessageEmbed()
-            .setColor('#ff3505')
-            //.setURL('https://dsc.gg/antaresnetwork')
-            .setTitle('Get an answer to all your questions')
-            .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
-            .setDescription(`${message.author.username} asks:\n ${text}\n\n **My Answer:**\n ${eightball[index]}`,)
-            .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
-        return Embed;
-
-
+            ];
+            let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
+            const Embed = new MessageEmbed()
+                .setColor('#ff3505')
+                //.setURL('https://dsc.gg/antaresnetwork')
+                .setTitle('Get an answer to all your questions')
+                .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`)
+                .setDescription(`${message.author.username} asks:\n ${text}\n\n **My Answer:**\n ${eightball[index]}`,)
+                .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
+            return Embed;
+        }
     }
 } as ICommand;

@@ -1,5 +1,6 @@
 import { MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
+import check from "../../functions/channelCheck"
 
 export default {
     name: 'invite',
@@ -9,7 +10,8 @@ export default {
     testOnly: true,
     guildOnly:  true,
 
-    callback: async ({client, interaction: msgInt }) => {
+    callback: async ({client, message, interaction: msgInt }) => {
+        if (await check.check(message, client)) {
         // console.log(`${chalk.red('COMMAND')} [${chalk.green(channel.guild.name)}] [${chalk.blue(channel.name)}] [${chalk.yellow(message.author.username)}] ${chalk.grey('--')} ${chalk.cyan(message.content)}`)
         const Embed = new MessageEmbed()
         .setColor('#ff3505')
@@ -36,5 +38,6 @@ export default {
                 content: "Embed Placeholder", //!find a way to put an embed here
                 components: [row],
             })
+        }
     }
 } as ICommand
