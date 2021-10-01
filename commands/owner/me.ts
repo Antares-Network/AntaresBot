@@ -2,10 +2,9 @@ import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 
 export default {
-    category: 'Owner',
+    category: 'owner',
     description: 'Sends a message about the server owner',
     slash: false,
-    testOnly: true,
     ownerOnly: true,
     hidden: true,
 

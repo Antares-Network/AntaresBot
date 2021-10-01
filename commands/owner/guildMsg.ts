@@ -16,6 +16,7 @@ export default {
     slash: false,
     example: 'guildMsg HI',
     guildOnly: true,
+    ownerOnly: true,
     hidden: true,
 
     callback: async ({ client, text }) => {

@@ -3,10 +3,12 @@ import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "ping",
+    category: 'user',
     description: 'Sends the ping time of the bot.',
     slash: 'both',
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {

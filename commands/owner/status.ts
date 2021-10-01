@@ -14,7 +14,7 @@ const setStatus = (client: Client, status: string) => {
 
 export default {
   // Best practice for the built-in help menu
-  category: 'Configuration',
+  category: 'owner',
   description: 'Updates the status for the bot',
   slash: false,
   minArgs: 1,

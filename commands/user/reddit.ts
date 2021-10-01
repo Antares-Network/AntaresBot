@@ -4,12 +4,14 @@ import redditImageFetcher from 'reddit-image-fetcher';
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "reddit",
+    category: 'user',
     description: 'Sends the ping time of the bot.',
     aliases: ['reddit', 'meme'],
     slash: false,
     testOnly: true,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, channel, message }) => {
         if (await check.check(message, client)) {

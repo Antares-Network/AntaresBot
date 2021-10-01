@@ -4,11 +4,13 @@ import axios from 'axios';
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "xkcd",
+    category: 'user',
     description: 'Gets a comic from xkcd',
     aliases: ['comic'],
     slash: false,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, channel, message }) => {
         if (await check.check(message, client)) {

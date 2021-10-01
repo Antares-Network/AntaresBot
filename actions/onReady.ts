@@ -34,8 +34,6 @@ async function event(client: Client) {
             client.destroy();
             client.login(process.env.BOT_TOKEN).catch(e => console.error(e));
         }, 5000);
-    } else {
-        client.user?.setActivity(`&help | V: ${process.env.VERSION}`, { type: 'PLAYING' });
     }
 }
 

@@ -5,10 +5,10 @@ import adminChanCheck from '../../functions/adminChanCheck'
 
 
 export default {
-    category: 'Admin',
+    category: 'admin',
     description: 'Makes the bot say something',
     slash: false,
-    permissions: ['MANAGE_CHANNELS'],
+    permissions: ['MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_MESSAGES'],
     guildOnly: true,
     
     callback: async ({client, message}) => {

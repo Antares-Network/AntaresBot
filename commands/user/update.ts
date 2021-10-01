@@ -5,10 +5,12 @@ import guildModel from '../../models/guild';
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "update",
+    category: 'user',
     description: 'Updates the gate model/stats of the bot',
     slash: false,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, channel, message }) => {
         if (await check.check(message, client)) {
@@ -22,10 +24,8 @@ export default {
             const postEmbed = new MessageEmbed()
                 .setColor('#ff3505')
                 .setTitle('Database Updated')
-                .setDescription(`Database has been successfully updated\n Run \`&stats\` to see the updated server stats`)
+                .setDescription(`Database has been successfully updated\n Run \`${process.env.BOT_DEFAULT_PREFIX}stats\` to see the updated server stats`)
                 .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
-
-
             let MSG = await channel.send({embeds: [preEmbed]});
             //var init and gc
             let totalUsers = 0;

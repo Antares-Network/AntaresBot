@@ -1,7 +1,7 @@
 //Nate Goldsborough
 //Antares Network Discord Bot 
 //This project will morph overtime
-//built for discord.js V.13.1.0
+//Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from 'discord.js';
 import WOKCommands from 'wokcommands';
@@ -24,7 +24,7 @@ dotenv.config();
 const client = new DiscordJs.Client({
     intents: [
         Intents.FLAGS.GUILDS,
-		//Intents.FLAGS.GUILD_MEMBERS,
+		Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
 		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
@@ -97,9 +97,8 @@ client.on('ready', async () => {
 	
 	//Set the activity of the bot
 	if (client.user){
-		client.user.setActivity('activity', { type: 'WATCHING' })
-		client.user.setActivity(`&help | V: ${process.env.VERSION}`, { type: 'PLAYING' })
-		console.log(`Set bot status to: ${chalk.cyan(`&help`)} V: ${chalk.cyan(process.env.VERSION)}`);
+		client.user.setActivity(`${process.env.BOT_DEFAULT_PREFIX}help | V: ${process.env.VERSION}`, { type: 'PLAYING' })
+		console.log(`Set bot status to: ${chalk.cyan(`${process.env.BOT_DEFAULT_PREFIX}help`)} V: ${chalk.cyan(process.env.VERSION)}`);
 	}
 	
 	// Send a message to the bot owner that the bot has started and is online
@@ -111,6 +110,7 @@ client.on('ready', async () => {
 	//Startup complete
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
+
 
 client.on("messageCreate", async (message) => {
 	//Get the gate data at the start of each message create event
@@ -147,12 +147,12 @@ client.on('messageDelete', async (message) => {
 });
 
 
-
 //actions to run when the bot joins a server
 client.on("guildCreate", async (guild) => {
 	docCreate.event(guild, client);
 	piiCreate.event(guild, client);
 })
+
 
 //actions to run when the bot leaves a server
 client.on("guildDelete", async (guild) => {
@@ -183,25 +183,25 @@ client.on("guildDelete", async (guild) => {
 
 
 // needs GUILD_MEMBER intent which is privileged 
-// client.on('guildMemberAdd', async (member) => {
-// 	console.log(`${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user.username+`]`)}`);
-// 	try {
-// 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
-// 	} catch (e) {
-// 		console.log(e);
-// 	}
-// })
+client.on('guildMemberAdd', async (member) => {
+	console.log(`${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user.username+`]`)}`);
+	try {
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
+	} catch (e) {
+		console.log(e);
+	}
+})
 
 
 // needs GUILD_MEMBER intent which is privileged 
-// client.on('guildMemberRemove', async (member) => {
-// 	console.log(`${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user?.username+`]`)}`);
-// 	try {
-// 		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
-// 	} catch (e) {
-// 		console.log(e);
-// 	}
-// })
+client.on('guildMemberRemove', async (member) => {
+	console.log(`${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(`[`+member.guild.name+`]`)} ${chalk.blue(`[`+member.user?.username+`]`)}`);
+	try {
+		await guildModel.findOneAndUpdate({ GUILD_ID: member.guild.id }, { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } }, { new: true });
+	} catch (e) {
+		console.log(e);
+	}
+})
 
 client.on('guildUpdate', async (oldGuild, newGuild) => {
 	guildUpdate.update(oldGuild, newGuild, client)

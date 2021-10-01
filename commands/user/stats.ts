@@ -4,10 +4,12 @@ import gateModel from '../../models/gate';
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "stats",
+    category: 'user',
     description: 'Sends an embed with some fun bot stats',
     slash: false,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {

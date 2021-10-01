@@ -7,6 +7,7 @@ export default {
     description: 'Shows the bot\'s admin help embed',
     aliases: ['ahelp', 'aHelp'],
     guildOnly:  true,
+    requiredPermissions: ['MANAGE_GUILD'],
 
     callback: async ({ message, client }) => {
         if(await adminChanCheck.check(message, client)) {

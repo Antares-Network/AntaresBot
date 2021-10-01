@@ -3,10 +3,9 @@ import piiModel from '../../models/pii';
 import chalk from 'chalk';
 
 export default {
-    category: 'Owner',
+    category: 'owner',
     description: 'Updates the counting channel db\'s',
     slash: false,
-    testOnly: true,
     ownerOnly: true,
     hidden: true,
     guildOnly: true,

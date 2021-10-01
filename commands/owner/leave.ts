@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 
 export default {
-    category: 'Owner',
+    category: 'owner',
     description: 'Forces the bot to leave a server',
     slash: false,
     expectedArgs: '<serverid>',

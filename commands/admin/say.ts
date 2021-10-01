@@ -2,8 +2,9 @@ import { MessageEmbed, TextChannel } from 'discord.js';
 import { ICommand } from "wokcommands";
 
 export default {
-    category: 'Admin',
+    category: 'admin',
     description: 'Makes the bot say something',
+    aliases: ['echo'],
     slash: false,
     expectedArgs: '<channel>',
     minArgs: 1,

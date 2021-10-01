@@ -1,7 +1,7 @@
 import { ICommand } from "wokcommands";
 
 export default {
-    category: 'Owner',
+    category: 'owner',
     description: 'Sends something in a dm to a user',
     slash: false,
     expectedArgs: '<UserId>',

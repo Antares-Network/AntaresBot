@@ -4,11 +4,13 @@ import check from "../../functions/channelCheck"
 
 
 export default {
-    category: 'User',
+    name: "diceroll",
+    category: 'user',
     description: 'Rolls a die',
     slash: false,
     aliases: ["dice", "roll", "rolldice"],
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {

@@ -4,10 +4,11 @@ import check from "../../functions/channelCheck"
 
 export default {
     name: 'invite',
-    category: 'User',
+    category: 'user',
     description: 'Sends an invite for the bot and the support server',
     slash: 'both',
     guildOnly:  true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({client, message, interaction: msgInt }) => {
         if (await check.check(message, client)) {

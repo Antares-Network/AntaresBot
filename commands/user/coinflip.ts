@@ -4,11 +4,13 @@ import check from "../../functions/channelCheck"
 
 
 export default {
-    category: 'User',
+    name: "coinflip",
+    category: 'user',
     description: 'Flips a coin',
     slash: false,
     aliases: ["flip", "coin", "flipcoin", "headstails"],
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {

@@ -9,7 +9,7 @@ export default {
     aliases: ['defaultChannel'],
     slash: false,
     guildOnly: true,
-    permissions: ['MANAGE_GUILD'],
+    permissions: ['MANAGE_GUILD', 'MANAGE_CHANNELS'],
 
     callback: async ({ client ,channel, message }) => {
         if(await adminChanCheck.check(message, client)) {

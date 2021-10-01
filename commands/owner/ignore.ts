@@ -2,8 +2,8 @@ import { ICommand } from "wokcommands";
 import gateModel from '../../models/gate' 
 
 export default {
-    category: 'Owner',
-    description: 'Ignores a server completly',
+    category: 'owner',
+    description: 'Ignores a server completely',
     slash: false,
     expectedArgs: '<serverId>',
     minArgs: 1,

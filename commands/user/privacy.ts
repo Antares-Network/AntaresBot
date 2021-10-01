@@ -3,10 +3,12 @@ import { ICommand } from "wokcommands";
 
 
 export default {
-    category: 'User',
+    name: "privacy",
+    category: 'user',
     description: 'Sends the privacy policy for the bot in a dm',
     slash: 'both',
     guildOnly: false,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: ({ message }) => {
         message.author.send("**Data Collected By Command and when features are enabled**\n" +

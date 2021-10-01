@@ -10,8 +10,6 @@ import path from 'path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 dotenv.config();
-//! import gateModel from '/models/gate.ts';
-
 
 const client = new DiscordJs.Client({
     intents: [

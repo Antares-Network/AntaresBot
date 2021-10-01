@@ -4,13 +4,15 @@ import axios from 'axios';
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "mcuser",
+    category: 'user',
     description: 'Gets the username, skin and UUID of a valid minecraft username',
     expectedArgs: '<username>',
     slash: false,
     minArgs: 1,
     maxArgs: 1,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message, args }) => {
         if (await check.check(message, client)) {

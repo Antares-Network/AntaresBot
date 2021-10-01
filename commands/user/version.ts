@@ -3,10 +3,12 @@ import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck"
 
 export default {
-    category: 'User',
+    name: "version",
+    category: 'user',
     description: 'Sends the version number of the bot',
     slash: false,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {

@@ -4,11 +4,12 @@ import chalk from 'chalk'
 
 export default {
     name: 'help',
-    category: 'User',
+    category: 'user',
     description: 'Shows the bot help embed',
     slash: 'both',
     testOnly: true,
     guildOnly:  true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: ({ channel, message, client }) => {
         console.log(`${chalk.red('COMMAND')} [${chalk.green(channel.guild.name)}] [${chalk.blue(channel.name)}] [${chalk.yellow(message.author.username)}] ${chalk.grey('--')} ${chalk.cyan(message.content)}`)

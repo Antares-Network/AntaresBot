@@ -4,10 +4,12 @@ import check from "../../functions/channelCheck"
 
 
 export default {
-    category: 'User',
+    name: "github",
+    category: 'user',
     description: 'Sends an embed with a link to the github repo for the bot.',
     slash: false,
     guildOnly: true,
+    requiredPermissions: ['SEND_MESSAGES'],
 
     callback: async ({ client, message }) => {
         if (await check.check(message, client)) {
