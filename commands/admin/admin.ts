@@ -4,8 +4,10 @@ import piiModel from  '../../models/pii';
 
 
 export default {
+    name: 'admin',
     category: 'admin',
     description: 'Setup command for the admin channel',
+    example: 'admin #channelName',
     aliases: ['adminChannel'],
     slash: false,
     guildOnly: true,

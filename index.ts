@@ -77,7 +77,12 @@ client.on('ready', async () => {
         typeScript: true,
         testServers: [String(process.env.TEST_SERVERS)],
 		dbOptions,
-    	mongoUri: String(process.env.BOT_MONGO_PATH)
+    	mongoUri: String(process.env.BOT_MONGO_PATH),
+		disabledDefaultCommands: [
+			'help',
+			'language'
+		],
+
     })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner('603629606154666024')

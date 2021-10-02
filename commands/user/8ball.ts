@@ -6,9 +6,9 @@ export default {
     name: "8ball",
     category: 'user',
     description: 'Answers all of the questions you might have',
-    slash: false,
+    example: 'ask Am i a dum dum?',
     aliases: ['8-ball', 'ask', 'why'],
-    example: '&ask Am i a dum dum?',
+    slash: false,
     guildOnly: true,
     requiredPermissions: ['SEND_MESSAGES'],
 

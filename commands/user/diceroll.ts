@@ -7,8 +7,8 @@ export default {
     name: "diceroll",
     category: 'user',
     description: 'Rolls a die',
-    slash: false,
     aliases: ["dice", "roll", "rolldice"],
+    slash: false,
     guildOnly: true,
     requiredPermissions: ['SEND_MESSAGES'],
 

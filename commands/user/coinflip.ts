@@ -7,8 +7,8 @@ export default {
     name: "coinflip",
     category: 'user',
     description: 'Flips a coin',
-    slash: false,
     aliases: ["flip", "coin", "flipcoin", "headstails"],
+    slash: false,
     guildOnly: true,
     requiredPermissions: ['SEND_MESSAGES'],
 

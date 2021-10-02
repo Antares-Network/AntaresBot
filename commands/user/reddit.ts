@@ -9,7 +9,6 @@ export default {
     description: 'Sends the ping time of the bot.',
     aliases: ['reddit', 'meme'],
     slash: false,
-    testOnly: true,
     guildOnly: true,
     requiredPermissions: ['SEND_MESSAGES'],
 
