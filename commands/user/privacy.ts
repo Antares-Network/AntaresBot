@@ -30,7 +30,7 @@ export default {
                 "By adding Antares Bot to your server, you are consenting to the policies outlined in this agreement. If you, the server administrator, do not agree with any of the policies outlined in this agreement, you have the right to remove Antares Bot from your server.\n" +
                 "This policy may change at any time without warning. It is your responsibility as a server owner to keep up with the changes.\n\n" +
 
-                "**To request the data we store on you to be deleted from our database, please run the command &remove**\n\n")
+                `**To request the data we store on you to be deleted from our database, please run the command ${process.env.BOT_DEFAULT_PREFIX}remove**\n\n`)
                 //"However the following data will remain: **Server Name, ID, Owner, and previous bot join date**")
         return "You have been sent a DM with the privacy policy. If you do not have DM's enabled, you will not get this message.";
 
