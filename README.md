@@ -20,7 +20,7 @@
 
 ## End goal of the project:
 
-- This project is really just for fun and to test my (Nate's) skills at JavaScript and TypeScript and many other technologies. I will consider myself to have made it when the official Antares Bot gets it'd verified checkmark from Discord.
+- This project is really just for fun and to test my (Nate's) skills at JavaScript and TypeScript and many other technologies. I will consider myself to have made it when the official Antares Bot gets verified by Discord.
 
 ## Bot Commands
 
