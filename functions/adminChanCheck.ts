@@ -5,7 +5,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
   const srv = await piiModel.findOne({ GUILD_ID: message.guild?.id }); //find the entry for the guild
   //check if admin commands were sent in the admin channel
   if (message.channel.id != srv.GUILD_ADMIN_CHANNEL) {
-    if (srv.GUILD_ADMIN_CHANNEL == null) {
+    if (srv.GUILD_ADMIN_CHANNEL === null) {
       message.channel.send(
         `The server owner has not set an admin channel yet.\n If you are the server owner please use \`${process.env.BOT_DEFAULT_PREFIX}admin #channel\``
       );
