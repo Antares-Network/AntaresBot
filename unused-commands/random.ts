@@ -29,14 +29,12 @@
 //                             channel.send(result)
 //                         })
 
-
 //                     return;
 //                 case 'CN':
 //                     api.random.cnjoke()
 //                         .then(result => {
 //                             channel.send(result)
 //                         })
-
 
 //                     return;
 //                 case 'DEVJOKE':

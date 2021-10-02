@@ -1,32 +1,32 @@
-import { Client } from 'discord.js'
-import { ICommand } from 'wokcommands'
+import { Client } from "discord.js";
+import { ICommand } from "wokcommands";
 
 const setStatus = (client: Client, status: string) => {
   client.user?.setPresence({
-    status: 'online',
+    status: "online",
     activities: [
       {
         name: status,
       },
     ],
-  })
-}
+  });
+};
 
 export default {
   // Best practice for the built-in help menu
-  category: 'owner',
-  description: 'Updates the status for the bot',
+  category: "owner",
+  description: "Updates the status for the bot",
   slash: false,
   minArgs: 1,
-  expectedArgs: '<status>',
+  expectedArgs: "<status>",
   ownerOnly: true,
   hidden: true,
 
   // This method is invoked anytime the command is ran
   callback: ({ client, text, message }) => {
-    setStatus(client, text)
+    setStatus(client, text);
     message.reply({
-      content: 'Status updated successfully'
-    })
-  }
-} as ICommand
+      content: "Status updated successfully",
+    });
+  },
+} as ICommand;

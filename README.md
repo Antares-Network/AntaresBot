@@ -5,6 +5,7 @@
 ![Lines in the project](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Antares-Network/AntaresBot?style=social)
 [![Discord](https://discordapp.com/api/guilds/649703068799336454/widget.png)](https://discordapp.com/invite/KKYw763)
+
 # Antares Bot
 
 - Description: Antares Bot is a small disocord bot with a lot of fun commands and features. It is built on top of [Discord.Js V13.1.0](https://discord.js.org/) and [WOKCommands](https://github.com/AlexzanderFlores/WOKCommands)
@@ -29,10 +30,12 @@
 - You can find owner commands listed [here](/commands/owner/ownerCommands.md)
 
 ## Credits:
+
 - [Nate Goldsborough](https://nathen418.com)
 - [Seth T.](https://github.com/StickyFingies)
 
 ## Join our discord server:
+
 https://dsc.gg/antaresnetwork
 
 ## Invite Antares Bot to your server
@@ -40,6 +43,7 @@ https://dsc.gg/antaresnetwork
 https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands
 
 ## License
+
 - Default license is shown below. Other licenses may be chosen by the developer or the team at any time. Our default license will allow you to distribute our code without restriction as long as nothing is changed, and the terms of the Creative Commons License by--nc-nd are followed. However one must only contact us through our business email to request an exemption. If you wish to do anything that the cc by-nc-nd license does not allow, just ask about it and we will probably say go ahead.
 
 ![](https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png)
