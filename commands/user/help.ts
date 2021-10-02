@@ -5,7 +5,7 @@ export default {
   name: "help",
   category: "user",
   description: "Shows the bot help embed",
-  slash: "both",
+  slash: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

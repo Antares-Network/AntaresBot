@@ -6,11 +6,11 @@ export default {
   name: "invite",
   category: "user",
   description: "Sends an invite for the bot and the support server",
-  slash: "both",
+  slash: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, message, interaction: msgInt }) => {
+  callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
       // console.log(`${chalk.red('COMMAND')} [${chalk.green(channel.guild.name)}] [${chalk.blue(channel.name)}] [${chalk.yellow(message.author.username)}] ${chalk.grey('--')} ${chalk.cyan(message.content)}`)
       const Embed = new MessageEmbed()
@@ -38,7 +38,6 @@ export default {
         );
 
       message.author.send({ embeds: [Embed] });
-
       return Embed2;
     }
   },
