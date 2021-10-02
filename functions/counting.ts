@@ -23,7 +23,7 @@ async function count(message: Message, client: Client) {
             `Wait your turn! Please wait for someone else to send the next number.`
           )
           .then((msg) => {
-            setTimeout( () => msg.delete(), 5000);
+            setTimeout(() => msg.delete(), 5000);
           });
       } else if (Number(message.content) === count + 1) {
         // ...increase the count
@@ -42,7 +42,7 @@ async function count(message: Message, client: Client) {
             `That is not the correct number. You should type *${count + 1}*`
           )
           .then((msg) => {
-            setTimeout( () => msg.delete(), 5000);
+            setTimeout(() => msg.delete(), 5000);
           });
       }
     });

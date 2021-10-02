@@ -15,7 +15,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
         `<@${message.author.id}>, This guild has been banned from using this bot by the owner.`
       );
     const MSG = await message.channel.send({ embeds: [banEmbed] });
-    setTimeout( () => {
+    setTimeout(() => {
       MSG.delete();
     }, 5000);
     return Promise.resolve(false);
@@ -30,7 +30,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
         `<@${message.author.id}>, You have been banned from using this bot by the owner.`
       );
     const MSG = await message.channel.send({ embeds: [banEmbed] });
-    setTimeout( () => {
+    setTimeout(() => {
       MSG.delete();
     }, 5000);
     return Promise.resolve(false);
@@ -47,7 +47,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
       const MSG = await (
         client.channels?.cache.get(srv.GUILD_DEFAULT_CHANNEL) as TextChannel
       ).send(`<@${message.author.id}> Please use me in this channel`);
-      setTimeout( () => {
+      setTimeout(() => {
         MSG.delete();
       }, 5000);
       return Promise.resolve(false);

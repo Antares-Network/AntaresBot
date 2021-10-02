@@ -77,11 +77,11 @@ async function event(guild: Guild, client: Client) {
   const reporting = client.channels.cache.get(
     String(process.env.REPORTING_CHANNEL)
   ) as TextChannel;
-  if(reporting) reporting.send({ embeds: [Embed] });
+  if (reporting) reporting.send({ embeds: [Embed] });
   const firstChannel = guild.channels.cache
     .filter((c) => c.type === "GUILD_TEXT")
     .find((x) => (x as TextChannel).position == 0) as TextChannel;
-  if(firstChannel) firstChannel?.send({ embeds: [WelcomeEmbed] });
+  if (firstChannel) firstChannel?.send({ embeds: [WelcomeEmbed] });
   console.log(
     `Sent the welcome embed to ${firstChannel?.guild.name} in #${firstChannel?.name}`
   );

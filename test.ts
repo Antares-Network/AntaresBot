@@ -105,7 +105,7 @@ client.on("ready", async () => {
     )} ${chalk.yellow("servers")}`
   );
   console.log(chalk.green.bold("Startup complete. Listening for input..."));
-  setTimeout( () => {
+  setTimeout(() => {
     console.log("Startup script has run");
     console.log("All processes completed successfully.");
     console.log("Now exiting...");

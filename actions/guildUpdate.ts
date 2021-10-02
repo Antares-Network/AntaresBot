@@ -34,8 +34,8 @@ async function update(oldGuild: Guild, newGuild: Guild, client: Client) {
   }
   const reporting = client.channels.cache.get(
     String(process.env.REPORTING_CHANNEL)
-  ) as TextChannel
-  if(reporting) reporting.send(msg);
+  ) as TextChannel;
+  if (reporting) reporting.send(msg);
 }
 
 export = { update };
