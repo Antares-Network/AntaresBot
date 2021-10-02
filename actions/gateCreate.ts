@@ -17,7 +17,7 @@ function event(client: Client) {
   });
 
   //make it pause 5 seconds before saving to the database because then the stuff above has time to finish processing
-  setTimeout( async () => {
+  setTimeout(async () => {
     const gate = new gateModel({
       NAME: "GATE",
       GUILD_OWNER_ID: totalOwners,

@@ -36,7 +36,7 @@ export default {
           "https://playantares.com/resources/icon.png"
         );
       let MSG = await message.reply({ embeds: [preEmbed] });
-      setTimeout( () => {
+      setTimeout(() => {
         MSG.edit({ embeds: [postEmbed] });
       }, 3000);
     }

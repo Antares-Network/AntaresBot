@@ -51,7 +51,7 @@ export default {
         }
       });
 
-      setTimeout( async () => {
+      setTimeout(async () => {
         let d = new Date();
         await gateModel.findOneAndUpdate(
           { NAME: "GATE" },
