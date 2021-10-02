@@ -17,7 +17,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
       ).send(
         `<@${message.author.id}> Please use admin commands in this channel`
       );
-      setTimeout( () => {
+      setTimeout(() => {
         MSG.delete();
       }, 5000);
       return Promise.resolve(false);
