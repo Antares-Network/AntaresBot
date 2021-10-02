@@ -37,7 +37,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
   }
   //check if the user sent their message in the default channel
   if (message.channel.id != srv.GUILD_DEFAULT_CHANNEL) {
-    if (srv.GUILD_DEFAULT_CHANNEL == null) {
+    if (srv.GUILD_DEFAULT_CHANNEL === null) {
       message.channel.send(
         `The server owner has not set a default channel yet.\n If you are the server owner please use \`${process.env.BOT_DEFAULT_PREFIX}setup #channel\``
       );
