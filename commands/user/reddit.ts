@@ -6,18 +6,14 @@ import check from "../../functions/channelCheck"
 export default {
     name: "reddit",
     category: 'user',
-    description: 'Sends the ping time of the bot.',
-    aliases: ['reddit', 'meme'],
+    description: 'Sends a random meme pulled from reddit',
+    aliases: ['meme'],
     slash: false,
     guildOnly: true,
     requiredPermissions: ['SEND_MESSAGES'],
 
-    callback: async ({ client, channel, message }) => {
+    callback: async ({ client, message }) => {
         if (await check.check(message, client)) {
-            if (!channel.nsfw) {
-                channel.send("In order to use this command, an admin must set this channel as type: `NSFW`")
-                return
-            }
             var img = await redditImageFetcher.fetch({
                 type: 'meme',
                 total: 1
