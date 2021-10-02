@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck"
 import axios from 'axios';

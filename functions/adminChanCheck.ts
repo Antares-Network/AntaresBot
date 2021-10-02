@@ -1,10 +1,8 @@
 import { Message, Client, TextChannel } from 'discord.js';
 import piiModel from '../models/pii';
-import gateModel from '../models/gate';
 
 async function check(message: Message, client: Client): Promise<boolean> {
     const srv = await piiModel.findOne({ GUILD_ID: message.guild?.id }); //find the entry for the guild
-    const gate = await gateModel.findOne({ NAME: 'GATE' });
     //check if admin commands were sent in the admin channel
     if (message.channel.id != srv.GUILD_ADMIN_CHANNEL) {
         if (srv.GUILD_ADMIN_CHANNEL == null) {

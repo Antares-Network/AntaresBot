@@ -1,6 +1,5 @@
 import { ICommand } from "wokcommands";
 import piiModel from '../../models/pii';
-import chalk from 'chalk';
 
 export default {
     category: 'owner',

@@ -58,7 +58,7 @@ async function event( guild: Guild, client: Client) {
     }
     try {
         const firstChannel = guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').find(x => (x as TextChannel).position == 0);
-        (firstChannel as TextChannel).send({ embeds: [ WelcomeEmbed ]});
+        (firstChannel as TextChannel)?.send({ embeds: [ WelcomeEmbed ]});
         console.log(`Sent the welcome embed to ${firstChannel?.guild.name} in #${firstChannel?.name}`)
     } catch (e) {
         //fail silently

@@ -82,11 +82,6 @@ client.on('ready', async () => {
 	
 	//Print some bot stats
 	console.log(`${chalk.yellow('I am in')} ${chalk.green(client.guilds.cache.size)} ${chalk.yellow('servers')}`)
-	try {
-		//! console.log(`${chalk.yellow('I am being used by')} ${chalk.green(gate.TOTAL_USERS)} ${chalk.yellow('users')}`)
-	} catch (e) {
-		console.log(e);
-	}
 	console.log(chalk.green.bold("Startup complete. Listening for input..."));
 	setTimeout(async () => {
 		console.log("Startup script has run");
