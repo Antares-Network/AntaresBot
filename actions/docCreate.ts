@@ -40,7 +40,7 @@ async function event( guild: Guild, client: Client) {
         .setThumbnail(String(guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'))
         .addFields(
             { name: 'My prefix', value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix\`` },
-            { name: 'Commands/ help', value: `Please run \`&help\` to see a list of commands` },
+            { name: 'Commands/ help', value: `Please run \`${process.env.BOT_DEFAULT_PREFIX}help\` to see a list of commands` },
             { name: 'Support Server', value: `Join our support server at this link: https://dsc.gg/antaresnetwork` },
             { name: 'Invite me to your server', value: `https://dis.gg/antaresbot` })
         .setFooter(`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, 'https://playantares.com/resources/icon.png');
