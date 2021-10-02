@@ -11,9 +11,8 @@ export default {
 
   callback: ({ client }) => {
     client.guilds.cache.forEach(async (guild) => {
-      console.log("started scanning" + guild.name);
       const req = await piiModel.findOne({ guildID: guild.id });
-      let chan = guild?.channels.cache.find(
+      const chan = guild?.channels.cache.find(
         (c) => c?.name.includes("counting") && c?.type === "GUILD_TEXT"
       );
 
@@ -24,7 +23,7 @@ export default {
             { $set: { GUILD_COUNTING_CHANNEL_ID: chan.id } },
             { new: true }
           );
-          console.log("updated " + guild.name);
+          console.log(`Updated ${guild.name}`);
         }
       }
     });

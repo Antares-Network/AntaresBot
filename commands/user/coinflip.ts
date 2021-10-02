@@ -13,7 +13,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
-      var outcome = Math.round(Math.random()) == 0 ? "Tails" : "Heads";
+      let outcome = Math.round(Math.random()) == 0 ? "Tails" : "Heads";
       const preEmbed = new MessageEmbed()
         .setColor("#ff3505")
         .setTitle("Coin Flip 💰")
@@ -35,8 +35,8 @@ export default {
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
           "https://playantares.com/resources/icon.png"
         );
-      var MSG = await message.reply({ embeds: [preEmbed] });
-      setTimeout(async () => {
+      let MSG = await message.reply({ embeds: [preEmbed] });
+      setTimeout( () => {
         MSG.edit({ embeds: [postEmbed] });
       }, 3000);
     }

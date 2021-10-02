@@ -26,7 +26,7 @@ async function event(client: Client) {
   if (gate === null) {
     console.error("NO GATE FOUND. CLOSING BOT.");
     client.user?.setActivity(`❗❗DB ERROR❗❗`, { type: "PLAYING" });
-    setTimeout(() => {
+    setTimeout( () => {
       gateCreate.event(client);
       console.log("\n\n\n\n\n\n\n\n");
       client.destroy();

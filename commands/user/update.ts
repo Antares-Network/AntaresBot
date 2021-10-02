@@ -34,7 +34,7 @@ export default {
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
           "https://playantares.com/resources/icon.png"
         );
-      let MSG = await channel.send({ embeds: [preEmbed] });
+      const MSG = await channel.send({ embeds: [preEmbed] });
       //var init and gc
       let totalUsers = 0;
       let totalMessages = 0;
@@ -51,8 +51,8 @@ export default {
         }
       });
 
-      setTimeout(async () => {
-        var d = new Date();
+      setTimeout( async () => {
+        let d = new Date();
         await gateModel.findOneAndUpdate(
           { NAME: "GATE" },
           {

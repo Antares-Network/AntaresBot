@@ -3,7 +3,7 @@ import guildModel from "./../models/guild";
 import piiModel from "./../models/pii";
 
 async function update(oldGuild: Guild, newGuild: Guild, client: Client) {
-  var msg = `Error: No update found`;
+  let msg = `Error: No update found`;
   if (oldGuild.name != newGuild.name) {
     await guildModel.findOneAndUpdate(
       { GUILD_ID: newGuild.id },
@@ -34,8 +34,8 @@ async function update(oldGuild: Guild, newGuild: Guild, client: Client) {
   }
   const reporting = client.channels.cache.get(
     String(process.env.REPORTING_CHANNEL)
-  );
-  (reporting as TextChannel).send(msg);
+  ) as TextChannel
+  if(reporting) reporting.send(msg);
 }
 
 export = { update };

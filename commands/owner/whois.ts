@@ -14,32 +14,32 @@ export default {
   hidden: true,
 
   callback: async ({ client, args, channel }) => {
-    let type = args[0];
-    let id = args[1];
+    const type = args[0];
+    const id = args[1];
 
     if (type.toLowerCase() == "user") {
       try {
         client.users.fetch(String(id)).then(async (user) => {
           const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-          var bannedUsers = gate.BANNED_USERS;
-          var userIsBanned = "No";
-          var bannedOwners = gate.BANNED_OWNERS;
-          var ownerIsBanned = "No";
+          let bannedUsers = gate.BANNED_USERS;
+          let userIsBanned = "No";
+          let bannedOwners = gate.BANNED_OWNERS;
+          let ownerIsBanned = "No";
 
-          for (var i = 0; i < bannedUsers.length; i++) {
+          for (let i = 0; i < bannedUsers.length; i++) {
             if (bannedUsers[i] === String(user.id)) {
               //if the user has already been banned from using the bot
               userIsBanned = "Yes";
             }
           }
-          for (var i = 0; i < bannedOwners.length; i++) {
+          for (let i = 0; i < bannedOwners.length; i++) {
             if (bannedOwners[i] === String(user.id)) {
               //if the owner has already been banned from using the bot
               ownerIsBanned = "Yes";
             }
           }
 
-          var isBot = !user.bot ? "No" : "Yes";
+          const isBot = !user.bot ? "No" : "Yes";
 
           const Embed = new MessageEmbed()
             .setColor("#ff3505")

@@ -12,11 +12,11 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
-      let time = client.uptime!;
-      let days = Math.floor(time / 86400000);
-      let hours = Math.floor(time / 3600000) % 24;
-      let minutes = Math.floor(time / 60000) % 60;
-      let seconds = Math.floor(time / 1000) % 60;
+      const time = client.uptime!;
+      const days = Math.floor(time / 86400000);
+      const hours = Math.floor(time / 3600000) % 24;
+      const minutes = Math.floor(time / 60000) % 60;
+      const seconds = Math.floor(time / 1000) % 60;
       const Embed = new MessageEmbed()
         .setColor("#ff3505")
         .setTitle("Bot Uptime")

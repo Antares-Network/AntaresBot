@@ -14,8 +14,8 @@ async function check(message: Message, client: Client): Promise<boolean> {
       .setDescription(
         `<@${message.author.id}>, This guild has been banned from using this bot by the owner.`
       );
-    let MSG = await message.channel.send({ embeds: [banEmbed] });
-    setTimeout(async () => {
+    const MSG = await message.channel.send({ embeds: [banEmbed] });
+    setTimeout( () => {
       MSG.delete();
     }, 5000);
     return Promise.resolve(false);
@@ -29,8 +29,8 @@ async function check(message: Message, client: Client): Promise<boolean> {
       .setDescription(
         `<@${message.author.id}>, You have been banned from using this bot by the owner.`
       );
-    let MSG = await message.channel.send({ embeds: [banEmbed] });
-    setTimeout(async () => {
+    const MSG = await message.channel.send({ embeds: [banEmbed] });
+    setTimeout( () => {
       MSG.delete();
     }, 5000);
     return Promise.resolve(false);
@@ -44,10 +44,10 @@ async function check(message: Message, client: Client): Promise<boolean> {
       return Promise.resolve(false); //exit the loop and don't parse the command
     } else {
       //ping the user in the default channel
-      let MSG = await (
+      const MSG = await (
         client.channels?.cache.get(srv.GUILD_DEFAULT_CHANNEL) as TextChannel
       ).send(`<@${message.author.id}> Please use me in this channel`);
-      setTimeout(async () => {
+      setTimeout( () => {
         MSG.delete();
       }, 5000);
       return Promise.resolve(false);

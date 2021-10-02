@@ -14,7 +14,7 @@ export default {
 
   callback: async ({ client, channel, message }) => {
     if (await check.check(message, client)) {
-      let comicNum = Math.floor(Math.random() * 2520);
+      const comicNum = Math.floor(Math.random() * 2520);
       axios
         .get(`http://xkcd.com/${comicNum}/info.0.json`)
         .then(function (response) {

@@ -14,7 +14,7 @@ export default {
 
   callback: async ({ client, message, text }) => {
     if (await check.check(message, client)) {
-      let eightball = [
+      const eightball = [
         "It is certain.",
         "It is decidedly so.",
         "Without a doubt.",
@@ -45,7 +45,7 @@ export default {
         "It's just the beginning",
         "Good Luck",
       ];
-      let index = Math.floor(Math.random() * Math.floor(eightball.length));
+      const index = Math.floor(Math.random() * Math.floor(eightball.length));
       const Embed = new MessageEmbed()
         .setColor("#ff3505")
         //.setURL('https://dsc.gg/antaresnetwork')

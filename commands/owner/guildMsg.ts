@@ -20,11 +20,11 @@ export default {
   callback: async ({ client, text }) => {
     const gate = await gateModel.findOne({ NAME: "GATE" });
     //get the list of guilds the bot is in
-    var guildList = client.guilds?.cache;
+    const guildList = client.guilds?.cache;
 
     try {
       //send a message to every guild this bot is in
-      let embed = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setColor("#ff3505")
         .setURL("https://discord.gg//KKYw763")
         .setTitle("Antares Bot -- System Update Message")

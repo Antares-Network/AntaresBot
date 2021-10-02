@@ -2,11 +2,11 @@ import { Client } from "discord.js";
 import gateModel from "./../models/gate";
 import guildModel from "./../models/guild";
 
-async function event(client: Client) {
+function event(client: Client) {
   //var init and gc
-  var totalUsers = 0;
-  var totalMessages = 0;
-  var totalOwners: any[] = [];
+  let totalUsers = 0;
+  let totalMessages = 0;
+  let totalOwners: String[] = [];
 
   //loop thru the guilds and add the owners, member numbers and messages to their vars to be added to the db
   client.guilds.cache.forEach(async (guild) => {
@@ -17,7 +17,7 @@ async function event(client: Client) {
   });
 
   //make it pause 5 seconds before saving to the database because then the stuff above has time to finish processing
-  setTimeout(async () => {
+  setTimeout( async () => {
     const gate = new gateModel({
       NAME: "GATE",
       GUILD_OWNER_ID: totalOwners,

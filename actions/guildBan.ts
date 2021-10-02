@@ -5,9 +5,9 @@ import gateModel from "./../models/gate";
 module.exports = {
   banUser: async function (user: User) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedUsers = gate.BANNED_USERS;
-    var inlist = false;
-    for (var i = 0; i < bannedUsers.length; i++) {
+    let bannedUsers = gate.BANNED_USERS;
+    let inlist = false;
+    for (let i = 0; i < bannedUsers.length; i++) {
       if (bannedUsers[i] === String(user.id)) {
         //if the user has already been banned from using the bot
         inlist = true;
@@ -29,9 +29,9 @@ module.exports = {
   },
   unBanUser: async function (user: User) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedUsers = gate.BANNED_USERS;
-    var wasbanned = false;
-    for (var i = 0; i < bannedUsers.length; i++) {
+    let bannedUsers = gate.BANNED_USERS;
+    let wasbanned = false;
+    for (let i = 0; i < bannedUsers.length; i++) {
       if (bannedUsers[i] === user.id) {
         wasbanned = true;
         bannedUsers.splice(i, 1);
@@ -50,9 +50,9 @@ module.exports = {
   },
   banGuild: async function (guildID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedGuilds = gate.BANNED_GUILDS;
-    var inlist = false;
-    for (var i = 0; i < bannedGuilds.length; i++) {
+    let bannedGuilds = gate.BANNED_GUILDS;
+    let inlist = false;
+    for (let i = 0; i < bannedGuilds.length; i++) {
       if (bannedGuilds[i] === guildID) {
         //if the user has already been banned from using the bot
         inlist = true;
@@ -72,9 +72,9 @@ module.exports = {
   },
   unBanGuild: async function (guildID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedGuilds = gate.BANNED_USERS;
-    var wasbanned = false;
-    for (var i = 0; i < bannedGuilds.length; i++) {
+    let bannedGuilds = gate.BANNED_USERS;
+    let wasbanned = false;
+    for (let i = 0; i < bannedGuilds.length; i++) {
       if (bannedGuilds[i] === guildID) {
         wasbanned = true;
         bannedGuilds.splice(i, 1);
@@ -93,9 +93,9 @@ module.exports = {
   },
   banOwner: async function (ownerID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedOwners = gate.BANNED_OWNERS;
-    var inlist = false;
-    for (var i = 0; i < bannedOwners.length; i++) {
+    let bannedOwners = gate.BANNED_OWNERS;
+    let inlist = false;
+    for (let i = 0; i < bannedOwners.length; i++) {
       if (bannedOwners[i] === ownerID) {
         //if the user has already been banned from using the bot
         inlist = true;
@@ -115,9 +115,9 @@ module.exports = {
   },
   unBanOwner: async function (ownerID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    var bannedOwners = gate.BANNED_OWNERS;
-    var wasbanned = false;
-    for (var i = 0; i < bannedOwners.length; i++) {
+    let bannedOwners = gate.BANNED_OWNERS;
+    let wasbanned = false;
+    for (let i = 0; i < bannedOwners.length; i++) {
       if (bannedOwners[i] === ownerID) {
         wasbanned = true;
         bannedOwners.splice(i, 1);

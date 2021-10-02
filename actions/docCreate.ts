@@ -3,7 +3,7 @@ import { Client, Guild, MessageEmbed, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
 
 async function event(guild: Guild, client: Client) {
-  var d = new Date();
+  let d = new Date();
   const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
   if (doc === null) {
     const internalDoc = new guildModel({
@@ -74,25 +74,17 @@ async function event(guild: Guild, client: Client) {
     user.send({ embeds: [Embed] });
   });
 
-  try {
-    const reporting = client.channels.cache.get(
-      String(process.env.REPORTING_CHANNEL)
-    );
-    (reporting as TextChannel).send({ embeds: [Embed] });
-  } catch (e) {
-    console.log(e);
-  }
-  try {
-    const firstChannel = guild.channels.cache
-      .filter((c) => c.type === "GUILD_TEXT")
-      .find((x) => (x as TextChannel).position == 0);
-    (firstChannel as TextChannel)?.send({ embeds: [WelcomeEmbed] });
-    console.log(
-      `Sent the welcome embed to ${firstChannel?.guild.name} in #${firstChannel?.name}`
-    );
-  } catch (e) {
-    //fail silently
-  }
+  const reporting = client.channels.cache.get(
+    String(process.env.REPORTING_CHANNEL)
+  ) as TextChannel;
+  if(reporting) reporting.send({ embeds: [Embed] });
+  const firstChannel = guild.channels.cache
+    .filter((c) => c.type === "GUILD_TEXT")
+    .find((x) => (x as TextChannel).position == 0) as TextChannel;
+  if(firstChannel) firstChannel?.send({ embeds: [WelcomeEmbed] });
+  console.log(
+    `Sent the welcome embed to ${firstChannel?.guild.name} in #${firstChannel?.name}`
+  );
 }
 
 export = { event };

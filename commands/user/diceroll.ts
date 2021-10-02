@@ -13,7 +13,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
-      var outcome = Math.ceil(Math.random() * 6);
+      let outcome = Math.ceil(Math.random() * 6);
       const preEmbed = new MessageEmbed()
         .setColor("#ff3505")
         .setTitle("Dice Roll 🎲")
@@ -35,8 +35,8 @@ export default {
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
           "https://playantares.com/resources/icon.png"
         );
-      var MSG = await message.reply({ embeds: [preEmbed] });
-      setTimeout(async () => {
+      let MSG = await message.reply({ embeds: [preEmbed] });
+      setTimeout( () => {
         MSG.edit({ embeds: [postEmbed] });
       }, 3000);
     }

@@ -12,12 +12,12 @@ async function check(message: Message, client: Client): Promise<boolean> {
       return Promise.resolve(false); //exit the loop and don't parse the command
     } else {
       //ping the admin in the admin channel
-      let MSG = await (
+      const MSG = await (
         client.channels?.cache.get(srv.GUILD_ADMIN_CHANNEL) as TextChannel
       ).send(
         `<@${message.author.id}> Please use admin commands in this channel`
       );
-      setTimeout(async () => {
+      setTimeout( () => {
         MSG.delete();
       }, 5000);
       return Promise.resolve(false);

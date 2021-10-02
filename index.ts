@@ -70,7 +70,7 @@ const client = new DiscordJs.Client({
   console.log(chalk.green("Logged into the Discord API"));
 })();
 
-client.on("ready", async () => {
+client.on("ready", () => {
   onReady.event(client);
   // Print the bot's username and discriminator to the console
   if (client.user)
@@ -149,17 +149,17 @@ client.on("messageCreate", async (message) => {
   if (message.channel.type === "DM") {
     console.log(
       `${chalk.blue.bold(`DM`)} ${chalk.yellow(
-        `[` + message.author.username + `]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[` + message.content + `]`)}`
+        `[${message.author.username}]`
+      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
     );
   }
   if (message.channel.type === "GUILD_TEXT") {
     console.log(
       `${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(
-        `[` + message.channel.guild.name + `]`
-      )} ${chalk.blue(`[` + message.channel.name + `]`)} ${chalk.yellow(
-        `[` + message.author.username + `]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[` + message.content + `]`)}`
+        `[${message.channel.guild.name}]`
+      )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
+        `[${message.author.username}]`
+      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
     );
     try {
       counting.count(message, client); // counting logic
@@ -181,23 +181,23 @@ client.on("messageDelete", async (message) => {
     if (gate.IGNORED_GUILDS.includes(message.guild?.id)) return;
     console.log(
       `${chalk.red.bold(`MESSAGE DELETED`)} ${chalk.green(
-        `[` + message.channel.guild.name + `]`
-      )} ${chalk.blue(`[` + message.channel.name + `]`)} ${chalk.yellow(
-        `[` + message.author?.username + `]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[` + message.content + `]`)}`
+        `[${message.channel.guild.name}]`
+      )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
+        `[${message.author?.username}]`
+      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
     );
   }
 });
 
 //actions to run when the bot joins a server
-client.on("guildCreate", async (guild) => {
+client.on("guildCreate", (guild) => {
   docCreate.event(guild, client);
   piiCreate.event(guild, client);
 });
 
 //actions to run when the bot leaves a server
 client.on("guildDelete", async (guild) => {
-  var d = new Date();
+  let d = new Date();
   const Embed = new MessageEmbed()
     .setColor("#ff3505")
     .setTitle(`I Left a Server`)
@@ -233,8 +233,8 @@ client.on("guildDelete", async (guild) => {
 client.on("guildMemberAdd", async (member) => {
   console.log(
     `${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(
-      `[` + member.guild.name + `]`
-    )} ${chalk.blue(`[` + member.user.username + `]`)}`
+      `[${member.guild.name}]`
+    )} ${chalk.blue(`[${member.user.username}]`)}`
   );
   try {
     await guildModel.findOneAndUpdate(
@@ -251,8 +251,8 @@ client.on("guildMemberAdd", async (member) => {
 client.on("guildMemberRemove", async (member) => {
   console.log(
     `${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(
-      `[` + member.guild.name + `]`
-    )} ${chalk.blue(`[` + member.user?.username + `]`)}`
+      `[${member.guild.name}]`
+    )} ${chalk.blue(`[${member.user?.username}]`)}`
   );
   try {
     await guildModel.findOneAndUpdate(
@@ -265,7 +265,7 @@ client.on("guildMemberRemove", async (member) => {
   }
 });
 
-client.on("guildUpdate", async (oldGuild, newGuild) => {
+client.on("guildUpdate", (oldGuild, newGuild) => {
   guildUpdate.update(oldGuild, newGuild, client);
 });
 
@@ -274,8 +274,8 @@ client.on("channelDelete", async (channel) => {
   if (channel.type === "GUILD_TEXT") {
     console.log(
       `${chalk.red.bold(`CHANNEL DELETED`)} ${chalk.green(
-        `[` + channel.guild?.name + `]`
-      )} ${chalk.blue(`[` + channel.name + `]`)}`
+        `[${channel.guild?.name}]`
+      )} ${chalk.blue(`[${channel.name}]`)}`
     );
     const req = await piiModel.findOne({ GUILD_ID: channel.guild?.id });
     if (channel.id === req.GUILD_COUNTING_CHANNEL_ID) {

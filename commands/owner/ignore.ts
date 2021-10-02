@@ -12,10 +12,10 @@ export default {
 
   callback: async ({ client, args, message, channel }) => {
     try {
-      var ignoredGuilds = [];
+      let ignoredGuilds = [];
       const gate = await gateModel.findOne({ NAME: "GATE" });
       ignoredGuilds = gate.IGNORED_GUILDS;
-      let server = client.guilds.cache.get(args[0]);
+      const server = client.guilds.cache.get(args[0]);
       ignoredGuilds.push(args[0]);
       await gateModel.findOneAndUpdate(
         { NAME: "GATE" },
