@@ -17,13 +17,13 @@ async function event(client: Client) {
       docCreate.event(guild, client);
       console.log(chalk.yellow("Made new document"));
     }
-    if (req == null) {
+    if (req === null) {
       piiCreate.event(guild, client);
       console.log(chalk.yellow("Created PII doc"));
     }
   });
 
-  if (gate == null) {
+  if (gate === null) {
     console.error("NO GATE FOUND. CLOSING BOT.");
     client.user?.setActivity(`❗❗DB ERROR❗❗`, { type: "PLAYING" });
     setTimeout(() => {

@@ -14,7 +14,7 @@ export default {
     if (await adminChanCheck.check(message, client)) {
       const req = await piiModel.findOne({ GUILD_ID: message.guild?.id });
 
-      if (req.GUILD_COUNTING_CHANNEL_ID != null) {
+      if (req.GUILD_COUNTING_CHANNEL_ID !== null) {
         const chan = message.guild?.channels.cache.get(
           req.GUILD_COUNTING_CHANNEL_ID
         );
