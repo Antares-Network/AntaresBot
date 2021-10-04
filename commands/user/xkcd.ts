@@ -21,7 +21,7 @@ export default {
           const Embed = new MessageEmbed()
             .setColor("#ff3505")
             //.setURL('https://dsc.gg/antaresnetwork')
-            .setTitle("Random Cat Picture")
+            .setTitle("Random XKCD Comic")
             .setImage(response.data.img)
             .setFooter(
               `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
