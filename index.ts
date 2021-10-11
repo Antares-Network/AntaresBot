@@ -152,6 +152,9 @@ client.on("messageCreate", async (message) => {
         `[${message.author.username}]`
       )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
     );
+    client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
+      user.send(`**${message.author.username}** sent: \n\`${message.content}\` \nnto the bot.`)
+    });
   }
   if (message.channel.type === "GUILD_TEXT") {
     console.log(
@@ -191,7 +194,7 @@ client.on("messageDelete", async (message) => {
 
 //actions to run when the bot joins a server
 client.on("guildCreate", (guild) => {
-  docCreate.event(guild, client);
+  docCreate.event(guild, client)
   piiCreate.event(guild, client);
 });
 

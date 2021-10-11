@@ -11,8 +11,8 @@ export default {
 
   callback: ({ client, channel }) => {
     client.guilds.cache.forEach(async (guild) => {
-      let req = await piiModel.findOne({ GUILD_ID: guild.id });
-      let chan = guild?.channels.cache.find(
+      const req = await piiModel.findOne({ GUILD_ID: guild.id });
+      const chan = guild?.channels.cache.find(
         (c) => c?.name.includes("counting") && c?.type === "GUILD_TEXT"
       );
       channel.send(chan?.id + " " + chan?.guild.name);

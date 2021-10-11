@@ -62,7 +62,7 @@ const client = new DiscordJs.Client({
   console.log(chalk.green("Logged into the Discord API"));
 })();
 
-client.on("ready", async () => {
+client.on("ready", () => {
   // Print the bot's username and discriminator to the console
   if (client.user)
     console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);

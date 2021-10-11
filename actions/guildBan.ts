@@ -5,7 +5,7 @@ import gateModel from "./../models/gate";
 module.exports = {
   banUser: async function (user: User) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedUsers = gate.BANNED_USERS;
+    const bannedUsers = gate.BANNED_USERS;
     let inlist = false;
     for (let i = 0; i < bannedUsers.length; i++) {
       if (bannedUsers[i] === String(user.id)) {
@@ -29,7 +29,7 @@ module.exports = {
   },
   unBanUser: async function (user: User) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedUsers = gate.BANNED_USERS;
+    const bannedUsers = gate.BANNED_USERS;
     let wasbanned = false;
     for (let i = 0; i < bannedUsers.length; i++) {
       if (bannedUsers[i] === user.id) {
@@ -50,7 +50,7 @@ module.exports = {
   },
   banGuild: async function (guildID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedGuilds = gate.BANNED_GUILDS;
+    const bannedGuilds = gate.BANNED_GUILDS;
     let inlist = false;
     for (let i = 0; i < bannedGuilds.length; i++) {
       if (bannedGuilds[i] === guildID) {
@@ -72,7 +72,7 @@ module.exports = {
   },
   unBanGuild: async function (guildID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedGuilds = gate.BANNED_USERS;
+    const bannedGuilds = gate.BANNED_USERS;
     let wasbanned = false;
     for (let i = 0; i < bannedGuilds.length; i++) {
       if (bannedGuilds[i] === guildID) {
@@ -93,7 +93,7 @@ module.exports = {
   },
   banOwner: async function (ownerID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedOwners = gate.BANNED_OWNERS;
+    const bannedOwners = gate.BANNED_OWNERS;
     let inlist = false;
     for (let i = 0; i < bannedOwners.length; i++) {
       if (bannedOwners[i] === ownerID) {
@@ -115,7 +115,7 @@ module.exports = {
   },
   unBanOwner: async function (ownerID: string) {
     const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-    let bannedOwners = gate.BANNED_OWNERS;
+    const bannedOwners = gate.BANNED_OWNERS;
     let wasbanned = false;
     for (let i = 0; i < bannedOwners.length; i++) {
       if (bannedOwners[i] === ownerID) {

@@ -10,7 +10,7 @@ export default {
   hidden: true,
 
   callback: ({ client, message, channel, args }) => {
-    let server = client.guilds.cache.get(args[0]);
+    const server = client.guilds.cache.get(args[0]);
     if (server) {
       channel.send(
         `I have been forced to leave a server by the name \`${server.name}\`, and ID: \`${args[0]}\` by<@${message.author.id}>`

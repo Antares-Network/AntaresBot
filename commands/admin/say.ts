@@ -24,10 +24,6 @@ export default {
       }
     } else {
       message.channel.send(text);
-
-      console.log(message.content);
-      console.log(args);
-      console.log(text);
     }
   },
 } as ICommand;

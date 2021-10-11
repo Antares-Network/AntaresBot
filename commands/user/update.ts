@@ -38,7 +38,7 @@ export default {
       //var init and gc
       let totalUsers = 0;
       let totalMessages = 0;
-      let totalOwners: Array<string> = [];
+      const totalOwners: Array<string> = [];
       //get data from all the guilds
       client.guilds.cache.forEach(async (guild) => {
         if (!gate.IGNORED_GUILDS.includes(guild.id)) {
@@ -52,7 +52,7 @@ export default {
       });
 
       setTimeout(async () => {
-        let d = new Date();
+        const d = new Date();
         await gateModel.findOneAndUpdate(
           { NAME: "GATE" },
           {

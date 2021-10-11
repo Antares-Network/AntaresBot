@@ -23,7 +23,7 @@ export default {
         )
         .setDescription(
           `<@${message.author.id}> in the server **${
-            message.guild!.name
+            message.guild?.name
           }** suggests:\n ${text}`
         )
         .setFooter(

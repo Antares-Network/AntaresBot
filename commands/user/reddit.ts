@@ -14,7 +14,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
-      let img = await redditImageFetcher.fetch({
+      const img = await redditImageFetcher.fetch({
         type: "meme",
         total: 1,
       });
