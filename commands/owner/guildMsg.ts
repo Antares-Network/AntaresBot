@@ -37,7 +37,7 @@ export default {
           "https://playantares.com/resources/icon.png"
         );
       guildList.forEach(async (guild) => {
-        if (await gate.IGNORED_GUILDS.includes(guild.id)) return;
+        if (await gate.IGNORED_GUILDS.includes(guild?.id)) return;
         const doc = await piiModel.findOne({ GUILD_ID: guild?.id }); //find the entry for the guild
         if (doc?.GUILD_DEFAULT_CHANNEL !== null) {
           //send the message in the default channel for this guild

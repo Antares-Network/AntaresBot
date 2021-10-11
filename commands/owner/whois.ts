@@ -21,9 +21,9 @@ export default {
       try {
         client.users.fetch(String(id)).then(async (user) => {
           const gate = await gateModel.findOne({ NAME: "GATE" }); //find the entry for the guild
-          let bannedUsers = gate.BANNED_USERS;
+          const bannedUsers = gate.BANNED_USERS;
+          const bannedOwners = gate.BANNED_OWNERS;
           let userIsBanned = "No";
-          let bannedOwners = gate.BANNED_OWNERS;
           let ownerIsBanned = "No";
 
           for (let i = 0; i < bannedUsers.length; i++) {
@@ -73,17 +73,18 @@ export default {
         channel.send("The User ID you entered is not valid. Please try again.");
       }
     } else if (type.toLowerCase() == "server") {
-      let guild = client.guilds.cache.get(id);
+      console.log("it was a server")
+      const guild = client.guilds.cache.get(id);
       if (guild) {
         const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
-        const Embed = new MessageEmbed()
+        let Embed = new MessageEmbed()
           .setColor("#ff3505")
           .setTitle(`Server: ${guild.name}`)
           .setThumbnail(
             guild.iconURL() || "https://cdn.discordapp.com/embed/avatars/0.png"
           )
           .addFields([
-            { name: "Guild Creation Date:", value: guild.createdAt },
+            { name: "Guild Creation Date:", value: guild.createdAt.toString() },
             { name: "Guild Join Date:", value: doc.GUILD_JOIN_DATE },
             { name: "Guild Name:", value: guild.name },
             { name: "Guild ID:", value: guild.id },
@@ -97,6 +98,7 @@ export default {
             `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
             "https://playantares.com/resources/icon.png"
           );
+        console.log(Embed)
         channel.send({ embeds: [Embed] });
       }
     }

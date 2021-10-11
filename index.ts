@@ -215,7 +215,7 @@ client.on("guildDelete", async (guild) => {
       { name: "Guild Name:", value: guild.name },
       { name: "Guild ID:", value: guild.id },
       { name: "Owner ID:", value: guild.ownerId },
-      { name: "Guild Member Count:", value: guild.memberCount.toString() },
+      { name: "Guild Member Count:", value: String(guild.memberCount) },
     ])
     .setFooter(
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,

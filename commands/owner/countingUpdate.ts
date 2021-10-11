@@ -15,11 +15,11 @@ export default {
       const chan = guild?.channels.cache.find(
         (c) => c?.name.includes("counting") && c?.type === "GUILD_TEXT"
       );
-      channel.send(chan?.id + " " + chan?.guild.name);
+      channel.send(`${chan?.id} ${chan?.guild.name}`);
       channel.send(req?.GUILD_COUNTING_CHANNEL_ID);
 
       if (req.GUILD_COUNTING_CHANNEL_ID === null) {
-        channel.send("No counting channel found for " + guild.name);
+        channel.send(`No counting channel found for ${guild.name}`);
         if (chan) {
           await piiModel.findOneAndUpdate(
             { GUILD_ID: guild.id },
