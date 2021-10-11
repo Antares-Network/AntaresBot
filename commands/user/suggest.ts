@@ -8,6 +8,7 @@ export default {
   description: "Suggest a new bot feature",
   slash: "both",
   guildOnly: true,
+  cooldown: '1h',
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, message, text }) => {
