@@ -6,21 +6,22 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Antares-Network/AntaresBot?style=social)
 [![Discord](https://discordapp.com/api/guilds/649703068799336454/widget.png)](https://discordapp.com/invite/KKYw763)
 
-# Admin Commands
+# Owner Commands
 
-- **setup**: Sets the channel the bot can talk in normally
-- **admin**: Sets the admin channel
-- **adminHelp**: Shows the admin commands
-- **counting**: Creates a counting channel
-- **remove**: Shows how to request removal of all user data about a guild
-- **say**: Makes the bot say something
+- **dm**: Sends a DM to a specified user
+- **guildMsg**: Sends a message to all the guilds the bot is in
+- **ignore**: Allows the bot to ignore a server in all logging and data collection
+- **leave**: Forces the bot to leave a specified guild
+- **me**: Sends a message proving that the bot owner is the bot owner
+- **status**: Changes the bot's status
+- **whois**: Shows information about a user or server specified
 
 ## Bot Features
 
-- You can find user commands listed [here](/commands/user/userCommands.md)
-- You can find admin commands listed [here](/commands/admin/adminCommands.md)
-- You can find owner commands listed [here](/commands/owner/ownerCommands.md)
-- You can find other features listed [here](/functions/features.md)
+- You can find user commands listed [here](/commands/user/README.md)
+- You can find admin commands listed [here](/commands/admin/README.md)
+- You can find owner commands listed [here](/commands/owner/README.md)
+- You can find other features listed [here](/functions/README.md)
 
 ## Join our discord server
 
