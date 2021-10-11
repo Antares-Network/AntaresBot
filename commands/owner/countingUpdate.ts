@@ -18,7 +18,7 @@ export default {
       channel.send(chan?.id + " " + chan?.guild.name);
       channel.send(req?.GUILD_COUNTING_CHANNEL_ID);
 
-      if (req.GUILD_COUNTING_CHANNEL_ID == null) {
+      if (req.GUILD_COUNTING_CHANNEL_ID === null) {
         channel.send("No counting channel found for " + guild.name);
         if (chan) {
           await piiModel.findOneAndUpdate(
