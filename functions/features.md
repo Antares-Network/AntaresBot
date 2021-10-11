@@ -6,14 +6,9 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Antares-Network/AntaresBot?style=social)
 [![Discord](https://discordapp.com/api/guilds/649703068799336454/widget.png)](https://discordapp.com/invite/KKYw763)
 
-# Admin Commands
+# Functions
 
-- **setup**: Sets the channel the bot can talk in normally
-- **admin**: Sets the admin channel
-- **adminHelp**: Shows the admin commands
-- **counting**: Creates a counting channel
-- **remove**: Shows how to request removal of all user data about a guild
-- **say**: Makes the bot say something
+- **Counting**: Make and moderate a counting channel in your server. The bot will make sure members are counting up from 1 by whole numbers and that there are no duplicates or missing numbers. The bot will also force people to take turns counting.
 
 ## Bot Features
 

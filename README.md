@@ -8,42 +8,43 @@
 
 # Antares Bot
 
-- Description: Antares Bot is a small disocord bot with a lot of fun commands and features. It is built on top of [Discord.Js V13.1.0](https://discord.js.org/) and [WOKCommands](https://github.com/AlexzanderFlores/WOKCommands)
+- Description: Antares Bot is a small Discord bot with a lot of fun commands and features. It is built on top of [Discord.Js V13.1.0](https://discord.js.org/) and [WOKCommands](https://github.com/AlexzanderFlores/WOKCommands)
 
-## How to run yourself:
+## How to run yourself
 
 - Create a `.env` file in the root directory of the project. Refer to [this file](/.env-example) for an example.
-- git clone https://github.com/Antares-Network/AntaresBot.git
+- git clone <https://github.com/Antares-Network/AntaresBot.git>
 - cd AntaresBot
 - npm install
 - npm install -g typescript ts-node
 - ts-node index.ts
 
-## End goal of the project:
+## End goal of the project
 
 - This project is really just for fun and to test my (Nate's) skills at JavaScript and TypeScript and many other technologies. I will consider myself to have made it when the official Antares Bot gets verified by Discord.
 
-## Bot Commands
+## Bot Features
 
 - You can find user commands listed [here](/commands/user/userCommands.md)
 - You can find admin commands listed [here](/commands/admin/adminCommands.md)
 - You can find owner commands listed [here](/commands/owner/ownerCommands.md)
+- You can find other features listed [here](/functions/features.md)
 
-## Credits:
+## Credits
 
 - [Nate Goldsborough](https://nathen418.com)
 - [Seth T.](https://github.com/StickyFingies)
 
-## Join our discord server:
+## Join our discord server
 
-https://dsc.gg/antaresnetwork
+<https://dsc.gg/antaresnetwork>
 
 ## Invite Antares Bot to your server
 
-https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands
+<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands>
 
 ## License
 
 - Default license is shown below. Other licenses may be chosen by the developer or the team at any time. Our default license will allow you to distribute our code without restriction as long as nothing is changed, and the terms of the Creative Commons License by--nc-nd are followed. However one must only contact us through our business email to request an exemption. If you wish to do anything that the cc by-nc-nd license does not allow, just ask about it and we will probably say go ahead.
 
-![](https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png)
+![CC-BY_NC_ND](https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png)
