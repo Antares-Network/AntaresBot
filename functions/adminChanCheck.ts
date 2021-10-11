@@ -13,7 +13,7 @@ async function check(message: Message, client: Client): Promise<boolean> {
     } else {
       //ping the admin in the admin channel
       const MSG = await (
-        client.channels?.cache.get(srv.GUILD_ADMIN_CHANNEL) as TextChannel
+        client.channels?.cache.get(srv?.GUILD_ADMIN_CHANNEL) as TextChannel
       ).send(
         `<@${message.author.id}> Please use admin commands in this channel`
       );
