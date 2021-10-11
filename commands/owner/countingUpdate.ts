@@ -9,23 +9,26 @@ export default {
   hidden: true,
   guildOnly: true,
 
-  callback: ({ client }) => {
+  callback: ({ client, channel }) => {
     client.guilds.cache.forEach(async (guild) => {
-      const req = await piiModel.findOne({ guildID: guild.id });
-      const chan = guild?.channels.cache.find(
+      let req = await piiModel.findOne({ GUILD_ID: guild.id });
+      let chan = guild?.channels.cache.find(
         (c) => c?.name.includes("counting") && c?.type === "GUILD_TEXT"
       );
+      channel.send(chan?.id+" "+chan?.guild.name);
+      channel.send(req?.GUILD_COUNTING_CHANNEL_ID);
 
-      if (req.GUILD_COUNTING_CHANNEL_ID === null) {
+      if (req.GUILD_COUNTING_CHANNEL_ID == null) {
+        channel.send("No counting channel found for " +guild.name);
         if (chan) {
           await piiModel.findOneAndUpdate(
             { GUILD_ID: guild.id },
             { $set: { GUILD_COUNTING_CHANNEL_ID: chan.id } },
             { new: true }
           );
-          console.log(`Updated ${guild.name}`);
+          channel.send(`Updated ${guild.name}`);
         }
       }
     });
-  },
+  }
 } as ICommand;
