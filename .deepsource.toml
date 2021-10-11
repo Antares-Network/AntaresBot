@@ -5,7 +5,7 @@ test_patterns = ["/index.ts"]
 exclude_patterns = ["/node_modules/**"]
 
 [[analyzers]]
-name = "typescript"
+name = "javascript"
 enabled = true
 
 [[transformers]]
