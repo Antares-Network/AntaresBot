@@ -4,7 +4,7 @@ import piiModel from "../../models/pii";
 export default {
   category: "admin",
   description: "Setup command for the default bot channel",
-  aliases: ["defaultChannel"],
+  aliases: ["defaultChannel", "defaultchannel"],
   slash: false,
   guildOnly: true,
   permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS"],

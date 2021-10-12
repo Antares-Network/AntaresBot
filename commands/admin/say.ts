@@ -11,19 +11,15 @@ export default {
   permissions: ["MANAGE_MESSAGES"],
   guildOnly: true,
 
-  callback: ({ client, message, args, text }) => {
+  callback: ({ client, message, channel, args, text }) => {
     message.delete();
 
     const id = message.mentions.channels.first()?.id;
     if (id) {
       const mentionedChannel = client.channels.cache.get(id) as TextChannel;
-      try {
-        mentionedChannel.send(text.replace(args[0], ""));
-      } catch (e) {
-        message.channel.send(`Error: ${e}`);
-      }
+      mentionedChannel.send(text.replace(args[0], ""))
     } else {
-      message.channel.send(text);
+      channel.send(text)
     }
-  },
+  }
 } as ICommand;

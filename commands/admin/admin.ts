@@ -22,7 +22,7 @@ export default {
       //if the server has an admin channel, send it here
       if (req.DEFAULT_CHANNEL_ID !== null) {
         channel.send(
-          `This server's default channel was: <#${req.GUILD_DEFAULT_CHANNEL}>`
+          `This server's admin channel was: <#${req.GUILD_DEFAULT_CHANNEL}>`
         );
       }
       const doc = await piiModel.findOneAndUpdate(
