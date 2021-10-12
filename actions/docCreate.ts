@@ -1,3 +1,11 @@
+//Nate Goldsborough
+//Antares Network Discord Bot
+//This project will morph overtime
+//Built for discord.js V.13.1.0
+//Project started on December 15, 2020
+//Language: typescript
+//Path: actions\docCreate.ts
+// Create the guild entry in the database when the bot joins it (used for storing guild data)
 import chalk from "chalk";
 import { Client, Guild, MessageEmbed, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
@@ -53,7 +61,7 @@ async function event(guild: Guild, client: Client) {
     .addFields(
       {
         name: "My prefix",
-        value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix\``,
+        value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix <someprefixhere>\``,
       },
       {
         name: "Commands/ help",

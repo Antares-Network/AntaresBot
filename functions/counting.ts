@@ -1,3 +1,7 @@
+//Nate Goldsborough
+//AntaresBot
+//Counting channel logic
+
 import { Message, Client } from "discord.js";
 import piiModel from "../models/pii";
 
@@ -9,7 +13,6 @@ async function count(message: Message, client: Client) {
   if (
     client.channels.cache.get(srv.GUILD_COUNTING_CHANNEL_ID) === message.channel
   ) {
-    //let lm = ;
     // You can ignore all bot messages like this
     if (message.member?.user.bot) return;
     if (message.author.bot) return;

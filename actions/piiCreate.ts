@@ -1,3 +1,11 @@
+//Nate Goldsborough
+//Antares Network Discord Bot
+//This project will morph overtime
+//Built for discord.js V.13.1.0
+//Project started on December 15, 2020
+//Language: typescript
+//Path: actions\piiCreate.ts
+//Create another entry for a guild when the bot joins it (used to store more private information about each guild)
 import { Guild, Client } from "discord.js";
 import piiModel from "./../models/pii";
 
