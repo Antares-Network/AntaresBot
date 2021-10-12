@@ -1,6 +1,6 @@
 //Nate Goldsborough
 //Antares Network Discord Bot
-//This project will morph overtime
+//https://playantares.com
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from "discord.js";
@@ -20,6 +20,7 @@ import piiCreate from "./actions/piiCreate";
 import guildUpdate from "./actions/guildUpdate";
 dotenv.config();
 
+//Create a new discord client
 const client = new DiscordJs.Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -70,6 +71,7 @@ const client = new DiscordJs.Client({
   console.log(chalk.green("Logged into the Discord API"));
 })();
 
+//on ready event create a WOK commands instance and print some info
 client.on("ready", () => {
   onReady.event(client);
   // Print the bot's username and discriminator to the console
@@ -138,6 +140,8 @@ client.on("ready", () => {
   console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
 
+
+// on message event console log messages in the appropriate format
 client.on("messageCreate", async (message) => {
   //Get the gate data at the start of each message create event
   const gate = await gateModel.findOne({ NAME: "GATE" });
@@ -176,6 +180,7 @@ client.on("messageCreate", async (message) => {
   }
 });
 
+//on message delete event log the message to the console in the appropriate format
 client.on("messageDelete", async (message) => {
   const gate = await gateModel.findOne({ NAME: "GATE" });
   if (message.author?.bot) return;
@@ -293,9 +298,12 @@ client.on("channelDelete", async (channel) => {
 });
 
 //! deal with errors to the console and how to exit gracefully
-client.on("error", (e) => console.error(e));
+client.on('error', console.error);
 client.on("warn", (e) => console.warn(e));
 process.on("exit", (code) => {
   console.log("Now exiting...");
   console.log(`Exited with status code: ${code}`);
+});
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection:', error);
 });
