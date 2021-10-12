@@ -1,68 +1,50 @@
 [![DeepSource](https://deepsource.io/gh/Antares-Network/AntaresBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/Antares-Network/AntaresBot/?ref=repository-badge)
 [![DeepScan grade](https://deepscan.io/api/teams/13494/projects/16475/branches/354970/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=13494&pid=16475&bid=354970)
-[![codebeat badge](https://codebeat.co/badges/571d8db9-611a-4c8e-bc2f-c55e557cf0a7)](https://codebeat.co/projects/github-com-antares-network-antaresbot-main)
-[![Node.js CI](https://github.com/Antares-Network/AntaresBot/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/Antares-Network/AntaresBot/actions/workflows/node.js.yml)
-![](https://img.shields.io/github/repo-size/Antares-Network/AntaresBot?color=Green&style=flat-square)
-![](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)  
-![](https://cdn.discordapp.com/icons/649703068799336454/1a7ef8f706cd60d62547d2c7dc08d6f0.png)  
-## AntaresBot
-## Release version 1.3.20 Look below for specs
-# MAJOR REWRITE COMING SOON
+[![Codebeat badge](https://codebeat.co/badges/571d8db9-611a-4c8e-bc2f-c55e557cf0a7)](https://codebeat.co/projects/github-com-antares-network-antaresbot-main)
+![Repository size](https://img.shields.io/github/repo-size/Antares-Network/AntaresBot?color=Green&style=flat-square)
+![Lines in the project](https://img.shields.io/tokei/lines/github/Antares-Network/AntaresBot?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Antares-Network/AntaresBot?style=social)
+[![Discord](https://discordapp.com/api/guilds/649703068799336454/widget.png)](https://discordapp.com/invite/KKYw763)
 
+# Antares Bot
 
-# Join our discord server:
-https://dsc.gg/antaresnetwork
+- Description: Antares Bot is a small Discord bot with a lot of fun commands and features. It is built on top of [Discord.Js V13.1.0](https://discord.js.org/) and [WOKCommands](https://github.com/AlexzanderFlores/WOKCommands)
 
+## How to run yourself
 
-## Invite the bot at the link below:
-**https://discord.com/oauth2/authorize?client_id=736086156759924762&scope=bot&permissions=125969**
+- Create a `.env` file in the root directory of the project. Refer to [this file](/.env-example) for an example.
+- git clone <https://github.com/Antares-Network/AntaresBot.git>
+- cd AntaresBot
+- npm install
+- npm install -g typescript ts-node
+- ts-node index.ts
 
-## A list of User Commands
-- 'Counting' channel information is available using the command: *adminhelp*
+## End goal of the project
 
-- This is a list of commands the bot currently supports
+- This project is really just for fun and to test my (Nate's) skills at JavaScript and TypeScript and many other technologies. I will consider myself to have made it when the official Antares Bot gets verified by Discord.
 
-- **8ball** or **ask**: Ask the bot a question and have it respond
+## Bot Features
 
-- **random**: ❗❗COMMAND DISABLED FOR A REWRITE❗❗
+- You can find user commands listed [here](/commands/user/userCommands.md)
+- You can find admin commands listed [here](/commands/admin/adminCommands.md)
+- You can find owner commands listed [here](/commands/owner/ownerCommands.md)
+- You can find other features listed [here](/functions/features.md)
 
-- **cat**: Sends a random picture of a cat.
+## Credits
 
-- **dog**: Sends a random picture of a dog.
+- [Nate Goldsborough](https://nathen418.com)
+- [Seth T.](https://github.com/StickyFingies)
 
-- **reddit** or **meme**: ❗❗This command is disabled as it is being rewritten to improve NSFW filtering❗❗
+## Join our discord server
 
-- **xkcd** or **comic**: Sends a random XKCD comic
+<https://dsc.gg/antaresnetwork>
 
-- **github**: Sends an embed with a link to the github repo for the bot.
+## Invite Antares Bot to your server
 
-- **prefix**: Shows the Prefix for the bot.
-
-- **invite**: Sends an invite for the bot and the support server.
-
-- **ping**: Sends the ping time of the bot.
-
-- **uptime**: Sends the uptime of the bot
-
-- **stats** and **update**: Updates the database and shows the bots most recent stats.
-
-- **adminhelp**: Shows the Admin Help Embed
-
-- **privacy**: Sends in a dm, the privacy policy for the bot.
-
-## Admin Help Commands:
-
-- **setup**: Sets the channel the bot will talk in
-
-- **adminchannel**: Sets the channel the bot will send admin messages in
-
-- **counting**: Creates a channel to be used for a counting game
-
-- **remove**: Removes all data for the server this command is run in
-
-- **say** or **echo**: Lets you make the bot say something. Careful, this is monitored for abuse
-
+<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands>
 
 ## License
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a>
+- Default license is shown below. Other licenses may be chosen by the developer or the team at any time. Our default license will allow you to distribute our code without restriction as long as nothing is changed, and the terms of the Creative Commons License by--nc-nd are followed. However one must only contact us through our business email to request an exemption. If you wish to do anything that the cc by-nc-nd license does not allow, just ask about it and we will probably say go ahead.
+
+![CC-BY_NC_ND](https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png)

@@ -1,3 +1,5 @@
-launch.json
-README.md
+.vscode
 .env
+.env.old
+v1.3.20
+node_modules
