@@ -35,9 +35,11 @@ const client = new DiscordJs.Client({
   ],
 });
 
-if (process.env.TOP_GG_TOKEN) {
-  AutoPoster(process.env.TOP_GG_TOKEN, client);
+if (process.env.TOP_GG_TOKEN != null) {
+  const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
+  ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
 }
+
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
