@@ -25,10 +25,10 @@
 
 ## Bot Features
 
-- You can find user commands listed [here](/commands/user/userCommands.md)
-- You can find admin commands listed [here](/commands/admin/adminCommands.md)
-- You can find owner commands listed [here](/commands/owner/ownerCommands.md)
-- You can find other features listed [here](/functions/features.md)
+- You can find user commands listed [here](/commands/user/README.md)
+- You can find admin commands listed [here](/commands/admin/README.md)
+- You can find owner commands listed [here](/commands/owner/README.md)
+- You can find other features listed [here](/functions/README.md)
 
 ## Credits
 
@@ -41,7 +41,7 @@
 
 ## Invite Antares Bot to your server
 
-<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands>
+<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands>
 
 ## License
 
