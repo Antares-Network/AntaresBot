@@ -69,9 +69,9 @@ async function event(guild: Guild, client: Client) {
       },
       {
         name: "Support Server",
-        value: `Join our support server at this link: https://dsc.gg/antaresnetwork`,
+        value: `Join our [support server](https://dsc.gg/antaresnetwork)>`,
       },
-      { name: "Invite me to your server", value: `https://dis.gg/antaresbot` }
+      { name: "Invite me to your server", value: `[Invite Me!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)` }
     )
     .setFooter(
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,

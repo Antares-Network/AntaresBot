@@ -41,7 +41,7 @@
 
 ## Invite Antares Bot to your server
 
-<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=125969&scope=bot%20applications.commands>
+<https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands>
 
 ## License
 
