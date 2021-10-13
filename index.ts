@@ -4,6 +4,7 @@
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from "discord.js";
+const { AutoPoster } = require('topgg-autoposter')
 import WOKCommands from "wokcommands";
 import mongoose from "mongoose";
 import path from "path";
@@ -20,6 +21,7 @@ import piiCreate from "./actions/piiCreate";
 import guildUpdate from "./actions/guildUpdate";
 dotenv.config();
 
+
 //Create a new discord client
 const client = new DiscordJs.Client({
   intents: [
@@ -32,6 +34,12 @@ const client = new DiscordJs.Client({
     Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
   ],
 });
+
+if (process.env.TOP_GG_TOKEN != null) {
+  const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
+  ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
+}
+
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
