@@ -95,7 +95,7 @@ client.on("ready", () => {
     disabledDefaultCommands: ["help", "language"],
   })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
-    .setBotOwner("603629606154666024");
+    .setBotOwner("603629606154666024"); //! for some reason it doesn't like when i grab this value from the env file
 
   wok.on("databaseConnected", async () => {
     console.log(chalk.green("Connected to MongoDB"));
@@ -243,6 +243,9 @@ client.on("guildDelete", async (guild) => {
 
 // needs GUILD_MEMBER intent which is privileged
 client.on("guildMemberAdd", async (member) => {
+  // if the member that joined a server is in the list of ignored guilds, do not log them
+  const doc = await gateModel.findOne({ NAME: "GATE" });
+  if (doc.IGNORED_GUILDS.includes(member.guild.id)) return;
   console.log(
     `${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(
       `[${member.guild.name}]`
@@ -261,6 +264,9 @@ client.on("guildMemberAdd", async (member) => {
 
 // needs GUILD_MEMBER intent which is privileged
 client.on("guildMemberRemove", async (member) => {
+  // if the member that joined a server is in the list of ignored guilds, do not log them
+  const doc = await gateModel.findOne({ NAME: "GATE" });
+  if (doc.IGNORED_GUILDS.includes(member.guild.id)) return;
   console.log(
     `${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(
       `[${member.guild.name}]`
@@ -303,7 +309,7 @@ client.on("warn", (e) => console.warn(e));
 process.on("exit", (code) => {
   console.log("Now exiting...");
   console.log(`Exited with status code: ${code}`);
-});
+}); //!wtf this is really poor coding
 process.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
 });
