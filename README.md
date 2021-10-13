@@ -25,10 +25,10 @@
 
 ## Bot Features
 
-- You can find user commands listed [here](/commands/user/userCommands.md)
-- You can find admin commands listed [here](/commands/admin/adminCommands.md)
-- You can find owner commands listed [here](/commands/owner/ownerCommands.md)
-- You can find other features listed [here](/functions/features.md)
+- You can find user commands listed [here](/commands/user/README.md)
+- You can find admin commands listed [here](/commands/admin/README.md)
+- You can find owner commands listed [here](/commands/owner/README.md)
+- You can find other features listed [here](/functions/README.md)
 
 ## Credits
 
