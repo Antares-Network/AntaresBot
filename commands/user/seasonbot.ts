@@ -13,7 +13,6 @@ export default {
 
   callback: async ({ client, message }) => {
     const seasonBotAvatarUrl = "https://cdn.discordapp.com/avatars/774520746344054824/ab7ad167790a14d3acb76472e1becaa1.png"
-    console.log(seasonBotAvatarUrl);
     if (await check.check(message, client)) {
       const Embed = new MessageEmbed()
         .setColor("#ff3505")
