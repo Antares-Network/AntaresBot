@@ -22,7 +22,7 @@ export default {
         .setTitle("Invite Season Bot today!")
         .setFields([
           { name: "Season Bot", value: "Invite Season Bot today."},
-          { name: "About", value: "Boo Bot (aka Santa Bot) it’s a bot that will bring Halloween fun to your servers! More than 500 servers love the seasonal themes!"},
+          { name: "About", value: "Boo Bot (aka Santa Bot) it’s a bot that will bring Halloween fun to your servers! More than 900 servers love the seasonal themes!"},
           { name: "Longer Description", value: "Boo will be your host for this season! Trick or Treat? Get ready to get all the candy from our spooky gang, but be careful about the poisoned ones! The Bot is capable of running a game on your server to see who are the fastest ones getting candy that randomly appears."},
           { name: "Invite Season Bot", value: "https://dsc.gg/seasonbot"}
         ])
