@@ -24,6 +24,7 @@ export default {
           "\n**roll**: Rolls a die" +
           "\n**sneeze**: Makes the bot sneeze lol." +
           "\n**reddit** or **meme**: ❗❗Only available in NSFW channels for now❗❗" +
+          "\n**seasonbot**: Sends info about our partner - SeasonBot <@774520746344054824>" +
           "\n**github**: Sends an embed with a link to the github repo for the bot." +
           "\n**ping**: Sends the ping time of the bot." +
           "\n**stats** and **update**: Updates the database and shows the bots most recent stats." +
