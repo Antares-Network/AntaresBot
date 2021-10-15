@@ -34,7 +34,8 @@ export default {
           "\n**suggest**: Sends a suggestion to the bot developer." +
           "\n**counting**: In admin help. Creates a server counting channel" +
           "\n**adminhelp**: Sends the help page with admin commands." +
-          "\n\n Join our support server: https://dsc.gg/antaresnetwork"
+          "\nJoin our support server: https://dsc.gg/antaresnetwork" +
+          "Invite Antares Bot today: [Click Me!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"
       )
       .setFooter(
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
