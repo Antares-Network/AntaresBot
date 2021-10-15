@@ -4,7 +4,7 @@
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from "discord.js";
-const { AutoPoster } = require('topgg-autoposter')
+import { AutoPoster } from 'topgg-autoposter'
 import WOKCommands from "wokcommands";
 import mongoose from "mongoose";
 import path from "path";
@@ -96,6 +96,7 @@ client.on("ready", () => {
   //create the WOK client object
   const wok = new WOKCommands(client, {
     commandDir: path.join(__dirname, "commands"),
+    // featuresDir: path.join(__dirname, "features"),
     typeScript: true,
     testServers: [String(process.env.TEST_SERVERS)],
     dbOptions,
