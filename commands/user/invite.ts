@@ -18,7 +18,7 @@ export default {
         .setTitle("Thank you showing interest in me!")
         .setDescription(
           "If you would like to join our support/community server, click the link below:" +
-            "\n[Join our support server](https://dsc.gg/antaresnetwork)"
+            "\n[Join our support server](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"
         )
         .setFooter(
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,

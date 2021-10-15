@@ -21,7 +21,9 @@ export default {
             "\n\n **counting**: Creates a channel to be used for a counting game" +
             "\n\n**remove**: Gives information on how to request all data for the server be removed" +
             "\n\n **say** or **echo**: Lets you make the bot say something. Careful, this is monitored for abuse" +
-            "\n\nJoin our support server: https://dsc.gg/antaresnetwork"
+            "\n **command <enable or disable> <command name>**: Use this to enable or disable any command" +
+            "\n **requiredRole <Command name> <\"none\" or Role ID>**: Use this to require a user to have a particular role to use a command" +
+            "\n\nJoin our support server: [Click Me to Join](https://discord.gg/KKYw763)"
         )
         .setFooter(
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
