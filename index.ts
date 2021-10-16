@@ -35,7 +35,7 @@ const client = new DiscordJs.Client({
   ],
 });
 
-if (process.env.TOP_GG_TOKEN != null) {
+if (process.env.TOP_GG_TOKEN) {
   const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
   ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
 }
