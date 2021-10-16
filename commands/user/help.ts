@@ -19,7 +19,9 @@ export default {
             .addFields([
                 { name: "Current Server prefix:", value: prefix, inline: true },
                 { name: "Command Categories", value: "📸**Random Images**\n\n🎲**Chance Games**\n\n🕹️**Skill Games**\n\n📺**Trivia/Facts**\n\n📈**Utility**"},
-                { name: "Invite Me", value: "[Click to add me to your server!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"}
+                { name: "Invite Me", value: "[Click to add me to your server!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"},
+                { name: "Support Server", value: "[Click to join the support server!](https://discord.gg/KKYw763)"},
+                { name: "Invite SeasonBot", value: "[Click to invite SeasonBot to your server!](https://discord.com/oauth2/authorize?client_id=774520746344054824&scope=bot&permissions=126032)"},
             ])
             .setFooter(
                 `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
@@ -132,7 +134,7 @@ export default {
             channel.send({embeds: [helpEmbed], components: [row]})
 
             const filter = (btnInt: ButtonInteraction) => {
-                return message.author.id === btnInt.user.id
+                return true
             }
             const collector = channel.createMessageComponentCollector({
                 filter,
