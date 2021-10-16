@@ -30,8 +30,8 @@ export default {
             .setColor("#ff3505")
             .setDescription(`**cat**: Gets a random cat image` +
             `\n**dog**: Gets a random dog image` +
-            `\n**fox**: Gets a random fox image (Coming Soon)` +
-            `\n**duck**: Gets a random duck image (Coming Soon)` +
+            `\n**fox**: Gets a random fox image` +
+            `\n**duck**: Gets a random duck image` +
             `\n**comic**: Gets a random XKCD comic` +
             `\n**reddit**: Gets a random meme (\`nsfw\` channel only)` +
             `\n**More coming soon**`)
