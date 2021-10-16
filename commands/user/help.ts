@@ -19,6 +19,8 @@ export default {
           "\n**random**: ❗❗ DISABLED ❗❗" +
           "\n**cat**: Sends a random picture of a cat." +
           "\n**dog**: Sends a random picture of a dog." +
+          "\n**duck**: Sends a random picture of a duck." +
+          "\n**fox**: Sends a random picture of a fox" +
           "\n**xkcd** or **comic**: Sends a random XKCD comic" +
           "\n**flip**: Flips a coin." +
           "\n**roll**: Rolls a die" +
@@ -36,7 +38,7 @@ export default {
           "\n**adminhelp**: Sends the help page with admin commands." +
           "\n**privacy**: Sends in a dm, the privacy policy for the bot." +
           "\nJoin our support server: https://dsc.gg/antaresnetwork" +
-          "Invite Antares Bot today: [Click Me!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"
+          "\nInvite Antares Bot today: [Click Me!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"
       )
       .setFooter(
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
