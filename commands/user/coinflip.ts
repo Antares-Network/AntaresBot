@@ -28,7 +28,7 @@ export default {
         .setColor("#ff3505")
         .setTitle("Coin Flip 💰")
         .setThumbnail(
-          `https://playantares.com/resources/antaresbot/coinflip.gif`
+          `https://playantares.com/resources/coinflip.gif`
         )
         .setDescription(`${message.author.username} got ${outcome}!`)
         .setFooter(

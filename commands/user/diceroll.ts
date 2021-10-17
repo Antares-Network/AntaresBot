@@ -28,7 +28,7 @@ export default {
         .setColor("#ff3505")
         .setTitle("Dice Roll 🎲")
         .setThumbnail(
-          `https://playantares.com/resources/antaresbot/diceroll.gif`
+          `https://playantares.com/resources/diceroll.gif`
         )
         .setDescription(`${message.author.username} rolled a ${outcome}!`)
         .setFooter(
