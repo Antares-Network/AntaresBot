@@ -197,7 +197,7 @@ client.on("messageDelete", async (message) => {
   if (message.channel.type != "DM") {
     if (gate.IGNORED_GUILDS.includes(message.guild?.id)) return;
     console.log(
-      `${chalk.red.bold(`MESSAGE DELETED`)} ${chalk.green(
+      `${chalk.red.bold(`DELETED`)} ${chalk.green(
         `[${message.channel.guild.name}]`
       )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
         `[${message.author?.username}]`
