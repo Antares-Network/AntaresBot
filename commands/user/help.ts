@@ -9,8 +9,7 @@ export default {
     guildOnly: true,
     requiredPermissions: ["SEND_MESSAGES"],
 
-    callback: async ({ client, message, channel, prefix}) => {
-        //prefixes.findOne({_id: message.guild?.id}).toString()
+    callback: async ({ client, channel, prefix}) => {
         const helpEmbed = new MessageEmbed()
             .setTitle("Antares Bot Help and Commands")
             .setColor("#ff3505")
@@ -131,8 +130,9 @@ export default {
                     .setLabel("Utility/Misc")
                     .setStyle("DANGER")
             )
-            channel.send({embeds: [helpEmbed], components: [row]})
 
+
+            channel.send({embeds: [helpEmbed], components: [row]})
             const filter = (btnInt: ButtonInteraction) => {
                 return true
             }
@@ -142,15 +142,35 @@ export default {
 
             collector.on("collect", (i: ButtonInteraction) => {
                     if (i.customId === "images") {
-                        i.reply({embeds: [imagesEmbed]})
+                        i.reply({embeds: [imagesEmbed]}).then(() => {
+                            setTimeout(() => {
+                                i.deleteReply()
+                            }, 1000 * 30)
+                        })
                     } else if (i.customId === "chance") {
-                        i.reply({embeds: [chanceEmbed]})
+                        i.reply({embeds: [chanceEmbed]}).then(() => {
+                            setTimeout(() => {
+                                i.deleteReply()
+                            }, 1000 * 30)
+                        })
                     } else if (i.customId === "skills") {
-                        i.reply({embeds: [skillEmbed]})
+                        i.reply({embeds: [skillEmbed]}).then(() => {
+                            setTimeout(() => {
+                                i.deleteReply()
+                            }, 1000 * 30)
+                        })
                     } else if (i.customId === "trivia") {
-                        i.reply({embeds: [triviaEmbed]})
+                        i.reply({embeds: [triviaEmbed]}).then(() => {
+                            setTimeout(() => {
+                                i.deleteReply()
+                            }, 1000 * 30)
+                        })
                     } else if (i.customId === "utility") {
-                        i.reply({embeds: [utilityEmbed]})
+                        i.reply({embeds: [utilityEmbed]}).then(() => {
+                            setTimeout(() => {
+                                i.deleteReply()
+                            }, 1000 * 30)
+                        })
                     }
                 })
 
