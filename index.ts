@@ -95,8 +95,8 @@ client.on("ready", () => {
   };
   //create the WOK client object
   const wok = new WOKCommands(client, {
-    commandDir: path.join(__dirname, "commands"),
-    // featuresDir: path.join(__dirname, "features"),
+    commandsDir: path.join(__dirname, "commands"),
+    featuresDir: path.join(__dirname, "features"),
     typeScript: true,
     testServers: [String(process.env.TEST_SERVERS)],
     dbOptions,
@@ -125,19 +125,6 @@ client.on("ready", () => {
       console.log(e);
     }
   });
-
-  //Set the activity of the bot
-  if (client.user) {
-    client.user.setActivity(
-      `${process.env.BOT_DEFAULT_PREFIX}help | V: ${process.env.VERSION}`,
-      { type: "PLAYING" }
-    );
-    console.log(
-      `Set bot status to: ${chalk.cyan(
-        `${process.env.BOT_DEFAULT_PREFIX}help`
-      )} V: ${chalk.cyan(process.env.VERSION)}`
-    );
-  }
 
   // Send a message to the bot owner that the bot has started and is online
   client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
