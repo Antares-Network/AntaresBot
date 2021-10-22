@@ -130,8 +130,8 @@ export default {
                     .setLabel("Utility/Misc")
                     .setStyle("DANGER")
             )
-
-
+    
+    
             channel.send({embeds: [helpEmbed], components: [row]})
             const filter = (btnInt: ButtonInteraction) => {
                 return true
@@ -139,7 +139,7 @@ export default {
             const collector = channel.createMessageComponentCollector({
                 filter,
             })
-
+    
             collector.on("collect", (i: ButtonInteraction) => {
                     if (i.customId === "images") {
                         i.reply({embeds: [imagesEmbed]}).then(() => {
@@ -173,7 +173,7 @@ export default {
                         })
                     }
                 })
-
+    
             collector.on("end", (collected) => {
                 console.log(collected)
             })
