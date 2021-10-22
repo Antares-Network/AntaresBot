@@ -7,7 +7,7 @@
 //Path: actions\docCreate.ts
 // Create the guild entry in the database when the bot joins it (used for storing guild data)
 import chalk from "chalk";
-import { Client, Guild, MessageEmbed, TextChannel } from "discord.js";
+import { Client, Guild, MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
 
 async function event(guild: Guild, client: Client) {
@@ -66,17 +66,26 @@ async function event(guild: Guild, client: Client) {
       {
         name: "Commands/ help",
         value: `Please run \`${process.env.BOT_DEFAULT_PREFIX}help\` to see a list of commands`,
-      },
-      {
-        name: "Support Server",
-        value: `Join our [support server](https://dsc.gg/antaresnetwork)>`,
-      },
-      { name: "Invite me to your server", value: `[Invite Me!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)` }
+      }
     )
     .setFooter(
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
       "https://playantares.com/resources/icon.png"
     );
+
+    const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                  .setURL("https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands")
+                  .setLabel("Invite Me")
+                  .setStyle("LINK")
+            )
+            .addComponents(
+                new MessageButton()
+                  .setURL("https://discord.gg/KKYw763")
+                  .setLabel("Support Server")
+                  .setStyle("LINK")
+            )
 
   client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
     user.send({ embeds: [Embed] });
@@ -89,7 +98,8 @@ async function event(guild: Guild, client: Client) {
   const firstChannel = guild.channels.cache
     .filter((c) => c.type === "GUILD_TEXT")
     .find((x) => (x as TextChannel).position == 0) as TextChannel;
-  if (firstChannel) firstChannel?.send({ embeds: [WelcomeEmbed] });
+  if (firstChannel) firstChannel?.send({ embeds: [WelcomeEmbed], components: [row]});
+  
   console.log(
     `Sent the welcome embed to ${firstChannel?.guild.name} in #${firstChannel?.name}`
   );
