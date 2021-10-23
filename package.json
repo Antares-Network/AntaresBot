@@ -8,14 +8,16 @@
   "dependencies": {
     "axios": "^0.21.4",
     "chalk": "^4.1.2",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "mongoose": "^6.0.6",
     "path": "^0.12.7",
     "reddit-image-fetcher": "^2.0.9",
+    "requests": "^0.3.0",
     "topgg-autoposter": "^2.0.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
+    "uuid": "^8.3.2",
     "wokcommands": "^1.3.983"
   },
   "main": "index.ts",
@@ -34,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/Antares-Network/AntaresBot/issues"
   },
-  "homepage": "https://github.com/Antares-Network/AntaresBot#readme"
+  "homepage": "https://github.com/Antares-Network/AntaresBot#readme",
+  "devDependencies": {
+    "@types/uuid": "^8.3.1"
+  }
 }
