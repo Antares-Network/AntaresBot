@@ -24,6 +24,8 @@ async function event(guild: Guild, client: Client) {
       GUILD_COMMAND_COUNT: 0,
       GUILD_DEFAULT_CHANNEL: null,
       GUILD_ADMIN_CHANNEL: null,
+      CONFESSION_CHANNEL_ID: null,
+      CONFESSION_CHANNEL_CODE: null,
       GUILD_COUNTING_CHANNEL_ID: null,
       GUILD_COUNTING_NUMBER: 0,
       GUILD_POLL_TIMEOUT: null,
