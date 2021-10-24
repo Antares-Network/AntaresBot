@@ -49,6 +49,14 @@ statcord.on("autopost-start", () => {
   console.log("Started autopost");
 });
 
+statcord.on("post", status => {
+  // status = false if the post was successful
+  // status = "Error message" or status = Error if there was an error
+  if (!status) console.log("Successful post");
+  else console.error(status);
+});
+
+
 if (process.env.TOP_GG_TOKEN) {
   const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
   ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
