@@ -1,4 +1,4 @@
-import { MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton } from "discord.js";
+import { MessageEmbed, Interaction, MessageComponentInteraction, MessageActionRow, MessageButton } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
@@ -133,14 +133,14 @@ export default {
     
     
             channel.send({embeds: [helpEmbed], components: [row]})
-            const filter = (btnInt: ButtonInteraction) => {
+            const filter = (btnInt: Interaction) => {
                 return true
             }
             const collector = channel.createMessageComponentCollector({
                 filter,
             })
     
-            collector.on("collect", (i: ButtonInteraction) => {
+            collector.on("collect", (i: MessageComponentInteraction) => {
                     if (i.customId === "images") {
                         i.reply({embeds: [imagesEmbed]}).then(() => {
                             setTimeout(() => {
