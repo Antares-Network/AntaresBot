@@ -8,9 +8,9 @@ export default {
   category: "user",
   description: "Gets the username, skin and UUID of a valid minecraft username",
   expectedArgs: "<username>",
-  slash: false,
   minArgs: 1,
   maxArgs: 1,
+  slash: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

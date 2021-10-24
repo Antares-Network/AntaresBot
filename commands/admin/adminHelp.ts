@@ -1,4 +1,4 @@
-import { MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton } from "discord.js";
+import { MessageEmbed, Interaction, MessageComponentInteraction, MessageActionRow, MessageButton } from "discord.js";
 import { ICommand } from "wokcommands";
 import adminChanCheck from "../../functions/adminChanCheck";
 
@@ -9,7 +9,7 @@ export default {
   guildOnly: true,
   requiredPermissions: ["MANAGE_GUILD"],
 
-  callback: async ({ client, channel, prefix, message }) => {
+  callback: async ({ client, channel, message }) => {
     if (await adminChanCheck.check(message, client)) {
       const helpEmbed = new MessageEmbed()
         .setColor("#ff3505")
@@ -30,14 +30,14 @@ export default {
         .setTitle("Bot Config commands")
         .setColor("#ff3505")
         .setDescription(`**admin**: Sets the server's admin channel` +
-        `\n**setup <#Mentioned channel>**: Sets the channel the bot will talk in for regular commands` +
-        `\n**adminHelp**: Shows the main admin help embed` +
-        `\n**remove**: Provides info about how to remove all your personal data from the bot's database` +
-        `\n**say <#Mentioned channel>**: Makes the bot say something. If a channel is mentioned, it will say what you want in that channel.` +
-        `\n**command <enable / disable> commandName**: Enables or Disables a command server-wide` +
-        `\n**requiredRole <Command name> <"none" or Role ID>**: Allows you to require roles for a command to be run.` +
-        `\n**prefix <New prefix>**: Sets a new prefix for the server` +
-        `\n**More coming soon**`)
+            `\n**setup <#Mentioned channel>**: Sets the channel the bot will talk in for regular commands` +
+            `\n**adminHelp**: Shows the main admin help embed` +
+            `\n**remove**: Provides info about how to remove all your personal data from the bot's database` +
+            `\n**say <#Mentioned channel>**: Makes the bot say something. If a channel is mentioned, it will say what you want in that channel.` +
+            `\n**command <enable / disable> commandName**: Enables or Disables a command server-wide` +
+            `\n**requiredRole <Command name> <"none" or Role ID>**: Allows you to require roles for a command to be run.` +
+            `\n**prefix <New prefix>**: Sets a new prefix for the server` +
+            `\n**More coming soon**`)
         .setFooter(
             `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
             "https://playantares.com/resources/icon.png"
@@ -67,35 +67,35 @@ export default {
                     .setLabel("Counting Commands/Setup")
                     .setStyle("SUCCESS")
             )
-    
-            channel.send({embeds: [helpEmbed], components: [row]})
-            const filter = (btnInt: ButtonInteraction) => {
-                if (btnInt.user.id === message.author.id) return true
-                else return false
-            }
-            const collector = channel.createMessageComponentCollector({
-                filter,
+        channel.send({embeds: [helpEmbed], components: [row]})
+
+        const filter = (btnInt: Interaction) => {
+            return btnInt.user.id == message.author.id;
+        }
+
+        const collector = channel.createMessageComponentCollector({
+            filter,
+        })
+
+        collector.on("collect", (i: MessageComponentInteraction) => {
+                if (i.customId === "config") {
+                    i.reply({embeds: [configEmbed]}).then(() => {
+                        setTimeout(() => {
+                            i.deleteReply()
+                        }, 1000 * 30)
+                    })
+                } else if (i.customId === "counting") {
+                    i.reply({embeds: [countingEmbed]}).then(() => {
+                        setTimeout(() => {
+                            i.deleteReply()
+                        }, 1000 * 30)
+                    })
+                }
             })
-    
-            collector.on("collect", (i: ButtonInteraction) => {
-                    if (i.customId === "config") {
-                        i.reply({embeds: [configEmbed]}).then(() => {
-                            setTimeout(() => {
-                                i.deleteReply()
-                            }, 1000 * 30)
-                        })
-                    } else if (i.customId === "counting") {
-                        i.reply({embeds: [countingEmbed]}).then(() => {
-                            setTimeout(() => {
-                                i.deleteReply()
-                            }, 1000 * 30)
-                        })
-                    }
-                })
-    
-            collector.on("end", (collected) => {
-                console.log(collected)
-            })
+
+        collector.on("end", (collected) => {
+            console.log(collected)
+        })
     }
   },
 } as ICommand;
