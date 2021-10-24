@@ -5,6 +5,7 @@
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from "discord.js";
 import { AutoPoster } from 'topgg-autoposter'
+import Statcord from 'statcord.js'
 import WOKCommands from "wokcommands";
 import mongoose from "mongoose";
 import path from "path";
@@ -35,11 +36,23 @@ const client = new DiscordJs.Client({
   ],
 });
 
+const statcord = new Statcord.Client({
+  client,
+  key: String(process.env.STATCORD_API_KEY),
+  postCpuStatistics: false, /* Whether to post memory statistics or not, defaults to true */
+  postMemStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+  postNetworkStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+});
+
+statcord.on("autopost-start", () => {
+  // Emitted when statcord autopost starts
+  console.log("Started autopost");
+});
+
 if (process.env.TOP_GG_TOKEN) {
   const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
   ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
 }
-
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
@@ -124,6 +137,7 @@ client.on("ready", () => {
     } catch (e) {
       console.log(e);
     }
+    statcord.autopost();
   });
 
   // Send a message to the bot owner that the bot has started and is online
