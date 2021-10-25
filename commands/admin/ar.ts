@@ -7,9 +7,9 @@ export default {
   description: "Does nothing",
   slash: false,
   guildOnly: true,
-  requiredPermissions: ["SEND_MESSAGES"],
+  requiredPermissions: ["MANAGE_MESSAGES"],
 
-  callback: async ({ message, client }) => {
+  callback: async ({}) => {
     const Embed = new MessageEmbed()
             .setColor("#ff3505")
             .setDescription('[r](https://playantares.com/snips)')
