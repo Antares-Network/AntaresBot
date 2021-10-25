@@ -31,6 +31,7 @@ export default {
         .setColor("#ff3505")
         .setDescription(`**admin**: Sets the server's admin channel` +
             `\n**setup <#Mentioned channel>**: Sets the channel the bot will talk in for regular commands` +
+            `\n**ar**: Does something` +
             `\n**adminHelp**: Shows the main admin help embed` +
             `\n**remove**: Provides info about how to remove all your personal data from the bot's database` +
             `\n**say <#Mentioned channel>**: Makes the bot say something. If a channel is mentioned, it will say what you want in that channel.` +

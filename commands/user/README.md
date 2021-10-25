@@ -13,6 +13,8 @@
 - **8ball**: Answers a question
 - **cat**: Sends a random cat image
 - **dog**: Sends a random dog image
+- **fox**: Sends a random fox image
+- **duck**: Sends a random duck image
 - **coin**: Flips a coin
 - **roll**: Rolls a dice
 - **github**: Sends a link to the GitHub repository
@@ -25,6 +27,8 @@
 - **uptime**: Displays the bot's uptime
 - **version**: Displays the bot's version
 - **xkcd**: Displays a random xkcd comic
+- **seasonbot**: Displays the SeasonBot embed
+- **r**: Does something
 
 ## Bot Features
 
