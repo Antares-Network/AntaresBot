@@ -1,5 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
+import statcord from "../../index"
 import check from "../../functions/channelCheck";
 
 export default {
@@ -13,6 +14,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("coinflip", message.author.id);
       const outcome = Math.round(Math.random()) == 0 ? "Tails" : "Heads";
       const preEmbed = new MessageEmbed()
         .setColor("#ff3505")

@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "invite",
@@ -12,7 +13,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
-      // console.log(`${chalk.red('COMMAND')} [${chalk.green(channel.guild.name)}] [${chalk.blue(channel.name)}] [${chalk.yellow(message.author.username)}] ${chalk.grey('--')} ${chalk.cyan(message.content)}`)
+      statcord.statcord.postCommand("invite", message.author.id);
       const Embed = new MessageEmbed()
         .setColor("#ff3505")
         .setTitle("Thank you showing interest in me!")

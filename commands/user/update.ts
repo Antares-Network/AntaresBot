@@ -3,6 +3,7 @@ import { ICommand } from "wokcommands";
 import gateModel from "../../models/gate";
 import guildModel from "../../models/guild";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "update",
@@ -14,6 +15,7 @@ export default {
 
   callback: async ({ client, channel, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("update", message.author.id);
       const gate = await gateModel.findOne({ NAME: "GATE" });
       //message.delete()
       const preEmbed = new MessageEmbed()

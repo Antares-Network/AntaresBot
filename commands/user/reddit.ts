@@ -2,6 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import redditImageFetcher from "reddit-image-fetcher";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "reddit",

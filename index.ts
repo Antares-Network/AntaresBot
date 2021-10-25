@@ -185,7 +185,7 @@ client.on("messageCreate", async (message) => {
       )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
         `[${message.author.username}]`
       )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
-    );
+      );
     try {
       counting.count(message, client); // counting logic
       messageLog.log(message); // log number of messages sent in each guild
@@ -331,3 +331,5 @@ process.on("exit", (code) => {
 process.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
 });
+
+export = { statcord };
