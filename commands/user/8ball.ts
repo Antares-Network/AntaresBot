@@ -1,5 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
+import statcord from "../../index"
 import check from "../../functions/channelCheck";
 
 export default {
@@ -14,6 +15,7 @@ export default {
 
   callback: async ({ client, message, text }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("8ball", message.author.id);
       const eightball = [
         "It is certain.",
         "It is decidedly so.",

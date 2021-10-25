@@ -1,5 +1,6 @@
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "sneeze",
@@ -11,6 +12,7 @@ export default {
 
   callback: async ({ client, channel, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("sneeze", message.author.id);
       const sneezes = [
         "***Achoo!***",
         "*chew!*",

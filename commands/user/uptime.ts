@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "uptime",
@@ -12,6 +13,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("uptime", message.author.id);
       const time = client.uptime!;
       const days = Math.floor(time / 86400000);
       const hours = Math.floor(time / 3600000) % 24;

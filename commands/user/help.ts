@@ -1,5 +1,6 @@
 import { MessageEmbed, Interaction, MessageComponentInteraction, MessageActionRow, MessageButton } from "discord.js";
 import { ICommand } from "wokcommands";
+import statcord from "../../index"
 
 export default {
     name: "help",
@@ -9,7 +10,8 @@ export default {
     guildOnly: true,
     requiredPermissions: ["SEND_MESSAGES"],
 
-    callback: async ({ client, channel, prefix}) => {
+    callback: async ({ client, channel, message, prefix}) => {
+        statcord.statcord.postCommand("help", message.author.id);
         const helpEmbed = new MessageEmbed()
             .setTitle("Antares Bot Help and Commands")
             .setColor("#ff3505")

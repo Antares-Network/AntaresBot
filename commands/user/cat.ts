@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 import axios from "axios";
 
 export default {
@@ -14,6 +15,7 @@ export default {
 
   callback: async ({ client, message, channel }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("cat", message.author.id);
       axios
         .get("https://aws.random.cat/meow")
         .then(function (response) {

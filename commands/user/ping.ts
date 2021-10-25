@@ -1,5 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
+import statcord from "../../index"
 import check from "../../functions/channelCheck";
 
 export default {
@@ -10,7 +11,9 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, message }) => {
+  callback: async ({ client, message, }) => {
+    statcord.statcord.postCommand("ping", message.author.id);
+    
     if (await check.check(message, client)) {
       const Embed = new MessageEmbed()
         .setColor("#ff3505")

@@ -2,6 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import axios from "axios";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "xkcd",
@@ -14,6 +15,7 @@ export default {
 
   callback: async ({ client, channel, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("xkcd", message.author.id);
       const comicNum = Math.floor(Math.random() * 2520);
       axios
         .get(`http://xkcd.com/${comicNum}/info.0.json`)

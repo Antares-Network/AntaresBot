@@ -2,6 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import gateModel from "../../models/gate";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "stats",
@@ -13,6 +14,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("stats", message.author.id);
       const doc = await gateModel.findOne({ NAME: "GATE" });
       const Embed = new MessageEmbed()
         .setColor("#ff3505")

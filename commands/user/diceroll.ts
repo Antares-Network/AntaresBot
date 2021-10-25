@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "diceroll",
@@ -13,6 +14,7 @@ export default {
 
   callback: async ({ client, message }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("diceroll", message.author.id);
       const outcome = Math.ceil(Math.random() * 6);
       const preEmbed = new MessageEmbed()
         .setColor("#ff3505")

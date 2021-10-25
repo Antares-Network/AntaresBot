@@ -2,6 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import axios from "axios";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "mcuser",
@@ -16,6 +17,7 @@ export default {
 
   callback: async ({ client, message, args }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("mcuser", message.author.id);
       const username = args[0];
       const url = `https://api.mojang.com/users/profiles/minecraft/${username}`;
       axios.get(url).then((res) => {

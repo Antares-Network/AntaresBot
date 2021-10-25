@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
+import statcord from "../../index"
 
 export default {
   name: "suggest",
@@ -13,6 +14,7 @@ export default {
 
   callback: async ({ client, message, text }) => {
     if (await check.check(message, client)) {
+      statcord.statcord.postCommand("suggest", message.author.id);
       message.delete();
       const Embed = new MessageEmbed()
         .setColor("#ff3505")
