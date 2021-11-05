@@ -67,10 +67,7 @@ statcord.on("post", (status) => {
     chalk.yellow("Trying to connect to MongoDB\nPlease wait for a connection")
   );
   await mongoose
-    .connect(String(process.env.BOT_MONGO_PATH), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    .connect(String(process.env.BOT_MONGO_PATH))
     .catch((error) => {
       console.log(
         chalk.red.bold(
