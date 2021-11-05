@@ -24,7 +24,7 @@ export default {
         .setFields([
           { name: "Santa Bot", value: "Invite Santa Bot today."},
           { name: "About", value: "Santa Bot is a verified bot that will bring Christmas fun to your servers! More than 1200 servers love his games!"},
-          { name: "Longer Description", value: "Santa will be your host for this season! MERRY CHRISTMAS! Get ready to pick up all of the presents that santa drops, but be careful about getting coal! The Bot is capable of running a game on your server to see who are the fastest ones getting the dropped presents. Donate to get premium, and have presents auto drop by chat activity. A portion of donations will go to the Make A Wish Foundation."},
+          { name: "Longer Description", value: "'Tis the season to be jolly! Be fast and pick up all of the presents that santa drops, but be careful about getting coal! Have you been naughty or nice? 🎅 \nDonate to get premium, and have presents auto drop by chat activity and many more features. Your donation will help us make a wish come true as a portion of them will go to the Make A Wish Foundation!"},
           { name: "Invite Santa Bot", value: "https://dsc.gg/seasonbot"}
         ])
         .setFooter(
