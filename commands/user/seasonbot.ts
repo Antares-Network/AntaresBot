@@ -13,7 +13,7 @@ export default {
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, message }) => {
-    const seasonBotAvatarUrl = "https://cdn.discordapp.com/avatars/774520746344054824/ab7ad167790a14d3acb76472e1becaa1.png"
+    const seasonBotAvatarUrl = "https://playantares.com/resources/santa-bot-2020.png"
     if (await check.check(message, client)) {
       statcord.statcord.postCommand("seasonbot", message.author.id);
       const Embed = new MessageEmbed()
