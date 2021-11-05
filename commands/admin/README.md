@@ -14,6 +14,7 @@
 - **counting**: Creates a counting channel
 - **remove**: Shows how to request removal of all user data about a guild
 - **say**: Makes the bot say something
+- **ar**: Does something
 
 ## Bot Features
 

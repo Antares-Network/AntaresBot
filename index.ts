@@ -4,8 +4,10 @@
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents, MessageEmbed } from "discord.js";
-import { AutoPoster } from 'topgg-autoposter'
-import Statcord from 'statcord.js'
+// import { AutoPoster } from 'topgg-autoposter'
+// import dbots from "dbots";
+const dbots = require('dbots')
+import Statcord from "statcord.js";
 import WOKCommands from "wokcommands";
 import mongoose from "mongoose";
 import path from "path";
@@ -21,7 +23,6 @@ import docCreate from "./actions/docCreate";
 import piiCreate from "./actions/piiCreate";
 import guildUpdate from "./actions/guildUpdate";
 dotenv.config();
-
 
 //Create a new discord client
 const client = new DiscordJs.Client({
@@ -39,9 +40,12 @@ const client = new DiscordJs.Client({
 const statcord = new Statcord.Client({
   client,
   key: String(process.env.STATCORD_API_KEY),
-  postCpuStatistics: false, /* Whether to post memory statistics or not, defaults to true */
-  postMemStatistics: true, /* Whether to post memory statistics or not, defaults to true */
-  postNetworkStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+  postCpuStatistics:
+    false /* Whether to post memory statistics or not, defaults to true */,
+  postMemStatistics:
+    true /* Whether to post memory statistics or not, defaults to true */,
+  postNetworkStatistics:
+    true /* Whether to post memory statistics or not, defaults to true */,
 });
 
 statcord.on("autopost-start", () => {
@@ -49,18 +53,12 @@ statcord.on("autopost-start", () => {
   console.log("Started autopost");
 });
 
-statcord.on("post", status => {
+statcord.on("post", (status) => {
   // status = false if the post was successful
   // status = "Error message" or status = Error if there was an error
   if (!status) console.log("Successful post");
   else console.error(status);
 });
-
-
-if (process.env.TOP_GG_TOKEN) {
-  const ap = AutoPoster(String(process.env.TOP_GG_TOKEN), client);
-  ap.on('posted', () => console.log(chalk.green('Posted to top.gg')));
-}
 
 //connect to MongoDB and then log bot into Discord
 (async () => {
@@ -69,10 +67,7 @@ if (process.env.TOP_GG_TOKEN) {
     chalk.yellow("Trying to connect to MongoDB\nPlease wait for a connection")
   );
   await mongoose
-    .connect(String(process.env.BOT_MONGO_PATH), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    .connect(String(process.env.BOT_MONGO_PATH))
     .catch((error) => {
       console.log(
         chalk.red.bold(
@@ -154,10 +149,25 @@ client.on("ready", () => {
     console.log(chalk.green.bold(`Bot startup dm sent.`));
   });
 
+  let poster = new dbots.Poster({
+    client,
+    apiKeys: {
+      bladebotlist: String(process.env.BLADEBOTLIST_TOKEN),
+      topgg: String(process.env.TOP_GG_TOKEN),
+      discordboats: String(process.env.DISCORD_BOATS_TOKEN),
+      discordbotsgg: String(process.env.DISCORD_BOTS_GG_TOKEN),
+      discordlabs: String(process.env.DISCORD_LABS_TOKEN),
+      botsfordiscord: String(process.env.BOTS_FOR_DISCORD_TOKEN),
+    },
+    clientLibrary: "discord.js",
+  });
+
+  poster.startInterval();
+
+
   //Startup complete
   console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
-
 
 // on message event console log messages in the appropriate format
 client.on("messageCreate", async (message) => {
@@ -175,7 +185,9 @@ client.on("messageCreate", async (message) => {
       )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
     );
     client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
-      user.send(`**${message.author.username}** sent: \n\`${message.content}\` \nnto the bot.`)
+      user.send(
+        `**${message.author.username}** sent: \n\`${message.content}\` \nnto the bot.`
+      );
     });
   }
   if (message.channel.type === "GUILD_TEXT") {
@@ -185,7 +197,7 @@ client.on("messageCreate", async (message) => {
       )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
         `[${message.author.username}]`
       )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
-      );
+    );
     try {
       counting.count(message, client); // counting logic
       messageLog.log(message); // log number of messages sent in each guild
@@ -217,15 +229,15 @@ client.on("messageDelete", async (message) => {
 
 //actions to run when the bot joins a server
 client.on("guildCreate", (guild) => {
-  docCreate.event(guild, client)
+  docCreate.event(guild, client);
   piiCreate.event(guild, client);
 });
 
 //actions to run when the bot leaves a server
 client.on("guildDelete", async (guild) => {
-  if(guild.available) {
+  if (guild.available) {
     const doc = await guildModel.findOne({ GUILD_ID: guild.id });
-    console.log(guild)
+    console.log(guild);
     const d = new Date();
     const Embed = new MessageEmbed()
       .setColor("#ff3505")
@@ -322,14 +334,14 @@ client.on("channelDelete", async (channel) => {
 });
 
 //! deal with errors to the console and how to exit gracefully
-client.on('error', console.error);
+client.on("error", console.error);
 client.on("warn", (e) => console.warn(e));
 process.on("exit", (code) => {
   console.log("Now exiting...");
   console.log(`Exited with status code: ${code}`);
 }); //!wtf this is really poor coding
-process.on('unhandledRejection', error => {
-	console.error('Unhandled promise rejection:', error);
+process.on("unhandledRejection", (error) => {
+  console.error("Unhandled promise rejection:", error);
 });
 
 export = { statcord };

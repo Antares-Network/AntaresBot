@@ -78,6 +78,7 @@ export default {
             .setTitle("Utility/Misc Commands")
             .setColor("#ff3505")
             .setDescription(`**ping**: Sends the ping time of the bot` +
+            `\n**r**: Does something` +
             `\n**sneeze**: Makes the bot sneeze` +
             `\n**invite**: Sends an invite link to add me to your server` +
             `\n**prefix**: Changes the server prefix` +
