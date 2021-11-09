@@ -7,7 +7,7 @@ export default {
   name: "ping",
   category: "user",
   description: "Sends the ping time of the bot.",
-  slash: "both",
+  slash: "false",
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
