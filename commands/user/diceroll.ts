@@ -1,7 +1,7 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
   name: "diceroll",
@@ -13,7 +13,7 @@ export default {
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, message }) => {
-    if (await check.check(message, client)) {
+
       statcord.statcord.postCommand("diceroll", message.author.id);
       const outcome = Math.ceil(Math.random() * 6);
       const preEmbed = new MessageEmbed()
@@ -41,6 +41,5 @@ export default {
       setTimeout(() => {
         MSG.edit({ embeds: [postEmbed] });
       }, 3000);
-    }
   },
 } as ICommand;

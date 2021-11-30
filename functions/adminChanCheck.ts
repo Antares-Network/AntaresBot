@@ -25,5 +25,4 @@ async function check(message: Message, client: Client): Promise<boolean> {
   }
   return Promise.resolve(true);
 }
-
 export = { check };

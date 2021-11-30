@@ -1,16 +1,16 @@
 import { ICommand } from "wokcommands";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
   name: "privacy",
   category: "user",
   description: "Sends the privacy policy for the bot in a dm",
-  slash: "both",
+  slash: true,
   guildOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: ({ message }) => {
-    statcord.statcord.postCommand("privacy", message.author.id);
+    statcord.postCommand("privacy", message.author.id);
     message.author.send(
       "**Data Collected By Command and when features are enabled**\n" +
         "The following may be collected when the bot joins a server and or when a user voluntarily enters this information. " +

@@ -1,37 +1,58 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index";
 
 export default {
   name: "seasonbot",
   category: "user",
-  description: "Sends an embed with a link to the most recent Season Bot season",
-  aliases: ["santa", "chewie", "patrick", "halloween", "christmas", "easter", "summer", "winter", "spring", "fall"],
-  slash: false,
+  description:
+    "Sends an embed with a link to the most recent Season Bot season",
+  slash: true,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, message }) => {
-    const seasonBotAvatarUrl = "https://playantares.com/resources/santa-bot-2020.png"
-    if (await check.check(message, client)) {
-      statcord.statcord.postCommand("seasonbot", message.author.id);
-      const Embed = new MessageEmbed()
-        .setColor("#ff3505")
-        .setURL("https://dsc.gg/seasonbot")
-        .setThumbnail(String(seasonBotAvatarUrl))
-        .setTitle("Invite Santa Bot today!")
-        .setFields([
-          { name: "Santa Bot", value: "Invite Santa Bot today."},
-          { name: "About", value: "Santa Bot is a verified bot that will bring Christmas fun to your servers! More than 1200 servers love his games!"},
-          { name: "Longer Description", value: "'Tis the season to be jolly! Be fast and pick up all of the presents that santa drops, but be careful about getting coal! Have you been naughty or nice? 🎅 \nDonate to get premium, and have presents auto drop by chat activity and many more features. Your donation will help us make a wish come true as a portion of them will go to the Make A Wish Foundation!"},
-          { name: "Invite Santa Bot", value: "https://dsc.gg/seasonbot"}
-        ])
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-          "https://playantares.com/resources/icon.png"
-        );
-      return Embed;
-    }
+  callback: async ({ client, interaction }) => {
+    // Command information
+    const id = interaction.user.id;
+    const chan = interaction.channel as TextChannel;
+    const author = interaction.user;
+
+    // Embed values
+    const color = "#ff3505";
+    const url = "https://playantares.com/seasonbot";
+    const thumbnail = "https://playantares.com/resources/santa-bot-2020.png";
+    const title = "Invite Season Bot today!";
+    const fields = [
+      { name: "Season Bot", value: "Invite Season Bot today." },
+      {
+        name: "About",
+        value:
+          "Boo Bot (aka Santa Bot) it’s a bot that will bring Halloween fun to your servers! More than 900 servers love the seasonal themes!",
+      },
+      {
+        name: "Longer Description",
+        value:
+          "'Tis the season to be jolly! Be fast and pick up all of the presents that santa drops, but be careful about getting coal! Have you been naughty or nice? 🎅 \nDonate to get premium, and have presents auto drop by chat activity and many more features. Your donation will help us make a wish come true as a portion of them will go to the Make A Wish Foundation!",
+      },
+      { name: "Invite Season Bot", value: "https://dsc.gg/seasonbot" },
+    ];
+    const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
+    const footerIcon = "https://playantares.com/resources/icon.png";
+
+    // Embed construction
+    const Embed = new MessageEmbed()
+      .setColor(color)
+      .setURL(url)
+      .setTitle(title)
+      .setThumbnail(thumbnail)
+      .setFields(fields)
+      .setFooter(footer, footerIcon);
+
+    // Post command usage
+    statcord.postCommand("seasonbot", id);
+
+    // Return the embed after the channel is checked
+    if (await check.check(interaction, chan, author, client)) return Embed;
   },
 } as ICommand;

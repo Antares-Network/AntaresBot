@@ -1,41 +1,43 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import axios from "axios";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index";
 
 export default {
   name: "xkcd",
   category: "user",
   description: "Gets a comic from xkcd",
   aliases: ["comic"],
-  slash: false,
+  slash: true,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, channel, message }) => {
-    if (await check.check(message, client)) {
-      statcord.statcord.postCommand("xkcd", message.author.id);
+  callback: async ({ client, interaction }) => {
+      // Command Information
+      const id = interaction.user.id;
+      const chan = interaction.channel as TextChannel;
+      const author = interaction.user;
       const comicNum = Math.floor(Math.random() * 2520);
-      axios
-        .get(`http://xkcd.com/${comicNum}/info.0.json`)
-        .then(function (response) {
-          const Embed = new MessageEmbed()
-            .setColor("#ff3505")
-            //.setURL('https://dsc.gg/antaresnetwork')
-            .setTitle("Random XKCD Comic")
-            .setImage(response.data.img)
-            .setFooter(
-              `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-              "https://playantares.com/resources/icon.png"
-            );
-          channel.send({ embeds: [Embed] });
-        })
-        .catch((error) => {
-          // Handle the error
-          console.log(error);
-          return `**\`Err:\`** Socket hang up. Please try again.`;
-        });
-    }
+  
+      // Embed values
+      const color = "#ff3505"
+      const title = "Random XKCD Comic"
+      let url = await axios.get(`http://xkcd.com/${comicNum}/info.0.json`).then(res => res.data.img);
+      const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
+      const footerIcon = "https://playantares.com/resources/icon.png"
+  
+      // Embed construction
+      const Embed = new MessageEmbed()
+        .setColor(color)
+        .setTitle(title)
+        .setImage(url)
+        .setFooter(footer, footerIcon);
+      
+      // Post command usage
+      statcord.postCommand("xkcd", id);
+  
+      // Return the embed after the channel is checked
+      if (await check.check(interaction, chan, author, client)) return Embed;
   },
 } as ICommand;

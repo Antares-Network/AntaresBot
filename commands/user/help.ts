@@ -1,24 +1,26 @@
 import { MessageEmbed, Interaction, MessageComponentInteraction, MessageActionRow, MessageButton } from "discord.js";
 import { ICommand } from "wokcommands";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
     name: "help",
     category: "user",
     description: "Shows the help embed",
-    slash: false,
+    slash: true,
+    testOnly: true,
     guildOnly: true,
     requiredPermissions: ["SEND_MESSAGES"],
 
-    callback: async ({ client, channel, message, prefix}) => {
-        statcord.statcord.postCommand("help", message.author.id);
+    callback: async ({ client, channel, interaction: msgInt, instance}) => {
+        const id = msgInt.user.id;
+        statcord.postCommand("help", id);
         const helpEmbed = new MessageEmbed()
             .setTitle("Antares Bot Help and Commands")
             .setColor("#ff3505")
             .setThumbnail("https://playantares.com/resources/icon.png")
             .setDescription("Welcome to Antares Bot! Here you can find all the commands you need!")
             .addFields([
-                { name: "Current Server prefix:", value: prefix, inline: true },
+                { name: "Current Server prefix:", value: instance.getPrefix(msgInt.guild), inline: true },
                 { name: "Command Categories", value: "📸**Random Images**\n\n🎲**Chance Games**\n\n🕹️**Skill Games**\n\n📺**Trivia/Facts**\n\n📈**Utility**"},
                 { name: "Invite Me", value: "[Click to add me to your server!](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"},
                 { name: "Support Server", value: "[Click to join the support server!](https://discord.gg/KKYw763)"},
@@ -27,7 +29,7 @@ export default {
             .setFooter(
                 `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
                 "https://playantares.com/resources/icon.png"
-              );
+            );
         const imagesEmbed = new MessageEmbed()
             .setTitle("Random Image Commands")
             .setColor("#ff3505")
@@ -133,16 +135,16 @@ export default {
                     .setLabel("Utility/Misc")
                     .setStyle("DANGER")
             )
+            
     
     
-            channel.send({embeds: [helpEmbed], components: [row]})
+            msgInt.reply({embeds: [helpEmbed], components: [row]})
             const filter = (btnInt: Interaction) => {
                 return true
             }
             const collector = channel.createMessageComponentCollector({
                 filter,
             })
-    
             collector.on("collect", (i: MessageComponentInteraction) => {
                     if (i.customId === "images") {
                         i.reply({embeds: [imagesEmbed]}).then(() => {
@@ -176,9 +178,8 @@ export default {
                         })
                     }
                 })
-    
-            collector.on("end", (collected) => {
-                console.log(collected)
-            })
+
+
+        
         }
 } as ICommand

@@ -1,8 +1,8 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import axios from "axios";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
   name: "mcuser",
@@ -11,35 +11,49 @@ export default {
   expectedArgs: "<username>",
   minArgs: 1,
   maxArgs: 1,
-  slash: false,
+  slash: true,
+  testOnly: true,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
-
-  callback: async ({ client, message, args }) => {
-    if (await check.check(message, client)) {
-      statcord.statcord.postCommand("mcuser", message.author.id);
-      const username = args[0];
-      const url = `https://api.mojang.com/users/profiles/minecraft/${username}`;
-      axios.get(url).then((res) => {
-        const uuid = res.data.id;
-        if (res.data.id) {
-          const skin = `https://crafatar.com/renders/body/${uuid}?overlay`;
-          const Embed = new MessageEmbed()
-            .setColor("#ff3505")
-            .setTitle(`${username}'s info`)
-            .setImage(skin)
-            .setDescription(
-              `UUID: ${uuid} \nJoin the Antares Network Minecraft server: **mc.playantares.com**`
-            )
-            .setFooter(
-              `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-              "https://playantares.com/resources/icon.png"
-            );
-          message.reply({ embeds: [Embed] });
-        } else {
-          message.reply(`${username} is not a valid username!`);
-        }
-      });
+  options: [
+    {
+      name: 'username',
+      description: 'Any valid Minecraft username',
+      required: true,
+      type: 3,
     }
+  ],
+
+  callback: async ({ client, interaction, args }) => {
+    // Command information
+    const id = interaction.user.id;
+    const chan = interaction.channel as TextChannel;
+    const author = interaction.user;
+
+    // Fetched information
+    const url = `https://api.mojang.com/users/profiles/minecraft/${args[0]}`;
+    const uuid = await axios.get(url).then(res => res.data.id);
+
+    // Embed values
+    const color = "#ff3505"
+    const title = `${args[0]}'s info'`
+    const image = `https://crafatar.com/renders/body/${uuid}?overlay`;
+    const description = `**Username:** ${args[0]}\n **UUID:** ${uuid}`
+    const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
+    const footerIcon = "https://playantares.com/resources/icon.png"
+
+    // Embed construction
+    const Embed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(title)
+      .setImage(image)
+      .setDescription(description)
+      .setFooter(footer, footerIcon);
+
+    // Post command stats
+    statcord.postCommand("mcuser", id);
+
+    // Return the embed after the channel is checked
+    if (await check.check(interaction, chan, author, client)) return Embed;
   },
 } as ICommand;

@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
-import statcord from "../../index"
+import { statcord } from "../../index"
 import check from "../../functions/channelCheck";
 
 export default {

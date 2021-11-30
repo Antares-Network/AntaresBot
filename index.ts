@@ -3,25 +3,16 @@
 //https://playantares.com
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
-import DiscordJs, { Intents, MessageEmbed } from "discord.js";
-// import { AutoPoster } from 'topgg-autoposter'
-// import dbots from "dbots";
+import DiscordJs, { Intents } from "discord.js";
 const dbots = require('dbots')
 import Statcord from "statcord.js";
 import WOKCommands from "wokcommands";
-import mongoose from "mongoose";
 import path from "path";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import gateModel from "./models/gate";
-import piiModel from "./models/pii";
-import guildModel from "./models/guild";
 import onReady from "./actions/onReady";
-import counting from "./functions/counting";
-import messageLog from "./actions/messageLog";
-import docCreate from "./actions/docCreate";
-import piiCreate from "./actions/piiCreate";
-import guildUpdate from "./actions/guildUpdate";
+import { Player } from "discord-music-player";
 dotenv.config();
 
 //Create a new discord client
@@ -30,70 +21,36 @@ const client = new DiscordJs.Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
     Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_VOICE_STATES
   ],
 });
+
+const player = new Player(client, {
+  leaveOnEmpty: false,
+});
+
 
 const statcord = new Statcord.Client({
   client,
   key: String(process.env.STATCORD_API_KEY),
   postCpuStatistics:
-    false /* Whether to post memory statistics or not, defaults to true */,
+    false,
   postMemStatistics:
-    true /* Whether to post memory statistics or not, defaults to true */,
+    true,
   postNetworkStatistics:
-    true /* Whether to post memory statistics or not, defaults to true */,
+    true,
 });
 
 statcord.on("autopost-start", () => {
-  // Emitted when statcord autopost starts
   console.log("Started autopost");
 });
 
 statcord.on("post", (status) => {
-  // status = false if the post was successful
-  // status = "Error message" or status = Error if there was an error
+
   if (!status) console.log("Successful post");
   else console.error(status);
 });
-
-//connect to MongoDB and then log bot into Discord
-(async () => {
-  //Connect to MongoDB
-  console.log(
-    chalk.yellow("Trying to connect to MongoDB\nPlease wait for a connection")
-  );
-  await mongoose
-    .connect(String(process.env.BOT_MONGO_PATH))
-    .catch((error) => {
-      console.log(
-        chalk.red.bold(
-          `There was an error connecting to the database:\n ${error}`
-        )
-      );
-      process.exit(1);
-    });
-  console.log(chalk.green("Connected to MongoDB"));
-
-  //login to the discord api
-  console.log(
-    chalk.yellow(
-      "Trying to login to the Discord API\nPlease wait for a connection"
-    )
-  );
-  client.login(process.env.BOT_TOKEN).catch((error) => {
-    console.log(
-      chalk.red.bold(
-        `There was an error connecting to the database:\n ${error}`
-      )
-    );
-    process.exit(1);
-  });
-  console.log(chalk.green("Logged into the Discord API"));
-})();
 
 //on ready event create a WOK commands instance and print some info
 client.on("ready", () => {
@@ -169,168 +126,9 @@ client.on("ready", () => {
   console.log(chalk.green.bold("Startup complete. Listening for input..."));
 });
 
-// on message event console log messages in the appropriate format
-client.on("messageCreate", async (message) => {
-  //Get the gate data at the start of each message create event
-  const gate = await gateModel.findOne({ NAME: "GATE" });
-
-  // ignore ignored guilds, bots, and itself
-  if (message.guild && gate.IGNORED_GUILDS.includes(message.guild.id)) return;
-  if (message.author.bot) return;
-  //log dms and guild messages to the console but do not store them
-  if (message.channel.type === "DM") {
-    console.log(
-      `${chalk.blue.bold(`DM`)} ${chalk.yellow(
-        `[${message.author.username}]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
-    );
-    client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
-      user.send(
-        `**${message.author.username}** sent: \n\`${message.content}\` \nnto the bot.`
-      );
-    });
-  }
-  if (message.channel.type === "GUILD_TEXT") {
-    console.log(
-      `${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(
-        `[${message.channel.guild.name}]`
-      )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
-        `[${message.author.username}]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
-    );
-    try {
-      counting.count(message, client); // counting logic
-      messageLog.log(message); // log number of messages sent in each guild
-    } catch (e) {
-      //! change this to a more descriptive error message
-      console.log(
-        "Error on guild lookup. Maybe from a message sent in a DM to the bot"
-      );
-    }
-  }
-});
-
-//on message delete event log the message to the console in the appropriate format
-client.on("messageDelete", async (message) => {
-  const gate = await gateModel.findOne({ NAME: "GATE" });
-  if (message.author?.bot) return;
-  if (message.member?.user.bot) return;
-  if (message.channel.type != "DM") {
-    if (gate.IGNORED_GUILDS.includes(message.guild?.id)) return;
-    console.log(
-      `${chalk.red.bold(`DELETED`)} ${chalk.green(
-        `[${message.channel.guild.name}]`
-      )} ${chalk.blue(`[${message.channel.name}]`)} ${chalk.yellow(
-        `[${message.author?.username}]`
-      )} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
-    );
-  }
-});
-
-//actions to run when the bot joins a server
-client.on("guildCreate", (guild) => {
-  docCreate.event(guild, client);
-  piiCreate.event(guild, client);
-});
-
-//actions to run when the bot leaves a server
-client.on("guildDelete", async (guild) => {
-  if (guild.available) {
-    const doc = await guildModel.findOne({ GUILD_ID: guild.id });
-    console.log(guild);
-    const d = new Date();
-    const Embed = new MessageEmbed()
-      .setColor("#ff3505")
-      .setTitle(`I Left a Server`)
-      .setThumbnail(
-        String(
-          guild.iconURL() || "https://cdn.discordapp.com/embed/avatars/0.png"
-        )
-      )
-      .addFields([
-        { name: "Guild Creation Date:", value: guild.createdAt.toString() },
-        { name: "Guild Leave Date:", value: d.toString() },
-        { name: "Guild Name:", value: guild.name },
-        { name: "Guild ID:", value: guild.id },
-        { name: "Owner ID:", value: guild.ownerId },
-        { name: "Guild Member Count:", value: doc?.GUILD_MEMBER_COUNT },
-      ])
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
-    try {
-      await guildModel.findOneAndDelete({ GUILD_ID: guild.id });
-      await piiModel.findOneAndDelete({ GUILD_ID: guild.id });
-      client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
-        user.send({ embeds: [Embed] });
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-// needs GUILD_MEMBER intent which is privileged
-client.on("guildMemberAdd", async (member) => {
-  // if the member that joined a server is in the list of ignored guilds, do not log them
-  const doc = await gateModel.findOne({ NAME: "GATE" });
-  if (doc.IGNORED_GUILDS.includes(member.guild.id)) return;
-  console.log(
-    `${chalk.green.bold(`MEMBER JOINED`)} ${chalk.green(
-      `[${member.guild.name}]`
-    )} ${chalk.blue(`[${member.user.username}]`)}`
-  );
-  try {
-    await guildModel.findOneAndUpdate(
-      { GUILD_ID: member.guild.id },
-      { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } },
-      { new: true }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-// needs GUILD_MEMBER intent which is privileged
-client.on("guildMemberRemove", async (member) => {
-  // if the member that joined a server is in the list of ignored guilds, do not log them
-  const doc = await gateModel.findOne({ NAME: "GATE" });
-  if (doc.IGNORED_GUILDS.includes(member.guild.id)) return;
-  console.log(
-    `${chalk.red.bold(`MEMBER LEFT`)} ${chalk.green(
-      `[${member.guild.name}]`
-    )} ${chalk.blue(`[${member.user?.username}]`)}`
-  );
-  try {
-    await guildModel.findOneAndUpdate(
-      { GUILD_ID: member.guild.id },
-      { $set: { GUILD_MEMBER_COUNT: member.guild.memberCount } },
-      { new: true }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-client.on("guildUpdate", (oldGuild, newGuild) => {
-  guildUpdate.update(oldGuild, newGuild, client);
-});
-
-client.on("channelDelete", async (channel) => {
-  // check if the deleted channel is the counting channel and remove that channel from the db
-  if (channel.type === "GUILD_TEXT") {
-    console.log(
-      `${chalk.red.bold(`CHANNEL DELETED`)} ${chalk.green(
-        `[${channel.guild?.name}]`
-      )} ${chalk.blue(`[${channel.name}]`)}`
-    );
-    const req = await piiModel.findOne({ GUILD_ID: channel.guild?.id });
-    if (channel.id === req.GUILD_COUNTING_CHANNEL_ID) {
-      req.GUILD_COUNTING_CHANNEL_ID = null;
-      req.save();
-    }
-  }
+client.login(process.env.BOT_TOKEN).catch((error) => {
+  console.log(chalk.red.bold(`There was an error connecting to the Discord`));
+  process.exit(1);
 });
 
 //! deal with errors to the console and how to exit gracefully
@@ -344,4 +142,4 @@ process.on("unhandledRejection", (error) => {
   console.error("Unhandled promise rejection:", error);
 });
 
-export = { statcord };
+export { statcord, player };
