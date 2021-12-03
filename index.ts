@@ -27,9 +27,10 @@ const client = new DiscordJs.Client({
 });
 
 const player = new Player(client, {
-  leaveOnEmpty: false,
+  leaveOnEmpty: false, // This options are optional.
+  leaveOnStop: false,
+  leaveOnEnd: false
 });
-
 
 const statcord = new Statcord.Client({
   client,
