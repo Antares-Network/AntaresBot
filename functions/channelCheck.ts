@@ -10,12 +10,7 @@ import {
 import piiModel from "../models/pii";
 import gateModel from "../models/gate";
 
-async function check(
-  interaction: CommandInteraction,
-  channel: TextChannel,
-  author: User,
-  client: Client
-): Promise<boolean> {
+async function check( interaction: CommandInteraction, channel: TextChannel, author: User, client: Client ): Promise<boolean> {
   const srv = await piiModel.findOne({ GUILD_ID: channel.guild?.id }); //find the entry for the guild
   const gate = await gateModel.findOne({ NAME: "GATE" });
   //check if the user has been banned from using the bot
