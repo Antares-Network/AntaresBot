@@ -1,16 +1,16 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import piiModel from "./../../models/pii";
 import adminChanCheck from "../../functions/adminChanCheck";
 
 export default {
   category: "admin",
-  description: "Makes the bot say something",
+  description: "Creates a counting channel",
   slash: false,
   permissions: ["MANAGE_CHANNELS", "MANAGE_GUILD", "MANAGE_MESSAGES"],
   guildOnly: true,
 
-  callback: async ({ client, message }) => {
+  callback: async ({ client, interaction }) => {
     if (await adminChanCheck.check(message, client)) {
       const req = await piiModel.findOne({ GUILD_ID: message.guild?.id });
 

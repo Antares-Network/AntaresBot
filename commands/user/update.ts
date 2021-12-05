@@ -3,7 +3,7 @@ import { ICommand } from "wokcommands";
 import gateModel from "../../models/gate";
 import guildModel from "../../models/guild";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
   name: "update",

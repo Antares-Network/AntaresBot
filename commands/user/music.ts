@@ -12,7 +12,7 @@ const { RepeatMode } = require("discord-music-player");
 import axios from "axios";
 
 export default {
-  name: "music",
+  name: "music1",
   category: "user",
   description: "Starts playlist music",
   expectedArgs: "<action> <link>",
@@ -35,18 +35,7 @@ export default {
       let song = await queue.play(args.join(" ")).catch((_) => {
         if (!guildQueue) queue.stop();
       });
-      if (song) {
-        let metadata = await axios.get(
-          `http://youtube.com/oembed?url=${args[0]}&format=json`
-        );
-        let embed = new MessageEmbed()
-          .setTitle(metadata.data.title)
-          .setURL(metadata.data.url)
-          .setDescription(metadata.data.author_name)
-          .setColor(0x00ff00)
-          .setThumbnail(metadata.data.thumbnail_url);
-        interaction.reply({ embeds: [embed] });
-      }
+      interaction.reply(`Started playing ${guildQueue?.nowPlaying?.name}.`);
     }
     if (guildQueue) {
       if (command === "skip") {

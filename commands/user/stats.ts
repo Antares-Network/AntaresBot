@@ -2,7 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import gateModel from "../../models/gate";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index"
 
 export default {
   name: "stats",

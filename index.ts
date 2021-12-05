@@ -65,14 +65,13 @@ client.on("ready", () => {
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
   };
   //create the WOK client object
   const wok = new WOKCommands(client, {
     commandsDir: path.join(__dirname, "commands"),
     featuresDir: path.join(__dirname, "features"),
     typeScript: true,
-    testServers: [String(process.env.TEST_SERVERS)],
+    testServers: ["788541416740487218"],
     dbOptions,
     mongoUri: String(process.env.BOT_MONGO_PATH),
     disabledDefaultCommands: ["help", "language"],
