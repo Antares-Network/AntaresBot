@@ -6,36 +6,33 @@ import {
   VoiceChannel,
 } from "discord.js";
 import { ICommand } from "wokcommands";
-import { statcord, player } from "../../index";
-import check from "../../functions/channelCheck";
+import { player } from "../../index";
 const { RepeatMode } = require("discord-music-player");
-import axios from "axios";
 
 export default {
-  name: "music1",
+  name: "music",
   category: "user",
   description: "Starts playlist music",
   expectedArgs: "<action> <link>",
   minArgs: 1,
   maxArgs: 2,
   slash: true,
-  guildOnly: true,
   testOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ interaction, args }) => {
     let command = args[0];
-    console.log(command);
     let id = interaction.guild?.id as string;
     let member = interaction.member as GuildMember;
     let guildQueue = player.getQueue(id);
     if (command === "play") {
+      interaction.deferReply();
       let queue = player.createQueue(String(interaction.guild?.id));
       await queue.join(member.voice.channel as VoiceChannel | StageChannel);
       let song = await queue.play(args.join(" ")).catch((_) => {
         if (!guildQueue) queue.stop();
       });
-      interaction.reply(`Started playing ${guildQueue?.nowPlaying?.name}.`);
+      interaction.followUp(`Started playing the link you sent.`);
     }
     if (guildQueue) {
       if (command === "skip") {

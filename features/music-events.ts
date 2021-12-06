@@ -23,7 +23,7 @@ export default (client: Client) => {
     player.on('songChanged', async (queue, newSong, oldSong) => {
         const description = `**Author:** ${queue?.nowPlaying?.author}\n **Duration:** ${queue?.nowPlaying?.duration}\n **`;
         const srv = await piiModel.findOne({ GUILD_ID: queue.guild?.id })
-        const channel = queue.guild.channels.cache.get(srv.DEFAULT_CHANNEL) as TextChannel;
+        const channel = queue.guild.channels.cache.get(srv.GUILD_DEFAULT_CHANNEL) as TextChannel;
         const embed = new MessageEmbed()
             .setTitle(String(queue?.nowPlaying?.name))
             .setURL(String(queue?.nowPlaying?.url))
@@ -33,8 +33,19 @@ export default (client: Client) => {
         channel.send({embeds: [embed]})
     });
     // Emitted when a first song in the queue started playing.
-    player.on('songFirst',  (queue, song) =>{
-        console.log(`Started playing ${song}.`)
+    player.on('songFirst',  async (queue, song) =>{
+        const description = `**Author:** ${queue?.nowPlaying?.author}\n **Duration:** ${queue?.nowPlaying?.duration}\n **`;
+        const srv = await piiModel.findOne({ GUILD_ID: queue.guild?.id })
+        const embed = new MessageEmbed()
+            .setTitle(String(queue?.nowPlaying?.name))
+            .setURL(String(queue?.nowPlaying?.url))
+            .setDescription(description)
+            .setColor(0x00ff00)
+            .setThumbnail(String(queue?.nowPlaying?.thumbnail));
+        setTimeout(() => {
+            const channel = queue.guild.channels.cache.get(srv.GUILD_DEFAULT_CHANNEL) as TextChannel
+            channel.send({embeds: [embed]})
+        }, 1000);
     });
     // Emitted when someone disconnected the bot from the channel.
     player.on('clientDisconnect', (queue) =>{
