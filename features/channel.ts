@@ -4,8 +4,6 @@ import piiModel from "../models/pii";
 import chalk from "chalk";
 
 export default (client: Client, instance: WOKCommands) => {
-
-
   client.on("channelDelete", async (channel) => {
     // check if the deleted channel is the counting channel and remove that channel from the db
     if (channel.type === "GUILD_TEXT") {

@@ -1,7 +1,7 @@
 import { Client, MessageEmbed } from "discord.js";
 import WOKCommands from "wokcommands";
-import docCreate from "../actions/docCreate"
-import piiCreate from "../actions/piiCreate"
+import docCreate from "../actions/docCreate";
+import piiCreate from "../actions/piiCreate";
 import guildModel from "../models/guild";
 import piiModel from "../models/pii";
 import guildUpdate from "../actions/guildUpdate";
