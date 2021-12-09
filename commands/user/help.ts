@@ -25,7 +25,7 @@ export default {
       .setColor("#ff3505")
       .setThumbnail("https://playantares.com/resources/icon.png")
       .setDescription(
-        "Welcome to Antares Bot! Here you can find all the commands you need!"
+        "Welcome to Antares Bot! Here you can find all the commands you need!\n **ALL COMMANDS ARE BEING CONVERTED TO SLASH COMMANDS**\n Learn how slash commands work [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)."
       )
       .addFields([
         {
