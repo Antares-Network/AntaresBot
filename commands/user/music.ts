@@ -32,7 +32,7 @@ export default {
       let song = await queue.play(args.join(" ")).catch((_) => {
         if (!guildQueue) queue.stop();
       });
-      interaction.followUp(`Started playing the link you sent.`);
+      interaction.followUp(`The link you sent was added to the queue.`);
     }
     if (guildQueue) {
       if (command === "skip") {
