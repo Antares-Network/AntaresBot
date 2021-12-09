@@ -6,23 +6,27 @@ import adminChanCheck from "../../functions/adminChanCheck";
 export default {
   category: "admin",
   description: "Creates a counting channel",
-  slash: false,
+  slash: true,
+  testOnly: true,
   permissions: ["MANAGE_CHANNELS", "MANAGE_GUILD", "MANAGE_MESSAGES"],
   guildOnly: true,
 
   callback: async ({ client, interaction }) => {
-    if (await adminChanCheck.check(message, client)) {
-      const req = await piiModel.findOne({ GUILD_ID: message.guild?.id });
+    const id = interaction.user.id;
+    const chan = interaction.channel as TextChannel;
+    const author = interaction.user;
+    const req = await piiModel.findOne({ GUILD_ID: interaction.guild?.id });
 
+    if (await adminChanCheck.check(interaction, chan, author, client)) {
       if (req.GUILD_COUNTING_CHANNEL_ID !== null) {
-        const chan = message.guild?.channels.cache.get(
+        const chan = interaction.guild?.channels.cache.get(
           req.GUILD_COUNTING_CHANNEL_ID
         );
-        message.channel.send(
+        interaction.reply(
           `You already have a counting channel. It is named <#${chan?.id}>`
         );
       } else {
-        message.guild?.channels
+        interaction.guild?.channels
           .create("counting", {
             type: "GUILD_TEXT",
           })
@@ -48,7 +52,7 @@ export default {
               );
             channel.send({ embeds: [Embed] });
             await piiModel.updateOne(
-              { GUILD_ID: message.guild?.id },
+              { GUILD_ID: interaction.guild?.id },
               { GUILD_COUNTING_CHANNEL_ID: channel.id }
             );
           });
