@@ -6,7 +6,7 @@ import { statcord } from "../../index"
 export default {
   name: "uptime",
   category: "user",
-  description: "Sends an embed with a link to the github repo for the bot.",
+  description: "Checks how long the bot has been online.",
   slash: true,
   testOnly: true,
   guildOnly: true,
