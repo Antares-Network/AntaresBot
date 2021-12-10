@@ -71,7 +71,7 @@ client.on("ready", () => {
     commandsDir: path.join(__dirname, "commands"),
     featuresDir: path.join(__dirname, "features"),
     typeScript: true,
-    testServers: ["788541416740487218"],
+    testServers: ["788541416740487218", "775216104012120124"],
     dbOptions,
     mongoUri: String(process.env.BOT_MONGO_PATH),
     disabledDefaultCommands: ["help", "language"],
@@ -81,6 +81,7 @@ client.on("ready", () => {
 
   wok.on("databaseConnected", async () => {
     console.log(chalk.green("Connected to MongoDB"));
+
     //Print some bot stats
     console.log(
       `${chalk.yellow("I am in")} ${chalk.green(
