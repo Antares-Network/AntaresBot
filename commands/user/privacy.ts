@@ -9,9 +9,9 @@ export default {
   guildOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: ({ message }) => {
-    statcord.postCommand("privacy", message.author.id);
-    message.author.send(
+  callback: ({ interaction }) => {
+    statcord.postCommand("privacy", interaction.user.id);
+    interaction.user.send(
       "**Data Collected By Command and when features are enabled**\n" +
         "The following may be collected when the bot joins a server and or when a user voluntarily enters this information. " +
         "When providing data in this way, you forego any rights to the content of the data provided.\n" +

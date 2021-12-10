@@ -36,7 +36,7 @@ export default {
 
     // Embed values
     const color = "#ff3505"
-    const title = `${args[0]}'s info'`
+    const title = `${args[0]}'s info`
     const image = `https://crafatar.com/renders/body/${uuid}?overlay`;
     const description = `**Username:** ${args[0]}\n **UUID:** ${uuid}`
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`

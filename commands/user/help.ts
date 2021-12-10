@@ -214,5 +214,7 @@ export default {
         });
       }
     });
+    // Post command usage
+    statcord.postCommand("help", id);
   },
 } as ICommand;

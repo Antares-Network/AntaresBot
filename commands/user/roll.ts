@@ -41,7 +41,7 @@ export default {
       setTimeout(() => {
         interaction.editReply({ embeds: [postEmbed] });
       }, 3000);
-      statcord.postCommand("diceroll", id);
+      statcord.postCommand("roll", id);
     }
   },
 } as ICommand;

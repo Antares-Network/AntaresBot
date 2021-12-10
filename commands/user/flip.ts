@@ -44,7 +44,7 @@ export default {
         interaction.editReply({ embeds: [postEmbed] });
       }, 3000);
 
-      statcord.postCommand("coinflip", id);
+      statcord.postCommand("flip", id);
     }
   },
 } as ICommand;

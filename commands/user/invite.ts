@@ -21,7 +21,7 @@ export default {
     const color = "#ff3505";
     const url = "https://dsc.gg/antaresnetwork";
     const thumbnail = "https://playantares.com/resources/icon.png";
-    const title = "Github";
+    const title = "Invite";
     const channelDescription =
       "If you would like to invite Antares Bot to your server, click the link below:" +
       "\n[Invite Me!](https://dsc.gg/antaresbot)";
@@ -50,7 +50,7 @@ export default {
       .setFooter(footer, footerIcon);
 
     // Post command usage
-    statcord.postCommand("github", id);
+    statcord.postCommand("invite", id);
 
     // Return the embed after the channel is checked
     if (await check.check(interaction, chan, author, client)) {
