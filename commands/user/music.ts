@@ -1,6 +1,6 @@
-import { MessageEmbed, Guild, GuildMember, StageChannel, VoiceChannel } from "discord.js";
+import { GuildMember, StageChannel, VoiceChannel } from "discord.js";
 import { ICommand } from "wokcommands";
-import { player } from "../../index";
+import { statcord, player } from "../../index";
 const { RepeatMode } = require("discord-music-player");
 
 export default {
@@ -24,11 +24,20 @@ export default {
 			interaction.deferReply();
 			let queue = player.createQueue(String(interaction.guild?.id));
 			await queue.join(member.voice.channel as VoiceChannel | StageChannel);
-			await queue.play(args.join(" ")).catch((_) => {
+			let song = await queue.play(args.join(" ")).catch((_) => {
 				if (!guildQueue) queue.stop();
-        queue.playlist(args[1]); //! this only works with playlists atm. need to fix in the future for individual songs
 			});
 			interaction.followUp(`The link you sent was added to the queue.`);
+		}
+		if (command === "playlist") {
+			interaction.deferReply();
+			let queue = player.createQueue(String(interaction.guild?.id));
+			await queue.join(member.voice.channel as VoiceChannel | StageChannel);
+			await queue.play(args.join(" ")).catch((_) => {
+				if (!guildQueue) queue.stop();
+				queue.playlist(args[1]);
+			});
+			interaction.followUp(`The playlist you sent was added to the queue.`);
 		}
 		if (guildQueue) {
 			if (command === "skip") {
@@ -112,6 +121,7 @@ export default {
 				console.log(ProgressBar.prettier);
 				interaction.reply("Here is the progress bar!\n " + ProgressBar.prettier);
 			}
+			statcord.postCommand("music", id);
 		}
 	},
 } as ICommand;

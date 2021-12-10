@@ -32,9 +32,7 @@ export default (client: Client) => {
 	// Emitted when there was no more music to play.
 	player.on("queueDestroyed", (queue) => console.log(`The queue was destroyed.`));
 	// Emitted when the queue was destroyed (either by ending or stopping).
-	player.on("queueEnd", (queue) => {
-		
-	});
+	player.on("queueEnd", (queue) => {});
 	// Emitted when a song changed.
 	player.on("songChanged", async (queue, newSong, oldSong) => {
 		const description = `**Author:** ${queue?.nowPlaying?.author}\n **Duration:** ${queue?.nowPlaying?.duration}`;
