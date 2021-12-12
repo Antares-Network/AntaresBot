@@ -1,7 +1,7 @@
 import { Client, TextChannel, CommandInteraction, User } from "discord.js";
 import piiModel from "../models/pii";
 
-async function check(interaction: CommandInteraction, channel: TextChannel, author: User, client: Client): Promise<boolean> {
+async function check(interaction: CommandInteraction, channel: TextChannel): Promise<boolean> {
 	const srv = await piiModel.findOne({ GUILD_ID: channel.guild?.id }); //find the entry for the guild
 	//check if admin commands were sent in the admin channel
 	if (channel.id != srv.GUILD_ADMIN_CHANNEL) {

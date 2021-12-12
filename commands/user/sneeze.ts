@@ -36,6 +36,6 @@ export default {
     statcord.postCommand("sneeze", id);
 
     //return the embed after the channel is checked
-    if (await check.check(interaction, chan, author, client)) return response;
+    if (await check.check(interaction, chan)) return response;
   },
 } as ICommand;

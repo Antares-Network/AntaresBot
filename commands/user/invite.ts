@@ -53,7 +53,7 @@ export default {
     statcord.postCommand("invite", id);
 
     // Return the embed after the channel is checked
-    if (await check.check(interaction, chan, author, client)) {
+    if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [ChannelEmbed] });
       interaction.user.send({ embeds: [DMEmbed] });
     }

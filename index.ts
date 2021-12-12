@@ -129,6 +129,7 @@ client.on("ready", () => {
 
 client.login(process.env.BOT_TOKEN).catch((error) => {
   console.log(chalk.red.bold(`There was an error connecting to the Discord`));
+  console.error(error);
   process.exit(1);
 });
 

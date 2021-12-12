@@ -38,7 +38,7 @@ export default {
         "https://playantares.com/resources/icon.png"
       );
     // Return the embed after the channel is checked
-    if (await check.check(interaction, chan, author, client)) {
+    if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [preEmbed] });
       setTimeout(() => {
         interaction.editReply({ embeds: [postEmbed] });

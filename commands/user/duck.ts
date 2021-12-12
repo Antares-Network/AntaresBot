@@ -37,6 +37,6 @@ export default {
     statcord.postCommand("duck", id);
 
     // Return the embed after the channel is checked
-    if (await check.check(interaction, chan, author, client)) return Embed;
+    if (await check.check(interaction, chan)) return Embed;
   },
 } as ICommand;
