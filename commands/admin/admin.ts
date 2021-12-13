@@ -12,7 +12,7 @@ export default {
   permissions: ["MANAGE_GUILD"],
 
   callback: async ({ channel, message }) => {
-    if (message.mentions.channels.first() == undefined) {
+    if (message.mentions.channels.first() === undefined) {
       channel.send(
         "Please re-run this command and mention a channel as an argument."
       );
