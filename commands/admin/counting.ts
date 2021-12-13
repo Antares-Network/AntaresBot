@@ -17,7 +17,7 @@ export default {
     const author = interaction.user;
     const req = await piiModel.findOne({ GUILD_ID: interaction.guild?.id });
 
-    if (await adminChanCheck.check(interaction, chan, author, client)) {
+    if (await adminChanCheck.check(interaction, chan)) {
       if (req.GUILD_COUNTING_CHANNEL_ID !== null) {
         const chan = interaction.guild?.channels.cache.get(
           req.GUILD_COUNTING_CHANNEL_ID

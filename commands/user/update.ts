@@ -38,7 +38,7 @@ export default {
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
         "https://playantares.com/resources/icon.png"
       );
-    if (await check.check(interaction, chan, author, client)) {
+    if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [preEmbed] });
       //var init and gc
       let totalUsers = 0;

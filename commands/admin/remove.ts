@@ -14,7 +14,7 @@ export default {
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
     const author = interaction.user;
-    if (await adminChanCheck.check(interaction, chan, author, client)) {
+    if (await adminChanCheck.check(interaction, chan)) {
       interaction.reply(
         "If you would like to request that all your data be removed from our servers, please DM @nathen418#0002"
       );
