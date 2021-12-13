@@ -64,7 +64,7 @@ client.on("ready", () => {
   const dbOptions = {
     keepAlive: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   };
   //create the WOK client object
   const wok = new WOKCommands(client, {
@@ -79,7 +79,7 @@ client.on("ready", () => {
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
     .setBotOwner("603629606154666024"); //! for some reason it doesn't like when i grab this value from the env file
 
-  wok.on("databaseConnected", async () => {
+  wok.on("databaseConnected", async  () => {
     console.log(chalk.green("Connected to MongoDB"));
 
     //Print some bot stats
@@ -140,8 +140,8 @@ process.on("exit", (code) => {
   console.log("Now exiting...");
   console.log(`Exited with status code: ${code}`);
 }); //!wtf this is really poor coding
-process.on("unhandledRejection", (error) => {
-  console.error("Unhandled promise rejection:", error);
+process.on("unhandledRejection", (promise, reason) => {
+  console.error("Unhandled promise rejection:", promise, "\nreason", reason);
 });
 
 export { statcord, player };
