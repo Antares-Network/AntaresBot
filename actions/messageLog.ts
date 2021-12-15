@@ -1,11 +1,4 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\messageLog.ts
-//This event fires to increase the total message count for the guild it was sent from
+
 import { Message } from "discord.js";
 import guildModel from "./../models/guild";
 
