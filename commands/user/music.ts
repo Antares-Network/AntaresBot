@@ -84,7 +84,7 @@ export default {
 				guildQueue.shuffle();
 				interaction.reply("Shuffled the queue!");
 			}
-			if (command === "getQueue") {
+			if (command === "queue") {
 				console.log(guildQueue);
 				interaction.reply("Here is the queue!\n " + guildQueue.songs.map((song) => song.name).join("\n"));
 			}
