@@ -10,8 +10,8 @@ export default {
   description: "Updates the counting channel db's",
   slash: false,
   ownerOnly: true,
-  hidden: true,
   guildOnly: true,
+  hidden: true,
 
   callback: ({ client }) => {
 
