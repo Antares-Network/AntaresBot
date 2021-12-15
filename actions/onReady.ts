@@ -30,17 +30,6 @@ async function event(client: Client) {
       console.log(chalk.yellow("Created PII doc"));
     }
   });
-
-  if (gate === null) {
-    console.error("NO GATE FOUND. CLOSING BOT.");
-    client.user?.setActivity(`❗❗DB ERROR❗❗`, { type: "PLAYING" });
-    setTimeout(() => {
-      gateCreate.event(client);
-      console.log("\n\n\n\n\n\n\n\n");
-      client.destroy();
-      client.login(process.env.BOT_TOKEN).catch((e) => console.error(e));
-    }, 5000);
-  }
 }
 
 export = { event };
