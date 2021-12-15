@@ -3,12 +3,12 @@ import { ICommand } from "wokcommands";
 export default {
   category: "owner",
   description: "Forces the bot to leave a server",
-  slash: false,
+  slash: true,
   expectedArgs: "<serverid>",
   minArgs: 1,
   ownerOnly: true,
   hidden: true,
-
+  
   callback: ({ client, message, channel, args }) => {
     const server = client.guilds.cache.get(args[0]);
     if (server) {

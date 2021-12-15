@@ -6,7 +6,7 @@ export default {
   name: "ar",
   category: "admin",
   description: "Does nothing",
-  slash: false,
+  slash: true,
   guildOnly: true,
   requiredPermissions: ["MANAGE_MESSAGES"],
 
