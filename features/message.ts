@@ -16,11 +16,6 @@ export default (client: Client, instance: WOKCommands) => {
 		if (message.author.bot) return;
 		//log dms and guild messages to the console but do not store them
 		if (message.channel.type === "DM") {
-			console.log(
-				`${chalk.blue.bold(`DM`)} ${chalk.yellow(`[${message.author.username}]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(
-					`[${message.content}]`
-				)}`
-			);
 			client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
 				user.send(`**${message.author.username}** sent: \n\`${message.content}\` \nto the bot.`);
 			});
