@@ -3,7 +3,6 @@ import mongoose, { Schema } from "mongoose";
 const GUILD = new Schema({
   id: String,
   GUILD_JOIN_DATE: String,
-  GUILD_ICON_URL: String,
   GUILD_ID: String,
   GUILD_NAME: String,
   GUILD_OWNER_ID: String,

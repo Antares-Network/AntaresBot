@@ -16,7 +16,6 @@ async function event(guild: Guild, client: Client) {
   if (doc === null) {
     const internalDoc = new guildModel({
       GUILD_JOIN_DATE: d.toString(),
-      GUILD_ICON_URL: guild.iconURL(),
       GUILD_ID: guild.id,
       GUILD_NAME: guild.name,
       GUILD_OWNER_ID: guild.ownerId,
@@ -29,6 +28,7 @@ async function event(guild: Guild, client: Client) {
     chalk.blue(`I joined a new Server with name:`),
     `${chalk.green(guild.name)}`
   );
+  const ownerName = await guild.fetchOwner().then((owner) => owner.user.tag)
   const Embed = new MessageEmbed()
     .setColor("#ff3505")
     .setTitle(`I joined a new Server`)
@@ -42,6 +42,7 @@ async function event(guild: Guild, client: Client) {
       { name: "Guild Join Date:", value: d.toString() },
       { name: "Guild Name:", value: guild.name },
       { name: "Guild ID:", value: guild.id },
+      { name: "Owner Name:", value: ownerName },
       { name: "Owner ID:", value: guild.ownerId },
       { name: "Guild Member Count:", value: guild.memberCount.toString() },
     ])
@@ -61,7 +62,7 @@ async function event(guild: Guild, client: Client) {
     .addFields(
       {
         name: "My prefix",
-        value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix <someprefixhere>\``,
+        value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix <someprefixhere>\`\nMost of my commands are being converted to slash commands in the coming weeks.`,
       },
       {
         name: "Commands/ help",
