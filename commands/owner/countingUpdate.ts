@@ -1,7 +1,3 @@
-//Nate Goldsborough
-//AntaresBot
-//Update the counting database for the new format of storing data
-
 import { ICommand } from "wokcommands";
 import piiModel from "../../models/pii";
 

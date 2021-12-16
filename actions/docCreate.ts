@@ -1,11 +1,3 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\docCreate.ts
-// Create the guild entry in the database when the bot joins it (used for storing guild data)
 import chalk from "chalk";
 import { Client, Guild, MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
