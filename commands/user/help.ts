@@ -135,6 +135,24 @@ export default {
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
         "https://playantares.com/resources/icon.png"
       );
+      const soonEmbed = new MessageEmbed()
+        .setTitle("Planned features")
+        .setColor("#ff3505")
+        .setDescription(
+          `**music**: Play music in a voice or stage channel` +
+            `\n**reddit**: Get memes from reddit` +
+            `\n**confess**: Confess something anonymous to your server` +
+            `\n**tictactoe**: Play tic tac toe with your friends` +
+            `\n**SOTD**: Auto Post a song of the day of the bot's choosing. Can also play it in your voice or stage channel` +
+            `\n**Custom server welcome messages**` +
+            `\n**Custom server leave messages**` +
+            `\n**New features for counting (drops, prizes, powerups, etc)**` +
+            `\n**Even more in the works**`
+            )
+      .setFooter(
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+        "https://playantares.com/resources/icon.png"
+      );
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
@@ -160,11 +178,10 @@ export default {
       )
       .addComponents(
         new MessageButton()
-          .setCustomId("trivia")
-          .setEmoji("📺")
-          .setLabel("Facts/Trivia")
+          .setCustomId("soon")
+          .setEmoji("™️")
+          .setLabel("Coming Soon(TM)")
           .setStyle("DANGER")
-          .setDisabled(true)
       )
       .addComponents(
         new MessageButton()
@@ -200,8 +217,8 @@ export default {
             i.deleteReply();
           }, 1000 * 30);
         });
-      } else if (i.customId === "trivia") {
-        i.reply({ embeds: [triviaEmbed] }).then(() => {
+      } else if (i.customId === "soon") {
+        i.reply({ embeds: [soonEmbed] }).then(() => {
           setTimeout(() => {
             i.deleteReply();
           }, 1000 * 30);
