@@ -16,7 +16,6 @@ export default {
     // Command information
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
-    const author = interaction.user;
     
     // Embed values
     const color = "#ff3505"

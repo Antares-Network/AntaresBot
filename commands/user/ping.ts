@@ -15,7 +15,6 @@ export default {
   callback: async ({ client, interaction }) => {
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
-    const author = interaction.user;
     const Embed = new MessageEmbed()
         .setColor("#ff3505")
         .setTitle("Bot/API Ping")
