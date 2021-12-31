@@ -5,7 +5,6 @@ import piiCreate from "../actions/piiCreate";
 import guildModel from "../models/guild";
 import piiModel from "../models/pii";
 import guildUpdate from "../actions/guildUpdate";
-import chalk from "chalk";
 
 export default (client: Client, instance: WOKCommands) => {
 	//actions to run when the bot joins a server

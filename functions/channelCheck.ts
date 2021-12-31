@@ -1,8 +1,6 @@
 import {
-  User,
   CommandInteraction,
   MessageEmbed,
-  Client,
   TextChannel,
 } from "discord.js";
 import piiModel from "../models/pii";

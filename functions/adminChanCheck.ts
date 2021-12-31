@@ -1,4 +1,4 @@
-import { Client, TextChannel, CommandInteraction, User } from "discord.js";
+import { TextChannel, CommandInteraction } from "discord.js";
 import piiModel from "../models/pii";
 
 async function check(interaction: CommandInteraction, channel: TextChannel): Promise<boolean> {
