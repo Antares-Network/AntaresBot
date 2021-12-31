@@ -24,21 +24,9 @@ export default {
     const title = "Invite";
     const channelDescription =
       "If you would like to invite Antares Bot to your server, click the link below:" +
-      "\n[Invite Me!](https://dsc.gg/antaresbot)";
-    const DMDescription =
-      "If you would like to join our support/community server, click the link below:" +
       "\n[Join our support server](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)";
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
     const footerIcon = "https://playantares.com/resources/icon.png";
-
-    // Embed construction
-    const DMEmbed = new MessageEmbed()
-      .setColor(color)
-      .setURL(url)
-      .setTitle(title)
-      .setThumbnail(thumbnail)
-      .setDescription(DMDescription)
-      .setFooter(footer, footerIcon);
 
     // Embed construction
     const ChannelEmbed = new MessageEmbed()
@@ -55,7 +43,6 @@ export default {
     // Return the embed after the channel is checked
     if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [ChannelEmbed] });
-      interaction.user.send({ embeds: [DMEmbed] });
     }
   },
 } as ICommand;
