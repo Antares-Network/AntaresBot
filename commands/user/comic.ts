@@ -5,10 +5,9 @@ import check from "../../functions/channelCheck";
 import { statcord } from "../../index";
 
 export default {
-  name: "xkcd",
+  name: "comic",
   category: "user",
   description: "Gets a comic from xkcd",
-  aliases: ["comic"],
   slash: true,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
