@@ -7,7 +7,7 @@ export default {
   category: "admin",
   description: "Creates a counting channel",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   permissions: ["MANAGE_CHANNELS", "MANAGE_GUILD", "MANAGE_MESSAGES"],
   guildOnly: true,
 

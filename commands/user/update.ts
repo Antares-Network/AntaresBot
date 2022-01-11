@@ -11,7 +11,7 @@ export default {
   description: "Updates stats of the bot",
   slash: true,
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, interaction }) => {

@@ -9,7 +9,7 @@ export default {
   category: "user",
   description: "Sends an embed with some fun bot stats",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

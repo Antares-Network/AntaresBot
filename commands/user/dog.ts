@@ -10,7 +10,7 @@ export default {
   description: "Sends a random dog image",
   slash: true,
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, interaction }) => {

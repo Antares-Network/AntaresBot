@@ -9,7 +9,7 @@ export default {
   description: "Makes the bot sneeze",
   slash: true,
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ interaction }) => {

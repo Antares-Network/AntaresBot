@@ -6,7 +6,7 @@ export default {
   category: "user",
   description: "Request deletion of all data from our servers.",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: false,
   permissions: ["SEND_MESSAGES"],
 

@@ -7,7 +7,7 @@ export default {
 	description: "Setup command for the default bot channel",
 	slash: true,
 	guildOnly: true,
-	testOnly: true,
+	testOnly: false,
 	permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS"],
 	options: [
 		{

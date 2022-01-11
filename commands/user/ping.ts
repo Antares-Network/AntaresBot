@@ -8,7 +8,7 @@ export default {
   category: "user",
   description: "Sends the ping time of the bot.",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

@@ -8,7 +8,7 @@ export default {
   category: "user",
   description: "Sends an embed with a link to the github repo for the bot.",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

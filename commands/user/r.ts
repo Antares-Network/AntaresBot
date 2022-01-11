@@ -9,7 +9,7 @@ export default {
   description: "Does something. You'll find out.",
   slash: true,
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({interaction }) => {

@@ -8,7 +8,7 @@ export default {
   category: "user",
   description: "Flips a coin",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

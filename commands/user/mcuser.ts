@@ -12,7 +12,7 @@ export default {
   minArgs: 1,
   maxArgs: 1,
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
   options: [

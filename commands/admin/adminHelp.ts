@@ -12,7 +12,7 @@ export default {
   category: "admin",
   description: "Shows the bot's admin help embed",
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["MANAGE_MESSAGES"],
 
   callback: async ({ client, channel, interaction: msgInt, instance }) => {

@@ -6,7 +6,7 @@ export default {
   description: "Sends a message about the server owner",
   slash: true,
   ownerOnly: true,
-  testOnly: true,
+  testOnly: false,
   hidden: true,
 
   callback: ({ client }) => {

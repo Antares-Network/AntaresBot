@@ -13,7 +13,7 @@ export default {
   category: "user",
   description: "Shows the help embed",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 

@@ -10,7 +10,7 @@ export default {
   example: "ask Am i a dum dum?",
   slash: true,
   guildOnly: true,
-  testOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
   options: [
     {

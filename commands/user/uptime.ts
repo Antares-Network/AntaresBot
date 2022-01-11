@@ -8,7 +8,7 @@ export default {
   category: "user",
   description: "Checks how long the bot has been online.",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
