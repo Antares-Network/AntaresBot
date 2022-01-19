@@ -1,6 +1,4 @@
 import { ICommand } from "wokcommands";
-import { TextChannel } from "discord.js";
-import adminChanCheck from "../../functions/adminChanCheck";
 
 export default {
   category: "user",

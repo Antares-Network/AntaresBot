@@ -1,4 +1,4 @@
-import { Client, MessageEmbed } from "discord.js";
+import { Client } from "discord.js";
 import WOKCommands from "wokcommands";
 import guildModel from "../models/guild";
 import gateModel from "../models/gate";

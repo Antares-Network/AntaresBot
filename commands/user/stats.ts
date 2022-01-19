@@ -16,7 +16,6 @@ export default {
   callback: async ({ client, interaction }) => {
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
-    const author = interaction.user;
 
     const doc = await gateModel.findOne({ NAME: "GATE" });
     const Embed = new MessageEmbed()

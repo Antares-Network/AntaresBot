@@ -12,9 +12,7 @@ export default {
   guildOnly: true,
 
   callback: async ({ client, interaction }) => {
-    const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
-    const author = interaction.user;
     const req = await piiModel.findOne({ GUILD_ID: interaction.guild?.id });
 
     if (await adminChanCheck.check(interaction, chan)) {

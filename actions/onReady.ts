@@ -8,16 +8,12 @@
 //This file holds code to be run when the client emits the ready event.
 import { Client } from "discord.js";
 import chalk from "chalk";
-import gateModel from "./../models/gate";
 import guildModel from "./../models/guild";
 import piiModel from "./../models/pii";
 import docCreate from "./docCreate";
 import piiCreate from "./piiCreate";
-import gateCreate from "./gateCreate";
 
 async function event(client: Client) {
-  const gate = await gateModel.findOne({ NAME: "GATE" });
-
   client.guilds.cache.forEach(async (guild) => {
     const doc = await guildModel.findOne({ GUILD_ID: guild.id });
     const req = await piiModel.findOne({ GUILD_ID: guild.id });

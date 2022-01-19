@@ -25,7 +25,6 @@ export default {
 	],
 
 	callback: async ({ interaction, args }) => {
-		const req = await piiModel.findOne({ GUILD_ID: interaction.guild?.id });
 		if (args[0].toLowerCase() === "default") {
 			const doc = await piiModel.findOneAndUpdate(
 				{ GUILD_ID: interaction.guild?.id },
