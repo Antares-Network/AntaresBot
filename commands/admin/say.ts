@@ -1,38 +1,38 @@
-// import { TextChannel } from "discord.js";
-// import { ICommand } from "wokcommands";
-// import DiscordJS from "discord.js";
+import { TextChannel } from "discord.js";
+import { ICommand } from "wokcommands";
+import DiscordJS from "discord.js";
 
-// export default {
-//   category: "admin",
-//   description: "Makes the bot say something",
-//   slash: false,
-//   expectedArgs: "<content> <channel>",
-//   minArgs: 1,
-//   permissions: ["MANAGE_MESSAGES"],
-//   guildOnly: true,
-//   options: [
-//     {
-//       name: "content",
-//       description: "What to say",
-//       type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL,
-//       required: true,
-//     },
-// 		{
-// 			name: "channel",
-// 			description: "The channel to say the thing in",
-// 			type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL,
-// 			required: false,
-// 		}
-// 	],
+export default {
+  category: "admin",
+  description: "Makes the bot say something",
+  slash: true,
+  expectedArgs: "<content> <channel>",
+  minArgs: 1,
+  permissions: ["MANAGE_MESSAGES"],
+  guildOnly: true,
+  options: [
+    {
+      name: "content",
+      description: "What to say",
+      type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
+      required: true,
+    },
+	{
+		name: "channel",
+		description: "The channel to say the thing in",
+		type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL,
+		required: false,
+	}
+	],
 
-//   callback: ({ client, interaction}) => {
-
-//     const chan = client.channels.cache.get(args) as TextChannel;
-//     if (id) {
-//       const mentionedChannel = client.channels.cache.get(id) as TextChannel;
-//       mentionedChannel.send(text.replace(args[0], ""))
-//     } else {
-//       channel.send(text)
-//     }
-//   }
-// } as ICommand;
+  callback: ({ interaction }) => {
+    const content = interaction.options.getString("content") as string;
+    const channel = interaction.options.getChannel("channel") as TextChannel || interaction.channel as TextChannel;
+    if (!content) {
+        interaction.reply({ content: "You need to provide a content to say", ephemeral: true });
+        return;
+    }
+    channel.send(content);
+    interaction.reply({ content: `Message sent in <#${channel.id}>`, ephemeral: true });
+  }
+} as ICommand;
