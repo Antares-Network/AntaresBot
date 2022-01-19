@@ -1,7 +1,7 @@
 //Nate Goldsborough
 //Antares Network Discord Bot
 //https://playantares.com
-//Built for discord.js V.13.1.0
+//Built for discord.js V.13.6.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents } from "discord.js";
 const dbots = require('dbots')
