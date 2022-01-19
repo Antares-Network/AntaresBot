@@ -14,7 +14,7 @@ function event(client: Client) {
   //var init and gc
   let totalUsers = 0;
   let totalMessages = 0;
-  let totalOwners: String[] = [];
+  let totalOwners: string[] = [];
 
   //loop thru the guilds and add the owners, member numbers and messages to their vars to be added to the db
   client.guilds.cache.forEach(async (guild) => {
