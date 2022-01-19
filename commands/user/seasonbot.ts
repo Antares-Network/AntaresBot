@@ -27,12 +27,12 @@ export default {
       {
         name: "About",
         value:
-          "Boo Bot (aka Santa Bot) it’s a bot that will bring Halloween fun to your servers! More than 900 servers love the seasonal themes!",
+          "Cupid Bot (aka Santa Bot) it’s a bot that will bring Valentines day fun to your servers! More than 1,400 servers love it's seasonal themes!",
       },
       {
         name: "Longer Description",
         value:
-          "'Tis the season to be jolly! Be fast and pick up all of the presents that santa drops, but be careful about getting coal! Have you been naughty or nice? 🎅 \nDonate to get premium, and have presents auto drop by chat activity and many more features. Your donation will help us make a wish come true as a portion of them will go to the Make A Wish Foundation!",
+          "No description has been provided by the Cupid Bot developer yet. Please check back later",
       },
       { name: "Invite Season Bot", value: "https://dsc.gg/seasonbot" },
     ];
