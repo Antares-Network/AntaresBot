@@ -7,7 +7,7 @@
   "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
-    "axios": "^0.21.4",
+    "axios": "^0.25.0",
     "chalk": "^4.1.2",
     "dbots": "^10.0.0",
     "discord-music-player": "^8.3.1",
