@@ -18,6 +18,7 @@
 - npm install
 - npm install -g typescript ts-node
 - ts-node index.ts
+- Note: You may have to wait up to an hour for discord to register slash commands in all guilds.
 
 ## End goal of the project
 
@@ -29,6 +30,7 @@
 - You can find admin commands listed [here](/commands/admin/README.md)
 - You can find owner commands listed [here](/commands/owner/README.md)
 - You can find other features listed [here](/functions/README.md)
+- This bot can be used with heroku, but it is not recommended. A procfile is included in this repository as it is required to run on heroku.
 
 ## Credits
 
