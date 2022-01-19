@@ -37,8 +37,7 @@ export default {
         { name: "Last update time:", value: doc.UPDATE_TIME },
       ])
       .setDescription(
-        `Remember to run \`${process.env.BOT_DEFAULT_PREFIX}update\` before this to make sure the Database is up to date` +
-          `\n Check out our [Stats Page](https://playantares.com/antaresbot/stats)`
+        `Remember to run \`\\update\` before this to make sure the Database is up to date\n Check out our [Stats Page](https://playantares.com/antaresbot/stats)`
       )
       .setFooter(
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
