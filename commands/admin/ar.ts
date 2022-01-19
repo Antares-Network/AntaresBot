@@ -1,4 +1,4 @@
-import { MessageEmbed, TextChannel } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { ICommand } from "wokcommands";
 import { statcord } from "../../index";
 
