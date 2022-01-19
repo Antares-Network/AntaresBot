@@ -4,15 +4,13 @@
 //Built for discord.js V.13.1.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents } from "discord.js";
-const dbots = require('dbots')
-import Statcord from "statcord.js";
 import WOKCommands from "wokcommands";
 import path from "path";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import gateModel from "./models/gate";
 import onReady from "./actions/onReady";
-import { Player } from "discord-music-player";
+
 dotenv.config();
 
 //Create a new discord client
@@ -24,33 +22,6 @@ const client = new DiscordJs.Client({
     Intents.FLAGS.DIRECT_MESSAGES,
     Intents.FLAGS.GUILD_VOICE_STATES
   ],
-});
-
-const player = new Player(client, {
-  leaveOnEmpty: false, // This options are optional.
-  leaveOnStop: false,
-  leaveOnEnd: false
-});
-
-const statcord = new Statcord.Client({
-  client,
-  key: String(process.env.STATCORD_API_KEY),
-  postCpuStatistics:
-    false,
-  postMemStatistics:
-    true,
-  postNetworkStatistics:
-    true,
-});
-
-statcord.on("autopost-start", () => {
-  console.log("Started autopost");
-});
-
-statcord.on("post", (status) => {
-
-  if (!status) console.log("Successful post");
-  else console.error(status);
 });
 
 //on ready event create a WOK commands instance and print some info
@@ -98,30 +69,8 @@ client.on("ready", () => {
     } catch (e) {
       console.log(e);
     }
-    statcord.autopost();
+
   });
-
-  // Send a message to the bot owner that the bot has started and is online
-  client.users.fetch(String(process.env.BOT_OWNER_ID)).then((user) => {
-    user.send(`I have just restarted and am now back online.`);
-    console.log(chalk.green.bold(`Bot startup dm sent.`));
-  });
-
-  let poster = new dbots.Poster({
-    client,
-    apiKeys: {
-      bladebotlist: String(process.env.BLADEBOTLIST_TOKEN),
-      topgg: String(process.env.TOP_GG_TOKEN),
-      discordboats: String(process.env.DISCORD_BOATS_TOKEN),
-      discordbotsgg: String(process.env.DISCORD_BOTS_GG_TOKEN),
-      discordlabs: String(process.env.DISCORD_LABS_TOKEN),
-      botsfordiscord: String(process.env.BOTS_FOR_DISCORD_TOKEN),
-    },
-    clientLibrary: "discord.js",
-  });
-
-  poster.startInterval();
-
 
   //Startup complete
   console.log(chalk.green.bold("Startup complete. Listening for input..."));
@@ -149,5 +98,3 @@ setTimeout(() => {
   console.log("Now exiting...");
   process.exit(0);
 }, 30000);
-
-export { statcord, player };
