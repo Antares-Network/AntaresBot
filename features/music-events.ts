@@ -14,10 +14,10 @@ export default (client: Client) => {
 			.setDescription(description)
 			.setColor("#ff3505")
 			.setThumbnail(String(queue?.nowPlaying?.thumbnail))
-			.setFooter(
-				`Requested by ${song.requestedBy} | Antares Bot | ${process.env.VERSION}`,
+			.setFooter({text:
+				`Requested by ${song.requestedBy} | Antares Bot | ${process.env.VERSION}`, iconURL:
 				"https://playantares.com/resources/icon.png"
-			  );
+			});
 		channel.send({ embeds: [embed] });
 	});
 
@@ -45,20 +45,20 @@ export default (client: Client) => {
 			.setDescription(description)
 			.setColor("#ff3505")
 			.setThumbnail(String(queue?.nowPlaying?.thumbnail))
-			.setFooter(
-				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+			.setFooter({text:
+				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
 				"https://playantares.com/resources/icon.png"
-			);
+			  });
 		
 		const contentsEmbed = new MessageEmbed()
 			.setTitle(String(playlist.name))
 			.setURL(String(playlist.url))
 			.setDescription(contentsDescription)
 			.setColor("#ff3505")
-			.setFooter(
-				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+			.setFooter({text:
+				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
 				"https://playantares.com/resources/icon.png"
-			);
+			  });
 
 		channel.send({ embeds: [embed] });
 		const filter = (btnInt: Interaction) => {
@@ -94,10 +94,10 @@ export default (client: Client) => {
 			.setTitle("Queue Ended")
 			.setDescription(description)
 			.setColor("#ff3505")
-			.setFooter(
-				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+			.setFooter({text:
+				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
 				"https://playantares.com/resources/icon.png"
-			);
+			  });
 		channel.send({ embeds: [embed] });
 
 	});
@@ -154,10 +154,10 @@ export default (client: Client) => {
 			.setTitle("Error")
 			.setDescription(description)
 			.setColor("#ff3505")
-			.setFooter(
-				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+			.setFooter({text:
+				`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
 				"https://playantares.com/resources/icon.png"
-			);
+			  });
 		channel.send({ embeds: [embed] });
 	});
 };

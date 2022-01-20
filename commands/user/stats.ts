@@ -38,10 +38,10 @@ export default {
       .setDescription(
         `Remember to run \`\/update\` before this to make sure the Database is up to date\n Check out our [Stats Page](https://playantares.com/antaresbot/stats)`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [Embed] });
       // Post command usage

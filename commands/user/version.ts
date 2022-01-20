@@ -28,7 +28,7 @@ export default {
           .setColor(color)
           .setTitle(title)
           .setDescription(description)
-          .setFooter(footer, footerIcon);
+          .setFooter({text: footer, iconURL: footerIcon});
         
         // Post command usage
         statcord.postCommand("version", id);

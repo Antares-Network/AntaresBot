@@ -46,10 +46,10 @@ export default {
             "[Click to invite SeasonBot to your server!](https://discord.com/oauth2/authorize?client_id=774520746344054824&scope=bot&permissions=126032)",
         },
       ])
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const configEmbed = new MessageEmbed()
       .setTitle("Bot Config commands")
       .setColor("#ff3505")
@@ -65,10 +65,10 @@ export default {
           `\n**prefix <New prefix>**: Sets a new prefix for the server` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const countingEmbed = new MessageEmbed()
       .setTitle("Counting Config")
       .setColor("#ff3505")
@@ -77,10 +77,10 @@ export default {
           `\n**countingNumber** <some number>: Can set your counting channel to a previously counted to number. Useful if the bot goes offline and your server counts while it cant keep track.` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()

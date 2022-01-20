@@ -19,10 +19,10 @@ export default {
       .setDescription(
         `<@${process.env.BOT_OWNER_ID}> is my owner and coded me. Ask him anything you might need :)`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     return Embed;
   },
 } as ICommand;

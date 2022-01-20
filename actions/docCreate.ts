@@ -38,10 +38,10 @@ async function event(guild: Guild, client: Client) {
       { name: "Owner ID:", value: guild.ownerId },
       { name: "Guild Member Count:", value: guild.memberCount.toString() },
     ])
-    .setFooter(
-      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+    .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
       "https://playantares.com/resources/icon.png"
-    );
+    });
 
   const WelcomeEmbed = new MessageEmbed()
     .setColor("#ff3505")
@@ -61,10 +61,10 @@ async function event(guild: Guild, client: Client) {
         value: `Please run \`/help\` to see a list of commands`,
       }
     )
-    .setFooter(
-      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+    .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
       "https://playantares.com/resources/icon.png"
-    );
+    });
 
     const row = new MessageActionRow()
             .addComponents(

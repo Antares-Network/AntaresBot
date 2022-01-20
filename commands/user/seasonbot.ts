@@ -46,7 +46,7 @@ export default {
       .setTitle(title)
       .setThumbnail(thumbnail)
       .setFields(fields)
-      .setFooter(footer, footerIcon);
+      .setFooter({text: footer, iconURL: footerIcon});
 
     // Post command usage
     statcord.postCommand("seasonbot", id);

@@ -54,10 +54,10 @@ export default {
             "[Click to invite SeasonBot to your server!](https://discord.com/oauth2/authorize?client_id=774520746344054824&scope=bot&permissions=126032)",
         },
       ])
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const imagesEmbed = new MessageEmbed()
       .setTitle("Random Image Commands")
       .setColor("#ff3505")
@@ -70,10 +70,10 @@ export default {
           `\n**reddit**: Gets a random meme (\`nsfw\` channel only)` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const chanceEmbed = new MessageEmbed()
       .setTitle("Chance Games Commands")
       .setColor("#ff3505")
@@ -83,10 +83,10 @@ export default {
           `\n**8ball** \`<questionHere>\`: Asks the Magic 8 Ball your question` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     const skillEmbed = new MessageEmbed()
       .setTitle("Skill Games Commands")
       .setColor("#ff3505")
@@ -95,10 +95,10 @@ export default {
           `\n**tictactoe** <@SOMEUSER>: Play Tic Tac Toe with your friend` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     const triviaEmbed = new MessageEmbed()
       .setTitle("Trivia/Facts Commands")
       .setColor("#ff3505")
@@ -108,10 +108,10 @@ export default {
           "\n**jeopardy**: Sends a random jeopardy question. (Categories coming soon)" +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     const utilityEmbed = new MessageEmbed()
       .setTitle("Utility/Misc Commands")
       .setColor("#ff3505")
@@ -131,10 +131,10 @@ export default {
           `\n**privacy**: Sends the bot\'s Privacy policy in DM\'s` +
           `\n**More coming soon**`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
       const soonEmbed = new MessageEmbed()
         .setTitle("Planned features")
         .setColor("#ff3505")
@@ -149,10 +149,10 @@ export default {
             `\n**New features for counting (drops, prizes, powerups, etc)**` +
             `\n**Even more in the works**`
             )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()

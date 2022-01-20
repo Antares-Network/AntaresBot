@@ -65,7 +65,12 @@ export default {
 		const footerIcon = "https://playantares.com/resources/icon.png";
 
 		// Embed construction
-		const Embed = new MessageEmbed().setColor(color).setTitle(title).setImage(image).setDescription(description).setFooter(footer, footerIcon);
+		const Embed = new MessageEmbed()
+		.setColor(color)
+		.setTitle(title)
+		.setImage(image)
+		.setDescription(description)
+		.setFooter({text: footer, iconURL: footerIcon});
 
 		// Post command stats
 		statcord.postCommand("mcuser", id);

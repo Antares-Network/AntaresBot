@@ -23,20 +23,20 @@ export default {
       .setColor("#ff3505")
       .setTitle("Updating database")
       .setDescription(`Please wait up to 10 seconds`)
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     const postEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle("Database Updated")
       .setDescription(
         `Database has been successfully updated\n Run \`${process.env.BOT_DEFAULT_PREFIX}stats\` to see the updated server stats`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [preEmbed] });
       //var init and gc

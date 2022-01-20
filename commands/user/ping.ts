@@ -19,10 +19,10 @@ export default {
         .setColor("#ff3505")
         .setTitle("Bot/API Ping")
         .setDescription(`Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`)
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+        .setFooter({text:
+          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
           "https://playantares.com/resources/icon.png"
-        );
+        });
 
     // Post command usage
     statcord.postCommand("ping", id);

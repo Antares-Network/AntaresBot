@@ -33,7 +33,7 @@ export default {
       .setTitle(title)
       .setThumbnail(thumbnail)
       .setDescription(description)
-      .setFooter(footer, footerIcon);
+      .setFooter({text: footer, iconURL: footerIcon});
     
     // Post command usage
     statcord.postCommand("github", id);

@@ -44,10 +44,10 @@ export default {
                   "\n\nYou must alternate players." +
                   "\n\nYou may not send more than one number in a row"
               )
-              .setFooter(
-                `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+              .setFooter({text:
+                `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
                 "https://playantares.com/resources/icon.png"
-              );
+              });
             channel.send({ embeds: [Embed] });
             await piiModel.updateOne(
               { GUILD_ID: interaction.guild?.id },

@@ -30,10 +30,10 @@ export default {
 				.setTitle("Antares Bot -- System Update Message")
 				.setDescription("I have just flown in to tell you that my developers have something to say:")
 				.addField("Message:", `${text}`)
-				.setFooter(
-					`Set a default channel yet with ${process.env.BOT_DEFAULT_PREFIX}setup | Antares Bot | ${process.env.VERSION}`,
+				.setFooter({text:
+					`Set a default channel yet with ${process.env.BOT_DEFAULT_PREFIX}setup | Antares Bot | ${process.env.VERSION}`, iconURL:
 					"https://playantares.com/resources/icon.png"
-				);
+				});
 			if (guildList) {
 				guildList.forEach(async (guild) => {
 					if (await gate.IGNORED_GUILDS.includes(guild?.id)) return;

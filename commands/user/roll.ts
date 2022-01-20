@@ -23,19 +23,19 @@ export default {
       .setDescription(
         `${author.username} rolled a die. What side will it land on?\n Rolling...`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     const postEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle("Dice Roll 🎲")
       .setThumbnail(`https://playantares.com/resources/diceroll.gif`)
       .setDescription(`${author.username} rolled a ${outcome}!`)
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-        "https://playantares.com/resources/icon.png"
-      );
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
     if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [preEmbed] });
       setTimeout(() => {
