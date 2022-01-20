@@ -2,12 +2,12 @@ import { Client } from "discord.js";
 
 export default (client: Client) => {
 	const statusOptions = [
-		`${process.env.BOT_DEFAULT_PREFIX}help | V.${process.env.VERSION}`,
-		`${process.env.BOT_DEFAULT_PREFIX}help | ${client.guilds.cache.size} Servers`,
-		`${process.env.BOT_DEFAULT_PREFIX}help | V.${process.env.VERSION}`,
-		`${process.env.BOT_DEFAULT_PREFIX}help | playantares.com`,
-		`${process.env.BOT_DEFAULT_PREFIX}help | V.${process.env.VERSION}`,
-		`${process.env.BOT_DEFAULT_PREFIX}help | nathen418.com`,
+		`/help | V.${process.env.VERSION}`,
+		`/help | ${client.guilds.cache.size} Servers`,
+		`/help | V.${process.env.VERSION}`,
+		`/help | playantares.com`,
+		`/help | V.${process.env.VERSION}`,
+		`/help | nathen418.com`,
 	];
 	let counter = 0;
 
