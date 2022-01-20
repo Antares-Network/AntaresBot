@@ -30,14 +30,27 @@ export default {
     const chan = interaction.channel as TextChannel;
 
     // Fetched information
-    const url = `https://api.mojang.com/users/profiles/minecraft/${args[0]}`;
-    const uuid = await axios.get(url).then(res => res.data.id);
+    const url = `https://api.ashcon.app/mojang/v2/user/${args[0]}`;
+    const uuid = await axios.get(url).then(res => res.data.uuid);
+    let creationDate = await axios.get(url).then(res => res.data.created_at);
+    
+
+
+    //eh
+    if (uuid === undefined) {
+      interaction.reply({ content: "The username you entered is invalid. Please try again.", ephemeral: true })
+      return;
+    }
+    if (creationDate === null) {
+      creationDate = "Your account was created before the API started tracking creation dates.";
+    }
+
 
     // Embed values
     const color = "#ff3505"
     const title = `${args[0]}'s info`
     const image = `https://crafatar.com/renders/body/${uuid}?overlay`;
-    const description = `**Username:** ${args[0]}\n **UUID:** ${uuid}`
+    const description = `**Username:** ${args[0]}\n **UUID:** ${uuid}\n **Approximate Account Creation Date:** ${creationDate}`
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
     const footerIcon = "https://playantares.com/resources/icon.png"
 
