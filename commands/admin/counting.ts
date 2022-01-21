@@ -49,6 +49,7 @@ export default {
                 "https://playantares.com/resources/icon.png"
               });
             channel.send({ embeds: [Embed] });
+            interaction.reply({content: `Counting channel created. You can go to it here <#${channel.id}>`, ephemeral: true});
             await piiModel.updateOne(
               { GUILD_ID: interaction.guild?.id },
               { GUILD_COUNTING_CHANNEL_ID: channel.id }

@@ -25,7 +25,7 @@ export default {
       .setColor("#ff3505")
       .setThumbnail("https://playantares.com/resources/icon.png")
       .setDescription(
-        "Welcome to Antares Bot! Here you can find all the commands you need!\n **ALL COMMANDS ARE BEING CONVERTED TO SLASH COMMANDS**\n Learn how slash commands work [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)."
+        "Welcome to Antares Bot! Here you can find all the commands you need!\n **ALL COMMANDS ARE NOW SLASH COMMANDS**\n Learn how slash commands work [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)."
       )
       .addFields([
         {
@@ -67,7 +67,6 @@ export default {
           `\n**fox**: Gets a random fox image` +
           `\n**duck**: Gets a random duck image` +
           `\n**comic**: Gets a random XKCD comic` +
-          `\n**reddit**: Gets a random meme (\`nsfw\` channel only)` +
           `\n**More coming soon**`
       )
       .setFooter({text:
@@ -80,7 +79,7 @@ export default {
       .setDescription(
         `**flip**: Flips a coin. Heads or Tails` +
           `\n**roll**: Rolls a Die` +
-          `\n**8ball** \`<questionHere>\`: Asks the Magic 8 Ball your question` +
+          `\n**ask** \`<questionHere>\`: Asks the Magic 8 Ball your question` +
           `\n**More coming soon**`
       )
       .setFooter({text:
@@ -118,6 +117,7 @@ export default {
       .setDescription(
         `**ping**: Sends the ping time of the bot` +
           `\n**r**: Does something` +
+          `\n**seasonbot**: Sends an embed telling you all about our partner bot SeasonBot` +
           `\n**sneeze**: Makes the bot sneeze` +
           `\n**invite**: Sends an invite link to add me to your server` +
           `\n**prefix**: Changes the server prefix` +
@@ -129,6 +129,7 @@ export default {
           `\n**adminhelp**: Shows the admin command help embed` +
           `\n**github**: Shows the github link for the bot` +
           `\n**privacy**: Sends the bot\'s Privacy policy in DM\'s` +
+          `\n**remove**: Request deletion of your data from our servers` +
           `\n**More coming soon**`
       )
       .setFooter({text:
@@ -200,35 +201,15 @@ export default {
     });
     collector.on("collect", (i: MessageComponentInteraction) => {
       if (i.customId === "images") {
-        i.reply({ embeds: [imagesEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [imagesEmbed], ephemeral: true  })
       } else if (i.customId === "chance") {
-        i.reply({ embeds: [chanceEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [chanceEmbed], ephemeral: true  })
       } else if (i.customId === "skills") {
-        i.reply({ embeds: [skillEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [skillEmbed], ephemeral: true });
       } else if (i.customId === "soon") {
-        i.reply({ embeds: [soonEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [soonEmbed], ephemeral: true  });
       } else if (i.customId === "utility") {
-        i.reply({ embeds: [utilityEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [utilityEmbed], ephemeral: true });
       }
     });
     // Post command usage
