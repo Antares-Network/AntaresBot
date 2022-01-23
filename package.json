@@ -2,7 +2,7 @@
   "name": "antaresbot",
   "version": "1.5.0",
   "engines": {
-    "node": "16.x"
+    "node": "17.x"
   },
   "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
   "dependencies": {
