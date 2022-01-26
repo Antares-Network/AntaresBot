@@ -28,6 +28,9 @@ async function event(guild: Guild, client: Client) {
       CONFESSION_CHANNEL_CODE: null,
       GUILD_COUNTING_CHANNEL_ID: null,
       GUILD_COUNTING_NUMBER: 0,
+      GUILD_WELCOME_ENABLED: false,
+      GUILD_WELCOME_CHANNEL: null,
+      GUILD_WELCOME_MESSAGE: null,
       GUILD_POLL_TIMEOUT: null,
     });
     await doc.save();

@@ -1,42 +1,44 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import gateModel from "../../models/gate";
 import guildModel from "../../models/guild";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index";
 
 export default {
   name: "update",
   category: "user",
-  description: "Updates the gate model/stats of the bot",
-  slash: false,
+  description: "Updates stats of the bot",
+  slash: true,
   guildOnly: true,
+  testOnly: false,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, channel, message }) => {
-    if (await check.check(message, client)) {
-      statcord.statcord.postCommand("update", message.author.id);
-      const gate = await gateModel.findOne({ NAME: "GATE" });
-      //message.delete()
-      const preEmbed = new MessageEmbed()
-        .setColor("#ff3505")
-        .setTitle("Updating database")
-        .setDescription(`Please wait up to 20 seconds`)
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-          "https://playantares.com/resources/icon.png"
-        );
-      const postEmbed = new MessageEmbed()
-        .setColor("#ff3505")
-        .setTitle("Database Updated")
-        .setDescription(
-          `Database has been successfully updated\n Run \`${process.env.BOT_DEFAULT_PREFIX}stats\` to see the updated server stats`
-        )
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-          "https://playantares.com/resources/icon.png"
-        );
-      const MSG = await channel.send({ embeds: [preEmbed] });
+  callback: async ({ client, interaction }) => {
+    const id = interaction.user.id;
+    const chan = interaction.channel as TextChannel;
+
+    const gate = await gateModel.findOne({ NAME: "GATE" });
+    const preEmbed = new MessageEmbed()
+      .setColor("#ff3505")
+      .setTitle("Updating database")
+      .setDescription(`Please wait up to 10 seconds`)
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
+    const postEmbed = new MessageEmbed()
+      .setColor("#ff3505")
+      .setTitle("Database Updated")
+      .setDescription(
+        `Database has been successfully updated\n Run \`${process.env.BOT_DEFAULT_PREFIX}stats\` to see the updated server stats`
+      )
+      .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
+      "https://playantares.com/resources/icon.png"
+    });
+    if (await check.check(interaction, chan)) {
+      interaction.reply({ embeds: [preEmbed] });
       //var init and gc
       let totalUsers = 0;
       let totalMessages = 0;
@@ -68,8 +70,10 @@ export default {
           },
           { new: true }
         );
-        MSG.edit({ embeds: [postEmbed] });
-      }, 5000);
+        interaction.editReply({ embeds: [postEmbed] });
+      }, 10000);
+      // Post command usage
+      statcord.postCommand("update", id);
     }
   },
 } as ICommand;

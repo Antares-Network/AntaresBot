@@ -1,7 +1,3 @@
-//Nate Goldsborough
-//AntaresBot
-//Counting channel logic
-
 import { Message, Client } from "discord.js";
 import piiModel from "../models/pii";
 

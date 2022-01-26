@@ -63,10 +63,10 @@ export default {
                 inline: true,
               }
             )
-            .setFooter(
-              `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+            .setFooter({text:
+              `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
               "https://playantares.com/resources/icon.png"
-            );
+            });
           channel.send({ embeds: [Embed] });
         });
       } catch (e) {
@@ -94,10 +94,10 @@ export default {
               value: guild.memberCount.toString(),
             },
           ])
-          .setFooter(
-            `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+          .setFooter({text:
+            `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
             "https://playantares.com/resources/icon.png"
-          );
+          });
         console.log(Embed)
         channel.send({ embeds: [Embed] });
       }

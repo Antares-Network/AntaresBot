@@ -4,24 +4,25 @@ import { ICommand } from "wokcommands";
 export default {
   category: "owner",
   description: "Sends a message about the server owner",
-  slash: false,
+  slash: true,
   ownerOnly: true,
+  testOnly: false,
   hidden: true,
 
-  callback: ({ client, message }) => {
+  callback: ({ client }) => {
     const Embed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle(`Hey its my developer Nate`)
       .setThumbnail(
-        `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.jpeg`
+        `https://playantares.com/resources/nate_pfp.png`
       )
       .setDescription(
-        `<@${message.author.id}> is my owner and coded me. Ask him anything you might need :)`
+        `<@${process.env.BOT_OWNER_ID}> is my owner and coded me. Ask him anything you might need :)`
       )
-      .setFooter(
-        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+      .setFooter({text:
+        `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
         "https://playantares.com/resources/icon.png"
-      );
+      });
     return Embed;
   },
 } as ICommand;

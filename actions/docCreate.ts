@@ -1,11 +1,3 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\docCreate.ts
-// Create the guild entry in the database when the bot joins it (used for storing guild data)
 import chalk from "chalk";
 import { Client, Guild, MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
@@ -16,7 +8,6 @@ async function event(guild: Guild, client: Client) {
   if (doc === null) {
     const internalDoc = new guildModel({
       GUILD_JOIN_DATE: d.toString(),
-      GUILD_ICON_URL: guild.iconURL(),
       GUILD_ID: guild.id,
       GUILD_NAME: guild.name,
       GUILD_OWNER_ID: guild.ownerId,
@@ -29,6 +20,7 @@ async function event(guild: Guild, client: Client) {
     chalk.blue(`I joined a new Server with name:`),
     `${chalk.green(guild.name)}`
   );
+  const ownerName = await guild.fetchOwner().then((owner) => owner.user.tag)
   const Embed = new MessageEmbed()
     .setColor("#ff3505")
     .setTitle(`I joined a new Server`)
@@ -42,13 +34,14 @@ async function event(guild: Guild, client: Client) {
       { name: "Guild Join Date:", value: d.toString() },
       { name: "Guild Name:", value: guild.name },
       { name: "Guild ID:", value: guild.id },
+      { name: "Owner Name:", value: ownerName },
       { name: "Owner ID:", value: guild.ownerId },
       { name: "Guild Member Count:", value: guild.memberCount.toString() },
     ])
-    .setFooter(
-      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+    .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
       "https://playantares.com/resources/icon.png"
-    );
+    });
 
   const WelcomeEmbed = new MessageEmbed()
     .setColor("#ff3505")
@@ -61,17 +54,17 @@ async function event(guild: Guild, client: Client) {
     .addFields(
       {
         name: "My prefix",
-        value: `My current prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`${process.env.BOT_DEFAULT_PREFIX}prefix <someprefixhere>\``,
+        value: `My current legacy command prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`/prefix <someprefixhere>\`\nAll commands except some admin commands are now slash commands. You can learn more about how to use Slash/Application commands [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)`,
       },
       {
         name: "Commands/ help",
-        value: `Please run \`${process.env.BOT_DEFAULT_PREFIX}help\` to see a list of commands`,
+        value: `Please run \`/help\` to see a list of commands`,
       }
     )
-    .setFooter(
-      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+    .setFooter({text:
+      `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
       "https://playantares.com/resources/icon.png"
-    );
+    });
 
     const row = new MessageActionRow()
             .addComponents(

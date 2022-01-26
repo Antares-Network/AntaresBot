@@ -8,6 +8,7 @@ export default {
   minArgs: 1,
   ownerOnly: true,
   guildOnly: false,
+  hidden: true,
 
   callback: ({ client, args, text }) => {
     try {

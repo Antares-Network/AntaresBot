@@ -1,28 +1,30 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import piiModel from "./../../models/pii";
 import adminChanCheck from "../../functions/adminChanCheck";
 
 export default {
   category: "admin",
-  description: "Makes the bot say something",
-  slash: false,
+  description: "Creates a counting channel",
+  slash: true,
+  testOnly: false,
   permissions: ["MANAGE_CHANNELS", "MANAGE_GUILD", "MANAGE_MESSAGES"],
   guildOnly: true,
 
-  callback: async ({ client, message }) => {
-    if (await adminChanCheck.check(message, client)) {
-      const req = await piiModel.findOne({ GUILD_ID: message.guild?.id });
+  callback: async ({ client, interaction }) => {
+    const chan = interaction.channel as TextChannel;
+    const req = await piiModel.findOne({ GUILD_ID: interaction.guild?.id });
 
+    if (await adminChanCheck.check(interaction, chan)) {
       if (req.GUILD_COUNTING_CHANNEL_ID !== null) {
-        const chan = message.guild?.channels.cache.get(
+        const chan = interaction.guild?.channels.cache.get(
           req.GUILD_COUNTING_CHANNEL_ID
         );
-        message.channel.send(
+        interaction.reply(
           `You already have a counting channel. It is named <#${chan?.id}>`
         );
       } else {
-        message.guild?.channels
+        interaction.guild?.channels
           .create("counting", {
             type: "GUILD_TEXT",
           })
@@ -42,13 +44,14 @@ export default {
                   "\n\nYou must alternate players." +
                   "\n\nYou may not send more than one number in a row"
               )
-              .setFooter(
-                `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
+              .setFooter({text:
+                `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
                 "https://playantares.com/resources/icon.png"
-              );
+              });
             channel.send({ embeds: [Embed] });
+            interaction.reply({content: `Counting channel created. You can go to it here <#${channel.id}>`, ephemeral: true});
             await piiModel.updateOne(
-              { GUILD_ID: message.guild?.id },
+              { GUILD_ID: interaction.guild?.id },
               { GUILD_COUNTING_CHANNEL_ID: channel.id }
             );
           });

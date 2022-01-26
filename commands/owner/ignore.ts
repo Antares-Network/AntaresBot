@@ -9,6 +9,7 @@ export default {
   minArgs: 1,
   ownerOnly: true,
   guildOnly: false,
+  hidden: true,
 
   callback: async ({ client, args, message, channel }) => {
     try {

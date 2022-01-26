@@ -1,7 +1,7 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import check from "../../functions/channelCheck";
-import statcord from "../../index"
+import { statcord } from "../../index";
 
 export default {
   name: "invite",
@@ -11,35 +11,37 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, message }) => {
-    if (await check.check(message, client)) {
-      statcord.statcord.postCommand("invite", message.author.id);
-      const Embed = new MessageEmbed()
-        .setColor("#ff3505")
-        .setTitle("Thank you showing interest in me!")
-        .setDescription(
-          "If you would like to join our support/community server, click the link below:" +
-            "\n[Join our support server](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)"
-        )
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-          "https://playantares.com/resources/icon.png"
-        );
+  callback: async ({ client, interaction }) => {
+    // Command information
+    const id = interaction.user.id;
+    const chan = interaction.channel as TextChannel;
 
-      const Embed2 = new MessageEmbed()
-        .setColor("#ff3505")
-        .setTitle("Invite Antares Bot to Your Server")
-        .setDescription(
-          "If you would like to invite Antares Bot to your server, click the link below:" +
-            "\n[Invite Me!](https://dsc.gg/antaresbot)"
-        )
-        .setFooter(
-          `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-          "https://playantares.com/resources/icon.png"
-        );
+    // Embed values
+    const color = "#ff3505";
+    const url = "https://dsc.gg/antaresnetwork";
+    const thumbnail = "https://playantares.com/resources/icon.png";
+    const title = "Invite";
+    const channelDescription =
+      "If you would like to invite Antares Bot to your server, click the link below:" +
+      "\n[Join our support server](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)";
+    const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
+    const footerIcon = "https://playantares.com/resources/icon.png";
 
-      message.author.send({ embeds: [Embed] });
-      return Embed2;
+    // Embed construction
+    const ChannelEmbed = new MessageEmbed()
+      .setColor(color)
+      .setURL(url)
+      .setTitle(title)
+      .setThumbnail(thumbnail)
+      .setDescription(channelDescription)
+      .setFooter({text: footer, iconURL: footerIcon});
+
+    // Post command usage
+    statcord.postCommand("invite", id);
+
+    // Return the embed after the channel is checked
+    if (await check.check(interaction, chan)) {
+      interaction.reply({ embeds: [ChannelEmbed] });
     }
   },
 } as ICommand;

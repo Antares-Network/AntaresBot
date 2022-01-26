@@ -1,7 +1,3 @@
-//Nate Goldsborough
-//AntaresBot
-//Update the counting database for the new format of storing data
-
 import { ICommand } from "wokcommands";
 import piiModel from "../../models/pii";
 
@@ -10,8 +6,8 @@ export default {
   description: "Updates the counting channel db's",
   slash: false,
   ownerOnly: true,
-  hidden: true,
   guildOnly: true,
+  hidden: true,
 
   callback: ({ client }) => {
 
