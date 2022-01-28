@@ -54,7 +54,7 @@ async function event(guild: Guild, client: Client) {
     .addFields(
       {
         name: "My prefix",
-        value: `My current legacy command prefix is: **\`${process.env.BOT_DEFAULT_PREFIX}\`** To change my prefix run \`/prefix <someprefixhere>\`\nAll commands except some admin commands are now slash commands. You can learn more about how to use Slash/Application commands [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)`,
+        value: `All commands including admin commands are now slash commands. You can learn more about how to use Slash/Application commands [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)`,
       },
       {
         name: "Commands/ help",
