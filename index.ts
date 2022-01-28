@@ -36,7 +36,7 @@ const statcord = new Statcord.Client({
   client,
   key: String(process.env.STATCORD_API_KEY),
   postCpuStatistics:
-    false,
+    true,
   postMemStatistics:
     true,
   postNetworkStatistics:
@@ -84,9 +84,7 @@ client.on("ready", () => {
 
     //Print some bot stats
     console.log(
-      `${chalk.yellow("I am in")} ${chalk.green(
-        client.guilds.cache.size
-      )} ${chalk.yellow("servers")}`
+      `${chalk.yellow("I am in")} ${chalk.green((await client.guilds.fetch()).size)} ${chalk.yellow("servers")}`
     );
     try {
       const gate = await gateModel.findOne({ NAME: "GATE" });
