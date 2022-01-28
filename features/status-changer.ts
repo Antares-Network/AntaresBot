@@ -1,9 +1,9 @@
 import { Client } from "discord.js";
 
-export default (client: Client) => {
+export default async (client: Client) => {
 	const statusOptions = [
 		`/help | V.${process.env.VERSION}`,
-		`/help | ${client.guilds.cache.size} Servers`,
+		`/help | ${(await client.guilds.fetch()).size} Servers`,
 		`/help | V.${process.env.VERSION}`,
 		`/help | playantares.com`,
 		`/help | V.${process.env.VERSION}`,

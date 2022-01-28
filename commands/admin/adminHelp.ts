@@ -13,6 +13,7 @@ export default {
   description: "Shows the bot's admin help embed",
   guildOnly: true,
   testOnly: false,
+  slash: true,
   requiredPermissions: ["MANAGE_MESSAGES"],
 
   callback: async ({ client, channel, interaction: msgInt, instance }) => {

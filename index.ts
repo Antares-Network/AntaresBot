@@ -75,9 +75,9 @@ client.on("ready", () => {
     dbOptions,
     mongoUri: String(process.env.BOT_MONGO_PATH),
     disabledDefaultCommands: ["help", "language"],
+    botOwners: ['603629606154666024']
   })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
-    .setBotOwner("603629606154666024"); //! for some reason it doesn't like when i grab this value from the env file
 
   wok.on("databaseConnected", async  () => {
     console.log(chalk.green("Connected to MongoDB"));
