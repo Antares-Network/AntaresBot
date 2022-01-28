@@ -16,7 +16,7 @@ export default {
   slash: true,
   requiredPermissions: ["MANAGE_MESSAGES"],
 
-  callback: async ({ client, channel, interaction: msgInt, instance }) => {
+  callback: async ({ client, channel, interaction: msgInt }) => {
     const helpEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setURL("https://discord.gg/KKYw763")
@@ -109,17 +109,9 @@ export default {
 
     collector.on("collect", (i: MessageComponentInteraction) => {
       if (i.customId === "config") {
-        i.reply({ embeds: [configEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [configEmbed], ephemeral: true  })
       } else if (i.customId === "counting") {
-        i.reply({ embeds: [countingEmbed] }).then(() => {
-          setTimeout(() => {
-            i.deleteReply();
-          }, 1000 * 30);
-        });
+        i.reply({ embeds: [countingEmbed], ephemeral: true })
       }
     });
   },
