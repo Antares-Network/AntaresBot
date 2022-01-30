@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 import chalk from "chalk";
 import gateModel from "./models/gate";
 import onReady from "./actions/onReady";
-import { Player } from "discord-music-player";
+import { Player } from "@discordx/music"
 dotenv.config();
 
 //Create a new discord client
@@ -26,11 +26,7 @@ const client = new DiscordJs.Client({
   ],
 });
 
-const player = new Player(client, {
-  leaveOnEmpty: false, // This options are optional.
-  leaveOnStop: false,
-  leaveOnEnd: false
-});
+const player = new Player();
 
 const statcord = new Statcord.Client({
   client,
