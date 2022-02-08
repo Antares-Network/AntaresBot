@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { Client, Guild, MessageEmbed, ButtonInteraction, MessageActionRow, MessageButton, TextChannel } from "discord.js";
+import { Client, Guild, MessageEmbed, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import guildModel from "./../models/guild";
 
 async function event(guild: Guild, client: Client) {
