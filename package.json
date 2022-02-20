@@ -1,19 +1,20 @@
 {
   "name": "antaresbot",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "engines": {
     "node": "17.x"
   },
   "description": "A small Discord Bot with a bunch of fun commands to get cute images of animals or answer your deepest question with 8ball nonsense.",
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
+    "@discordx/music": "^3.1.8",
     "axios": "^0.25.0",
     "chalk": "^4.1.2",
     "dbots": "^11.0.0",
-    "discord-music-player": "^8.3.1",
     "discord.js": "^13.6.0",
     "dotenv": "^10.0.0",
     "ffmpeg-static": "^4.4.0",
+    "libsodium-wrappers": "^0.7.9",
     "mongoose": "^6.0.14",
     "path": "^0.12.7",
     "reddit-image-fetcher": "^2.0.9",

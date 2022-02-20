@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 import chalk from "chalk";
 import gateModel from "./models/gate";
 import onReady from "./actions/onReady";
-import { Player } from "discord-music-player";
+import { Player } from "@discordx/music"
 dotenv.config();
 
 //Create a new discord client
@@ -26,17 +26,13 @@ const client = new DiscordJs.Client({
   ],
 });
 
-const player = new Player(client, {
-  leaveOnEmpty: false, // This options are optional.
-  leaveOnStop: false,
-  leaveOnEnd: false
-});
+const player = new Player();
 
 const statcord = new Statcord.Client({
   client,
   key: String(process.env.STATCORD_API_KEY),
   postCpuStatistics:
-    false,
+    true,
   postMemStatistics:
     true,
   postNetworkStatistics:
@@ -75,18 +71,16 @@ client.on("ready", () => {
     dbOptions,
     mongoUri: String(process.env.BOT_MONGO_PATH),
     disabledDefaultCommands: ["help", "language"],
+    botOwners: ['603629606154666024']
   })
     .setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX))
-    .setBotOwner("603629606154666024"); //! for some reason it doesn't like when i grab this value from the env file
 
   wok.on("databaseConnected", async  () => {
     console.log(chalk.green("Connected to MongoDB"));
 
     //Print some bot stats
     console.log(
-      `${chalk.yellow("I am in")} ${chalk.green(
-        client.guilds.cache.size
-      )} ${chalk.yellow("servers")}`
+      `${chalk.yellow("I am in")} ${chalk.green((await client.guilds.fetch()).size)} ${chalk.yellow("servers")}`
     );
     try {
       const gate = await gateModel.findOne({ NAME: "GATE" });

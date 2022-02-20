@@ -7,7 +7,7 @@ export default {
   name: "ask",
   category: "user",
   description: "Answers all of the questions you might have",
-  example: "ask Am i a dum dum?",
+  example: "Ask Am I a dum dum?",
   slash: true,
   guildOnly: true,
   testOnly: false,

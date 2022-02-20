@@ -31,7 +31,7 @@ export default {
       .setColor("#ff3505")
       .setTitle("Database Updated")
       .setDescription(
-        `Database has been successfully updated\n Run \`${process.env.BOT_DEFAULT_PREFIX}stats\` to see the updated server stats`
+        `Database has been successfully updated\n Run \`/stats\` to see the updated server stats`
       )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
@@ -45,14 +45,10 @@ export default {
       const totalOwners: Array<string> = [];
       //get data from all the guilds
       client.guilds.cache.forEach(async (guild) => {
-        if (!gate.IGNORED_GUILDS.includes(guild.id)) {
-          const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the doc that has all the guild information in it
-          totalMessages += Number(doc.GUILD_MESSAGES);
-          totalOwners.push(guild.ownerId);
-          totalUsers += guild.memberCount;
-        } else {
-          console.log(`${guild.name} was excluded`);
-        }
+        const doc = await guildModel.findOne({ GUILD_ID: guild.id });
+        totalMessages += Number(doc.GUILD_MESSAGES);
+        totalOwners.push(guild.ownerId);
+        totalUsers += guild.memberCount;
       });
 
       setTimeout(async () => {
@@ -63,7 +59,7 @@ export default {
             $set: {
               GUILD_OWNER_ID: totalOwners,
               TOTAL_MESSAGES: totalMessages,
-              TOTAL_SERVERS: client.guilds.cache.size,
+              TOTAL_SERVERS: (await client.guilds.fetch()).size,
               TOTAL_USERS: totalUsers,
               UPDATE_TIME: d.toString(),
             },
@@ -71,7 +67,7 @@ export default {
           { new: true }
         );
         interaction.editReply({ embeds: [postEmbed] });
-      }, 10000);
+      }, 2000);
       // Post command usage
       statcord.postCommand("update", id);
     }
