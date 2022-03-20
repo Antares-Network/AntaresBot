@@ -46,7 +46,7 @@ export default {
         {
           name: "Support Server",
           value:
-            "[Click to join the support server!](https://discord.gg/KKYw763)",
+            "[Click to join the support server!](https://playantares.com/discord)",
         },
         {
           name: "Invite SeasonBot",
