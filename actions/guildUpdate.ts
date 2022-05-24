@@ -1,11 +1,3 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\guildUpdate.ts
-//This event fires when a guild is updated to provide detailed logging
 import { Guild, TextChannel, Client } from "discord.js";
 import guildModel from "./../models/guild";
 import piiModel from "./../models/pii";

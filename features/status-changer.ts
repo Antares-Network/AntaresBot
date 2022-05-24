@@ -4,10 +4,11 @@ export default async (client: Client) => {
 	const statusOptions = [
 		`/help | V.${process.env.VERSION}`,
 		`/help | ${(await client.guilds.fetch()).size} Servers`,
-		`/help | V.${process.env.VERSION}`,
 		`/help | playantares.com`,
-		`/help | V.${process.env.VERSION}`,
+		`/help | ${(await client.guilds.fetch()).size} Servers`,
 		`/help | nathen418.com`,
+		`/help | ${(await client.guilds.fetch()).size} Servers`,
+		`/help | status.playantares.com`,
 	];
 	let counter = 0;
 

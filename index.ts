@@ -44,9 +44,7 @@ statcord.on("autopost-start", () => {
 });
 
 statcord.on("post", (status) => {
-
-  if (!status) console.log("Successful post");
-  else console.error(status);
+  if (status) console.error(status);
 });
 
 //on ready event create a WOK commands instance and print some info
