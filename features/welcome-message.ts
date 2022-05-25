@@ -1,7 +1,7 @@
 import { Client, TextChannel } from "discord.js";
 import piiModel from "../models/pii";
 
-export default (client: Client) => {
+export default (client: Client): void  => {
 	client.on("guildMemberAdd", async (member) => {
 		const res = await piiModel.findOne({ GUILD_NAME: member.guild.name });
 		let welcomeMessage = res?.WELCOME_MESSAGE;

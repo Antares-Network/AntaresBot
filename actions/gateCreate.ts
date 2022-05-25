@@ -2,7 +2,7 @@ import { Client } from "discord.js";
 import gateModel from "./../models/gate";
 import guildModel from "./../models/guild";
 
-function event(client: Client) {
+function event(client: Client): void  {
   //var init and gc
   let totalUsers = 0;
   let totalMessages = 0;

@@ -6,7 +6,7 @@ import guildModel from "../models/guild";
 import piiModel from "../models/pii";
 import guildUpdate from "../actions/guildUpdate";
 
-export default (client: Client) => {
+export default (client: Client): void  => {
 	//actions to run when the bot joins a server
 	client.on("guildCreate", (guild) => {
 		docCreate.event(guild, client)
