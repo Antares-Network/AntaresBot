@@ -17,7 +17,7 @@ export default {
       const id = interaction.user.id;
       const chan = interaction.channel as TextChannel;
       const author = interaction.user;
-      const comicNum = Math.floor(Math.random() * 2520);
+      const comicNum = Math.floor(Math.random() * 2623);
   
       // Embed values
       const color = "#ff3505"
