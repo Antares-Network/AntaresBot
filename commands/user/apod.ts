@@ -9,7 +9,7 @@ export default {
   category: "user",
   description: "Gets data from the APOD NASA API",
   slash: true,
-  testOnly: true,
+  testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
