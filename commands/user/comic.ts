@@ -16,13 +16,12 @@ export default {
       // Command Information
       const id = interaction.user.id;
       const chan = interaction.channel as TextChannel;
-      const author = interaction.user;
       const comicNum = Math.floor(Math.random() * 2623);
   
       // Embed values
       const color = "#ff3505"
       const title = "Random XKCD Comic"
-      let url = await axios.get(`http://xkcd.com/${comicNum}/info.0.json`).then(res => res.data.img);
+      const url = await axios.get(`http://xkcd.com/${comicNum}/info.0.json`).then(res => res.data.img);
       const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
       const footerIcon = "https://playantares.com/resources/icon.png"
   

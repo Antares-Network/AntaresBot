@@ -3,7 +3,7 @@ import { Client, Guild, MessageEmbed, MessageActionRow, MessageButton, TextChann
 import guildModel from "./../models/guild";
 
 async function event(guild: Guild, client: Client) {
-  let d = new Date();
+  const d = new Date();
   const doc = await guildModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
   if (doc === null) {
     const internalDoc = new guildModel({

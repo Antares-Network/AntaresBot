@@ -24,10 +24,10 @@ export default {
 
 	callback: async ({ interaction, args }) => {
 		interaction.deferReply();
-		let link = args[0];
-		let id = interaction.guild?.id as string;
-		let member = interaction.member as GuildMember;
-		let guild = interaction.guild as Guild;
+		const link = args[0];
+		const id = interaction.guild?.id as string;
+		const member = interaction.member as GuildMember;
+		const guild = interaction.guild as Guild;
 		const queue = player.queue(guild);
 		await queue.join(member.voice.channel as VoiceChannel | StageChannel);
 

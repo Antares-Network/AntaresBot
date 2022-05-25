@@ -5,7 +5,7 @@ import counting from "../functions/counting";
 import messageLog from "../actions/messageLog";
 import chalk from "chalk";
 
-export default (client: Client, instance: WOKCommands) => {
+export default (client: Client) => {
 	// on message event console log messages in the appropriate format
 	client.on("messageCreate", async (message) => {
 		//Get the gate data at the start of each message create event
@@ -28,8 +28,12 @@ export default (client: Client, instance: WOKCommands) => {
 				//! For debugging. Will be removed in final release
 			);
 			try {
-				counting.count(message, client); // counting logic
-				messageLog.log(message); // log number of messages sent in each guild
+				counting.count(message, client)
+					.catch(err => console.log(err));
+				// counting logic
+				messageLog.log(message)
+					.catch(err => console.log(err));
+				// log number of messages sent in each guild
 			} catch (e) {
 				//! change this to a more descriptive error message
 				console.log("Error on guild lookup. Maybe from a message sent in a DM to the bot");

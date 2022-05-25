@@ -18,7 +18,6 @@ export default {
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;
 
-    const gate = await gateModel.findOne({ NAME: "GATE" });
     const preEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle("Updating database")

@@ -21,7 +21,7 @@ export default {
     // Embed values
     const color = "#ff3505"
     const title = "Random Fox Picture"
-    let url = await axios.get("https://randomfox.ca/floof/").then(res => res.data.image);
+    const url = await axios.get("https://randomfox.ca/floof/").then(res => res.data.image);
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
     const footerIcon = "https://playantares.com/resources/icon.png"
 

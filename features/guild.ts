@@ -6,11 +6,14 @@ import guildModel from "../models/guild";
 import piiModel from "../models/pii";
 import guildUpdate from "../actions/guildUpdate";
 
-export default (client: Client, instance: WOKCommands) => {
+export default (client: Client) => {
 	//actions to run when the bot joins a server
 	client.on("guildCreate", (guild) => {
-		docCreate.event(guild, client);
-		piiCreate.event(guild, client);
+		docCreate.event(guild, client)
+			.catch(err => console.log(err));
+		piiCreate.event(guild, client)
+			.catch(err => console.log(err));
+		
 	});
 
 	//actions to run when the bot leaves a server
@@ -48,7 +51,8 @@ export default (client: Client, instance: WOKCommands) => {
 	});
 
 	client.on("guildUpdate", (oldGuild, newGuild) => {
-		guildUpdate.update(oldGuild, newGuild, client);
+		guildUpdate.update(oldGuild, newGuild, client)
+			.catch(err => console.log(err));
 	});
 };
 
