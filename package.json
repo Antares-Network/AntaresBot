@@ -28,7 +28,7 @@
   },
   "main": "index.ts",
   "scripts": {
-    "test": "test.ts"
+    "test": "jest --coverage=true --coverageReporters=cobertura"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
   },
   "homepage": "https://github.com/Antares-Network/AntaresBot#readme",
   "devDependencies": {
-    "@types/uuid": "^8.3.1"
+    "@types/uuid": "^8.3.1",
+    "jest": "^28.1.0"
   }
 }
