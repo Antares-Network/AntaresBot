@@ -5,7 +5,7 @@ import counting from "../functions/counting";
 import messageLog from "../actions/messageLog";
 import chalk from "chalk";
 
-export default (client: Client) => {
+export default (client: Client): void  => {
 	// on message event console log messages in the appropriate format
 	client.on("messageCreate", async (message) => {
 		//Get the gate data at the start of each message create event
