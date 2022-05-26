@@ -1,5 +1,4 @@
 import { Client } from "discord.js";
-import WOKCommands from "wokcommands";
 import guildModel from "../models/guild";
 import gateModel from "../models/gate";
 import chalk from "chalk";

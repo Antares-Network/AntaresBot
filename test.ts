@@ -26,7 +26,8 @@ const client = new DiscordJs.Client({
 
 //on ready event create a WOK commands instance and print some info
 client.on("ready", () => {
-  onReady.event(client);
+  onReady.event(client)
+    .catch(err => console.log(err));
   // Print the bot's username and discriminator to the console
   if (client.user)
     console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);

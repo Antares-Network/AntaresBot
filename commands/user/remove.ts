@@ -8,7 +8,7 @@ export default {
 	guildOnly: false,
 	permissions: ["SEND_MESSAGES"],
 
-	callback: async ({ interaction }) => {
+	callback: ({ interaction }) => {
 		interaction.reply({
 			content: "No per user data is stored on our servers.\nIf you are a server owner and would like your data deleted, kick the bot from your server as all data is deleted upon the bot leaving the server.",
 			ephemeral: true,

@@ -1,5 +1,4 @@
 import { Client } from "discord.js";
-import WOKCommands from "wokcommands";
 import gateModel from "../models/gate";
 import counting from "../functions/counting";
 import messageLog from "../actions/messageLog";
