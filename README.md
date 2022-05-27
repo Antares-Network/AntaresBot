@@ -30,7 +30,7 @@
 - You can find admin commands listed [here](/commands/admin/README.md)
 - You can find owner commands listed [here](/commands/owner/README.md)
 - You can find other features listed [here](/functions/README.md)
-- This bot can be used with heroku, but it is not recommended. A procfile is included in this repository as it is required to run on heroku.
+- This bot can be used with heroku, but it is not recommended. A procfile is included in this repository as it is required for heroku use.
 
 ## Credits
 
