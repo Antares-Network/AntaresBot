@@ -3,14 +3,14 @@ import gateModel from "../models/gate";
 import guildModel from "../models/guild";
 
 export default async (client: Client) => {
-	//var init and gc
-	let totalUsers = 0;
-	let totalMessages = 0;
-	let totalServers = 0;
-	const totalOwners: Array<string> = [];
-	const d = new Date();
-
 	const updateGate = () => {
+		//var init and gc
+		let totalUsers = 0;
+		let totalMessages = 0;
+		let totalServers = 0;
+		const totalOwners: Array<string> = [];
+		const d = new Date();
+        
 		//get data from all the guilds
 		client.guilds.cache.forEach(async (guild) => {
 			const doc = await guildModel.findOne({ GUILD_ID: guild.id });
@@ -19,9 +19,9 @@ export default async (client: Client) => {
 			totalOwners.push(guild.ownerId);
 			totalUsers += guild.memberCount;
 		});
-        
+
 		setTimeout(async () => {
-		await gateModel.findOneAndUpdate(
+			await gateModel.findOneAndUpdate(
 				{ NAME: "GATE" },
 				{
 					$set: {
