@@ -35,7 +35,7 @@ export default async (client: Client) => {
 				{ new: true }
 			);
 			console.log("GATE Updated successfully.");
-		}, 1000 * 20);
+		}, 1000 * 60 * 1);
 		setTimeout(updateGate, 1000 * 60 * 5);
 	};
 	updateGate();
