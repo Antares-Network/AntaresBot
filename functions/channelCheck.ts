@@ -38,7 +38,7 @@ async function check( interaction: CommandInteraction, channel: TextChannel ): P
   if (channel.id != srv.GUILD_DEFAULT_CHANNEL) {
     if (srv.GUILD_DEFAULT_CHANNEL === null) {
       interaction.reply(
-        `The server owner has not set a default channel yet.\n If you are the server owner please use \`${process.env.BOT_DEFAULT_PREFIX}setup #channel\``
+        `The server owner has not set a default channel yet.\n If you are the server owner please use \`/setup #channel\``
       );
       return Promise.resolve(false); //exit the loop and don't parse the command
     } else {

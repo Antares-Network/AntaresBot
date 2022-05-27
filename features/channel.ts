@@ -1,9 +1,8 @@
 import { Client } from "discord.js";
-import WOKCommands from "wokcommands";
 import piiModel from "../models/pii";
 import chalk from "chalk";
 
-export default (client: Client, instance: WOKCommands) => {
+export default (client: Client): void  => {
   client.on("channelDelete", async (channel) => {
     // check if the deleted channel is the counting channel and remove that channel from the db
     if (channel.type === "GUILD_TEXT") {

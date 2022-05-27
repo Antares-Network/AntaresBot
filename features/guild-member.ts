@@ -1,10 +1,9 @@
 import { Client } from "discord.js";
-import WOKCommands from "wokcommands";
 import guildModel from "../models/guild";
 import gateModel from "../models/gate";
 import chalk from "chalk";
 
-export default (client: Client, instance: WOKCommands) => {
+export default (client: Client): void  => {
   // needs GUILD_MEMBER intent which is privileged
   client.on("guildMemberRemove", async (member) => {
     // if the member that joined a server is in the list of ignored guilds, do not log them

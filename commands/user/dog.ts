@@ -21,7 +21,7 @@ export default {
     // Embed values
     const color = "#ff3505"
     const title = "Random Dog Picture"
-    let url = await axios.get("https://dog.ceo/api/breeds/image/random").then(res => res.data.message);
+    const url = await axios.get("https://dog.ceo/api/breeds/image/random").then(res => res.data.message);
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
     const footerIcon = "https://playantares.com/resources/icon.png"
 

@@ -1,8 +1,8 @@
 import { Client } from "discord.js";
 import WOKCommands from "wokcommands";
 
-export default (client: Client, instance: WOKCommands) => {
-	client.on("messageCreate", async (message) => {
+export default (client: Client, instance: WOKCommands): void  => {
+	client.on("messageCreate", (message) => {
 		if (message.member?.user.bot) return;
 		if (message.author.bot) return;
 		if (message.content === `<@!${client.user?.id}>`) {

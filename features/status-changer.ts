@@ -1,13 +1,18 @@
 import { Client } from "discord.js";
+import gateModel from "../models/gate";
+
 
 export default async (client: Client) => {
+	const doc = await gateModel.findOne({ NAME: "GATE" });
+
 	const statusOptions = [
 		`/help | V.${process.env.VERSION}`,
-		`/help | ${(await client.guilds.fetch()).size} Servers`,
-		`/help | V.${process.env.VERSION}`,
+		`/help | ${doc.TOTAL_SERVERS} Servers`,
 		`/help | playantares.com`,
-		`/help | V.${process.env.VERSION}`,
+		`/help | ${doc.TOTAL_SERVERS} Servers`,
 		`/help | nathen418.com`,
+		`/help | ${doc.TOTAL_SERVERS} Servers`,
+		`/help | status.playantares.com`,
 	];
 	let counter = 0;
 

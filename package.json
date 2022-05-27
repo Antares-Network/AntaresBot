@@ -1,6 +1,6 @@
 {
   "name": "antaresbot",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "engines": {
     "node": "17.x"
   },
@@ -8,20 +8,20 @@
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
     "@discordx/music": "^3.1.8",
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "chalk": "^4.1.2",
     "dbots": "^11.0.0",
-    "discord.js": "^13.6.0",
-    "dotenv": "^10.0.0",
-    "ffmpeg-static": "^4.4.0",
+    "discord.js": "^13.7.0",
+    "dotenv": "^16.0.0",
+    "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
-    "mongoose": "^6.0.14",
+    "mongoose": "^6.2.2",
     "path": "^0.12.7",
-    "reddit-image-fetcher": "^2.0.9",
+    "reddit-image-fetcher": "^2.0.10",
     "requests": "^0.3.0",
     "statcord.js": "^3.4.1",
-    "topgg-autoposter": "^2.0.0",
-    "ts-node": "^10.4.0",
+    "topgg-autoposter": "^2.0.1",
+    "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "uuid": "^8.3.2",
     "wokcommands": "^1.5.3"

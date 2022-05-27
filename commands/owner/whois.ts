@@ -77,7 +77,7 @@ export default {
       const guild = client.guilds.cache.get(id);
       if (guild) {
         const doc = await piiModel.findOne({ GUILD_ID: guild.id }); //find the entry for the guild
-        let Embed = new MessageEmbed()
+        const Embed = new MessageEmbed()
           .setColor("#ff3505")
           .setTitle(`Server: ${guild.name}`)
           .setThumbnail(

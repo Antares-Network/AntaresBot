@@ -1,16 +1,8 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\gateCreate.ts
-//This file will create the gate document in the database (Used for storing global data about the bot)
 import { Client } from "discord.js";
 import gateModel from "./../models/gate";
 import guildModel from "./../models/guild";
 
-function event(client: Client) {
+function event(client: Client): void  {
   //var init and gc
   let totalUsers = 0;
   let totalMessages = 0;

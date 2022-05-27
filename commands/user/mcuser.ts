@@ -32,11 +32,12 @@ export default {
 		// Fetched information //! Throws nasty errors. Fix later
 		const response = (await axios.get(`https://api.ashcon.app/mojang/v2/user/${args[0]}`).catch((err) => {
 			interaction.reply({ content: "The username you entered is invalid. Please try again.", ephemeral: true });
+			console.log(err);
 			return;
 		})) as AxiosResponse;
 		const uuid = response.data.uuid;
 		let creationDate = response.data.created_at;
-		let nameHistory = response.data.username_history.reverse();
+		const nameHistory = response.data.username_history.reverse();
 		let recentNames = "";
 
 		//processing

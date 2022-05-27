@@ -1,11 +1,3 @@
-//Nate Goldsborough
-//Antares Network Discord Bot
-//This project will morph overtime
-//Built for discord.js V.13.1.0
-//Project started on December 15, 2020
-//Language: typescript
-//Path: actions\guildBan.ts
-// This file holds all of the actions used to ban and unban users and guilds from using the bot
 import { User } from "discord.js";
 //event to fire when a Guild is banned from inviting the bot
 import gateModel from "./../models/gate";
