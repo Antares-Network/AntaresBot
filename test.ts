@@ -8,8 +8,7 @@ import WOKCommands from "wokcommands";
 import path from "path";
 import dotenv from "dotenv";
 import chalk from "chalk";
-import gateModel from "./models/gate";
-import onReady from "./actions/onReady";
+import onDBConnect from "./actions/onDBConnect";
 
 dotenv.config();
 
@@ -26,8 +25,6 @@ const client = new DiscordJs.Client({
 
 //on ready event create a WOK commands instance and print some info
 client.on("ready", () => {
-  onReady.event(client)
-    .catch(err => console.log(err));
   // Print the bot's username and discriminator to the console
   if (client.user)
     console.log(`Logged in as`, `${chalk.magenta(client.user.tag)}`);
@@ -54,23 +51,8 @@ client.on("ready", () => {
   wok.on("databaseConnected", async  () => {
     console.log(chalk.green("Connected to MongoDB"));
 
-    //Print some bot stats
-    console.log(
-      `${chalk.yellow("I am in")} ${chalk.green(
-        client.guilds.cache.size
-      )} ${chalk.yellow("servers")}`
-    );
-    try {
-      const gate = await gateModel.findOne({ NAME: "GATE" });
-      console.log(
-        `${chalk.yellow("I am being used by")} ${chalk.green(
-          gate.TOTAL_USERS
-        )} ${chalk.yellow("users")}`
-      );
-    } catch (e) {
-      console.log(e);
-    }
-
+    onDBConnect.event(client)
+    .catch(err => console.log(err));
   });
 
   //Startup complete

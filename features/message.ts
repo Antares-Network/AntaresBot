@@ -20,8 +20,9 @@ export default (client: Client): void  => {
 			});
 		}
 		if (message.channel.type === "GUILD_TEXT") {
+			const d = new Date();
 			console.log(
-				`${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(`[${message.channel.guild.name}]`)} ${chalk.blue(
+				`${chalk.gray.bold(d)} ${chalk.magenta.bold(`MESSAGE`)} ${chalk.green(`[${message.channel.guild.name}]`)} ${chalk.blue(
 					`[${message.channel.name}]`
 				)} ${chalk.yellow(`[${message.author.username}]`)} ${chalk.grey.bold(`--`)} ${chalk.cyan(`[${message.content}]`)}`
 				//! For debugging. Will be removed in final release
