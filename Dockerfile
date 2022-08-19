@@ -1,12 +1,15 @@
 FROM node:17.9.0
 
-RUN mkdir -p /usr/src/AntaresBot
-WORKDIR /usr/src/AntaresBot
+RUN mkdir -p /usr/src/bot
 
-COPY package.json /usr/src/AntaresBot
-RUN npm install
-RUN npm install -g ts-node
+WORKDIR /usr/src/bot
 
-COPY . /usr/src/AntaresBot
+COPY package*.json ./
 
-CMD [ "ts-node", "index.ts"]
+RUN npm ci
+
+COPY . .
+
+RUN npm install -g typescript ts-node
+
+CMD [ "ts-node", "index.ts" ]
