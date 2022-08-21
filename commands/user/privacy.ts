@@ -22,7 +22,7 @@ export default {
         "**•The total messages sent in the guild**\n" +
         "**•Guild Member count**\n" +
         "**•Guild prefix**\n" +
-        "**•Some channel id’s** (Admin channel, Default channel, music channel, counting channel, etc)\n" +
+        "**•Some channel id’s** (Admin channel, Default channel, counting channel, etc)\n" +
         "**•The current number in the counting channel**\n\n" +
         "**All data is stored on secured servers. Maximum efforts are taken to keep collected data protected, but absolute security cannot be guaranteed. We are not liable for any damages or stolen information, in which we collect, from our servers.**\n\n" +
         "**Server Member Agreement**\n" +

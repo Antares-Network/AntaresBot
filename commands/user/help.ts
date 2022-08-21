@@ -140,8 +140,7 @@ export default {
         .setTitle("Planned features")
         .setColor("#ff3505")
         .setDescription(
-          `**music**: Play music in a voice or stage channel \`This feature currently works but is extremely buggy\`` +
-            `\n**reddit**: Get memes from reddit` +
+            `**reddit**: Get memes from reddit` +
             `\n**confess**: Confess something anonymous to your server` +
             `\n**tictactoe**: Play tic tac toe with your friends` +
             `\n**SOTD**: Auto Post a song of the day of the bot's choosing. Can also play it in your voice or stage channel` +
