@@ -21,7 +21,7 @@ export default {
         const title = "Version:"
         const description = `I am running version: ${process.env.VERSION}`
         const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
-        const footerIcon = "https://playantares.com/resources/icon.png"
+        const footerIcon = "https://antaresnetwork.com/resources/icon.png"
     
         // Embed construction
         const Embed = new MessageEmbed()

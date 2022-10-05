@@ -23,7 +23,7 @@ export default {
     const helpEmbed = new MessageEmbed()
       .setTitle("Antares Bot Help and Commands")
       .setColor("#ff3505")
-      .setThumbnail("https://playantares.com/resources/icon.png")
+      .setThumbnail("https://antaresnetwork.com/resources/icon.png")
       .setDescription(
         "Welcome to Antares Bot! Here you can find all the commands you need!\n **ALL COMMANDS ARE NOW SLASH COMMANDS**\n Learn how slash commands work [here](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ)."
       )
@@ -46,7 +46,7 @@ export default {
         {
           name: "Support Server",
           value:
-            "[Click to join the support server!](https://playantares.com/discord)",
+            "[Click to join the support server!](https://antaresnetwork.com/discord)",
         },
         {
           name: "Invite SeasonBot",
@@ -56,7 +56,7 @@ export default {
       ])
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const imagesEmbed = new MessageEmbed()
       .setTitle("Random Image Commands")
@@ -71,7 +71,7 @@ export default {
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const chanceEmbed = new MessageEmbed()
       .setTitle("Chance Games Commands")
@@ -84,7 +84,7 @@ export default {
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const skillEmbed = new MessageEmbed()
       .setTitle("Skill Games Commands")
@@ -96,7 +96,7 @@ export default {
       )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
     const triviaEmbed = new MessageEmbed()
       .setTitle("Trivia/Facts Commands")
@@ -109,7 +109,7 @@ export default {
       )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
     const utilityEmbed = new MessageEmbed()
       .setTitle("Utility/Misc Commands")
@@ -134,7 +134,7 @@ export default {
       )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
       const soonEmbed = new MessageEmbed()
         .setTitle("Planned features")
@@ -151,7 +151,7 @@ export default {
             )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
     const row = new MessageActionRow()
       .addComponents(

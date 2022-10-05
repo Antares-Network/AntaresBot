@@ -14,14 +14,14 @@ export default {
       .setColor("#ff3505")
       .setTitle(`Hey its my developer Nate`)
       .setThumbnail(
-        `https://playantares.com/resources/nate_pfp.png`
+        `https://antaresnetwork.com/resources/nate_pfp.png`
       )
       .setDescription(
         `<@${process.env.BOT_OWNER_ID}> is my owner and coded me. Ask him anything you might need :)`
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     return Embed;
   },

@@ -26,16 +26,16 @@ export default {
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const postEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle("Coin Flip 💰")
-      .setThumbnail(`https://playantares.com/resources/coinflip.gif`)
+      .setThumbnail(`https://antaresnetwork.com/resources/coinflip.gif`)
       .setDescription(`${author.username} got ${outcome}!`)
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     // Return the embed after the channel is checked
     if (await check.check(interaction, chan)) {

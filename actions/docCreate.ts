@@ -40,7 +40,7 @@ async function event(guild: Guild, client: Client) {
     ])
     .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
 
   const WelcomeEmbed = new MessageEmbed()
@@ -63,7 +63,7 @@ async function event(guild: Guild, client: Client) {
     )
     .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
 
     const row = new MessageActionRow()

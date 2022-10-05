@@ -35,7 +35,7 @@ export default (client: Client): void  => {
 				])
 				.setFooter(
 					`Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`,
-					"https://playantares.com/resources/icon.png"
+					"https://antaresnetwork.com/resources/icon.png"
 				);
 			try {
 				await guildModel.findOneAndDelete({ GUILD_ID: guild.id });

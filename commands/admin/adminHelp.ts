@@ -49,7 +49,7 @@ export default {
       ])
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const configEmbed = new MessageEmbed()
       .setTitle("Bot Config commands")
@@ -68,7 +68,7 @@ export default {
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const countingEmbed = new MessageEmbed()
       .setTitle("Counting Config")
@@ -80,7 +80,7 @@ export default {
       )
       .setFooter({text:
         `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-        "https://playantares.com/resources/icon.png"
+        "https://antaresnetwork.com/resources/icon.png"
       });
     const row = new MessageActionRow()
       .addComponents(

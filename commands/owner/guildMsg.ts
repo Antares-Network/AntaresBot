@@ -32,7 +32,7 @@ export default {
 				.addField("Message:", `${text}`)
 				.setFooter({text:
 					`Set a default channel yet with ${process.env.BOT_DEFAULT_PREFIX}setup | Antares Bot | ${process.env.VERSION}`, iconURL:
-					"https://playantares.com/resources/icon.png"
+					"https://antaresnetwork.com/resources/icon.png"
 				});
 			if (guildList) {
 				guildList.forEach(async (guild) => {

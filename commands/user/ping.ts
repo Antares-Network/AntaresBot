@@ -21,7 +21,7 @@ export default {
         .setDescription(`Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`)
         .setFooter({text:
           `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-          "https://playantares.com/resources/icon.png"
+          "https://antaresnetwork.com/resources/icon.png"
         });
 
     // Post command usage

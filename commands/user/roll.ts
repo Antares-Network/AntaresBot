@@ -25,16 +25,16 @@ export default {
       )
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
     const postEmbed = new MessageEmbed()
       .setColor("#ff3505")
       .setTitle("Dice Roll 🎲")
-      .setThumbnail(`https://playantares.com/resources/diceroll.gif`)
+      .setThumbnail(`https://antaresnetwork.com/resources/diceroll.gif`)
       .setDescription(`${author.username} rolled a ${outcome}!`)
       .setFooter({text:
       `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-      "https://playantares.com/resources/icon.png"
+      "https://antaresnetwork.com/resources/icon.png"
     });
     if (await check.check(interaction, chan)) {
       interaction.reply({ embeds: [preEmbed] });
