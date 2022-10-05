@@ -24,12 +24,7 @@
 
 - This project is really just for fun and to test my (Nate's) skills at JavaScript and TypeScript and many other technologies. I will consider myself to have made it when the official Antares Bot gets verified by Discord.
 
-## Bot Features
 
-- You can find user commands listed [here](/commands/user/README.md)
-- You can find admin commands listed [here](/commands/admin/README.md)
-- You can find owner commands listed [here](/commands/owner/README.md)
-- You can find other features listed [here](/functions/README.md)
 - This bot can be used with heroku, but it is not recommended. A procfile is included in this repository as it is required for heroku use.
 
 ## Credits
