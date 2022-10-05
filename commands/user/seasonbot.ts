@@ -19,22 +19,32 @@ export default {
 
     // Embed values
     const color = "#ff3505";
-    const url = "https://playantares.com/seasonbot";
-    const thumbnail = "https://playantares.com/resources/santa-bot-2020.png";
-    const title = "Invite Season Bot today!";
+    const url = "https://seasonbot.antaresnetwork.com";
+    const thumbnail = "https://antaresnetwork.com/resources/boobot2022.png";
+    const title = "Invite Boo Bot today!";
     const fields = [
-      { name: "Season Bot", value: "Invite Season Bot today." },
       {
-        name: "About",
+        name: "**IT'S GONNA BE A SCREAM**",
         value:
-          "Cupid Bot (aka Santa Bot) it’s a bot that will bring Valentines day fun to your servers! More than 1,400 servers love it's seasonal themes!",
+          "The scariest time of the year has arrived\nEnjoy the spooky seasonal fun with Boo Bot!",
       },
       {
-        name: "Longer Description",
+        name: "🎃**Trick or Treat?**👻",
         value:
-          "No description has been provided by the Cupid Bot developer yet. Please check back later",
+          "Get candy, scare your friends, play along and lift your spirit to the top of the leaderboard to win\nWe know you're dying to have some spooktacular fun!",
       },
-      { name: "Invite Season Bot", value: "https://dsc.gg/seasonbot" },
+      {
+        name: "⭐Premium Features ⭐",
+        value:
+          "Go Premium and unlock the spooky fun with Boo Bot! Here's what you get:" +
+          "\n\n🔸 Automatic drops by chat activity and the opportunity to fly away with The Witch (which will give you more candies" +
+          "Otherwise you'd have to type in a command to make our spooky friends appear." +
+          "\n🔸More Fun commands: Including find, fly, rip and haunt that will let everyone in your server get more candies!" +
+          "\n🔸 More control: Give or remove candies, give or remove poisoned candies, change bot's prefix and change for how long the drops stay visible and disable commands." +
+          "\n🔸 Get dedicated and personalized help in our Support Server straight from the Dev!",
+      },
+      { name: "Visit the website", value: url },
+      { name: "Invite Boo Bot", value: "https://dsc.gg/seasonbot" },
     ];
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
     const footerIcon = "https://playantares.com/resources/icon.png";
