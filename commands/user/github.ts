@@ -20,11 +20,11 @@ export default {
     // Embed values
     const color = "#ff3505"
     const url = "https://dsc.gg/antaresnetwork"
-    const thumbnail = "https://playantares.com/resources/icon.png"
+    const thumbnail = "https://antaresnetwork.com/resources/icon.png"
     const title = "Github"
     const description = "Click here to go to the Antares Bot Github repo: \n https://github.com/Antares-Network/AntaresBot"
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
-    const footerIcon = "https://playantares.com/resources/icon.png"
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png"
 
     // Embed construction
     const Embed = new MessageEmbed()

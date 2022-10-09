@@ -19,13 +19,13 @@ export default {
     // Embed values
     const color = "#ff3505";
     const url = "https://dsc.gg/antaresnetwork";
-    const thumbnail = "https://playantares.com/resources/icon.png";
+    const thumbnail = "https://antaresnetwork.com/resources/icon.png";
     const title = "Invite";
     const channelDescription =
       "If you would like to invite Antares Bot to your server, click the link below:" +
       "\n[Join our support server](https://discord.com/oauth2/authorize?client_id=736086156759924762&permissions=388177&scope=bot%20applications.commands)";
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/icon.png";
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png";
 
     // Embed construction
     const ChannelEmbed = new MessageEmbed()

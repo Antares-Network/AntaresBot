@@ -46,7 +46,7 @@ export default {
               )
               .setFooter({text:
                 `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-                "https://playantares.com/resources/icon.png"
+                "https://antaresnetwork.com/resources/icon.png"
               });
             channel.send({ embeds: [Embed] });
             interaction.reply({content: `Counting channel created. You can go to it here <#${channel.id}>`, ephemeral: true});

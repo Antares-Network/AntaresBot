@@ -19,12 +19,12 @@ export default {
     
     // Embed values
     const color = "#ff3505"
-    const url = "https://status.playantares.com"
-    const thumbnail = "https://playantares.com/resources/icon.png"
+    const url = "https://status.antaresnetwork.com"
+    const thumbnail = "https://antaresnetwork.com/resources/icon.png"
     const title = "Status Page"
-    const description = "Click here to go to the Antares Network Status page: \n https://status.playantares.com"
+    const description = "Click here to go to the Antares Network Status page: \n https://status.antaresnetwork.com"
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
-    const footerIcon = "https://playantares.com/resources/icon.png"
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png"
 
     // Embed construction
     const Embed = new MessageEmbed()

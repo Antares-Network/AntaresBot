@@ -16,7 +16,7 @@ export default {
 
     // Embed values
     const color = "#ff3505";
-    const description = "[r](https://playantares.com/snips)";
+    const description = "[r](https://antaresnetwork.com/snips)";
 
     // Embed construction
     const Embed = new MessageEmbed()

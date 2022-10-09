@@ -1,6 +1,6 @@
 //Nate Goldsborough
 //Antares Network Discord Bot
-//https://playantares.com
+//https://antaresnetwork.com
 //Built for discord.js V.13.6.0
 //Project started on December 15, 2020
 import DiscordJs, { Intents } from "discord.js";
@@ -11,7 +11,6 @@ import path from "path";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import onDBConnect from "./actions/onDBConnect";
-import { Player } from "@discordx/music"
 dotenv.config();
 
 //Create a new discord client
@@ -24,8 +23,6 @@ const client = new DiscordJs.Client({
     Intents.FLAGS.GUILD_VOICE_STATES
   ],
 });
-
-const player = new Player();
 
 const statcord = new Statcord.Client({
   client,
@@ -122,4 +119,4 @@ process.on("unhandledRejection", (promise, reason) => {
   console.error("Unhandled promise rejection:", promise, "\nreason", reason);
 });
 
-export { statcord, player };
+export { statcord };

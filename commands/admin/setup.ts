@@ -12,7 +12,7 @@ export default {
 	options: [
 		{
 			name: "type",
-			description: "default, admin, music",
+			description: "default, admin",
 			type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
 			required: true,
 		},
@@ -47,18 +47,8 @@ export default {
 			);
 			interaction.reply(`Set the admin channel to <#${doc.GUILD_ADMIN_CHANNEL}>`);
 			await doc.save();
-		} else if (args[0].toLowerCase() === "music") {
-			const doc = await piiModel.findOneAndUpdate(
-				{ GUILD_ID: interaction.guild?.id },
-				{
-					$set: { GUILD_MUSIC_CHANNEL: interaction.options.getChannel("channel") },
-				},
-				{ new: true }
-			);
-			interaction.reply(`Set the music channel to <#${doc.GUILD_MUSIC_CHANNEL}>`);
-			await doc.save();
         } else {
-			interaction.reply("Invalid type.\nYou need to specify either default, admin, or music as the channel type to setup with this command.");
+			interaction.reply("Invalid type.\nYou need to specify either default, or admin as the channel type to setup with this command.");
 		}
 	},
 } as ICommand;

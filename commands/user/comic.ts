@@ -23,7 +23,7 @@ export default {
       const title = "Random XKCD Comic"
       const url = await axios.get(`http://xkcd.com/${comicNum}/info.0.json`).then(res => res.data.img);
       const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
-      const footerIcon = "https://playantares.com/resources/icon.png"
+      const footerIcon = "https://antaresnetwork.com/resources/icon.png"
   
       // Embed construction
       const Embed = new MessageEmbed()

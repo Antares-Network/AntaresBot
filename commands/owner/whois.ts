@@ -65,7 +65,7 @@ export default {
             )
             .setFooter({text:
               `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-              "https://playantares.com/resources/icon.png"
+              "https://antaresnetwork.com/resources/icon.png"
             });
           channel.send({ embeds: [Embed] });
         });
@@ -96,7 +96,7 @@ export default {
           ])
           .setFooter({text:
             `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`, iconURL:
-            "https://playantares.com/resources/icon.png"
+            "https://antaresnetwork.com/resources/icon.png"
           });
         console.log(Embed)
         channel.send({ embeds: [Embed] });

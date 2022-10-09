@@ -63,7 +63,7 @@ export default {
 		const image = `https://crafatar.com/renders/body/${uuid}?overlay`;
 		const description = `**Username:** ${args[0]}\n **UUID:** ${uuid}\n **Approximate Account Creation Date:** ${creationDate}\n **Recent Names:**\n${recentNames}`;
 		const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
-		const footerIcon = "https://playantares.com/resources/icon.png";
+		const footerIcon = "https://antaresnetwork.com/resources/icon.png";
 
 		// Embed construction
 		const Embed = new MessageEmbed()

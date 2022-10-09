@@ -28,7 +28,7 @@ export default {
     const image = data.url;
     const description = data.explanation;
     const footer = `${data.date} | Author ${data.copyright}`
-    const footerIcon = "https://playantares.com/resources/icon.png"
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png"
 
     // Embed construction
     const Embed = new MessageEmbed()

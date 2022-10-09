@@ -8,11 +8,11 @@ export default async (client: Client) => {
 	const statusOptions = [
 		`/help | V.${process.env.VERSION}`,
 		`/help | ${doc.TOTAL_SERVERS} Servers`,
-		`/help | playantares.com`,
+		`/help | antaresnetwork.com`,
 		`/help | ${doc.TOTAL_SERVERS} Servers`,
 		`/help | nathen418.com`,
 		`/help | ${doc.TOTAL_SERVERS} Servers`,
-		`/help | status.playantares.com`,
+		`/help | status.antaresnetwork.com`,
 	];
 	let counter = 0;
 

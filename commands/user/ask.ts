@@ -67,7 +67,7 @@ export default {
     const thumbnail = `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.jpeg`;
     const description = `${author.username} asks:\n ${args[0]}\n\n **My Answer:**\n ${eightball[index]}`;
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/icon.png";
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png";
 
     // Embed construction
     const Embed = new MessageEmbed()

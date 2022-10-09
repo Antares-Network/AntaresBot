@@ -23,7 +23,7 @@ export default {
     const title = "Random Dog Picture"
     const url = await axios.get("https://dog.ceo/api/breeds/image/random").then(res => res.data.message);
     const footer = `Delivered in: ${client.ws.ping}ms | Antares Bot | ${process.env.VERSION}`
-    const footerIcon = "https://playantares.com/resources/icon.png"
+    const footerIcon = "https://antaresnetwork.com/resources/icon.png"
 
     // Embed construction
     const Embed = new MessageEmbed()
