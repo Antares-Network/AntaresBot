@@ -16,7 +16,7 @@ export default {
       // Command Information
       const id = interaction.user.id;
       const chan = interaction.channel as TextChannel;
-      const comicNum = Math.floor(Math.random() * 2623);
+      const comicNum = Math.floor(Math.random() * 2697);
   
       // Embed values
       const color = "#ff3505"
