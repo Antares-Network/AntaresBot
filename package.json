@@ -13,7 +13,7 @@
     "dotenv": "^16.0.0",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
-    "mongoose": "^6.4.6",
+    "mongoose": "^6.12.0",
     "path": "^0.12.7",
     "reddit-image-fetcher": "^2.0.10",
     "requests": "^0.3.0",
