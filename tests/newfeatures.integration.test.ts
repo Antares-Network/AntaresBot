@@ -11,6 +11,7 @@ import { nextSeq, syncServers } from "../src/lib/services/servers.js";
 import { invalidateSettings } from "../src/lib/services/settings.js";
 import { createSuggestion, getSuggestion, setSuggestionStatus, voteSuggestion } from "../src/lib/services/suggestions.js";
 import { ticketChannelDeleted } from "../src/lib/services/tickets.js";
+import { getPresenceConfig, updatePresenceConfig } from "../src/lib/services/presence.js";
 
 const G = "788541416740487218";
 const G2 = "775216104012120124";
@@ -155,5 +156,28 @@ describe("privacy cascades for new data", () => {
     await TicketModel.create({ guildId: G, number: 1, openerId: U2, channelId: C });
     await ticketChannelDeleted(C);
     expect((await TicketModel.findOne({ channelId: C }).lean())?.status).toBe("closed");
+  });
+});
+
+describe("status rotation storage", () => {
+  it("starts from the default, saves edits, survives concurrent edits and resets", async () => {
+    const start = await getPresenceConfig();
+    expect(start.isDefault).toBe(true);
+    expect(start.rotation.length).toBeGreaterThan(0);
+
+    await updatePresenceConfig(() => ({ rotation: [{ text: "a", type: "playing" }] }));
+    await Promise.all(
+      ["b", "c", "d"].map((t) => updatePresenceConfig((cur) => ({ rotation: [...cur.rotation, { text: t, type: "watching" as const }] }))),
+    );
+    const after = await getPresenceConfig();
+    expect(after.isDefault).toBe(false);
+    expect(after.rotation.map((e) => e.text).sort()).toEqual(["a", "b", "c", "d"]); // no lost updates
+
+    await updatePresenceConfig(() => ({ pinned: { text: "maintenance", type: "custom" }, intervalSec: 60 }));
+    expect(await getPresenceConfig()).toMatchObject({ pinned: { text: "maintenance" }, intervalSec: 60 });
+
+    await expect(updatePresenceConfig(() => ({ intervalSec: 5 }))).rejects.toThrow(); // schema min 30
+    await updatePresenceConfig(() => ({ rotation: null, intervalSec: 300, pinned: null }));
+    expect(await getPresenceConfig()).toMatchObject({ isDefault: true, intervalSec: 300, pinned: null });
   });
 });

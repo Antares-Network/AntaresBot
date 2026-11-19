@@ -1,11 +1,11 @@
 import { writeFile } from "node:fs/promises";
 import { container } from "@sapphire/framework";
-import { ActivityType, Status, time, type Client } from "discord.js";
+import { Status, time, type Client } from "discord.js";
 import { claimDueReminders } from "./services/reminders.js";
 import mongoose from "mongoose";
-import { VERSION } from "./constants.js";
 import { postJson } from "./http.js";
 import { flushServerWrites } from "./services/servers.js";
+import { presence } from "./services/presence.js";
 import { refreshBotStats } from "./services/stats.js";
 import { flushMemberStats } from "./services/members.js";
 import { flushUserActivity } from "./services/users.js";
@@ -83,23 +83,8 @@ export function startTasks(client: Client<true>): void {
     await writeFile(HEARTBEAT_FILE, String(Date.now()));
   });
 
-  // Rotating presence (v1 status-changer). Server count is now live, not a stale DB read.
-  const statuses = [
-    () => `/help | V.${VERSION}`,
-    () => `/help | ${client.guilds.cache.size} Servers`,
-    () => "/help | antaresnetwork.com",
-    () => `/help | ${client.guilds.cache.size} Servers`,
-    () => "/help | nathen418.com",
-    () => `/help | ${client.guilds.cache.size} Servers`,
-    () => "/help | status.antaresnetwork.com",
-  ];
-  let i = 0;
-  every("status-rotation", 5 * 60_000, () => {
-    const status = statuses[i % statuses.length];
-    i++;
-    if (!status) return;
-    client.user.setPresence({ status: "online", activities: [{ name: status(), type: ActivityType.Playing }] });
-  });
+  // Rotating presence (v1 status-changer), now owner-editable with /setstatus and stored in bot_config.
+  presence.start(client);
 
   // Uptime Kuma push monitor (v1 statuspage feature).
   if (cfg.UPTIME_KUMA_PUSH_URL) {
@@ -136,5 +121,6 @@ export function startTasks(client: Client<true>): void {
 }
 
 export function stopTasks(): void {
+  presence.stop();
   for (const t of timers.splice(0)) clearInterval(t);
 }

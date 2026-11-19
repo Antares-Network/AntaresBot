@@ -15,6 +15,7 @@
  *   cases         moderation cases (warnings, auto-mod, escalations), numbered per server
  *   suggestions   /suggest posts and their votes (the text lives only in the Discord message)
  *   tickets       support tickets (the conversation lives only in the Discord channel)
+ *   bot_config    single document (_id "global"): the bot's status rotation
  *   migrations    records which one-time data migrations have run
  *
  * v1 collections (guilds, piis, gates) are only ever READ, never modified.
@@ -269,6 +270,32 @@ const userSchema = new Schema(
   { collection: "users", versionKey: false },
 );
 
+export const STATUS_TYPES = ["playing", "watching", "listening", "competing", "custom"] as const;
+export type StatusType = (typeof STATUS_TYPES)[number];
+
+const statusEntrySchema = new Schema(
+  {
+    text: { type: String, required: true, maxlength: 128 },
+    type: { type: String, enum: STATUS_TYPES, default: "playing" },
+  },
+  { _id: false },
+);
+
+/** Bot-wide owner settings. The status rotation is edited with /setstatus and survives restarts. */
+const botConfigSchema = new Schema(
+  {
+    _id: { type: String, default: "global" },
+    /** Null until first edited: the built-in default rotation is used. */
+    statusRotation: { type: [statusEntrySchema], default: null },
+    statusIntervalSec: { type: Number, default: 300, min: 30, max: 3600 },
+    /** A pinned status pauses the rotation. */
+    statusPinned: { type: statusEntrySchema, default: null },
+    /** Compare-and-set revision for edits. */
+    rev: { type: Number, default: 0 },
+  },
+  { collection: "bot_config", versionKey: false },
+);
+
 const migrationSchema = new Schema(
   {
     _id: { type: String, required: true },
@@ -295,6 +322,7 @@ export const AuditModel = mongoose.model("Audit", auditSchema);
 export const CaseModel = mongoose.model("Case", caseSchema);
 export const SuggestionModel = mongoose.model("Suggestion", suggestionSchema);
 export const TicketModel = mongoose.model("Ticket", ticketSchema);
+export const BotConfigModel = mongoose.model("BotConfig", botConfigSchema);
 
 export const gateEntryId = (kind: GateKind, targetId: string) => `${kind}:${targetId}`;
 export const memberId = (guildId: string, userId: string) => `${guildId}:${userId}`;
@@ -315,4 +343,5 @@ export const ALL_MODELS = [
   CaseModel,
   SuggestionModel,
   TicketModel,
+  BotConfigModel,
 ] as const;

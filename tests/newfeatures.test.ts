@@ -1,4 +1,5 @@
 import { createServer, type Server } from "node:net";
+import { ActivityType } from "discord.js";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { birthdaysOn, daysUntil, isValidBirthday, localDate } from "../src/lib/features/birthdays.js";
 import { MAX_XP_MULTIPLIER, xpMultiplierFor } from "../src/lib/features/levels.js";
@@ -15,6 +16,8 @@ import { moderationProblem, shouldEscalate, warningCutoff } from "../src/lib/fea
 import { McPingError, pingMinecraft } from "../src/lib/services/mcStatus.js";
 import { statusChannelName } from "../src/lib/services/mcStatusChannels.js";
 import { parseSettings } from "../src/lib/services/settings.js";
+import { moveItem, renderStatus, shortUptime, unknownPlaceholders } from "../src/lib/features/presence.js";
+import { toActivity } from "../src/lib/services/presence.js";
 
 describe("moderation rules", () => {
   it("escalates on every Nth active warning", () => {
@@ -167,5 +170,30 @@ describe("pingMinecraft against a fake server", () => {
   it("pings when private addresses are allowed (owner status channels)", async () => {
     const s = await pingMinecraft(`127.0.0.1:${port}`, { allowPrivate: true });
     expect(s).toMatchObject({ online: 1, max: 10, version: "1.21", motd: "Test", players: ["Notch"] });
+  });
+});
+
+describe("status rotation", () => {
+  const vars = { servers: 1234, users: 56789, messages: 10, uptimeMs: 3 * 86_400_000 + 4 * 3_600_000, pingMs: 42.4, version: "2.0.0", commands: 61 };
+  it("renders placeholders and leaves unknown text alone", () => {
+    expect(renderStatus("/help | {servers} servers, {users} users", vars)).toBe("/help | 1,234 servers, 56,789 users");
+    expect(renderStatus("up {uptime} · {ping} · v{version} · {commands} cmds · {nope}", vars)).toBe("up 3d 4h · 42ms · v2.0.0 · 61 cmds · {nope}");
+    expect(renderStatus("{ping}", { ...vars, pingMs: -1 })).toBe("…");
+    expect(renderStatus("x".repeat(200), vars)).toHaveLength(128);
+  });
+  it("flags unknown placeholders", () => {
+    expect(unknownPlaceholders("{servers} {severs} {Users}")).toEqual(["severs", "Users"]);
+  });
+  it("formats uptime compactly", () => {
+    expect([0, 59_000, 61 * 60_000, 25 * 3_600_000].map(shortUptime)).toEqual(["0m", "0m", "1h 1m", "1d 1h"]);
+  });
+  it("moves items", () => {
+    expect(moveItem(["a", "b", "c", "d"], 0, 2)).toEqual(["b", "c", "a", "d"]);
+    expect(moveItem(["a", "b", "c"], 2, 0)).toEqual(["c", "a", "b"]);
+    expect(moveItem(["a", "b"], 0, 99)).toEqual(["b", "a"]);
+  });
+  it("maps custom statuses to Discord's custom activity", () => {
+    expect(toActivity({ text: "{servers} servers", type: "custom" }, vars)).toEqual({ type: ActivityType.Custom, name: "Custom Status", state: "1,234 servers" });
+    expect(toActivity({ text: "you", type: "watching" }, vars)).toEqual({ type: ActivityType.Watching, name: "you" });
   });
 });
