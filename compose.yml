@@ -1,0 +1,134 @@
+# Antares Bot + local MongoDB.
+#   cp .env.example .env   # fill in values
+#   docker compose up -d --build
+name: antaresbot
+
+services:
+  mongo:
+    image: mongo:8.0.38
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:?set MONGO_ROOT_USER in .env}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?set MONGO_ROOT_PASSWORD in .env}
+      MONGO_INITDB_DATABASE: antaresbot
+      # Read by docker/mongo-init/01-create-app-user.js on first start only.
+      MONGO_APP_USER: ${MONGO_APP_USER:?set MONGO_APP_USER in .env}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD:?set MONGO_APP_PASSWORD in .env}
+    volumes:
+      - mongo-data:/data/db
+      - ./docker/mongo-init:/docker-entrypoint-initdb.d:ro
+    # Bound to localhost only, for Compass/mongosh/mongorestore from this machine.
+    # The bot reaches mongo over the internal compose network; nothing is exposed to the LAN.
+    ports:
+      - "127.0.0.1:27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    security_opt:
+      - no-new-privileges:true
+
+  bot:
+    build: .
+    image: antaresbot:2.0.0
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    # Explicit allow-list instead of `env_file: .env`, so the Mongo ROOT credentials in .env
+    # never reach the bot process. Only what the bot reads is passed through.
+    environment:
+      # Least-privilege app user (readWrite on the antaresbot DB only), never the root user.
+      BOT_MONGO_PATH: mongodb://${MONGO_APP_USER}:${MONGO_APP_PASSWORD}@mongo:27017/antaresbot?authSource=antaresbot
+      BOT_TOKEN: ${BOT_TOKEN:?set BOT_TOKEN in .env}
+      BOT_OWNER_IDS: ${BOT_OWNER_IDS:-${BOT_OWNER_ID:-}}
+      DEV_GUILD_IDS: ${DEV_GUILD_IDS:-${TEST_SERVERS:-}}
+      REPORTING_CHANNEL: ${REPORTING_CHANNEL:-}
+      NASA_API_KEY: ${NASA_API_KEY:-}
+      CONFESSION_SECRET: ${CONFESSION_SECRET:-}
+      UPTIME_KUMA_PUSH_URL: ${UPTIME_KUMA_PUSH_URL:-}
+      # v1 names, mapped to UPTIME_KUMA_PUSH_URL by the bot when that isn't set.
+      UPTIME_KUMA_MONITOR_DOMAIN: ${UPTIME_KUMA_MONITOR_DOMAIN:-}
+      UPTIME_KUMA_MONITOR_ID: ${UPTIME_KUMA_MONITOR_ID:-}
+      TOP_GG_TOKEN: ${TOP_GG_TOKEN:-}
+      DISCORD_BOTS_GG_TOKEN: ${DISCORD_BOTS_GG_TOKEN:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      # Optional extra root CA (TLS-inspecting proxy), see certs/README.txt. Empty = none.
+      NODE_EXTRA_CA_CERTS: ${NODE_EXTRA_CA_CERTS:-}
+    volumes:
+      - ./certs:/certs:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  # Web dashboard (optional): `docker compose --profile dashboard up -d`.
+  # Put it behind your HTTPS reverse proxy (e.g. Nginx Proxy Manager) -> http://<host>:8080.
+  dashboard:
+    profiles: ["dashboard"]
+    image: antaresbot:2.0.0
+    restart: unless-stopped
+    command: ["node", "--enable-source-maps", "dist/dashboard/main.js"]
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      BOT_MONGO_PATH: mongodb://${MONGO_APP_USER}:${MONGO_APP_PASSWORD}@mongo:27017/antaresbot?authSource=antaresbot
+      BOT_TOKEN: ${BOT_TOKEN:?set BOT_TOKEN in .env}
+      BOT_OWNER_IDS: ${BOT_OWNER_IDS:-${BOT_OWNER_ID:-}}
+      # Validated by the dashboard itself at startup (required ":?" here would break `up` with the profile off).
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID:-}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET:-}
+      DASHBOARD_PUBLIC_URL: ${DASHBOARD_PUBLIC_URL:-}
+      DASHBOARD_SESSION_SECRET: ${DASHBOARD_SESSION_SECRET:-}
+      DASHBOARD_TRUST_PROXY: ${DASHBOARD_TRUST_PROXY:-true}
+      NODE_EXTRA_CA_CERTS: ${NODE_EXTRA_CA_CERTS:-}
+    volumes:
+      - ./certs:/certs:ro
+    ports:
+      - "${DASHBOARD_BIND:-127.0.0.1}:8080:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/healthz').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Nightly compressed dump of the bot database, keeping 14 days. Restore with:
+  #   mongorestore --uri "<app user URI>" --gzip --archive=backups/antaresbot-YYYY-MM-DD.archive.gz
+  mongo-backup:
+    image: mongo:8.0.38
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      BACKUP_URI: mongodb://${MONGO_APP_USER}:${MONGO_APP_PASSWORD}@mongo:27017/antaresbot?authSource=antaresbot
+    volumes:
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        while true; do
+          f="/backups/antaresbot-$$(date +%F).archive.gz"
+          mongodump --uri="$$BACKUP_URI" --gzip --archive="$$f.tmp" && mv "$$f.tmp" "$$f" && echo "backup ok: $$f"
+          find /backups -name 'antaresbot-*.archive.gz' -mtime +14 -delete
+          sleep 86400
+        done
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  mongo-data:

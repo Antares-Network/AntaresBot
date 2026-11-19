@@ -1,17 +1,14 @@
 version = 1
 
-test_patterns = ["/index.ts"]
+test_patterns = ["tests/**"]
 
-exclude_patterns = ["/node_modules/**"]
-
-[[analyzers]]
-name = "test-coverage"
-enabled = true
+exclude_patterns = ["node_modules/**", "dist/**"]
 
 [[analyzers]]
 name = "javascript"
 enabled = true
 
-[[transformers]]
-name = "standardjs"
-enabled = true
+  [analyzers.meta]
+  plugins = []
+  environment = ["nodejs"]
+  dialect = "typescript"

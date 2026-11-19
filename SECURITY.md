@@ -4,11 +4,10 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.5.1  | :white_check_mark: |
-| < 1.4.4   | :x:                |
-| ------- | ------------------ |
+| 2.x     | :white_check_mark: |
+| 1.x     | :x:                |
 
 ## Reporting a Vulnerability
 
-To report a security vulnerability or plugin exploit, Please create an issue using the Security Flaw template, and mark it with the tag **SECURITY FLAW**
-You can expect a quick reply, ~within 1 business day, to your issue.
+Please report vulnerabilities privately through GitHub's **Security → Report a vulnerability** (private
+advisory) on this repository rather than a public issue. You can expect a reply within ~1 business day.
