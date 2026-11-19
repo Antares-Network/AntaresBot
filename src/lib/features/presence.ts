@@ -31,6 +31,19 @@ export const PLACEHOLDERS: Record<string, { describe: string; render: (v: Status
 
 export const MAX_STATUS_LENGTH = 128;
 export const MAX_ROTATION = 25;
+export const DEFAULT_INTERVAL_SEC = 300;
+export const MIN_INTERVAL_SEC = 30;
+export const MAX_INTERVAL_SEC = 3600;
+
+/** Own-property lookup, so inherited names like {constructor} or {__proto__} aren't treated as placeholders. */
+function placeholder(name: string) {
+  return Object.hasOwn(PLACEHOLDERS, name) ? PLACEHOLDERS[name] : undefined;
+}
+
+/** Whether a template uses a given placeholder (so costly values are only fetched when needed). */
+export function usesPlaceholder(template: string, name: string): boolean {
+  return template.includes(`{${name}}`);
+}
 
 /** Compact uptime: "12m", "4h 12m", "3d 4h". */
 export function shortUptime(ms: number): string {
@@ -44,12 +57,12 @@ export function shortUptime(ms: number): string {
 
 /** Placeholder names used in a template that don't exist (so typos are caught when saving). */
 export function unknownPlaceholders(template: string): string[] {
-  return [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1] as string).filter((name) => !(name in PLACEHOLDERS));
+  return [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1] as string).filter((name) => !placeholder(name));
 }
 
 /** Fill in {placeholders}; anything else is left as written. Result is clipped to Discord's limit. */
 export function renderStatus(template: string, vars: StatusVars): string {
-  const out = template.replace(/\{(\w+)\}/g, (whole, name: string) => PLACEHOLDERS[name]?.render(vars) ?? whole);
+  const out = template.replace(/\{(\w+)\}/g, (whole, name: string) => placeholder(name)?.render(vars) ?? whole);
   return out.length > MAX_STATUS_LENGTH ? `${out.slice(0, MAX_STATUS_LENGTH - 1)}…` : out;
 }
 
@@ -71,4 +84,27 @@ export function moveItem<T>(items: readonly T[], from: number, to: number): T[] 
   if (item === undefined) return out;
   out.splice(Math.min(Math.max(to, 0), out.length), 0, item);
   return out;
+}
+
+/**
+ * Where the rotation should be after a tick. `last` is the entry shown previously and its index.
+ * The entry is looked up again (nearest match to its old index) so edits that add, remove or
+ * reorder items keep the rotation in place. With `advance` false (an edit was just applied) the
+ * current entry is re-shown instead of skipping to the next one.
+ */
+export function rotationIndex(
+  rotation: readonly StatusEntry[],
+  last: { index: number; entry: StatusEntry } | null,
+  advance: boolean,
+): number {
+  const len = rotation.length;
+  if (len === 0 || !last) return 0;
+  let found = -1;
+  for (let i = 0; i < len; i++) {
+    const e = rotation[i] as StatusEntry;
+    if (e.text === last.entry.text && e.type === last.entry.type && (found < 0 || Math.abs(i - last.index) < Math.abs(found - last.index))) found = i;
+  }
+  if (found >= 0) return advance ? (found + 1) % len : found;
+  // The shown entry was removed or edited: whatever now sits at its index comes next.
+  return last.index < len ? last.index : 0;
 }

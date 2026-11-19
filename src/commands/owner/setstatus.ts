@@ -4,14 +4,19 @@ import { ephemeral, registerOwnerCommand } from "../../lib/commands.js";
 import { brandEmbed, truncate } from "../../lib/embeds.js";
 import { STATUS_TYPES, type StatusType } from "../../lib/db/models.js";
 import {
+  DEFAULT_INTERVAL_SEC,
   DEFAULT_ROTATION,
+  MAX_INTERVAL_SEC,
   MAX_ROTATION,
   MAX_STATUS_LENGTH,
+  MIN_INTERVAL_SEC,
   moveItem,
   PLACEHOLDERS,
   renderStatus,
   unknownPlaceholders,
+  usesPlaceholder,
   type StatusEntry,
+  type StatusVars,
 } from "../../lib/features/presence.js";
 import { getPresenceConfig, PresenceConflictError, statusVars, updatePresenceConfig } from "../../lib/services/presence.js";
 
@@ -23,8 +28,11 @@ const TYPE_LABEL: Record<StatusType, string> = {
   watching: "Watching",
   listening: "Listening to",
   competing: "Competing in",
-  custom: "(custom)",
+  custom: "", // custom statuses are shown with no prefix
 };
+
+/** Raw status text as inline code. Backticks can't be escaped inside a code span, so they're swapped for a look-alike. */
+const code = (text: string) => `\`${text.replaceAll("`", "ˋ")}\``;
 
 const textOption = (o: SlashCommandStringOption) =>
   o.setName("text").setDescription(`Status text. Placeholders: ${PLACEHOLDER_HELP}`.slice(0, 100)).setRequired(true).setMaxLength(MAX_STATUS_LENGTH);
@@ -32,7 +40,7 @@ const typeOption = (o: SlashCommandStringOption) =>
   o
     .setName("type")
     .setDescription("Activity type (default: playing)")
-    .addChoices(...STATUS_TYPES.map((t) => ({ name: TYPE_LABEL[t] === "(custom)" ? "custom (no prefix)" : t, value: t })));
+    .addChoices(...STATUS_TYPES.map((t) => ({ name: t === "custom" ? "custom (no prefix)" : t, value: t })));
 
 class UserFacingError extends Error {}
 
@@ -84,7 +92,10 @@ export class SetStatusCommand extends Command {
           s
             .setName("interval")
             .setDescription("How often the status changes")
-            .addIntegerOption((o) => o.setName("seconds").setDescription("30 – 3600 (default 300)").setRequired(true).setMinValue(30).setMaxValue(3600)),
+            .addIntegerOption((o) => o.setName("seconds").setDescription(`${MIN_INTERVAL_SEC} – ${MAX_INTERVAL_SEC} (default ${DEFAULT_INTERVAL_SEC})`)
+                .setRequired(true)
+                .setMinValue(MIN_INTERVAL_SEC)
+                .setMaxValue(MAX_INTERVAL_SEC)),
         )
         .addSubcommand((s) =>
           s
@@ -109,9 +120,12 @@ export class SetStatusCommand extends Command {
     if (!interaction.inCachedGuild()) return;
     const o = interaction.options;
     const sub = o.getSubcommand();
-    const vars = await statusVars(interaction.client);
-    const show = (e: StatusEntry) => `${TYPE_LABEL[e.type] === "(custom)" ? "" : `${TYPE_LABEL[e.type]} `}**${renderStatus(e.text, vars)}**`;
-    const reply = (content: string) => interaction.reply({ content: truncate(content, 2000), flags: ephemeral, allowedMentions: { parse: [] } });
+    // Defer first: the DB reads and compare-and-set retries below can outlast Discord's 3s reply window.
+    await interaction.deferReply({ flags: ephemeral });
+    const show = (e: StatusEntry, vars: StatusVars) => `${TYPE_LABEL[e.type] ? `${TYPE_LABEL[e.type]} ` : ""}**${renderStatus(e.text, vars)}**`;
+    /** Render one entry, reading the message count only if it's used. */
+    const showNow = async (e: StatusEntry) => show(e, await statusVars(interaction.client, { messages: usesPlaceholder(e.text, "messages") }));
+    const reply = (content: string) => interaction.editReply({ content: truncate(content, 2000), allowedMentions: { parse: [] } });
 
     const entryFromOptions = (): StatusEntry => {
       const text = o.getString("text", true).trim();
@@ -129,8 +143,9 @@ export class SetStatusCommand extends Command {
       switch (sub) {
         case "list": {
           const cfg = await getPresenceConfig();
-          const lines = cfg.rotation.map((e, i) => `**${i + 1}.** \`${e.text}\` (${e.type})\n  → ${show(e)}`);
-          await interaction.reply({
+          const vars = await statusVars(interaction.client); // all values: the placeholder list shows each one
+          const lines = cfg.rotation.map((e, i) => `**${i + 1}.** ${code(e.text)} (${e.type})\n  → ${show(e, vars)}`);
+          await interaction.editReply({
             embeds: [
               brandEmbed(interaction.client)
                 .setTitle("Status rotation")
@@ -138,29 +153,31 @@ export class SetStatusCommand extends Command {
                 .addFields(
                   { name: "Changes every", value: `${cfg.intervalSec}s`, inline: true },
                   { name: "Source", value: cfg.isDefault ? "built-in default" : "custom", inline: true },
-                  { name: "Pinned", value: cfg.pinned ? `\`${cfg.pinned.text}\` → ${show(cfg.pinned)} (rotation paused)` : "no" },
+                  { name: "Pinned", value: cfg.pinned ? truncate(`${code(cfg.pinned.text)} → ${show(cfg.pinned, vars)} (rotation paused)`, 1024) : "no" },
                   { name: "Placeholders", value: Object.entries(PLACEHOLDERS).map(([k, p]) => `\`{${k}}\` ${p.describe} (now: ${p.render(vars)})`).join("\n") },
                 ),
             ],
-            flags: ephemeral,
           });
           return;
         }
         case "preview": {
           const e = entryFromOptions();
-          await reply(`Preview: ${show(e)}`);
+          await reply(`Preview: ${await showNow(e)}`);
           return;
         }
         case "add": {
           const e = entryFromOptions();
           const pos = o.getInteger("position");
+          let idx = 0;
           await updatePresenceConfig((cur) => {
             if (cur.rotation.length >= MAX_ROTATION) throw new UserFacingError(`The rotation can hold at most ${MAX_ROTATION} statuses.`);
             const list = [...cur.rotation];
-            list.splice(pos ? Math.min(pos - 1, list.length) : list.length, 0, e);
+            idx = pos ? Math.min(pos - 1, list.length) : list.length; // past the end appends
+            list.splice(idx, 0, e);
             return { rotation: list };
           });
-          await reply(`✅ Added: ${show(e)}`);
+          const clamped = pos !== null && pos - 1 !== idx ? ` (there was no #${pos})` : "";
+          await reply(`✅ Added as #${idx + 1}${clamped}: ${await showNow(e)}`);
           return;
         }
         case "edit": {
@@ -171,7 +188,7 @@ export class SetStatusCommand extends Command {
             list[at(list, n)] = e;
             return { rotation: list };
           });
-          await reply(`✅ #${n} is now: ${show(e)}`);
+          await reply(`✅ #${n} is now: ${await showNow(e)}`);
           return;
         }
         case "remove": {
@@ -183,17 +200,19 @@ export class SetStatusCommand extends Command {
             if (list.length === 0) throw new UserFacingError("That's the last status. Add another first, or use `/setstatus pin`.");
             return { rotation: list };
           });
-          await reply(`✅ Removed #${n}${removed ? `: \`${removed.text}\`` : ""}.`);
+          await reply(`✅ Removed #${n}${removed ? `: ${code(removed.text)}` : ""}.`);
           return;
         }
         case "move": {
           const from = o.getInteger("from", true);
           const to = o.getInteger("to", true);
+          let dest = to;
           await updatePresenceConfig((cur) => {
             const i = at(cur.rotation, from);
-            return { rotation: moveItem(cur.rotation, i, to - 1) };
+            dest = Math.min(to, cur.rotation.length); // moveItem clamps the same way
+            return { rotation: moveItem(cur.rotation, i, dest - 1) };
           });
-          await reply(`✅ Moved #${from} to #${to}.`);
+          await reply(`✅ Moved #${from} to #${dest}${dest !== to ? ` (the end; there's no #${to})` : ""}.`);
           return;
         }
         case "interval": {
@@ -205,7 +224,7 @@ export class SetStatusCommand extends Command {
         case "pin": {
           const e = entryFromOptions();
           await updatePresenceConfig(() => ({ pinned: e }));
-          await reply(`📌 Pinned: ${show(e)}. The rotation is paused until \`/setstatus unpin\`.`);
+          await reply(`📌 Pinned: ${await showNow(e)}. The rotation is paused until \`/setstatus unpin\`.`);
           return;
         }
         case "unpin":
@@ -213,8 +232,8 @@ export class SetStatusCommand extends Command {
           await reply("✅ Rotation resumed.");
           return;
         case "reset":
-          await updatePresenceConfig(() => ({ rotation: null, intervalSec: 300, pinned: null }));
-          await reply(`✅ Restored the default rotation (${DEFAULT_ROTATION.length} statuses, every 300s).`);
+          await updatePresenceConfig(() => ({ rotation: null, intervalSec: DEFAULT_INTERVAL_SEC, pinned: null }));
+          await reply(`✅ Restored the default rotation (${DEFAULT_ROTATION.length} statuses, every ${DEFAULT_INTERVAL_SEC}s).`);
           return;
       }
     } catch (err) {

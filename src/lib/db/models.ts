@@ -21,6 +21,7 @@
  * v1 collections (guilds, piis, gates) are only ever READ, never modified.
  */
 import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import { DEFAULT_INTERVAL_SEC, MAX_INTERVAL_SEC, MAX_ROTATION, MAX_STATUS_LENGTH, MIN_INTERVAL_SEC } from "../features/presence.js";
 
 const snowflake = { type: String, match: /^\d{17,20}$/ } as const;
 const optionalSnowflake = { ...snowflake, default: null } as const;
@@ -275,7 +276,7 @@ export type StatusType = (typeof STATUS_TYPES)[number];
 
 const statusEntrySchema = new Schema(
   {
-    text: { type: String, required: true, maxlength: 128 },
+    text: { type: String, required: true, maxlength: MAX_STATUS_LENGTH },
     type: { type: String, enum: STATUS_TYPES, default: "playing" },
   },
   { _id: false },
@@ -286,8 +287,12 @@ const botConfigSchema = new Schema(
   {
     _id: { type: String, default: "global" },
     /** Null until first edited: the built-in default rotation is used. */
-    statusRotation: { type: [statusEntrySchema], default: null },
-    statusIntervalSec: { type: Number, default: 300, min: 30, max: 3600 },
+    statusRotation: {
+      type: [statusEntrySchema],
+      default: null,
+      validate: { validator: (v: unknown[] | null) => v == null || v.length <= MAX_ROTATION, message: `At most ${MAX_ROTATION} statuses.` },
+    },
+    statusIntervalSec: { type: Number, default: DEFAULT_INTERVAL_SEC, min: MIN_INTERVAL_SEC, max: MAX_INTERVAL_SEC },
     /** A pinned status pauses the rotation. */
     statusPinned: { type: statusEntrySchema, default: null },
     /** Compare-and-set revision for edits. */

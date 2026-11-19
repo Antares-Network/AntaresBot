@@ -3,7 +3,15 @@ import { ActivityType, type ActivitiesOptions, type Client } from "discord.js";
 import mongoose from "mongoose";
 import { BotConfigModel, type StatusType } from "../db/models.js";
 import { VERSION } from "../constants.js";
-import { DEFAULT_ROTATION, renderStatus, type StatusEntry, type StatusVars } from "../features/presence.js";
+import {
+  DEFAULT_INTERVAL_SEC,
+  DEFAULT_ROTATION,
+  renderStatus,
+  rotationIndex,
+  usesPlaceholder,
+  type StatusEntry,
+  type StatusVars,
+} from "../features/presence.js";
 import { getBotStats } from "./stats.js";
 
 export interface PresenceConfig {
@@ -21,7 +29,7 @@ export async function getPresenceConfig(): Promise<PresenceConfig> {
   return {
     rotation: stored ? stored.map((e) => ({ text: e.text, type: e.type })) : [...DEFAULT_ROTATION],
     isDefault: !stored,
-    intervalSec: doc?.statusIntervalSec ?? 300,
+    intervalSec: doc?.statusIntervalSec ?? DEFAULT_INTERVAL_SEC,
     pinned: doc?.statusPinned ? { text: doc.statusPinned.text, type: doc.statusPinned.type } : null,
     rev: doc?.rev ?? 0,
   };
@@ -50,8 +58,9 @@ export async function updatePresenceConfig(
       // runValidators: enforce the schema's length/enum/range rules on every write.
       const res = await BotConfigModel.updateOne(filter, { $set }, { upsert: cur.rev === 0, runValidators: true });
       if (res.matchedCount === 1 || res.upsertedCount === 1) {
-        presence.kick();
-        return await getPresenceConfig();
+        const next = await getPresenceConfig();
+        presence.kick(next);
+        return next;
       }
     } catch (err) {
       if ((err as { code?: number }).code !== 11000) throw err; // lost an upsert race: retry
@@ -60,9 +69,12 @@ export async function updatePresenceConfig(
   throw new PresenceConflictError("The status rotation was being changed at the same time; please try again.");
 }
 
-/** Live values for placeholders. */
-export async function statusVars(client: Client<true>): Promise<StatusVars> {
-  const stats = await getBotStats().catch(() => null);
+/**
+ * Live values for placeholders. `{messages}` needs a database read, so pass `messages: false`
+ * when no template being rendered uses it.
+ */
+export async function statusVars(client: Client<true>, { messages = true }: { messages?: boolean } = {}): Promise<StatusVars> {
+  const stats = messages ? await getBotStats().catch(() => null) : null;
   let users = 0;
   for (const g of client.guilds.cache.values()) users += g.memberCount;
   return {
@@ -94,50 +106,79 @@ export function toActivity(entry: StatusEntry, vars: StatusVars): ActivitiesOpti
  * The rotation loop. A self-rescheduling timer (not setInterval) so interval changes take
  * effect on the next tick, and kick() applies an edit immediately. Placeholders are
  * re-rendered every time a status is shown, so counts stay current.
+ *
+ * The config is cached in memory: updatePresenceConfig() is the only writer and hands the
+ * fresh config to kick(), so timer ticks don't need to read the database.
  */
 class PresenceRotation {
   private timer: NodeJS.Timeout | null = null;
   private client: Client<true> | null = null;
-  private index = 0;
+  private cfg: PresenceConfig | null = null;
+  /** The rotation entry shown last (not the pinned one), so edits can find it again. */
+  private last: { index: number; entry: StatusEntry } | null = null;
   private running = false;
+  /** A kick arrived while a tick was running: re-apply as soon as it finishes. */
+  private kickPending = false;
 
   public start(client: Client<true>): void {
     this.client = client;
-    this.schedule(0);
+    this.schedule(0, true);
   }
 
   public stop(): void {
     if (this.timer) clearTimeout(this.timer);
     this.timer = null;
     this.client = null;
+    this.cfg = null;
   }
 
-  /** Apply the current config now (after an edit). */
-  public kick(): void {
-    if (this.client) this.schedule(0);
+  /** Apply a just-saved config now, re-showing the current entry rather than advancing. */
+  public kick(cfg: PresenceConfig): void {
+    this.cfg = cfg;
+    if (!this.client) return;
+    if (this.running) this.kickPending = true;
+    else this.schedule(0, false);
   }
 
-  private schedule(ms: number): void {
+  private schedule(ms: number, advance: boolean): void {
     if (this.timer) clearTimeout(this.timer);
-    this.timer = setTimeout(() => void this.tick(), ms);
+    this.timer = setTimeout(() => void this.tick(advance), ms);
   }
 
-  private async tick(): Promise<void> {
+  private async tick(advance: boolean): Promise<void> {
     const client = this.client;
-    if (!client || this.running) return;
+    if (!client) return;
+    if (this.running) {
+      this.kickPending = true;
+      return;
+    }
     this.running = true;
-    let next = 300_000;
+    let next = DEFAULT_INTERVAL_SEC * 1000;
     try {
-      const cfg = await getPresenceConfig();
+      const cfg = (this.cfg ??= await getPresenceConfig());
       next = cfg.intervalSec * 1000;
-      const entry = cfg.pinned ?? cfg.rotation[this.index % Math.max(cfg.rotation.length, 1)];
-      if (!cfg.pinned) this.index = (this.index + 1) % Math.max(cfg.rotation.length, 1);
-      if (entry) client.user.setPresence({ status: "online", activities: [toActivity(entry, await statusVars(client))] });
+      let entry: StatusEntry | undefined;
+      if (cfg.pinned) {
+        entry = cfg.pinned; // the rotation position is kept, so unpinning resumes where it was
+      } else {
+        const index = rotationIndex(cfg.rotation, this.last, advance);
+        entry = cfg.rotation[index];
+        this.last = entry ? { index, entry } : null;
+      }
+      if (entry) {
+        const vars = await statusVars(client, { messages: usesPlaceholder(entry.text, "messages") });
+        client.user.setPresence({ status: "online", activities: [toActivity(entry, vars)] });
+      }
     } catch (err) {
       container.logger.warn("Status rotation failed:", err);
     } finally {
       this.running = false;
-      if (this.client) this.schedule(next);
+      if (this.client) {
+        // A kick during the run carries newer config: apply it now instead of waiting a full interval.
+        const kicked = this.kickPending;
+        this.kickPending = false;
+        this.schedule(kicked ? 0 : next, !kicked);
+      }
     }
   }
 }

@@ -62,6 +62,8 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      # Heartbeat for the HEALTHCHECK (root filesystem is read-only). uid 1000 = the image's node user.
+      - /run/antaresbot:uid=1000,gid=1000,mode=0700
     cap_drop:
       - ALL
     security_opt:

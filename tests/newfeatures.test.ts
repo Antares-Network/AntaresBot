@@ -16,7 +16,7 @@ import { moderationProblem, shouldEscalate, warningCutoff } from "../src/lib/fea
 import { McPingError, pingMinecraft } from "../src/lib/services/mcStatus.js";
 import { statusChannelName } from "../src/lib/services/mcStatusChannels.js";
 import { parseSettings } from "../src/lib/services/settings.js";
-import { moveItem, renderStatus, shortUptime, unknownPlaceholders } from "../src/lib/features/presence.js";
+import { moveItem, renderStatus, rotationIndex, shortUptime, unknownPlaceholders, type StatusEntry } from "../src/lib/features/presence.js";
 import { toActivity } from "../src/lib/services/presence.js";
 
 describe("moderation rules", () => {
@@ -183,6 +183,26 @@ describe("status rotation", () => {
   });
   it("flags unknown placeholders", () => {
     expect(unknownPlaceholders("{servers} {severs} {Users}")).toEqual(["severs", "Users"]);
+  });
+  it("doesn't treat inherited object keys as placeholders", () => {
+    expect(unknownPlaceholders("{constructor} {toString} {__proto__} {hasOwnProperty}")).toEqual(["constructor", "toString", "__proto__", "hasOwnProperty"]);
+    expect(renderStatus("{constructor} {valueOf}", vars)).toBe("{constructor} {valueOf}");
+  });
+  it("keeps the rotation position across edits", () => {
+    const s = (text: string): StatusEntry => ({ text, type: "playing" });
+    const list = ["a", "b", "c", "d"].map(s);
+    expect(rotationIndex(list, null, true)).toBe(0); // first tick
+    expect(rotationIndex(list, { index: 1, entry: s("b") }, true)).toBe(2); // timer advances
+    expect(rotationIndex(list, { index: 1, entry: s("b") }, false)).toBe(1); // an edit re-shows the current one
+    expect(rotationIndex(list, { index: 3, entry: s("d") }, true)).toBe(0); // wraps
+    // "c" was shown at #3, then #1 was removed: it's now #2, and "d" comes next.
+    expect(rotationIndex(["b", "c", "d"].map(s), { index: 2, entry: s("c") }, true)).toBe(2);
+    // The shown entry was removed: its successor slid into its place and is shown next.
+    expect(rotationIndex(["a", "c", "d"].map(s), { index: 1, entry: s("b") }, true)).toBe(1);
+    expect(rotationIndex(["a", "b"].map(s), { index: 2, entry: s("c") }, true)).toBe(0);
+    // Duplicates resolve to the copy nearest the old position.
+    expect(rotationIndex(["x", "a", "x", "b", "x"].map(s), { index: 2, entry: s("x") }, true)).toBe(3);
+    expect(rotationIndex([], { index: 0, entry: s("a") }, true)).toBe(0);
   });
   it("formats uptime compactly", () => {
     expect([0, 59_000, 61 * 60_000, 25 * 3_600_000].map(shortUptime)).toEqual(["0m", "0m", "1h 1m", "1d 1h"]);

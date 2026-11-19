@@ -38,7 +38,8 @@ export class ChatInputCommandSuccessListener extends Listener<typeof Events.Chat
       const details = describeOptions(interaction.options.data);
       const where = interaction.guild ? `${interaction.guild.name} (${interaction.guildId})` : "DM";
       const line = `🛡️ AUDIT /${command.name} ${details}`.trim() + `\nby ${interaction.user.tag} (${interaction.user.id}) in ${where}`;
-      this.container.logger.info(line.replace("\n", " "));
+      // Every line break: options, tags and server names are user-supplied and can contain them.
+      this.container.logger.info(line.replace(/[\r\n]+/g, " "));
       await recordAudit({
         guildId: interaction.guildId,
         actorId: interaction.user.id,

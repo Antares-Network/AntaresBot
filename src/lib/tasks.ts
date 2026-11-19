@@ -12,7 +12,8 @@ import { flushUserActivity } from "./services/users.js";
 import { runBirthdays } from "./services/birthdays.js";
 import { refreshAllStatusChannels } from "./services/mcStatusChannels.js";
 
-export const HEARTBEAT_FILE = "/tmp/antaresbot-heartbeat";
+/** In a directory only the bot user can write (created in the Dockerfile), not the shared /tmp. */
+export const HEARTBEAT_FILE = "/run/antaresbot/heartbeat";
 
 const timers: NodeJS.Timeout[] = [];
 

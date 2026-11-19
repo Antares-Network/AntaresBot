@@ -22,8 +22,10 @@ WORKDIR /app
 COPY --from=deps --chown=root:root /app/node_modules ./node_modules
 COPY --from=build --chown=root:root /app/dist ./dist
 COPY --chown=root:root package.json ./
+# Private, bot-owned directory for the heartbeat file (not the world-writable /tmp).
+RUN mkdir -p /run/antaresbot && chown node:node /run/antaresbot && chmod 700 /run/antaresbot
 USER node
 # Healthy = the bot wrote its heartbeat (gateway READY + DB ping OK) within the last 2 minutes.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
-  CMD node -e "const s=require('fs').statSync('/tmp/antaresbot-heartbeat');process.exit(Date.now()-s.mtimeMs<120000?0:1)"
+  CMD node -e "const s=require('fs').statSync('/run/antaresbot/heartbeat');process.exit(Date.now()-s.mtimeMs<120000?0:1)"
 CMD ["node", "--enable-source-maps", "dist/index.js"]
