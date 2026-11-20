@@ -27,12 +27,14 @@ export function parseDuration(text: string): number | null {
   let total = 0;
   let consumed = "";
   for (const m of src.matchAll(re)) {
-    const unit = UNITS[m[2] ?? ""];
+    // Own properties only: "6constructor" must not find Object.prototype.constructor (-> NaN).
+    const name = m[2] ?? "";
+    const unit = Object.hasOwn(UNITS, name) ? UNITS[name] : undefined;
     if (!unit) return null;
     total += Number(m[1]) * unit;
     consumed += m[0];
   }
   if (consumed.replace(/\s+/g, "") !== src.replace(/\s+/g, "")) return null;
-  if (total < 10_000 || total > MAX_DURATION_MS) return null;
+  if (!Number.isSafeInteger(total) || total < 10_000 || total > MAX_DURATION_MS) return null;
   return total;
 }

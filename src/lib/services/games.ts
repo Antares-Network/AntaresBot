@@ -35,7 +35,7 @@ export async function stopAllGames(): Promise<void> {
 const norm = (s: string) =>
   s
     .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "") // combining accents left by NFKD
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();

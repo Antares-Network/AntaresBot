@@ -3,6 +3,13 @@ import { applyLegacyEnv } from "../lib/config.js";
 
 const snowflake = z.string().regex(/^\d{17,20}$/);
 
+/** "https://x.com///" -> "https://x.com" (a loop, not /\/+$/, which is quadratic on long runs of "/"). */
+function trimTrailingSlashes(u: string): string {
+  let end = u.length;
+  while (end > 0 && u[end - 1] === "/") end--;
+  return u.slice(0, end);
+}
+
 const DashboardEnv = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   BOT_TOKEN: z.string().min(50),
@@ -14,7 +21,7 @@ const DashboardEnv = z.object({
   DISCORD_CLIENT_ID: snowflake,
   DISCORD_CLIENT_SECRET: z.string().min(20),
   /** Public base URL, e.g. https://bot.example.com — used for the OAuth redirect and Origin checks. */
-  DASHBOARD_PUBLIC_URL: z.url({ protocol: /^https?$/ }).transform((u) => u.replace(/\/+$/, "")),
+  DASHBOARD_PUBLIC_URL: z.url({ protocol: /^https?$/ }).transform(trimTrailingSlashes),
   /** Signs session cookies. >= 32 random characters. */
   DASHBOARD_SESSION_SECRET: z.string().min(32),
   DASHBOARD_PORT: z.coerce.number().int().min(1).max(65535).default(8080),

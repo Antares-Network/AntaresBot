@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import regexp from "eslint-plugin-regexp";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -6,6 +7,24 @@ export default tseslint.config(
   { ignores: ["dist/", "node_modules/", "coverage/", "docker/"] },
   js.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
+  // Regex correctness, and ReDoS: patterns that can backtrack for a very long time on crafted
+  // input. Several regexes run on every chat message, so these are errors, not warnings.
+  regexp.configs["flat/recommended"],
+  {
+    rules: {
+      "regexp/no-super-linear-backtracking": "error",
+      "regexp/no-super-linear-move": "error",
+      "regexp/no-misleading-unicode-character": "error",
+      // Purely stylistic rewrites of working patterns: not worth the churn.
+      "regexp/prefer-d": "off",
+      "regexp/prefer-w": "off",
+      "regexp/prefer-range": "off",
+      "regexp/use-ignore-case": "off",
+      "regexp/negation": "off",
+      "regexp/no-useless-non-capturing-group": "off",
+      "regexp/no-unused-capturing-group": "off",
+    },
+  },
   {
     languageOptions: {
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
@@ -26,7 +45,13 @@ export default tseslint.config(
     rules: { "@typescript-eslint/no-unsafe-class-instance-assignment": "off" },
   },
   {
-    files: ["*.config.js", "*.config.ts"],
+    files: ["*.config.js", "*.config.ts", "scripts/**/*.mjs", "fuzz/**/*.mjs"],
     ...tseslint.configs.disableTypeChecked,
+  },
+  {
+    // Plain Node scripts (not part of the TypeScript project).
+    files: ["scripts/**/*.mjs", "fuzz/**/*.mjs"],
+    languageOptions: { globals: { process: "readonly", console: "readonly", Buffer: "readonly" } },
+    rules: { "no-console": "off" },
   },
 );

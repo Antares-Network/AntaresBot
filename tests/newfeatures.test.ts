@@ -126,6 +126,23 @@ describe("Minecraft ping protocol", () => {
     for (const ip of ["1.1.1.1", "1.1.1.1", "2606:4700::1111"]) expect(isPublicIp(ip), ip).toBe(true);
     expect(isPublicIp("not-an-ip")).toBe(false);
   });
+  it("blocks private IPv4 addresses hidden in any IPv6 form", () => {
+    // Regression: IPv4-compatible, IPv4-translated and 6to4 forms used to count as public.
+    for (const ip of [
+      "::127.0.0.1",
+      "::7f00:1",
+      "::169.254.169.254",
+      "::a9fe:a9fe",
+      "::ffff:0:127.0.0.1",
+      "2002:7f00:1::",
+      "::ffff:7f00:1",
+      "0:0:0:0:0:ffff:127.0.0.1",
+      "64:ff9b::127.0.0.1",
+    ]) {
+      expect(isPublicIp(ip), ip).toBe(false);
+    }
+    expect(isPublicIp("::ffff:8.8.8.8")).toBe(true);
+  });
   it("reads a status response, possibly split across packets", () => {
     const json = JSON.stringify({ players: { online: 2, max: 20, sample: [{ name: "nyxtrash" }, { name: "§cBuy ranks!" }] }, version: { name: "Velocity 3" }, description: { text: "§aHi ", extra: ["there"] } });
     const str = Buffer.from(json);

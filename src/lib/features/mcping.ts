@@ -45,8 +45,14 @@ for (const [net, bits] of [
   blocked.addSubnet(net, bits, "ipv4");
 }
 for (const [net, bits] of [
-  ["::", 128],
-  ["::1", 128],
+  // ::/96 covers ::, ::1 and IPv4-compatible addresses (::a.b.c.d, e.g. ::7f00:1 = 127.0.0.1).
+  ["::", 96],
+  // Other formats that embed an IPv4 address: IPv4-translated (::ffff:0:a.b.c.d), 6to4, Teredo.
+  ["::ffff:0:0:0", 96],
+  ["2002::", 16],
+  ["2001::", 32],
+  ["100::", 64], // discard-only
+  ["fec0::", 10], // deprecated site-local
   ["fc00::", 7],
   ["fe80::", 10],
   ["ff00::", 8],

@@ -37,7 +37,10 @@ export interface ImportReport {
 function parseLegacyDate(value: unknown): Date | null {
   if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
   if (typeof value !== "string" || value.trim() === "") return null;
-  const d = new Date(value.replace(/\s*\(.*\)\s*$/, ""));
+  // Drop a trailing "(Central Standard Time)" (done without a regex: /\s*\(.*\)\s*$/ is quadratic).
+  const text = value.trimEnd();
+  const paren = text.indexOf("(");
+  const d = new Date(paren !== -1 && text.endsWith(")") ? text.slice(0, paren).trimEnd() : text);
   return Number.isNaN(d.getTime()) ? null : d;
 }
 

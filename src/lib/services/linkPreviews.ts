@@ -8,7 +8,7 @@ export type PreviewTarget = { kind: "xkcd"; num: number } | { kind: "github"; ow
 
 const XKCD_RE = /https?:\/\/(?:www\.)?xkcd\.com\/(\d{1,5})\/?(?=[\s>)]|$)/gi;
 // GitHub owner/repo naming rules; anything else is ignored.
-const GITHUB_RE = /https?:\/\/(?:www\.)?github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))\/([A-Za-z0-9._-]{1,100})\/?(?=[\s>)#?]|$)/gi;
+const GITHUB_RE = /https?:\/\/(?:www\.)?github\.com\/([A-Z0-9](?:[A-Z0-9-]{0,38}))\/([A-Z0-9._-]{1,100})\/?(?=[\s>)#?]|$)/gi;
 
 /** Find up to `max` previewable links (ignoring links wrapped in <> which Discord suppresses). */
 export function findPreviewTargets(content: string, max = 2): PreviewTarget[] {

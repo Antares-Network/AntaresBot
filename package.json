@@ -14,7 +14,8 @@
     "dev": "tsc -p tsconfig.build.json && node --env-file-if-exists=.env --enable-source-maps dist/index.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run",
+    "test": "node scripts/vitest.mjs run",
+    "scan:dashboard": "npm run build && node scripts/dashboard-sandbox.mjs",
     "check": "npm run typecheck && npm run lint && npm test"
   },
   "repository": {
@@ -44,6 +45,8 @@
     "@eslint/js": "10.0.1",
     "@types/node": "26.6.6",
     "eslint": "10.15.0",
+    "eslint-plugin-regexp": "3.3.2",
+    "fast-check": "4.10.2",
     "mongodb-memory-server": "11.3.0",
     "typescript": "6.0.3",
     "typescript-eslint": "8.73.0",

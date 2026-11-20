@@ -1,9 +1,14 @@
 version: 2
+# cooldown: only propose a version once it has been public for 14 days, so a compromised or
+# broken release is usually caught (and pulled) before it reaches this project. Security
+# updates for known vulnerabilities are not delayed by it.
 updates:
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
     groups:
       discord:
         patterns: ["discord.js", "@discordjs/*", "@sapphire/*"]
@@ -13,7 +18,11 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14

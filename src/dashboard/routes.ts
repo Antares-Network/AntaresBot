@@ -3,7 +3,14 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import mongoose from "mongoose";
 import { GateEntryModel, gateEntryId, GATE_KINDS, ServerModel, type GateKind } from "../lib/db/models/index.js";
 import { recentAudit, recordAudit } from "../lib/services/audit.js";
-import { getFeatureSettings, SettingsValidationError, updateSettings, type SectionName, type ServerSettings } from "../lib/services/settings.js";
+import {
+  getFeatureSettings,
+  SettingsConflictError,
+  SettingsValidationError,
+  updateSettings,
+  type SectionName,
+  type ServerSettings,
+} from "../lib/services/settings.js";
 import { getBotStats } from "../lib/services/stats.js";
 import { formatInZone, TIME_ZONES, utcOffset } from "../lib/features/timezones.js";
 import type { DashboardConfig } from "./config.js";
@@ -27,13 +34,18 @@ const STATE = "oauth_state";
 // ---------------------------------------------------------------------------
 // Form helpers. Everything submitted is untrusted: IDs are checked against the guild.
 // ---------------------------------------------------------------------------
-const one = (f: Form, k: string): string => {
-  const v = f[k];
-  return (Array.isArray(v) ? v[0] : v) ?? "";
+// Own properties only, and strings only: a field named "constructor" must not read
+// Object.prototype.constructor, and anything that isn't a string counts as empty.
+// The body is undefined when a POST has none, so `f` is checked at runtime too.
+const field = (f: Form | undefined, k: string): unknown => (f && typeof f === "object" && Object.hasOwn(f, k) ? f[k] : undefined);
+const one = (f: Form | undefined, k: string): string => {
+  const v = field(f, k);
+  const first: unknown = Array.isArray(v) ? v[0] : v;
+  return typeof first === "string" ? first : "";
 };
-const many = (f: Form, k: string): string[] => {
-  const v = f[k];
-  return v === undefined ? [] : Array.isArray(v) ? v : [v];
+const many = (f: Form | undefined, k: string): string[] => {
+  const v = field(f, k);
+  return (Array.isArray(v) ? v : [v]).filter((x): x is string => typeof x === "string");
 };
 const checked = (f: Form, k: string) => one(f, k) === "on";
 const int = (f: Form, k: string) => Number.parseInt(one(f, k), 10);
@@ -455,7 +467,8 @@ ${servers.length ? "" : html`<p class="muted">No servers where you can manage An
       s.flash = { ok: true, text: `Saved ${section} settings.` };
     } catch (err) {
       if (err instanceof SettingsValidationError) s.flash = { ok: false, text: err.issues.join("; ") };
-      else if (err instanceof FormError) s.flash = { ok: false, text: err.message };
+      // Many saves to one section at once (found by an OWASP ZAP scan): ask to retry, not a 500.
+      else if (err instanceof FormError || err instanceof SettingsConflictError) s.flash = { ok: false, text: err.message };
       else throw err;
     }
     return reply.redirect(`/g/${ctx.guild.id}`, 303);

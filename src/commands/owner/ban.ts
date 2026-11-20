@@ -43,7 +43,7 @@ export class BanCommand extends Command {
     const action = interaction.options.getString("action", true);
     const target = interaction.options.getString("target", true);
     const id = toSnowflake(interaction.options.getString("id", true));
-    const list = LISTS[target];
+    const list = Object.hasOwn(LISTS, target) ? LISTS[target] : undefined;
     if (!list || !id) {
       await interaction.reply({ content: "Invalid target or ID.", flags: ephemeral });
       return;

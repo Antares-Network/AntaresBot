@@ -59,6 +59,10 @@ describe("parseDuration", () => {
   it.each(["", "5s", "2 years", "10 parsecs", "abc", "10m banana", "53w"])("rejects %j", (src) => {
     expect(parseDuration(src)).toBeNull();
   });
+  // Regression: inherited object properties were looked up as units, so "6constructor" gave NaN.
+  it.each(["6constructor", "10m 6constructor", "5tostring", "2valueof", "1__proto__", "3hasownproperty"])("rejects %j", (src) => {
+    expect(parseDuration(src)).toBeNull();
+  });
 });
 
 describe("levels", () => {

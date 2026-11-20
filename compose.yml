@@ -31,7 +31,11 @@ services:
       - no-new-privileges:true
 
   bot:
-    build: .
+    build:
+      context: .
+      # Behind a TLS-inspecting proxy the image build needs its root CA to download Alpine
+      # security updates. It is mounted for that one step only, never stored in the image.
+      secrets: [build_extra_ca]
     image: antaresbot:2.0.0
     restart: unless-stopped
     depends_on:
@@ -91,6 +95,8 @@ services:
       DASHBOARD_PUBLIC_URL: ${DASHBOARD_PUBLIC_URL:-}
       DASHBOARD_SESSION_SECRET: ${DASHBOARD_SESSION_SECRET:-}
       DASHBOARD_TRUST_PROXY: ${DASHBOARD_TRUST_PROXY:-true}
+      # "development" only for local http://localhost access (production requires an https:// URL).
+      NODE_ENV: ${DASHBOARD_NODE_ENV:-production}
       NODE_EXTRA_CA_CERTS: ${NODE_EXTRA_CA_CERTS:-}
     volumes:
       - ./certs:/certs:ro
@@ -133,6 +139,12 @@ services:
         done
     security_opt:
       - no-new-privileges:true
+
+secrets:
+  build_extra_ca:
+    # Set BUILD_EXTRA_CA_FILE=./certs/extra-ca.pem in .env behind such a proxy. The default is just a
+    # file that always exists (it holds no certificate, so the build ignores it).
+    file: ${BUILD_EXTRA_CA_FILE:-./certs/README.txt}
 
 volumes:
   mongo-data:

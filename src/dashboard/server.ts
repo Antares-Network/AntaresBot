@@ -6,8 +6,12 @@ import Fastify, { type FastifyError, type FastifyInstance } from "fastify";
 import { html, layout } from "./html.js";
 import { registerRoutes, type Deps } from "./routes.js";
 
-/** Build the app (separate from listen() so tests can use app.inject()). */
-export async function buildApp(deps: Deps): Promise<FastifyInstance> {
+/**
+ * Build the app (separate from listen() so tests can use app.inject()).
+ * `rateLimit: false` exists only for the local security-scan sandbox (scripts/dashboard-sandbox.mjs),
+ * so a scanner's thousands of requests aren't all answered with 429. Production never passes it.
+ */
+export async function buildApp(deps: Deps, { rateLimit: limitRate = true }: { rateLimit?: boolean } = {}): Promise<FastifyInstance> {
   const { cfg } = deps;
   const app = Fastify({
     logger: { level: cfg.NODE_ENV === "test" ? "silent" : "info", redact: ["req.headers.cookie", "req.headers.authorization"] },
@@ -31,9 +35,12 @@ export async function buildApp(deps: Deps): Promise<FastifyInstance> {
     referrerPolicy: { policy: "same-origin" },
     crossOriginResourcePolicy: { policy: "same-origin" },
   });
-  await app.register(rateLimit, { max: 120, timeWindow: "1 minute" });
+  if (limitRate) await app.register(rateLimit, { max: 120, timeWindow: "1 minute" });
   await app.register(cookie, { secret: cfg.DASHBOARD_SESSION_SECRET });
   await app.register(formbody);
+  // Every form posts application/x-www-form-urlencoded. Without this, Fastify's built-in JSON
+  // parser would also accept JSON bodies, whose nested objects the form handlers don't expect.
+  app.removeContentTypeParser("application/json");
 
   app.setErrorHandler((err: FastifyError, req, reply) => {
     req.log.error(err);

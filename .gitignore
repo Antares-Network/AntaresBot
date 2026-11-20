@@ -8,3 +8,21 @@ coverage
 api.keys
 backups
 certs/*.pem
+
+# Fuzzing: kept local only, never committed (targets, seeds, runner, fast-check suite and output).
+fuzz/
+scripts/fuzz.mjs
+tests/*fuzz*.test.ts
+# libFuzzer/Jazzer.js artifacts if a target is run directly instead of via npm run fuzz
+crash-*
+leak-*
+timeout-*
+oom-*
+slow-unit-*
+fuzz-*.log
+.jazzerjsrc
+coverage/
+# Security scan reports (OWASP ZAP etc.)
+zap-report*
+*.sarif
+zap/
