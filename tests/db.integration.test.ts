@@ -21,6 +21,7 @@ import {
   setChannel,
   syncServers,
 } from "../src/lib/services/servers.js";
+import { DEFAULT_SETTINGS, parseSettings } from "../src/lib/services/settings.js";
 import {
   deleteUserData,
   flushUserActivity,
@@ -103,6 +104,9 @@ describe("v1 → v2 import", () => {
         GUILD_COUNTING_CHANNEL_ID: null,
         GUILD_COUNTING_NUMBER: "99",
         GUILD_MUSIC_CHANNEL: "legacy, unused",
+        GUILD_WELCOME_ENABLED: true,
+        WELCOME_MESSAGE: "Welcome {USER} to the {SERVER_NAME}. Read the {NEXT_CHANNEL}.",
+        GUILD_WELCOME_CHANNEL: C2,
       },
       { GUILD_ID: G2, GUILD_COUNTING_CHANNEL_ID: C1 }, // no counting number at all
     ]);
@@ -112,18 +116,34 @@ describe("v1 → v2 import", () => {
       BANNED_GUILDS: [G2],
       BANNED_OWNERS: [],
       IGNORED_GUILDS: null, // v1 gateCreate wrote null
-      GUILD_OWNER_ID: [U1, U2],
+      GUILD_OWNER_ID: [U1, U2, U1], // v1 appended an owner once per server
       TOTAL_MESSAGES: "1507",
       TOTAL_SERVERS: "2",
       TOTAL_USERS: "52",
       UPDATE_TIME: "Sun Nov 13 2022 19:49:09 GMT-0600 (Central Standard Time)",
     });
+    await db.collection("wokcommands-disabled-commands").insertMany([
+      { guildId: G1, command: "cat" },
+      { guildId: G1, command: "xkcd" }, // renamed in v2
+      { guildId: G1, command: "reddit" }, // removed in v2
+      { guildId: C1, command: "cat" }, // not a server we know
+    ]);
+    await db.collection("wokcommands-required-roles").insertOne({ guildId: G1, command: "say", requiredRoles: ["snflwr"] });
   }
 
   it("carries every v1 value into the v2 shape", async () => {
     await seedV1();
     const report = await importV1Data();
-    expect(report).toMatchObject({ servers: 2, gateEntries: 2, stats: true, skippedInvalidIds: 1, unknownJoinDates: 1 });
+    expect(report).toMatchObject({
+      servers: 2,
+      gateEntries: 2,
+      stats: true,
+      skippedInvalidIds: 1,
+      unknownJoinDates: 1,
+      welcomeMessages: 1,
+      disabledCommands: 2,
+      skippedCommandSettings: 3, // reddit, the unknown server, the required role
+    });
 
     const s1 = await ServerModel.findById(G1).lean();
     expect(s1).toMatchObject({
@@ -135,10 +155,19 @@ describe("v1 → v2 import", () => {
       channels: { bot: C1, admin: C2, counting: null }, // "<#id>" unwrapped
       counting: { current: 99 },
     });
-    expect(s1?.joinedAt.toISOString()).toBe("2020-12-17T16:00:00.000Z"); // earliest duplicate
+    expect(s1?.joinedAt?.toISOString()).toBe("2020-12-17T16:00:00.000Z"); // earliest duplicate
+    const settings = parseSettings(s1?.settings);
+    expect(settings.welcome).toMatchObject({ enabled: true, channelId: C2, message: "Welcome {user} to the {server}. Read the next channel." });
+    expect(settings.general.disabledCommands).toEqual(["cat", "comic"]);
 
     const s2 = await ServerModel.findById(G2).lean();
-    expect(s2).toMatchObject({ messageCount: 0, channels: { counting: C1 }, counting: { current: 0 } });
+    expect(s2).toMatchObject({ messageCount: 0, channels: { counting: C1 }, counting: { current: 0 }, joinedAt: null });
+    expect(parseSettings(s2?.settings)).toEqual(DEFAULT_SETTINGS);
+
+    // An unknown join date is filled in from Discord on the next sync; a known one is kept.
+    await syncServers([fakeGuild(G1), fakeGuild(G2)]);
+    expect((await ServerModel.findById(G1).lean())?.joinedAt?.toISOString()).toBe("2020-12-17T16:00:00.000Z");
+    expect((await ServerModel.findById(G2).lean())?.joinedAt?.toISOString()).toBe("2024-01-01T00:00:00.000Z");
 
     const entries = await GateEntryModel.find().sort({ _id: 1 }).lean();
     expect(entries.map((e) => e._id)).toEqual([`guild:${G2}`, `user:${U2}`]);

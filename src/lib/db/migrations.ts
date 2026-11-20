@@ -10,6 +10,7 @@ import {
   ServerModel,
   type GateKind,
 } from "./models/index.js";
+import { GeneralSettings, WelcomeSettings } from "../services/settings.js";
 
 export const V1_IMPORT = "v1-import";
 
@@ -23,6 +24,8 @@ interface ImportedServer {
   joinedAt: Date | null;
   channels: { bot: string | null; admin: string | null; counting: string | null };
   counting: { current: number };
+  /** Feature settings carried over from v1 (welcome message, disabled commands). */
+  settings: Record<string, unknown>;
 }
 
 export interface ImportReport {
@@ -31,6 +34,29 @@ export interface ImportReport {
   stats: boolean;
   skippedInvalidIds: number;
   unknownJoinDates: number;
+  welcomeMessages: number;
+  disabledCommands: number;
+  /** v1 command settings with no v2 equivalent (removed commands, role requirements, unknown servers). */
+  skippedCommandSettings: number;
+}
+
+/** v1 command name -> v2 command name; null = the command no longer exists in v2. */
+const V1_COMMANDS: Readonly<Record<string, string | null>> = {
+  "8ball": "ask", ask: "ask", cat: "cat", coinflip: "flip", diceroll: "roll", dog: "dog", duck: "duck", fox: "fox",
+  github: "github", help: "help", invite: "invite", mcuser: "mcuser", ping: "ping", privacy: "privacy", r: "r",
+  seasonbot: "seasonbot", setup: "setup", sneeze: "sneeze", uptime: "uptime", version: "version", xkcd: "comic",
+  reddit: null, "set-welcome-message": null,
+};
+
+/**
+ * v1 welcome placeholders -> v2. v1's {NEXT_CHANNEL} read GUILD_WELCOME_NEXT_CHANNEL, which
+ * was usually never set (so v1 posted a broken "<#undefined>"); without it the words "next channel" remain.
+ */
+export function translateV1Welcome(message: string, nextChannelId: string | null): string {
+  return message
+    .replaceAll("{USER}", "{user}")
+    .replaceAll("{SERVER_NAME}", "{server}")
+    .replaceAll("{NEXT_CHANNEL}", nextChannelId ? `<#${nextChannelId}>` : "next channel");
 }
 
 /** v1 stored dates as Date#toString() ("Thu Dec 17 2020 10:00:00 GMT-0600 (...)"). */
@@ -59,7 +85,16 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
   if (!db) throw new Error("database not connected");
   if (await MigrationModel.exists({ _id: V1_IMPORT })) return null;
 
-  const report: ImportReport = { servers: 0, gateEntries: 0, stats: false, skippedInvalidIds: 0, unknownJoinDates: 0 };
+  const report: ImportReport = {
+    servers: 0,
+    gateEntries: 0,
+    stats: false,
+    skippedInvalidIds: 0,
+    unknownJoinDates: 0,
+    welcomeMessages: 0,
+    disabledCommands: 0,
+    skippedCommandSettings: 0,
+  };
   const servers = new Map<string, ImportedServer>();
   const serverFor = (id: string): ImportedServer => {
     let s = servers.get(id);
@@ -74,6 +109,7 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
         joinedAt: null,
         channels: { bot: null, admin: null, counting: null },
         counting: { current: 0 },
+        settings: {},
       };
       servers.set(id, s);
     }
@@ -110,7 +146,40 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
     s.channels.admin ??= toSnowflake(doc.GUILD_ADMIN_CHANNEL);
     s.channels.counting ??= toSnowflake(doc.GUILD_COUNTING_CHANNEL_ID);
     s.counting.current = Math.max(s.counting.current, toCount(doc.GUILD_COUNTING_NUMBER));
+
+    // Welcome message (v1 /set-welcome-message). Kept only if it is valid v2 settings.
+    const welcomeChannel = toSnowflake(doc.GUILD_WELCOME_CHANNEL);
+    if (s.settings.welcome === undefined && welcomeChannel && (doc.GUILD_WELCOME_ENABLED === true || doc.GUILD_WELCOME_ENABLED === "true")) {
+      const message = translateV1Welcome(str(doc.WELCOME_MESSAGE).trim(), toSnowflake(doc.GUILD_WELCOME_NEXT_CHANNEL));
+      const parsed = WelcomeSettings.safeParse({ enabled: true, channelId: welcomeChannel, ...(message ? { message } : {}) });
+      if (parsed.success) {
+        s.settings.welcome = parsed.data;
+        report.welcomeMessages++;
+      }
+    }
   }
+
+  // v1 per-server disabled commands (WOKCommands). Only for servers imported above, and only
+  // commands that still exist in v2. Required roles are not imported: v2 commands use Discord
+  // permissions instead (server admins can also restrict any command in Server Settings > Integrations).
+  const disabled = new Map<string, Set<string>>();
+  for await (const doc of db.collection("wokcommands-disabled-commands").find({})) {
+    const id = toSnowflake(doc.guildId);
+    const name = str(doc.command).toLowerCase();
+    const v2 = Object.hasOwn(V1_COMMANDS, name) ? V1_COMMANDS[name] : null;
+    if (!id || !servers.has(id) || !v2) {
+      report.skippedCommandSettings++;
+      continue;
+    }
+    disabled.set(id, (disabled.get(id) ?? new Set()).add(v2));
+  }
+  for (const [id, names] of disabled) {
+    const parsed = GeneralSettings.safeParse({ disabledCommands: [...names].sort() });
+    if (!parsed.success) continue;
+    serverFor(id).settings.general = parsed.data;
+    report.disabledCommands += names.size;
+  }
+  report.skippedCommandSettings += await db.collection("wokcommands-required-roles").countDocuments();
 
   const now = new Date();
   if (servers.size > 0) {
@@ -120,7 +189,8 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
       return {
         updateOne: {
           filter: { _id },
-          update: { $setOnInsert: { ...rest, joinedAt: s.joinedAt ?? now } },
+          // An unknown join date stays null; syncServers fills it in from Discord.
+          update: { $setOnInsert: rest },
           upsert: true,
         },
       };
@@ -163,7 +233,8 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
           totalMessages: toCount(gate.TOTAL_MESSAGES),
           totalServers: toCount(gate.TOTAL_SERVERS),
           totalUsers: toCount(gate.TOTAL_USERS),
-          guildOwnerIds: owners.map((o) => toSnowflake(String(o))).filter((o): o is string => o !== null),
+          // v1 appended an owner once per server they own, so the list had duplicates.
+          guildOwnerIds: [...new Set(owners.map((o) => toSnowflake(String(o))).filter((o): o is string => o !== null))],
           updatedAt: parseLegacyDate(gate.UPDATE_TIME),
         },
       },
@@ -231,7 +302,9 @@ export async function runMigrations(): Promise<void> {
     log.info(
       `Imported v1 data: ${report.servers} servers, ${report.gateEntries} ban/ignore entries, ` +
         `stats=${report.stats}, skipped ${report.skippedInvalidIds} invalid IDs, ` +
-        `${report.unknownJoinDates} servers without a parseable join date. ` +
+        `${report.unknownJoinDates} servers without a parseable join date (filled in from Discord on startup), ` +
+        `${report.welcomeMessages} welcome message(s), ${report.disabledCommands} disabled command(s), ` +
+        `${report.skippedCommandSettings} v1 command setting(s) with no v2 equivalent skipped. ` +
         "v1 collections (guilds, piis, gates) were left untouched.",
     );
   }

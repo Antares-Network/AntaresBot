@@ -37,21 +37,25 @@ function liveFields(guild: Guild) {
  * Returns how many servers were new.
  */
 export async function syncServers(guilds: Iterable<Guild>): Promise<number> {
-  const ops = [...guilds].map((guild) => ({
-    updateOne: {
-      filter: { _id: guild.id },
-      update: {
-        $set: liveFields(guild),
-        $setOnInsert: {
-          joinedAt: guild.joinedAt,
-          messageCount: 0,
-          channels: { bot: null, admin: null, counting: null },
-          counting: { current: 0 },
+  const ops = [...guilds].flatMap((guild) => [
+    {
+      updateOne: {
+        filter: { _id: guild.id },
+        update: {
+          $set: liveFields(guild),
+          $setOnInsert: {
+            joinedAt: guild.joinedAt,
+            messageCount: 0,
+            channels: { bot: null, admin: null, counting: null },
+            counting: { current: 0 },
+          },
         },
+        upsert: true,
       },
-      upsert: true,
     },
-  }));
+    // Fill in a join date that was unknown (v1 import), never replacing a known one.
+    { updateOne: { filter: { _id: guild.id, joinedAt: null }, update: { $set: { joinedAt: guild.joinedAt } } } },
+  ]);
   if (ops.length === 0) return 0;
   const res = await ServerModel.bulkWrite(ops, { ordered: false });
   return res.upsertedCount;

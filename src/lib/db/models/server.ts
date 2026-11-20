@@ -9,7 +9,8 @@ const serverSchema = new Schema(
     iconUrl: { type: String, default: null },
     memberCount: { type: Number, default: 0, min: 0 },
     messageCount: { type: Number, default: 0, min: 0 },
-    joinedAt: { type: Date, required: true },
+    /** null = unknown (some v1 records had no join date); filled in by syncServers from Discord. */
+    joinedAt: { type: Date, default: null },
     channels: {
       bot: optionalSnowflake,
       admin: optionalSnowflake,

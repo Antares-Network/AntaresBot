@@ -124,6 +124,11 @@ export const timeZone = z
 export const GeneralSettings = z.object({
   /** The server's time zone: used wherever the bot works with local dates or prints wall-clock times. */
   timezone: timeZone.default("UTC"),
+  /** Commands turned off in this server, by name (see the CommandEnabled precondition). */
+  disabledCommands: z
+    .array(z.string().regex(/^[a-z0-9_-]{1,32}$/))
+    .max(50)
+    .default([]),
 });
 
 export const BirthdaySettings = z.object({

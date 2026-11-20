@@ -12,12 +12,14 @@ import { roleAssignProblem } from "../../lib/features/roleSafety.js";
 import { matchTimeZones, utcOffset } from "../../lib/features/timezones.js";
 import { sendModlog } from "../../lib/services/modlog.js";
 import { ensureServer } from "../../lib/services/servers.js";
+import { ALWAYS_ENABLED } from "../../preconditions/CommandEnabled.js";
 import {
   getFeatureSettings,
   SettingsValidationError,
   updateSettings,
   type SectionName,
   type ServerSettings,
+  type SettingsPatch,
 } from "../../lib/services/settings.js";
 
 const TEXT_CHANNELS = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
@@ -47,6 +49,13 @@ export class ConfigCommand extends Command {
             .addStringOption((o) =>
               o.setName("zone").setDescription("e.g. America/Chicago or Europe/London (start typing a city)").setRequired(true).setMaxLength(64).setAutocomplete(true),
             ),
+        )
+        .addSubcommand((s) =>
+          s
+            .setName("command")
+            .setDescription("Turn one of the bot's commands on or off in this server")
+            .addStringOption((o) => o.setName("name").setDescription("Command name").setRequired(true).setMaxLength(32).setAutocomplete(true))
+            .addBooleanOption((o) => o.setName("enabled").setDescription("On?").setRequired(true)),
         )
         .addSubcommandGroup((g: Group) =>
           g
@@ -254,8 +263,21 @@ export class ConfigCommand extends Command {
 
   public override async autocompleteRun(interaction: Command.AutocompleteInteraction) {
     const focused = interaction.options.getFocused(true);
+    if (focused.name === "name") {
+      const q = focused.value.trim().toLowerCase().replace(/^\//, "");
+      const names = this.toggleableCommands().filter((n) => n.includes(q));
+      return interaction.respond(names.sort((a, b) => Number(!a.startsWith(q)) - Number(!b.startsWith(q))).slice(0, 25).map((n) => ({ name: `/${n}`, value: n })));
+    }
     if (focused.name !== "zone") return interaction.respond([]);
     return interaction.respond(matchTimeZones(focused.value).map((tz) => ({ name: `${tz} (${utcOffset(tz)})`, value: tz })));
+  }
+
+  /** Commands a server may turn off: everything except bot-owner commands and /config itself. */
+  private toggleableCommands(): string[] {
+    return [...this.container.stores.get("commands").values()]
+      .filter((c) => c.category !== "owner" && !ALWAYS_ENABLED.has(c.name))
+      .map((c) => c.name)
+      .sort();
   }
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
@@ -299,7 +321,7 @@ export class ConfigCommand extends Command {
     const g = i.guildId;
     const s = await getFeatureSettings(g);
     const o = i.options;
-    const set = async <K extends SectionName>(section: K, patch: Partial<ServerSettings[K]>) => {
+    const set = async <K extends SectionName>(section: K, patch: SettingsPatch<K>) => {
       await updateSettings(g, section, patch);
     };
     const roleCheck = (role: Role) => roleAssignProblem(role, i.member);
@@ -310,6 +332,16 @@ export class ConfigCommand extends Command {
         const zone = o.getString("zone", true).trim();
         await set("general", { timezone: zone });
         return `✅ This server's time zone is now **${zone}** (currently ${utcOffset(zone)}).`;
+      }
+      case "/command": {
+        const name = o.getString("name", true).trim().toLowerCase().replace(/^\//, "");
+        const enabled = o.getBoolean("enabled", true);
+        if (ALWAYS_ENABLED.has(name)) return `\`/${name}\` can't be turned off.`;
+        if (!this.toggleableCommands().includes(name)) return `❌ There is no command called \`/${name}\` that can be turned off.`;
+        await set("general", (cur) => ({
+          disabledCommands: enabled ? cur.disabledCommands.filter((n) => n !== name) : [...new Set([...cur.disabledCommands, name])].sort(),
+        }));
+        return `✅ \`/${name}\` is now **${onOff(enabled)}** in this server.`;
       }
       // ---- levels
       case "levels/enable":
@@ -485,6 +517,10 @@ function viewEmbed(client: Command.ChatInputCommandInteraction["client"], s: Ser
     .setTitle("Server settings")
     .addFields(
       { name: "🕒 Time zone", value: `${s.general.timezone} (${utcOffset(s.general.timezone)}) · \`/config timezone\`` },
+      {
+        name: "🚫 Turned-off commands",
+        value: `${s.general.disabledCommands.map((n) => `\`/${n}\``).join(", ") || "none"} · \`/config command\``,
+      },
       {
         name: "📈 Levels",
         value:
