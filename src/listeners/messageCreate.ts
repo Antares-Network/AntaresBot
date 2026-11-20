@@ -5,6 +5,7 @@ import { BRAND_COLOR, SLASH_FAQ_URL } from "../lib/constants.js";
 import { truncate } from "../lib/embeds.js";
 import { detectViolation, DuplicateTracker, VIOLATION_TEXT, type Violation } from "../lib/features/automod.js";
 import { findReply } from "../lib/features/autoreply.js";
+import { formatChatLine } from "../lib/features/chatLog.js";
 import { earnsXp } from "../lib/features/levels.js";
 import { getRules, takeReplyCooldown } from "../lib/services/autoreplies.js";
 import {
@@ -33,7 +34,8 @@ const PREVIEW_COOLDOWN_MS = 5_000;
 
 /**
  * Privacy: message text is read only in memory, for the features below, and is never
- * stored or logged (v1 printed every message to the console).
+ * stored. It is only printed to the console when CHAT_LOG=true, which is meant for
+ * development and is off by default (v1 always printed every message).
  */
 export class MessageCreateListener extends Listener<typeof Events.MessageCreate> {
   private readonly countingQueue = new KeyedQueue();
@@ -48,6 +50,7 @@ export class MessageCreateListener extends Listener<typeof Events.MessageCreate>
   }
 
   public override async run(message: Message) {
+    if (this.container.config.CHAT_LOG) this.logChat(message);
     if (message.author.bot || message.webhookId || !message.inGuild()) return;
     if (await gate.isIgnored(message.guildId)) return;
     if (await gate.isBanned({ guildId: message.guildId, ownerId: message.guild.ownerId, userId: message.author.id })) return;
@@ -80,6 +83,22 @@ export class MessageCreateListener extends Listener<typeof Events.MessageCreate>
     await this.step("autoreply", () => this.autoReply(message));
     await this.step("previews", () => this.linkPreviews(message, settings));
     await this.step("xp", () => this.xp(message, settings));
+  }
+
+  /** CHAT_LOG: print the message (bots included) before any filtering, so everything seen is logged. */
+  private logChat(message: Message) {
+    if (!message.inGuild()) return;
+    this.container.logger.info(
+      formatChatLine({
+        guild: message.guild.name,
+        channel: message.channel.name,
+        author: message.author.tag,
+        authorId: message.author.id,
+        bot: message.author.bot,
+        content: message.content,
+        attachments: message.attachments.size,
+      }),
+    );
   }
 
   /** Run one pipeline stage; a failure is logged and never blocks the other stages. */

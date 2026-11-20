@@ -16,6 +16,15 @@ describe("loadConfig", () => {
     expect(c.NASA_API_KEY).toBeUndefined();
   });
 
+  it("keeps chat logging off unless CHAT_LOG is turned on", () => {
+    expect(loadConfig(valid).CHAT_LOG).toBe(false);
+    expect(loadConfig({ ...valid, CHAT_LOG: "" }).CHAT_LOG).toBe(false);
+    expect(loadConfig({ ...valid, CHAT_LOG: "false" }).CHAT_LOG).toBe(false);
+    expect(loadConfig({ ...valid, CHAT_LOG: "true" }).CHAT_LOG).toBe(true);
+    expect(loadConfig({ ...valid, CHAT_LOG: "1" }).CHAT_LOG).toBe(true);
+    expect(() => loadConfig({ ...valid, CHAT_LOG: "maybe" })).toThrow(/CHAT_LOG/);
+  });
+
   it("splits comma-separated ID lists", () => {
     const c = loadConfig({ ...valid, DEV_GUILD_IDS: "788541416740487218, 775216104012120124" });
     expect(c.DEV_GUILD_IDS).toEqual(["788541416740487218", "775216104012120124"]);

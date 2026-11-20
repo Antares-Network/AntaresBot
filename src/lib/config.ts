@@ -34,6 +34,8 @@ const optionalString = z
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error", "fatal"]).default("info"),
+  /** Development only: print every server message to the console. Off by default (privacy). */
+  CHAT_LOG: optionalString.pipe(z.stringbool().optional()).transform((v) => v ?? false),
 
   BOT_TOKEN: z.string().min(50, "BOT_TOKEN looks invalid"),
   // The bot uses a local MongoDB container (see compose.yml); cloud SRV URIs are not used.

@@ -13,6 +13,7 @@ export class ReadyListener extends Listener<typeof Events.ClientReady> {
   public override async run(client: Client<true>) {
     const log = this.container.logger;
     log.info(`Logged in as ${client.user.tag}`);
+    if (this.container.config.CHAT_LOG) log.warn("CHAT_LOG is on: every server message is printed to the console. Use for development only.");
 
     // Create/refresh every server's document in one bulk write (v1 onDBConnect did
     // two queries per guild, racing with guildCreate).
