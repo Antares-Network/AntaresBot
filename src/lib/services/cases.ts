@@ -1,7 +1,7 @@
 import { container } from "@sapphire/framework";
 import { EmbedBuilder, time, type Guild } from "discord.js";
 import mongoose from "mongoose";
-import { CaseModel, type CaseType } from "../db/models.js";
+import { CaseModel, type CaseType } from "../db/models/index.js";
 import { truncate } from "../embeds.js";
 import { shouldEscalate, warningCutoff } from "../features/moderation.js";
 import { sendModlog } from "./modlog.js";

@@ -2,7 +2,7 @@ import { Command } from "@sapphire/framework";
 import { ChannelType, EmbedBuilder, PermissionFlagsBits, type SlashCommandSubcommandBuilder } from "discord.js";
 import { ephemeral, registerGuildCommand } from "../../lib/commands.js";
 import { truncate } from "../../lib/embeds.js";
-import type { SuggestionStatus } from "../../lib/db/models.js";
+import type { SuggestionStatus } from "../../lib/db/models/index.js";
 import { setSuggestionStatus, STATUS_STYLE, voteRow } from "../../lib/services/suggestions.js";
 import { ensureServer } from "../../lib/services/servers.js";
 import { updateSettings } from "../../lib/services/settings.js";

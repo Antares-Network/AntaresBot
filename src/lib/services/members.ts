@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MemberModel, memberId } from "../db/models.js";
+import { MemberModel, memberId } from "../db/models/index.js";
 import { WriteBuffer } from "../db/writeBuffer.js";
 import { levelFromXp, rollXp, XP_COOLDOWN_MS } from "../features/levels.js";
 import { toCount } from "../util.js";

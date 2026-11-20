@@ -1,4 +1,4 @@
-import { AuditModel } from "../db/models.js";
+import { AuditModel } from "../db/models/index.js";
 import { safeWarn } from "../log.js";
 
 export interface AuditEntry {

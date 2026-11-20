@@ -1,7 +1,7 @@
 import { container } from "@sapphire/framework";
 import type { Client, Guild } from "discord.js";
 import mongoose from "mongoose";
-import { MemberModel, memberId, ServerModel } from "../db/models.js";
+import { MemberModel, memberId, ServerModel } from "../db/models/index.js";
 import { birthdaysOn, dateKey, daysUntil, localDate } from "../features/birthdays.js";
 import { roleAssignProblem } from "../features/roleSafety.js";
 import { getFeatureSettings, renderTemplate } from "./settings.js";

@@ -1,4 +1,4 @@
-import { AutoReplyModel } from "../db/models.js";
+import { AutoReplyModel } from "../db/models/index.js";
 import { MAX_RULES_PER_SERVER, normaliseTrigger, type AutoReplyRule, type MatchMode } from "../features/autoreply.js";
 
 const TTL_MS = 5 * 60_000;

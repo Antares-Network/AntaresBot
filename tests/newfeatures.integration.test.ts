@@ -2,7 +2,7 @@ import type { Guild } from "discord.js";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { ALL_MODELS, CaseModel, MemberModel, ServerModel, SuggestionModel, TicketModel } from "../src/lib/db/models.js";
+import { ALL_MODELS, CaseModel, MemberModel, ServerModel, SuggestionModel, TicketModel } from "../src/lib/db/models/index.js";
 import { clearBirthday, getBirthday, setBirthday, upcomingBirthdays } from "../src/lib/services/birthdays.js";
 import { activeStrikes, createCase, getCase, listCases, setCaseActive, setCaseReason } from "../src/lib/services/cases.js";
 import { adjustXp, awardXp, getRank } from "../src/lib/services/members.js";

@@ -8,7 +8,7 @@ import { canManage, memberPermissions, restRoleProblem, type BotApi, type GuildC
 import { escapeHtml, html } from "../src/dashboard/html.js";
 import { buildApp } from "../src/dashboard/server.js";
 import { SessionStore } from "../src/dashboard/session.js";
-import { ALL_MODELS, AuditModel, GateEntryModel, ServerModel } from "../src/lib/db/models.js";
+import { ALL_MODELS, AuditModel, GateEntryModel, ServerModel } from "../src/lib/db/models/index.js";
 import { getFeatureSettings, invalidateSettings } from "../src/lib/services/settings.js";
 
 const G = "788541416740487218";

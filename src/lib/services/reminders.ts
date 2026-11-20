@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ReminderModel } from "../db/models.js";
+import { ReminderModel } from "../db/models/index.js";
 
 export const MAX_REMINDERS_PER_USER = 25;
 

@@ -12,7 +12,7 @@ import {
   ServerModel,
   StarboardModel,
   UserModel,
-} from "../src/lib/db/models.js";
+} from "../src/lib/db/models/index.js";
 import { recordAudit } from "../src/lib/services/audit.js";
 import { addRule, getRules, removeRule } from "../src/lib/services/autoreplies.js";
 import { attachMessage, banConfessor, beginConfession } from "../src/lib/services/confessions.js";

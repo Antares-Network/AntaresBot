@@ -1,5 +1,5 @@
 import type { Client } from "discord.js";
-import { BotStatsModel, ServerModel } from "../db/models.js";
+import { BotStatsModel, ServerModel } from "../db/models/index.js";
 import { toCount } from "../util.js";
 
 export interface BotStats {

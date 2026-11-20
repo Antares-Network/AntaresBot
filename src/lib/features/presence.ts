@@ -1,5 +1,5 @@
 /** Pure status-rotation logic (placeholders, defaults, validation), unit-tested. */
-import type { StatusType } from "../db/models.js";
+import type { StatusType } from "../db/models/index.js";
 
 export interface StatusEntry {
   text: string;

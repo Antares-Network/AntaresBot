@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ServerModel } from "../db/models.js";
+import { ServerModel } from "../db/models/index.js";
 import { evaluateExpression } from "../features/mathExpr.js";
 import { toCount } from "../util.js";
 

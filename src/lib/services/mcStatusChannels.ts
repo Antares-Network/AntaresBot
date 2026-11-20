@@ -1,7 +1,7 @@
 import { container } from "@sapphire/framework";
 import { ChannelType, PermissionFlagsBits, type Client, type Guild } from "discord.js";
 import mongoose from "mongoose";
-import { ServerModel } from "../db/models.js";
+import { ServerModel } from "../db/models/index.js";
 import { McPingError, pingMinecraft } from "./mcStatus.js";
 import { getFeatureSettings } from "./settings.js";
 

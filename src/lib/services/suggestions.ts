@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import mongoose from "mongoose";
-import { SuggestionModel, type SuggestionStatus } from "../db/models.js";
+import { SuggestionModel, type SuggestionStatus } from "../db/models/index.js";
 import { nextSeq } from "./servers.js";
 
 export const SUGGESTION_PREFIX = "sg:";

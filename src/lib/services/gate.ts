@@ -1,4 +1,4 @@
-import { GateEntryModel, gateEntryId, type GateKind } from "../db/models.js";
+import { GateEntryModel, gateEntryId, type GateKind } from "../db/models/index.js";
 
 export type { GateKind };
 

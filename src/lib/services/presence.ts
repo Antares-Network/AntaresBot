@@ -1,7 +1,7 @@
 import { container } from "@sapphire/framework";
 import { ActivityType, type ActivitiesOptions, type Client } from "discord.js";
 import mongoose from "mongoose";
-import { BotConfigModel, type StatusType } from "../db/models.js";
+import { BotConfigModel, type StatusType } from "../db/models/index.js";
 import { VERSION } from "../constants.js";
 import {
   DEFAULT_INTERVAL_SEC,

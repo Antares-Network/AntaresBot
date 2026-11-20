@@ -1,4 +1,4 @@
-import { ConfessionModel } from "../db/models.js";
+import { ConfessionModel } from "../db/models/index.js";
 import { confessorHash } from "../features/confessionHash.js";
 import { getFeatureSettings, updateSettings } from "./settings.js";
 

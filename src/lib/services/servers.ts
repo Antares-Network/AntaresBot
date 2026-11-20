@@ -1,5 +1,5 @@
 import type { Guild } from "discord.js";
-import { ServerModel } from "../db/models.js";
+import { ServerModel } from "../db/models/index.js";
 import { WriteBuffer } from "../db/writeBuffer.js";
 import { toCount, toSnowflake } from "../util.js";
 

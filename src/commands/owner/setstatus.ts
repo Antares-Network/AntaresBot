@@ -2,7 +2,7 @@ import { Command } from "@sapphire/framework";
 import type { SlashCommandStringOption } from "discord.js";
 import { ephemeral, registerOwnerCommand } from "../../lib/commands.js";
 import { brandEmbed, truncate } from "../../lib/embeds.js";
-import { STATUS_TYPES, type StatusType } from "../../lib/db/models.js";
+import { STATUS_TYPES, type StatusType } from "../../lib/db/models/index.js";
 import {
   DEFAULT_INTERVAL_SEC,
   DEFAULT_ROTATION,

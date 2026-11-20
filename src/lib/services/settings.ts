@@ -5,7 +5,7 @@
  */
 import mongoose from "mongoose";
 import { z } from "zod";
-import { ServerModel } from "../db/models.js";
+import { ServerModel } from "../db/models/index.js";
 
 const id = z.string().regex(/^\d{17,20}$/);
 const nullableId = id.nullable().default(null);

@@ -1,6 +1,6 @@
 import { container } from "@sapphire/framework";
 import type { Client } from "discord.js";
-import { MigrationModel } from "../db/models.js";
+import { MigrationModel } from "../db/models/index.js";
 
 export const CLEAR_V1_GUILD_COMMANDS = "clear-v1-guild-commands";
 

@@ -22,7 +22,7 @@ export default tseslint.config(
   {
     // Mongoose's documented schema syntax is plain object literals typed as SchemaTypeOptions
     // (a class). That is how the library is meant to be used, not an unsafe instance forgery.
-    files: ["src/lib/db/models.ts", "tests/**/*.ts"],
+    files: ["src/lib/db/models/**/*.ts", "tests/**/*.ts"],
     rules: { "@typescript-eslint/no-unsafe-class-instance-assignment": "off" },
   },
   {

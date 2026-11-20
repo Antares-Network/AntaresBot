@@ -9,7 +9,7 @@ import {
   MigrationModel,
   ServerModel,
   type GateKind,
-} from "./models.js";
+} from "./models/index.js";
 
 export const V1_IMPORT = "v1-import";
 

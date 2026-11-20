@@ -19,7 +19,7 @@ import {
   type OverwriteResolvable,
 } from "discord.js";
 import mongoose from "mongoose";
-import { TicketModel } from "../db/models.js";
+import { TicketModel } from "../db/models/index.js";
 import { truncate } from "../embeds.js";
 import { nextSeq } from "./servers.js";
 import { getFeatureSettings, type Section } from "./settings.js";

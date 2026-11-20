@@ -1,7 +1,7 @@
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import mongoose from "mongoose";
-import { GateEntryModel, gateEntryId, GATE_KINDS, ServerModel, type GateKind } from "../lib/db/models.js";
+import { GateEntryModel, gateEntryId, GATE_KINDS, ServerModel, type GateKind } from "../lib/db/models/index.js";
 import { recentAudit, recordAudit } from "../lib/services/audit.js";
 import { getFeatureSettings, SettingsValidationError, updateSettings, type SectionName, type ServerSettings } from "../lib/services/settings.js";
 import { getBotStats } from "../lib/services/stats.js";

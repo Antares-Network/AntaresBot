@@ -7,7 +7,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { importV1Data, moveBirthdayTimezones, V1_IMPORT } from "../src/lib/db/migrations.js";
-import { ALL_MODELS, BotStatsModel, GateEntryModel, MigrationModel, ServerModel, UserModel } from "../src/lib/db/models.js";
+import { ALL_MODELS, BotStatsModel, GateEntryModel, MigrationModel, ServerModel, UserModel } from "../src/lib/db/models/index.js";
 import { commitCount } from "../src/lib/services/counting.js";
 import { gate } from "../src/lib/services/gate.js";
 import {

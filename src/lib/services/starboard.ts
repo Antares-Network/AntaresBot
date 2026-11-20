@@ -1,4 +1,4 @@
-import { StarboardModel } from "../db/models.js";
+import { StarboardModel } from "../db/models/index.js";
 
 export interface StarEntry {
   starboardMessageId: string | null;
