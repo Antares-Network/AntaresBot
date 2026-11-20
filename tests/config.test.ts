@@ -30,6 +30,19 @@ describe("loadConfig", () => {
     expect(c.DEV_GUILD_IDS).toEqual(["788541416740487218", "775216104012120124"]);
   });
 
+  it("defaults PEERINGDB_URL to the Antares cache, normalises a trailing slash, and requires https", () => {
+    expect(loadConfig(valid).PEERINGDB_URL).toBe("https://pdb-cache.as202902.net/");
+    expect(loadConfig({ ...valid, PEERINGDB_URL: "" }).PEERINGDB_URL).toBe("https://pdb-cache.as202902.net/");
+    expect(loadConfig({ ...valid, PEERINGDB_URL: "https://www.peeringdb.com" }).PEERINGDB_URL).toBe("https://www.peeringdb.com/");
+    expect(() => loadConfig({ ...valid, PEERINGDB_URL: "http://pdb-cache.as202902.net/" })).toThrow(/PEERINGDB_URL/);
+  });
+
+  it("accepts an optional ASN monitor channel", () => {
+    expect(loadConfig(valid).ASN_MONITOR_CHANNEL).toBeUndefined();
+    expect(loadConfig({ ...valid, ASN_MONITOR_CHANNEL: "788541416740487218" }).ASN_MONITOR_CHANNEL).toBe("788541416740487218");
+    expect(() => loadConfig({ ...valid, ASN_MONITOR_CHANNEL: "general" })).toThrow(/ASN_MONITOR_CHANNEL/);
+  });
+
   it("requires at least one owner", () => {
     expect(() => loadConfig({ ...valid, BOT_OWNER_IDS: "" })).toThrow(/BOT_OWNER_IDS/);
   });

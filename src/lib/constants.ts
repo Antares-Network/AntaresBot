@@ -18,7 +18,13 @@ export const SNIPS_URL = "https://antaresnetwork.com/snips";
 export const SLASH_FAQ_URL =
   "https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ";
 
-export const SEASONBOT_URL = "https://seasonbot.antaresnetwork.com";
+/** Antares Network's own autonomous system, shown by /as202902 and watched by the route monitor. */
+export const NETWORK_ASN = 202902;
+export const NETWORK_SITE_URL = "https://as202902.net";
+/** AS202902's status dashboard (also listed in its PeeringDB record). */
+export const NETWORK_STATUS_URL = "https://heartbeat.as202902.net";
+
+export const SEASONBOT_URL ="https://seasonbot.antaresnetwork.com";
 export const SEASONBOT_INVITE_URL =
   "https://discord.com/oauth2/authorize?client_id=774520746344054824&scope=bot&permissions=126032";
 

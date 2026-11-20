@@ -31,6 +31,8 @@ const optionalString = z
   .optional()
   .transform((v) => (v && v.trim() !== "" ? v.trim() : undefined));
 
+export const DEFAULT_PEERINGDB_URL = "https://pdb-cache.as202902.net/";
+
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error", "fatal"]).default("info"),
@@ -44,11 +46,23 @@ const EnvSchema = z.object({
   /** Guilds where owner-only slash commands are registered. Never exposed elsewhere. */
   DEV_GUILD_IDS: snowflakeList,
   REPORTING_CHANNEL: snowflake.optional().or(z.literal("").transform(() => undefined)),
+  /** Channel for AS202902 routing alerts (visibility, RPKI, hijacks, upstream changes). Unset = monitor off. */
+  ASN_MONITOR_CHANNEL: snowflake.optional().or(z.literal("").transform(() => undefined)),
 
   NASA_API_KEY: optionalString,
   /** HMAC key for anonymous confessions (>= 32 chars). Unset = /confess disabled. Never change it once used. */
   CONFESSION_SECRET: optionalString.pipe(z.string().min(32, "must be at least 32 characters").optional()),
   UPTIME_KUMA_PUSH_URL: optionalString.pipe(z.url({ protocol: /^https$/ }).optional()),
+  /**
+   * Base URL of the PeeringDB API source (`api/` is appended): a PeeringDB cache/mirror, or
+   * https://www.peeringdb.com/ for PeeringDB itself. Always stored with a trailing slash.
+   */
+  PEERINGDB_URL: optionalString
+    .pipe(z.url({ protocol: /^https$/ }).optional())
+    .transform((v) => {
+      const url = v ?? DEFAULT_PEERINGDB_URL;
+      return url.endsWith("/") ? url : `${url}/`;
+    }),
 
   TOP_GG_TOKEN: optionalString,
   DISCORD_BOTS_GG_TOKEN: optionalString,

@@ -1,5 +1,16 @@
-import { EmbedBuilder, type Client } from "discord.js";
-import { BRAND_COLOR, ICON_URL, SNIPS_URL, VERSION } from "./constants.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, type Client } from "discord.js";
+import { BRAND_COLOR, ICON_URL, NETWORK_SITE_URL, NETWORK_STATUS_URL, SNIPS_URL, VERSION } from "./constants.js";
+
+/**
+ * Link buttons shown under every AS202902 embed. Embed footers can't contain clickable
+ * links, so a button row is the "footer link".
+ */
+export function networkLinkRow(): ActionRowBuilder<ButtonBuilder> {
+  return new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("Network status").setEmoji("📶").setURL(NETWORK_STATUS_URL),
+    new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("as202902.net").setEmoji("🌐").setURL(NETWORK_SITE_URL),
+  );
+}
 
 /** Standard Antares embed: brand color + "Delivered in" footer used across the bot. */
 export function brandEmbed(client: Client): EmbedBuilder {

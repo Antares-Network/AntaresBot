@@ -102,6 +102,7 @@ export const HELP_PAGES = {
             "**version**: Shows the bot's version number",
             "**stats**: Shows the bot's stats embed",
             "**status**: Link to the Antares Network status page",
+            "**as202902 overview / prefixes / upstreams / routes / peering / rpki / aspa / health**: Live routing data for the Antares Network",
             "**adminhelp**: Shows the admin command help embed",
             "**github**: Shows the github link for the bot",
             "**profile view** `[user]`: Shows bot stats for you or someone else",

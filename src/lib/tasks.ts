@@ -11,6 +11,7 @@ import { flushMemberStats } from "./services/members.js";
 import { flushUserActivity } from "./services/users.js";
 import { runBirthdays } from "./services/birthdays.js";
 import { refreshAllStatusChannels } from "./services/mcStatusChannels.js";
+import { runAsnMonitor } from "./services/asnMonitor.js";
 
 /** In a directory only the bot user can write (created in the Dockerfile), not the shared /tmp. */
 export const HEARTBEAT_FILE = "/run/antaresbot/heartbeat";
@@ -73,6 +74,11 @@ export function startTasks(client: Client<true>): void {
   every("birthdays", 10 * 60_000, () => runBirthdays(client));
   // Discord allows ~2 channel renames per 10 minutes, so this can't run more often.
   every("mc-status-channels", 10 * 60_000, () => refreshAllStatusChannels(client));
+
+  // AS202902 route monitor. RIPEstat's routing data refreshes every few hours at most,
+  // so 15 minutes catches changes promptly without hammering a free public API.
+  const asnChannel = cfg.ASN_MONITOR_CHANNEL;
+  if (asnChannel) every("asn-monitor", 15 * 60_000, () => runAsnMonitor(client, asnChannel));
 
   // Liveness heartbeat for the Docker HEALTHCHECK: only written while the gateway is
   // connected AND the database answers, so a wedged bot is reported unhealthy.
