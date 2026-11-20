@@ -6,7 +6,7 @@ import type { Guild, User } from "discord.js";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { importV1Data, V1_IMPORT } from "../src/lib/db/migrations.js";
+import { importV1Data, moveBirthdayTimezones, V1_IMPORT } from "../src/lib/db/migrations.js";
 import { ALL_MODELS, BotStatsModel, GateEntryModel, MigrationModel, ServerModel, UserModel } from "../src/lib/db/models.js";
 import { commitCount } from "../src/lib/services/counting.js";
 import { gate } from "../src/lib/services/gate.js";
@@ -178,6 +178,27 @@ describe("v1 → v2 import", () => {
 });
 
 // ---------------------------------------------------------------------------
+describe("server time zone migration", () => {
+  const server = (id: string, settings: object) =>
+    ServerModel.create({ _id: id, name: "S", memberCount: 1, joinedAt: new Date(), settings });
+
+  it("moves birthday time zones to the server setting once, never overwriting one already set", async () => {
+    await server("788541416740487218", { birthdays: { timezone: "America/Chicago", hour: 8 } });
+    await server("775216104012120124", { birthdays: { timezone: "Asia/Tokyo" }, general: { timezone: "Europe/Paris" } });
+    await server("736086156759924762", { birthdays: { timezone: "UTC" } });
+    await server("761646965624274954", {});
+
+    expect(await moveBirthdayTimezones()).toBe(1);
+    const tz = async (id: string) =>
+      ((await ServerModel.findById(id).lean())?.settings as { general?: { timezone?: string } }).general?.timezone;
+    expect(await tz("788541416740487218")).toBe("America/Chicago");
+    expect(await tz("775216104012120124")).toBe("Europe/Paris");
+    expect(await tz("736086156759924762")).toBeUndefined();
+    expect(await tz("761646965624274954")).toBeUndefined();
+    expect(await moveBirthdayTimezones()).toBeNull(); // recorded in `migrations`
+  });
+});
+
 describe("servers", () => {
   it("syncServers creates new servers and refreshes live fields without clobbering settings", async () => {
     expect(await syncServers([fakeGuild(G1), fakeGuild(G2)])).toBe(2);

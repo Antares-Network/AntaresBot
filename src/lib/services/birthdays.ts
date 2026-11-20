@@ -65,9 +65,10 @@ export async function runBirthdays(client: Client<true>, now = new Date()): Prom
 }
 
 async function runForGuild(guild: Guild, now: Date): Promise<void> {
-  const cfg = (await getFeatureSettings(guild.id)).birthdays;
+  const settings = await getFeatureSettings(guild.id);
+  const cfg = settings.birthdays;
   if (!cfg.channelId && !cfg.roleId) return;
-  const today = localDate(now, cfg.timezone);
+  const today = localDate(now, settings.general.timezone);
   if (today.hour < cfg.hour) return;
   const key = dateKey(today);
 

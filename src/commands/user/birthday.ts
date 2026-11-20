@@ -43,9 +43,8 @@ export class BirthdayCommand extends Command {
                 .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement),
             )
             .addRoleOption((o) => o.setName("role").setDescription("Role given for the day"))
-            .addStringOption((o) => o.setName("timezone").setDescription("e.g. America/Chicago (default UTC)").setMaxLength(64))
             .addIntegerOption((o) =>
-              o.setName("hour").setDescription("Local hour to announce, 0-23 (default 9)").setMinValue(0).setMaxValue(23),
+              o.setName("hour").setDescription("Hour to announce in the server time zone, 0-23 (default 9)").setMinValue(0).setMaxValue(23),
             )
             .addStringOption((o) => o.setName("message").setDescription("Placeholders: {user} {username} {server}").setMaxLength(500)),
         )
@@ -87,8 +86,8 @@ export class BirthdayCommand extends Command {
         return;
       }
       case "upcoming": {
-        const cfg = (await getFeatureSettings(g)).birthdays;
-        const [rows, mine] = await Promise.all([upcomingBirthdays(g, cfg.timezone, 10), getBirthday(g, interaction.user.id)]);
+        const tz = (await getFeatureSettings(g)).general.timezone;
+        const [rows, mine] = await Promise.all([upcomingBirthdays(g, tz, 10), getBirthday(g, interaction.user.id)]);
         const lines = rows.map(
           (r) =>
             `${r.inDays === 0 ? "🎂 **today**" : r.inDays === 1 ? "tomorrow" : `in ${r.inDays} days`}: <@${r.userId}> (${formatBirthday(r.month, r.day)})`,
@@ -98,7 +97,7 @@ export class BirthdayCommand extends Command {
             brandEmbed(interaction.client)
               .setTitle("🎂 Upcoming birthdays")
               .setDescription(lines.join("\n") || "Nobody has set a birthday yet. Use `/birthday set`!")
-              .setFooter({ text: `Yours: ${mine ? formatBirthday(mine.month, mine.day) : "not set"} · time zone ${cfg.timezone}` }),
+              .setFooter({ text: `Yours: ${mine ? formatBirthday(mine.month, mine.day) : "not set"} · time zone ${tz}` }),
           ],
           allowedMentions: { parse: [] },
         });
@@ -129,13 +128,11 @@ export class BirthdayCommand extends Command {
           return;
         }
       }
-      const tz = o.getString("timezone")?.trim();
       const hour = o.getInteger("hour");
       const message = o.getString("message");
       const s = await updateSettings(g, "birthdays", {
         channelId: channel.id,
         roleId: role?.id ?? null,
-        ...(tz ? { timezone: tz } : {}),
         ...(hour !== null ? { hour } : {}),
         ...(message ? { message } : {}),
       });
@@ -143,13 +140,15 @@ export class BirthdayCommand extends Command {
         await reply("❌ This server isn't set up yet.");
         return;
       }
+      const tz = (await getFeatureSettings(g)).general.timezone;
       await reply(
-        `✅ Birthdays will be announced in <#${s.channelId}> at **${String(s.hour).padStart(2, "0")}:00 ${s.timezone}**${s.roleId ? ` and members get <@&${s.roleId}> for the day` : ""}. Members use \`/birthday set\`.`,
+        `✅ Birthdays will be announced in <#${s.channelId}> at **${String(s.hour).padStart(2, "0")}:00 ${tz}**${s.roleId ? ` and members get <@&${s.roleId}> for the day` : ""}. Members use \`/birthday set\`.` +
+          (tz === "UTC" ? "\nTip: set the server's time zone with `/config timezone`." : ""),
       );
     } catch (err) {
       if (err instanceof SettingsValidationError) {
         {
-          await reply(`❌ ${err.issues.join("\n")}\nTime zones look like \`Europe/London\` or \`America/New_York\`.`);
+          await reply(`❌ ${err.issues.join("\n")}`);
           return;
         }
       }

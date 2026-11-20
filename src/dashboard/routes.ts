@@ -5,6 +5,7 @@ import { GateEntryModel, gateEntryId, GATE_KINDS, ServerModel, type GateKind } f
 import { recentAudit, recordAudit } from "../lib/services/audit.js";
 import { getFeatureSettings, SettingsValidationError, updateSettings, type SectionName, type ServerSettings } from "../lib/services/settings.js";
 import { getBotStats } from "../lib/services/stats.js";
+import { formatInZone, TIME_ZONES, utcOffset } from "../lib/features/timezones.js";
 import type { DashboardConfig } from "./config.js";
 import type { BotApi, DiscordOAuth, GuildContext } from "./discord.js";
 import { restRoleProblem } from "./discord.js";
@@ -74,6 +75,8 @@ function rolesChecked(ctx: GuildContext, ids: string[], escalationCheck: boolean
 /** Turn a submitted form into a validated-on-save settings patch for one section. */
 export function buildPatch(section: SectionName, f: Form, ctx: GuildContext, current: ServerSettings): Partial<ServerSettings[SectionName]> {
   switch (section) {
+    case "general":
+      return { timezone: one(f, "timezone").trim() || "UTC" };
     case "levels": {
       const keep = current.levels.roleRewards.filter((r) => !many(f, "removeReward").includes(String(r.level)));
       const addLevel = int(f, "rewardLevel");
@@ -157,7 +160,6 @@ export function buildPatch(section: SectionName, f: Form, ctx: GuildContext, cur
       return {
         channelId: channelOrNull(ctx, one(f, "channelId")),
         roleId: roleId ? (rolesChecked(ctx, [roleId], true)[0] ?? null) : null,
-        timezone: one(f, "timezone").trim() || "UTC",
         hour: int(f, "hour"),
         message: one(f, "message") || current.birthdays.message,
       };
@@ -219,6 +221,11 @@ function guildPage(ctx: GuildContext, s: ServerSettings, csrf: string): SafeHtml
   const roleName = (id: string) => ctx.guild.roles.find((r) => r.id === id)?.name ?? id;
   return html`<h1>${ctx.guild.name}</h1>
 <p class="muted">Changes apply within a minute. Every change is recorded in the audit log.</p>
+${sectionForm(g, "general", "🕒 Server time zone", csrf, html`
+  <label>Time zone <span class="muted">(IANA name, e.g. America/Chicago or Europe/London; currently ${utcOffset(s.general.timezone)})</span></label>
+  <input type="text" name="timezone" maxlength="64" list="timezones" value="${s.general.timezone}">
+  <datalist id="timezones">${TIME_ZONES.map((tz) => html`<option value="${tz}">`)}</datalist>
+  <p class="muted">Used for birthday announcements and the times in this server's audit log.</p>`)}
 ${sectionForm(g, "levels", "📈 Levels & XP", csrf, html`
   ${box("enabled", "Enable levels", s.levels.enabled)}
   <label>Level-up announcements</label>
@@ -282,8 +289,7 @@ ${sectionForm(g, "warnings", "⚠️ Warnings & cases", csrf, html`
 ${sectionForm(g, "birthdays", "🎂 Birthdays", csrf, html`
   <label>Announcement channel (none = off)</label>${channelSelect("channelId", ctx, s.birthdays.channelId)}
   <label>Birthday role for the day</label><select name="roleId"><option value="">— none —</option>${roleOptions(ctx, s.birthdays.roleId ? [s.birthdays.roleId] : [])}</select>
-  <div class="row"><div><label>Time zone (e.g. America/Chicago)</label><input type="text" name="timezone" maxlength="64" value="${s.birthdays.timezone}"></div>
-  <div><label>Announce at hour (0–23)</label><input type="number" name="hour" min="0" max="23" value="${s.birthdays.hour}"></div></div>
+  <label>Announce at hour (0–23, server time zone: ${s.general.timezone})</label><input type="number" name="hour" min="0" max="23" value="${s.birthdays.hour}">
   <label>Message <span class="muted">({user} {username} {server})</span></label><textarea name="message" maxlength="500">${s.birthdays.message}</textarea>`)}
 ${sectionForm(g, "suggestions", "💡 Suggestions", csrf, html`
   <label>Suggestions channel (none = off)</label>${channelSelect("channelId", ctx, s.suggestions.channelId)}
@@ -308,6 +314,7 @@ ${sectionForm(g, "linkPreviews", "🔗 Link previews", csrf, box("enabled", "Pre
 }
 
 const SECTION_NAMES = new Set<string>([
+  "general",
   "levels",
   "counting",
   "welcome",
@@ -459,10 +466,11 @@ ${servers.length ? "" : html`<p class="muted">No servers where you can manage An
     if (!s) return reply.redirect("/login", 302);
     const ctx = await bot.manageContext(req.params.guildId, s.userId);
     if (!ctx) return page(reply, s, "Not allowed", html`<div class="card">You can't manage that server.</div>`, 403);
-    const rows = await recentAudit({ guildId: ctx.guild.id, limit: 100 });
+    const [rows, settings] = await Promise.all([recentAudit({ guildId: ctx.guild.id, limit: 100 }), getFeatureSettings(ctx.guild.id)]);
+    const tz = settings.general.timezone;
     return page(reply, s, "Audit log", html`<h1>${ctx.guild.name}: audit log</h1><div class="card"><table>
-<tr><th>When</th><th>Who</th><th>Via</th><th>Action</th><th>Details</th></tr>
-${rows.map((r) => html`<tr><td>${r.at.toISOString().replace("T", " ").slice(0, 19)}</td><td>${r.actorTag || r.actorId}</td><td>${r.source}</td><td>${r.action}</td><td><code>${r.details}</code></td></tr>`)}
+<tr><th>When (${tz})</th><th>Who</th><th>Via</th><th>Action</th><th>Details</th></tr>
+${rows.map((r) => html`<tr><td>${formatInZone(r.at, tz)}</td><td>${r.actorTag || r.actorId}</td><td>${r.source}</td><td>${r.action}</td><td><code>${r.details}</code></td></tr>`)}
 </table></div><p><a href="/g/${ctx.guild.id}">← Back</a></p>`);
   });
 

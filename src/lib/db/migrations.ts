@@ -178,7 +178,46 @@ export async function importV1Data(db = mongoose.connection.db): Promise<ImportR
   return report;
 }
 
-/** Startup entry point: create indexes, then run the one-time v1 import if needed. */
+export const SERVER_TIMEZONE = "server-timezone";
+
+/**
+ * Birthdays used to have their own time zone; it is now a server-wide setting
+ * (settings.general.timezone). Copy each server's birthday zone across, unless the server
+ * already has a server time zone. The old field is left alone (it is ignored on read),
+ * so rolling back still works. Returns the number of servers updated, or null if done before.
+ */
+export async function moveBirthdayTimezones(): Promise<number | null> {
+  if (await MigrationModel.exists({ _id: SERVER_TIMEZONE })) return null;
+  const docs = await ServerModel.find(
+    {
+      "settings.birthdays.timezone": mongoose.trusted({ $type: "string", $ne: "UTC" }),
+      "settings.general.timezone": mongoose.trusted({ $exists: false }),
+    },
+    { "settings.birthdays.timezone": 1 },
+  ).lean();
+  const ops = docs.flatMap((d) => {
+    const tz = (d as { settings?: { birthdays?: { timezone?: unknown } } }).settings?.birthdays?.timezone;
+    if (typeof tz !== "string") return [];
+    return [
+      {
+        updateOne: {
+          // Re-check in the filter so a server time zone set meanwhile is never overwritten.
+          filter: { _id: d._id, "settings.general.timezone": mongoose.trusted({ $exists: false }) },
+          update: { $set: { "settings.general.timezone": tz } },
+        },
+      },
+    ];
+  });
+  const moved = ops.length > 0 ? (await ServerModel.bulkWrite(ops, { ordered: false })).modifiedCount : 0;
+  await MigrationModel.updateOne(
+    { _id: SERVER_TIMEZONE },
+    { $setOnInsert: { ranAt: new Date(), details: { moved } } },
+    { upsert: true },
+  );
+  return moved;
+}
+
+/** Startup entry point: create indexes, then run any one-time migrations not yet done. */
 export async function runMigrations(): Promise<void> {
   const log = container.logger;
   // createIndexes only adds; it never drops indexes that exist but aren't declared here.
@@ -193,4 +232,7 @@ export async function runMigrations(): Promise<void> {
         "v1 collections (guilds, piis, gates) were left untouched.",
     );
   }
+
+  const moved = await moveBirthdayTimezones();
+  if (moved) log.info(`Moved ${moved} birthday time zone(s) to the server-wide time zone setting.`);
 }

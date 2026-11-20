@@ -98,9 +98,10 @@ describe("birthdays", () => {
     expect(localDate(t, "UTC")).toEqual({ year: 2026, month: 11, day: 19, hour: 3 });
     expect(localDate(t, "America/Chicago")).toEqual({ year: 2026, month: 11, day: 18, hour: 21 });
   });
-  it("rejects unknown time zones in settings", () => {
-    expect(parseSettings({ birthdays: { timezone: "Mars/Olympus" } }).birthdays.timezone).toBe("UTC");
-    expect(parseSettings({ birthdays: { timezone: "Europe/London" } }).birthdays.timezone).toBe("Europe/London");
+  it("rejects unknown server time zones in settings", () => {
+    expect(parseSettings({}).general.timezone).toBe("UTC");
+    expect(parseSettings({ general: { timezone: "Mars/Olympus" } }).general.timezone).toBe("UTC");
+    expect(parseSettings({ general: { timezone: "Europe/London" } }).general.timezone).toBe("Europe/London");
   });
 });
 

@@ -120,12 +120,17 @@ export const timeZone = z
     }
   }, "unknown time zone");
 
+/** Server-wide settings that several features share. */
+export const GeneralSettings = z.object({
+  /** The server's time zone: used wherever the bot works with local dates or prints wall-clock times. */
+  timezone: timeZone.default("UTC"),
+});
+
 export const BirthdaySettings = z.object({
   channelId: nullableId,
   /** Role given for the day. */
   roleId: nullableId,
-  timezone: timeZone.default("UTC"),
-  /** Local hour (0–23) birthdays are announced. */
+  /** Local hour (0–23, in the server's time zone) birthdays are announced. */
   hour: z.number().int().min(0).max(23).default(9),
   message: template(500, "🎂 Happy birthday {user}! Have a great day!"),
 });
@@ -160,6 +165,7 @@ export const McStatusSettings = z.object({
 });
 
 export const SECTIONS = {
+  general: GeneralSettings,
   levels: LevelsSettings,
   counting: CountingSettings,
   welcome: WelcomeSettings,

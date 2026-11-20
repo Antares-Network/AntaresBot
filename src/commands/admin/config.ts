@@ -9,6 +9,7 @@ import {
 import { ephemeral, registerGuildCommand } from "../../lib/commands.js";
 import { brandEmbed, truncate } from "../../lib/embeds.js";
 import { roleAssignProblem } from "../../lib/features/roleSafety.js";
+import { matchTimeZones, utcOffset } from "../../lib/features/timezones.js";
 import { sendModlog } from "../../lib/services/modlog.js";
 import { ensureServer } from "../../lib/services/servers.js";
 import {
@@ -39,6 +40,14 @@ export class ConfigCommand extends Command {
       b
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addSubcommand((s) => s.setName("view").setDescription("Show every setting for this server"))
+        .addSubcommand((s) =>
+          s
+            .setName("timezone")
+            .setDescription("Set the server's time zone (used for birthdays and other local times)")
+            .addStringOption((o) =>
+              o.setName("zone").setDescription("e.g. America/Chicago or Europe/London (start typing a city)").setRequired(true).setMaxLength(64).setAutocomplete(true),
+            ),
+        )
         .addSubcommandGroup((g: Group) =>
           g
             .setName("levels")
@@ -243,6 +252,12 @@ export class ConfigCommand extends Command {
     );
   }
 
+  public override async autocompleteRun(interaction: Command.AutocompleteInteraction) {
+    const focused = interaction.options.getFocused(true);
+    if (focused.name !== "zone") return interaction.respond([]);
+    return interaction.respond(matchTimeZones(focused.value).map((tz) => ({ name: `${tz} (${utcOffset(tz)})`, value: tz })));
+  }
+
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     if (!interaction.inCachedGuild()) return;
     await ensureServer(interaction.guild);
@@ -290,6 +305,12 @@ export class ConfigCommand extends Command {
     const roleCheck = (role: Role) => roleAssignProblem(role, i.member);
 
     switch (`${group}/${sub}`) {
+      // ---- server-wide
+      case "/timezone": {
+        const zone = o.getString("zone", true).trim();
+        await set("general", { timezone: zone });
+        return `✅ This server's time zone is now **${zone}** (currently ${utcOffset(zone)}).`;
+      }
       // ---- levels
       case "levels/enable":
         await set("levels", { enabled: o.getBoolean("enabled", true) });
@@ -463,6 +484,7 @@ function viewEmbed(client: Command.ChatInputCommandInteraction["client"], s: Ser
   return brandEmbed(client)
     .setTitle("Server settings")
     .addFields(
+      { name: "🕒 Time zone", value: `${s.general.timezone} (${utcOffset(s.general.timezone)}) · \`/config timezone\`` },
       {
         name: "📈 Levels",
         value:
@@ -503,7 +525,7 @@ function viewEmbed(client: Command.ChatInputCommandInteraction["client"], s: Ser
       {
         name: "🎂 Birthdays",
         value: s.birthdays.channelId
-          ? `${ch(s.birthdays.channelId)} at ${String(s.birthdays.hour).padStart(2, "0")}:00 ${s.birthdays.timezone}${s.birthdays.roleId ? ` · role <@&${s.birthdays.roleId}>` : ""}`
+          ? `${ch(s.birthdays.channelId)} at ${String(s.birthdays.hour).padStart(2, "0")}:00 ${s.general.timezone}${s.birthdays.roleId ? ` · role <@&${s.birthdays.roleId}>` : ""}`
           : "off (`/birthday setup`)",
       },
       {
